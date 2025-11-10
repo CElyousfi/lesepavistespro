@@ -101,39 +101,39 @@ export default function ConversionForm({
 
   // Conversion triggers based on selections
   const getConversionMessage = () => {
-    if (step === 1) {
-      return {
-        icon: <Clock size={24} weight="bold" className="text-brand-blue" />,
-        title: "Réponse en moins de 15 minutes",
-        message: "Nous vous contactons rapidement pour votre devis personnalisé !",
-      };
-    }
-    if (step === 3 && formData.service === 'epaviste') {
+    if (step === 2 && formData.service === 'epaviste') {
       return {
         icon: <CheckCircle size={24} weight="bold" className="text-green-500" />,
         title: "Service 100% GRATUIT",
         message: "Aucun frais caché. Nous payons même le remorquage !",
       };
     }
-    if (step === 3 && formData.service === 'rachat') {
+    if (step === 2 && formData.service === 'rachat') {
       return {
         icon: <CurrencyEur size={24} weight="bold" className="text-brand-gold" />,
         title: "Paiement IMMÉDIAT",
         message: "Cash en main ou virement le jour même. Meilleur prix garanti !",
       };
     }
-    if (step === 4 && formData.marque) {
+    if (step === 3 && formData.marque) {
       return {
         icon: <Car size={24} weight="bold" className="text-brand-blue" />,
         title: "Estimation personnalisée",
         message: "Nous connaissons bien votre modèle. Prix juste garanti !",
       };
     }
+    if (step === 4) {
+      return {
+        icon: <Clock size={24} weight="bold" className="text-brand-red" />,
+        title: "Intervention sous 24-48h",
+        message: "Nous venons chez vous. Aucun déplacement nécessaire !",
+      };
+    }
     if (step === 5) {
       return {
         icon: <Shield size={24} weight="bold" className="text-brand-blue" />,
-        title: "Certificat de destruction garanti",
-        message: "Vous êtes dégagé de toute responsabilité légale !",
+        title: "Réponse en moins de 15 minutes",
+        message: "Nous vous contactons rapidement avec votre devis personnalisé !",
       };
     }
     return null;
@@ -203,87 +203,8 @@ export default function ConversionForm({
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Step 1: Quick Contact Info */}
+          {/* Step 1: Service Selection */}
           {step === 1 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-neutral-900">
-                Commençons par vos coordonnées
-              </h3>
-              <p className="text-neutral-600">
-                Pour vous recontacter rapidement avec votre devis personnalisé
-              </p>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Nom complet *
-                </label>
-                <input
-                  type="text"
-                  value={formData.nom}
-                  onChange={(e) => updateField('nom', e.target.value)}
-                  placeholder="Ex: Jean Dupont"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Téléphone *
-                </label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => updateField('phone', e.target.value)}
-                  placeholder="Ex: 06 12 34 56 78"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Ville *
-                </label>
-                <input
-                  type="text"
-                  value={formData.ville}
-                  onChange={(e) => updateField('ville', e.target.value)}
-                  placeholder="Ex: Paris"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Message complémentaire
-                </label>
-                <textarea
-                  value={formData.message}
-                  onChange={(e) => updateField('message', e.target.value)}
-                  placeholder="Ex: Le véhicule est dans un garage, besoin d'un treuil..."
-                  rows={3}
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none resize-none"
-                />
-                <p className="text-xs text-neutral-500 mt-1">
-                  Précisez si le véhicule nécessite un treuil, s'il est dans un garage, etc.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => formData.nom && formData.phone && formData.ville && setStep(2)}
-                disabled={!formData.nom || !formData.phone || !formData.ville}
-                className="w-full px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Continuer
-              </button>
-            </div>
-          )}
-
-          {/* Step 2: Service Selection */}
-          {step === 2 && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-neutral-900">
                 Quel service vous intéresse ?
@@ -294,7 +215,7 @@ export default function ConversionForm({
                   type="button"
                   onClick={() => {
                     updateField('service', 'epaviste');
-                    setStep(3);
+                    setStep(2);
                   }}
                   className={`p-6 rounded-xl border-2 transition-all text-left ${
                     formData.service === 'epaviste'
@@ -313,7 +234,7 @@ export default function ConversionForm({
                   type="button"
                   onClick={() => {
                     updateField('service', 'rachat');
-                    setStep(3);
+                    setStep(2);
                   }}
                   className={`p-6 rounded-xl border-2 transition-all text-left ${
                     formData.service === 'rachat'
@@ -328,19 +249,11 @@ export default function ConversionForm({
                   </div>
                 </button>
               </div>
-
-              <button
-                type="button"
-                onClick={() => setStep(1)}
-                className="w-full px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
-              >
-                Retour
-              </button>
             </div>
           )}
 
-          {/* Step 3: Vehicle Identification */}
-          {step === 3 && (
+          {/* Step 2: Vehicle Identification */}
+          {step === 2 && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-neutral-900">
                 Identification du véhicule
@@ -389,6 +302,33 @@ export default function ConversionForm({
                   />
                 </div>
               </div>
+
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
+                >
+                  Retour
+                </button>
+                <button
+                  type="button"
+                  onClick={() => formData.immatriculation && formData.marque && formData.modele && setStep(3)}
+                  disabled={!formData.immatriculation || !formData.marque || !formData.modele}
+                  className="flex-1 px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Continuer
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Vehicle Details */}
+          {step === 3 && (
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-neutral-900">
+                Détails du véhicule
+              </h3>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -486,8 +426,8 @@ export default function ConversionForm({
                 </button>
                 <button
                   type="button"
-                  onClick={() => formData.immatriculation && formData.marque && formData.modele && formData.annee && formData.kilometrage && formData.energie && formData.boite && formData.vehicleCondition && setStep(4)}
-                  disabled={!formData.immatriculation || !formData.marque || !formData.modele || !formData.annee || !formData.kilometrage || !formData.energie || !formData.boite || !formData.vehicleCondition}
+                  onClick={() => formData.annee && formData.kilometrage && formData.energie && formData.boite && formData.vehicleCondition && setStep(4)}
+                  disabled={!formData.annee || !formData.kilometrage || !formData.energie || !formData.boite || !formData.vehicleCondition}
                   className="flex-1 px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continuer
@@ -496,7 +436,7 @@ export default function ConversionForm({
             </div>
           )}
 
-          {/* Step 4: Additional Location Details */}
+          {/* Step 4: Location Details */}
           {step === 4 && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-neutral-900">
@@ -553,41 +493,86 @@ export default function ConversionForm({
             </div>
           )}
 
-          {/* Step 5: Final Details */}
+          {/* Step 5: Contact Info (FINAL) */}
           {step === 5 && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-neutral-900">
-                Dernières informations
+                Commençons par vos coordonnées
               </h3>
+              <p className="text-neutral-600">
+                Pour vous recontacter rapidement avec votre devis personnalisé
+              </p>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Prénom *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.prenom}
-                    onChange={(e) => updateField('prenom', e.target.value)}
-                    placeholder="Ex: Jean"
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                  Nom complet *
+                </label>
+                <input
+                  type="text"
+                  value={formData.nom}
+                  onChange={(e) => updateField('nom', e.target.value)}
+                  placeholder="Ex: Jean Dupont"
+                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                  required
+                />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => updateField('email', e.target.value)}
-                    placeholder="Ex: jean.dupont@email.com"
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                  Téléphone *
+                </label>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => updateField('phone', e.target.value)}
+                  placeholder="Ex: 06 12 34 56 78"
+                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                  Ville *
+                </label>
+                <input
+                  type="text"
+                  value={formData.ville}
+                  onChange={(e) => updateField('ville', e.target.value)}
+                  placeholder="Ex: Paris"
+                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                  Message complémentaire
+                </label>
+                <textarea
+                  value={formData.message}
+                  onChange={(e) => updateField('message', e.target.value)}
+                  placeholder="Ex: Le véhicule est dans un garage, besoin d'un treuil..."
+                  rows={3}
+                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none resize-none"
+                />
+                <p className="text-xs text-neutral-500 mt-1">
+                  Précisez si le véhicule nécessite un treuil, s'il est dans un garage, etc.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => updateField('email', e.target.value)}
+                  placeholder="Ex: jean.dupont@email.com"
+                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                  required
+                />
               </div>
 
               {/* Trust signals before submit */}
