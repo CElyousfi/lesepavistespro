@@ -19,11 +19,11 @@ function generateEmailHTML(formData: any) {
   <title>Nouvelle Demande - Les Épavistes Pro</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f3f4f6;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f3f4f6; padding: 40px 20px;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f3f4f6; padding: 40px 20px;">
     <tr>
       <td align="center">
         <!-- Main Container -->
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
           
           <!-- Header -->
           <tr>
@@ -62,7 +62,7 @@ function generateEmailHTML(formData: any) {
               <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 20px; font-weight: bold; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
                 🚗 Informations du Véhicule
               </h2>
-              <table width="100%" cellpadding="8" cellspacing="0">
+              <table width="100%" cellpadding="8" cellspacing="0" border="0">
                 <tr>
                   <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Immatriculation</td>
                   <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.immatriculation}</td>
@@ -105,7 +105,7 @@ function generateEmailHTML(formData: any) {
               <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 20px; font-weight: bold; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
                 👤 Coordonnées du Client
               </h2>
-              <table width="100%" cellpadding="8" cellspacing="0">
+              <table width="100%" cellpadding="8" cellspacing="0" border="0">
                 <tr>
                   <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Nom</td>
                   <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.nom}</td>
@@ -136,7 +136,7 @@ function generateEmailHTML(formData: any) {
               <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 20px; font-weight: bold; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
                 📍 Localisation
               </h2>
-              <table width="100%" cellpadding="8" cellspacing="0">
+              <table width="100%" cellpadding="8" cellspacing="0" border="0">
                 <tr>
                   <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Ville</td>
                   <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.ville}</td>
@@ -175,7 +175,7 @@ function generateEmailHTML(formData: any) {
               <h3 style="margin: 0 0 15px 0; color: #1f2937; font-size: 16px; font-weight: bold; text-align: center;">
                 Actions Rapides
               </h3>
-              <table width="100%" cellpadding="0" cellspacing="0">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td align="center" style="padding: 5px;">
                     <a href="tel:${formData.phone}" style="display: inline-block; background-color: #DC2626; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px;">
