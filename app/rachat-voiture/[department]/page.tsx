@@ -1,17 +1,39 @@
-'use client';
-
 import { notFound } from 'next/navigation';
-import { getDepartmentBySlug } from '@/lib/locations-complete';
-import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin, Clock } from '@phosphor-icons/react';
+import { getDepartmentBySlug, allDepartments } from '@/lib/locations-complete';
+import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin, Clock } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import type { Metadata } from 'next';
 
-export default function DepartmentRachatPage({ params }: { params: { department: string } }) {
-  const dept = getDepartmentBySlug(params.department);
+export async function generateStaticParams() {
+  return allDepartments.map((dept) => ({
+    department: dept.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ department: string }> }): Promise<Metadata> {
+  const { department } = await params;
+  const dept = getDepartmentBySlug(department);
+  
+  if (!dept) {
+    return {
+      title: 'Page non trouvée',
+    };
+  }
+
+  return {
+    title: `Rachat Voiture ${dept.name} (${dept.code}) | Paiement Cash Immédiat`,
+    description: `Rachat de voiture dans le ${dept.name}. Paiement cash immédiat, estimation gratuite. Tous véhicules : accidentés, en panne, HS. ☎️ 09 79 04 94 86`,
+  };
+}
+
+export default async function DepartmentRachatPage({ params }: { params: Promise<{ department: string }> }) {
+  const { department } = await params;
+  const dept = getDepartmentBySlug(department);
 
   if (!dept) {
     notFound();
