@@ -1,4 +1,8 @@
 import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+// Initialize Resend only if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // HTML Email Template
 function generateEmailHTML(formData: any) {
@@ -253,22 +257,29 @@ Date: ${new Date().toLocaleString('fr-FR')}
     `;
 
     console.log('Form submission received:', formData);
-    console.log('HTML Email generated - ready to send');
 
-    // TODO: Send email using your preferred service
-    // Example with Resend (recommended):
-    // const { data, error } = await resend.emails.send({
-    //   from: 'noreply@lesepavistespro.fr',
-    //   to: 'contact@lesepavistespro.fr',
-    //   subject: `Nouvelle demande: ${formData.service} - ${formData.nom}`,
-    //   html: emailHTML,
-    //   text: emailText,
-    // });
-    //
-    // if (error) {
-    //   console.error('Email error:', error);
-    //   return NextResponse.json({ success: false, message: 'Erreur lors de l\'envoi' }, { status: 500 });
-    // }
+    // Send email using Resend (only if API key is configured)
+    if (resend) {
+      try {
+        const { data, error } = await resend.emails.send({
+          from: 'Les Épavistes Pro <onboarding@resend.dev>', // Will use Resend's domain until you verify yours
+          to: 'contact@lesepavistespro.fr',
+          subject: `🚗 Nouvelle demande: ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} - ${formData.nom}`,
+          html: emailHTML,
+          text: emailText,
+        });
+
+        if (error) {
+          console.error('Resend error:', error);
+        } else {
+          console.log('Email sent successfully:', data);
+        }
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError);
+      }
+    } else {
+      console.log('Resend not configured - email not sent. Add RESEND_API_KEY to environment variables.');
+    }
 
     return NextResponse.json({ 
       success: true, 
