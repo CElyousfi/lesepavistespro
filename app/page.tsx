@@ -1,65 +1,66 @@
-import Image from "next/image";
+import Header from '@/components/Header';
+import HeroNew from '@/components/HeroNew';
+import ServiceSelector from '@/components/ServiceSelector';
+import ProcessNew from '@/components/ProcessNew';
+import Coverage from '@/components/Coverage';
+import AnimatedStats from '@/components/AnimatedStats';
+import Testimonials from '@/components/Testimonials';
+import FAQ from '@/components/FAQ';
+import DualServiceCTA from '@/components/DualServiceCTA';
+import Footer from '@/components/Footer';
+import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen">
+      {/* Header is now inside HeroNew */}
+      <main>
+        <HeroNew />
+        
+        {/* Dual Service Selector with Beautiful Illustrated Cards */}
+        <section className="py-16 md:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-[5%]">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12 md:mb-16">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 md:mb-6 tracking-tight">
+                  Nos Services en Île-de-France
+                </h2>
+                <p className="text-lg sm:text-xl text-neutral-600 max-w-3xl mx-auto px-4 font-light leading-relaxed">
+                  Choisissez le service dont vous avez besoin
+                </p>
+              </div>
+              <ServiceSelector />
+            </div>
+          </div>
+        </section>
+        
+        <ProcessNew />
+        <Coverage />
+        <AnimatedStats />
+        
+        {/* Decorative Separator */}
+        <div className="relative py-12 bg-white">
+          <div className="container mx-auto px-[5%]">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex items-center gap-4">
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neutral-300 to-neutral-300"></div>
+                <div className="flex items-center gap-2 text-neutral-400">
+                  <div className="w-2 h-2 rounded-full bg-brand-red animate-pulse"></div>
+                  <div className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-2 h-2 rounded-full bg-brand-blue animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                </div>
+                <div className="flex-1 h-px bg-gradient-to-l from-transparent via-neutral-300 to-neutral-300"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        
+        <DualServiceCTA />
+        <Testimonials />
+        <FAQ />
       </main>
+      <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 }

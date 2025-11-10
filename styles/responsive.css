@@ -1,0 +1,257 @@
+/* Responsive Utilities for Perfect Mobile Experience */
+
+/* Touch-friendly tap targets (minimum 44x44px) */
+.tap-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Prevent text selection on buttons for better mobile UX */
+button, .button, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Smooth scrolling for all devices */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Responsive container with proper padding */
+.container-responsive {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem; /* 16px */
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    padding-left: 1.5rem; /* 24px */
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+/* Responsive text sizes */
+.text-responsive-xs {
+  font-size: 0.75rem; /* 12px */
+  line-height: 1rem;
+}
+
+.text-responsive-sm {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem;
+}
+
+.text-responsive-base {
+  font-size: 1rem; /* 16px */
+  line-height: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .text-responsive-base {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem;
+  }
+}
+
+/* Responsive headings */
+.heading-responsive-h1 {
+  font-size: 2rem; /* 32px */
+  line-height: 2.5rem;
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .heading-responsive-h1 {
+    font-size: 3rem; /* 48px */
+    line-height: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heading-responsive-h1 {
+    font-size: 3.75rem; /* 60px */
+    line-height: 1;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .safe-area-inset-top {
+    padding-top: max(env(safe-area-inset-top), 1rem);
+  }
+  
+  .safe-area-inset-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+  }
+  
+  .safe-area-inset-left {
+    padding-left: max(env(safe-area-inset-left), 1rem);
+  }
+  
+  .safe-area-inset-right {
+    padding-right: max(env(safe-area-inset-right), 1rem);
+  }
+}
+
+/* Responsive grid with proper gaps */
+.grid-responsive {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    gap: 2rem;
+  }
+}
+
+/* Mobile-first button styles */
+.btn-mobile {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.2s;
+}
+
+@media (min-width: 640px) {
+  .btn-mobile {
+    width: auto;
+    padding: 0.75rem 2rem;
+  }
+}
+
+/* Responsive card spacing */
+.card-responsive {
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+@media (min-width: 768px) {
+  .card-responsive {
+    padding: 2rem;
+    border-radius: 1.5rem;
+  }
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Responsive aspect ratios */
+.aspect-responsive-video {
+  aspect-ratio: 16 / 9;
+}
+
+.aspect-responsive-square {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-responsive-portrait {
+  aspect-ratio: 3 / 4;
+}
+
+/* Mobile menu transitions */
+.mobile-menu-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.mobile-menu-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
+}
+
+.mobile-menu-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.mobile-menu-exit-active {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 300ms ease-in, opacity 300ms ease-in;
+}
+
+/* Responsive spacing utilities */
+.space-y-responsive > * + * {
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .space-y-responsive > * + * {
+    margin-top: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .space-y-responsive > * + * {
+    margin-top: 2rem;
+  }
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  outline: 2px solid #0066CC;
+  outline-offset: 2px;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  /* Add dark mode styles if needed */
+}

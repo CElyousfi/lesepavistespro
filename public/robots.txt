@@ -1,0 +1,35 @@
+# robots.txt for Les Épavistes Pro
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Crawl delay for respectful crawling
+Crawl-delay: 0
+
+# Sitemaps
+Sitemap: https://lesepavistespro.fr/sitemap.xml
+Sitemap: https://lesepavistespro.fr/sitemap-0.xml
+
+# Host
+Host: https://lesepavistespro.fr
+
+# Crawl-delay for better server performance
+Crawl-delay: 1

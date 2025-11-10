@@ -1,0 +1,101 @@
+/* Icon Animation Styles - Professional & Catchy */
+
+/* CTA Icons - Most attention-grabbing */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shake-subtle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scale-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* CTA Phone Icon - Pulsing ring effect */
+.icon-cta-pulse {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+/* CTA Button Icons - Shake on hover */
+.icon-cta-shake:hover {
+  animation: shake-subtle 0.5s ease-in-out;
+}
+
+/* Arrow Icons - Bounce */
+.icon-arrow-bounce {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Service Icons - Scale on hover */
+.icon-service-scale {
+  transition: transform 0.3s ease;
+}
+
+.icon-service-scale:hover {
+  transform: scale(1.1);
+}
+
+/* Stats Icons - Subtle pulse */
+.icon-stats-pulse {
+  animation: scale-pulse 3s ease-in-out infinite;
+}
+
+/* Loading/Processing Icons - Rotate */
+.icon-rotate {
+  animation: rotate-slow 3s linear infinite;
+}
+
+/* Hover grow effect */
+.icon-hover-grow {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-hover-grow:hover {
+  transform: scale(1.15);
+}
+
+/* Float effect for decorative icons */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.icon-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glow effect for important icons */
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 2px currentColor); }
+  50% { filter: drop-shadow(0 0 8px currentColor); }
+}
+
+.icon-glow {
+  animation: glow 2s ease-in-out infinite;
+}
