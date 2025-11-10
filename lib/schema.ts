@@ -9,7 +9,7 @@ export function getLocalBusinessSchema() {
     description: 'Épaviste agréé VHU en Île-de-France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés ou hors d\'usage.',
     url: 'https://lesepavistespro.fr',
     telephone: '+33979049486',
-    email: 'lesepavistespro@gmail.com',
+    email: 'contact@lesepavistespro.fr',
     priceRange: 'Gratuit',
     image: 'https://lesepavistespro.fr/logo.png',
     address: {

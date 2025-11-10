@@ -65,8 +65,8 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <EnvelopeSimple size={18} weight="bold" className="mr-2 mt-0.5 flex-shrink-0 text-brand-red" />
-                <a href="mailto:lesepavistespro@gmail.com" className="hover:text-brand-red transition-colors break-all">
-                  lesepavistespro@gmail.com
+                <a href="mailto:contact@lesepavistespro.fr" className="hover:text-brand-red transition-colors break-all">
+                  contact@lesepavistespro.fr
                 </a>
               </li>
               <li className="flex items-start">

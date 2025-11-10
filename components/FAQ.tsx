@@ -104,7 +104,7 @@ const FAQ = () => {
                 </a>
                 
                 <a 
-                  href="mailto:lesepavistespro@gmail.com?subject=Demande d'information&body=Bonjour, je souhaite obtenir des informations sur l'enlèvement d'épave."
+                  href="mailto:contact@lesepavistespro.fr?subject=Demande d'information&body=Bonjour, je souhaite obtenir des informations sur l'enlèvement d'épave."
                   className="flex items-center gap-3 px-6 py-4 bg-brand-navy hover:bg-brand-blue text-white rounded-xl font-medium transition-all shadow-lg hover:shadow-xl w-full"
                 >
                   <EnvelopeSimple size={20} weight="bold" />

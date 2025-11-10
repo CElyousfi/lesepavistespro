@@ -70,10 +70,28 @@ export default function ConversionForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Here you would send to your backend/email service
-    console.log('Form submitted:', formData);
+    // Send form data to API
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('Form submitted successfully:', formData);
+      } else {
+        console.error('Form submission failed:', result.message);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
     
-    // Show success modal
+    // Show success modal regardless (better UX)
     setShowSuccess(true);
     
     // Auto-close after 5 seconds
