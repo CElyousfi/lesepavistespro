@@ -36,10 +36,10 @@ const Header = () => {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-1' : 'py-1.5'}`}>
-        <div className="container mx-auto px-2 sm:px-4 md:px-6">
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-2 sm:py-1' : 'py-3 sm:py-1.5'}`}>
+        <div className="container mx-auto px-3 sm:px-4 md:px-6">
           {/* Rectangular rounded container like screenshot */}
-          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg px-3 sm:px-4 py-2 sm:py-1 flex items-center justify-between max-w-6xl mx-auto">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg px-4 sm:px-4 py-3 sm:py-1 flex items-center justify-between max-w-6xl mx-auto">
             {/* Logo */}
             <Link href="/" className="flex items-center">
               {/* Logo with name for desktop */}
@@ -54,8 +54,8 @@ const Header = () => {
               <Image 
                 src="/logo.png" 
                 alt="Les Épavistes Pro" 
-                width={28} 
-                height={28}
+                width={40} 
+                height={40}
                 className="object-contain sm:hidden"
               />
             </Link>
@@ -148,11 +148,15 @@ const Header = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden p-2 text-brand-navy"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="lg:hidden p-2 hover:bg-neutral-100 rounded-lg transition-colors"
               aria-label="Toggle menu"
             >
-              {isMenuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
+              {isMenuOpen ? (
+                <X size={28} weight="bold" className="text-brand-navy" />
+              ) : (
+                <List size={28} weight="bold" className="text-brand-navy" />
+              )}
             </button>
           </div>
         </div>
