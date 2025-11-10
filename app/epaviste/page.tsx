@@ -213,7 +213,7 @@ export default function EpavistePage() {
       </section>
 
       {/* Conversion Form Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-brand-red via-brand-red-light to-brand-red">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy-dark">
         <div className="container mx-auto px-[5%]">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 text-white">
