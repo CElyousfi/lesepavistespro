@@ -1,17 +1,27 @@
 'use client';
 
 import { useState } from 'react';
-import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Clock, Shield, Truck, X } from '@phosphor-icons/react';
+import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Clock, Shield, Truck, X, Car } from '@phosphor-icons/react';
 
 interface FormData {
   service: 'epaviste' | 'rachat' | '';
-  vehicleType: string;
+  // Vehicle details
+  immatriculation: string;
+  marque: string;
+  modele: string;
+  annee: string;
+  energie: string;
+  boite: string;
+  kilometrage: string;
   vehicleCondition: string;
-  name: string;
+  // Contact info
+  nom: string;
+  prenom: string;
   phone: string;
   email: string;
-  city: string;
-  postalCode: string;
+  codePostal: string;
+  ville: string;
+  departement: string;
   message: string;
 }
 
@@ -30,17 +40,25 @@ export default function ConversionForm({
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     service: defaultService || '',
-    vehicleType: '',
+    immatriculation: '',
+    marque: '',
+    modele: '',
+    annee: '',
+    energie: '',
+    boite: '',
+    kilometrage: '',
     vehicleCondition: '',
-    name: '',
+    nom: '',
+    prenom: '',
     phone: '',
     email: '',
-    city: '',
-    postalCode: '',
+    codePostal: '',
+    ville: '',
+    departement: '',
     message: '',
   });
 
-  const totalSteps = 4;
+  const totalSteps = 5;
 
   // Update form data
   const updateField = (field: keyof FormData, value: string) => {
@@ -60,13 +78,21 @@ export default function ConversionForm({
     // Reset form
     setFormData({
       service: defaultService || '',
-      vehicleType: '',
+      immatriculation: '',
+      marque: '',
+      modele: '',
+      annee: '',
+      energie: '',
+      boite: '',
+      kilometrage: '',
       vehicleCondition: '',
-      name: '',
+      nom: '',
+      prenom: '',
       phone: '',
       email: '',
-      city: '',
-      postalCode: '',
+      codePostal: '',
+      ville: '',
+      departement: '',
       message: '',
     });
     setStep(1);
@@ -89,14 +115,21 @@ export default function ConversionForm({
         message: "Cash en main ou virement le jour même. Meilleur prix garanti !",
       };
     }
-    if (step === 3 && formData.vehicleCondition) {
+    if (step === 3 && formData.marque) {
+      return {
+        icon: <Car size={24} weight="bold" className="text-brand-blue" />,
+        title: "Estimation personnalisée",
+        message: "Nous connaissons bien votre modèle. Prix juste garanti !",
+      };
+    }
+    if (step === 4) {
       return {
         icon: <Clock size={24} weight="bold" className="text-brand-red" />,
         title: "Intervention sous 24-48h",
         message: "Nous venons chez vous. Aucun déplacement nécessaire !",
       };
     }
-    if (step === 4) {
+    if (step === 5) {
       return {
         icon: <Shield size={24} weight="bold" className="text-brand-blue" />,
         title: "Certificat de destruction garanti",
@@ -146,7 +179,7 @@ export default function ConversionForm({
           
           {/* Progress bar */}
           <div className="mt-4 flex gap-2">
-            {[1, 2, 3, 4].map((s) => (
+            {[1, 2, 3, 4, 5].map((s) => (
               <div
                 key={s}
                 className={`h-1 flex-1 rounded-full transition-all ${
@@ -219,29 +252,149 @@ export default function ConversionForm({
             </div>
           )}
 
-          {/* Step 2: Vehicle Info */}
+          {/* Step 2: Vehicle Identification */}
           {step === 2 && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-neutral-900">
-                Parlez-nous de votre véhicule
+                Identification du véhicule
               </h3>
 
               <div>
                 <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Type de véhicule *
+                  Immatriculation *
                 </label>
-                <select
-                  value={formData.vehicleType}
-                  onChange={(e) => updateField('vehicleType', e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                <input
+                  type="text"
+                  value={formData.immatriculation}
+                  onChange={(e) => updateField('immatriculation', e.target.value.toUpperCase())}
+                  placeholder="Ex: AB-123-CD"
+                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none uppercase"
                   required
+                />
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Marque *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.marque}
+                    onChange={(e) => updateField('marque', e.target.value)}
+                    placeholder="Ex: Renault"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Modèle *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.modele}
+                    onChange={(e) => updateField('modele', e.target.value)}
+                    placeholder="Ex: Clio"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
                 >
-                  <option value="">Sélectionnez...</option>
-                  <option value="voiture">Voiture</option>
-                  <option value="utilitaire">Utilitaire</option>
-                  <option value="moto">Moto</option>
-                  <option value="camion">Camion</option>
-                </select>
+                  Retour
+                </button>
+                <button
+                  type="button"
+                  onClick={() => formData.immatriculation && formData.marque && formData.modele && setStep(3)}
+                  disabled={!formData.immatriculation || !formData.marque || !formData.modele}
+                  className="flex-1 px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Continuer
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Vehicle Details */}
+          {step === 3 && (
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-neutral-900">
+                Détails du véhicule
+              </h3>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Année de mise en circulation *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.annee}
+                    onChange={(e) => updateField('annee', e.target.value)}
+                    placeholder="Ex: 2015"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Kilométrage *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.kilometrage}
+                    onChange={(e) => updateField('kilometrage', e.target.value)}
+                    placeholder="Ex: 150000 km"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Énergie *
+                  </label>
+                  <select
+                    value={formData.energie}
+                    onChange={(e) => updateField('energie', e.target.value)}
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  >
+                    <option value="">Sélectionnez...</option>
+                    <option value="essence">Essence</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="electrique">Électrique</option>
+                    <option value="hybride">Hybride</option>
+                    <option value="gpl">GPL</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Boîte de vitesse *
+                  </label>
+                  <select
+                    value={formData.boite}
+                    onChange={(e) => updateField('boite', e.target.value)}
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  >
+                    <option value="">Sélectionnez...</option>
+                    <option value="manuelle">Manuelle</option>
+                    <option value="automatique">Automatique</option>
+                  </select>
+                </div>
               </div>
 
               <div>
@@ -266,15 +419,15 @@ export default function ConversionForm({
               <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={() => setStep(1)}
+                  onClick={() => setStep(2)}
                   className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
                 >
                   Retour
                 </button>
                 <button
                   type="button"
-                  onClick={() => formData.vehicleType && formData.vehicleCondition && setStep(3)}
-                  disabled={!formData.vehicleType || !formData.vehicleCondition}
+                  onClick={() => formData.annee && formData.kilometrage && formData.energie && formData.boite && formData.vehicleCondition && setStep(4)}
+                  disabled={!formData.annee || !formData.kilometrage || !formData.energie || !formData.boite || !formData.vehicleCondition}
                   className="flex-1 px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continuer
@@ -283,22 +436,36 @@ export default function ConversionForm({
             </div>
           )}
 
-          {/* Step 3: Location */}
-          {step === 3 && (
+          {/* Step 4: Location */}
+          {step === 4 && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-neutral-900">
                 Où se trouve votre véhicule ?
               </h3>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Code postal *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.codePostal}
+                    onChange={(e) => updateField('codePostal', e.target.value)}
+                    placeholder="Ex: 75001"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  />
+                </div>
+
                 <div>
                   <label className="block text-sm font-semibold text-neutral-700 mb-2">
                     Ville *
                   </label>
                   <input
                     type="text"
-                    value={formData.city}
-                    onChange={(e) => updateField('city', e.target.value)}
+                    value={formData.ville}
+                    onChange={(e) => updateField('ville', e.target.value)}
                     placeholder="Ex: Paris"
                     className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
                     required
@@ -307,13 +474,13 @@ export default function ConversionForm({
 
                 <div>
                   <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Code postal *
+                    Département *
                   </label>
                   <input
                     type="text"
-                    value={formData.postalCode}
-                    onChange={(e) => updateField('postalCode', e.target.value)}
-                    placeholder="Ex: 75001"
+                    value={formData.departement}
+                    onChange={(e) => updateField('departement', e.target.value)}
+                    placeholder="Ex: 75"
                     className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
                     required
                   />
@@ -322,29 +489,32 @@ export default function ConversionForm({
 
               <div>
                 <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Informations complémentaires (optionnel)
+                  Message complémentaire
                 </label>
                 <textarea
                   value={formData.message}
                   onChange={(e) => updateField('message', e.target.value)}
-                  placeholder="Marque, modèle, année, état général..."
+                  placeholder="Ex: Le véhicule est dans un garage, besoin d'un treuil..."
                   rows={3}
                   className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none resize-none"
                 />
+                <p className="text-xs text-neutral-500 mt-1">
+                  Précisez si le véhicule nécessite un treuil, s'il est dans un garage, etc.
+                </p>
               </div>
 
               <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={() => setStep(2)}
+                  onClick={() => setStep(3)}
                   className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
                 >
                   Retour
                 </button>
                 <button
                   type="button"
-                  onClick={() => formData.city && formData.postalCode && setStep(4)}
-                  disabled={!formData.city || !formData.postalCode}
+                  onClick={() => formData.codePostal && formData.ville && formData.departement && setStep(5)}
+                  disabled={!formData.codePostal || !formData.ville || !formData.departement}
                   className="flex-1 px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continuer
@@ -353,25 +523,41 @@ export default function ConversionForm({
             </div>
           )}
 
-          {/* Step 4: Contact Info */}
-          {step === 4 && (
+          {/* Step 5: Contact Info */}
+          {step === 5 && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-neutral-900">
-                Comment vous contacter ?
+                Vos coordonnées
               </h3>
 
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Nom complet *
-                </label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => updateField('name', e.target.value)}
-                  placeholder="Ex: Jean Dupont"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                />
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Nom *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.nom}
+                    onChange={(e) => updateField('nom', e.target.value)}
+                    placeholder="Ex: Dupont"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Prénom *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.prenom}
+                    onChange={(e) => updateField('prenom', e.target.value)}
+                    placeholder="Ex: Jean"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
+                    required
+                  />
+                </div>
               </div>
 
               <div>
@@ -421,7 +607,7 @@ export default function ConversionForm({
               <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={() => setStep(3)}
+                  onClick={() => setStep(4)}
                   className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
                 >
                   Retour
