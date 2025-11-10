@@ -38,6 +38,7 @@ export default function ConversionForm({
 }: ConversionFormProps) {
   const [isOpen, setIsOpen] = useState(trigger === 'inline');
   const [step, setStep] = useState(1);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     service: defaultService || '',
     immatriculation: '',
@@ -72,31 +73,37 @@ export default function ConversionForm({
     // Here you would send to your backend/email service
     console.log('Form submitted:', formData);
     
-    // Show success message
-    alert('Merci ! Nous vous contactons dans les 15 minutes. 📞');
+    // Show success modal
+    setShowSuccess(true);
     
-    // Reset form
-    setFormData({
-      service: defaultService || '',
-      immatriculation: '',
-      marque: '',
-      modele: '',
-      annee: '',
-      energie: '',
-      boite: '',
-      kilometrage: '',
-      vehicleCondition: '',
-      nom: '',
-      prenom: '',
-      phone: '',
-      email: '',
-      codePostal: '',
-      ville: '',
-      departement: '',
-      message: '',
-    });
-    setStep(1);
-    setIsOpen(false);
+    // Auto-close after 5 seconds
+    setTimeout(() => {
+      setShowSuccess(false);
+      // Reset form
+      setFormData({
+        service: defaultService || '',
+        immatriculation: '',
+        marque: '',
+        modele: '',
+        annee: '',
+        energie: '',
+        boite: '',
+        kilometrage: '',
+        vehicleCondition: '',
+        nom: '',
+        prenom: '',
+        phone: '',
+        email: '',
+        codePostal: '',
+        ville: '',
+        departement: '',
+        message: '',
+      });
+      setStep(1);
+      if (trigger === 'button') {
+        setIsOpen(false);
+      }
+    }, 5000);
   };
 
   // Conversion triggers based on selections
@@ -192,11 +199,13 @@ export default function ConversionForm({
 
         {/* Conversion Message */}
         {conversionMsg && (
-          <div className="mx-6 mt-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl flex items-start gap-3 animate-fadeIn">
-            {conversionMsg.icon}
+          <div className="mx-6 mt-6 p-4 bg-gradient-to-r from-brand-red/10 to-brand-gold/10 border-2 border-brand-red/30 rounded-2xl flex items-start gap-3 animate-fadeIn shadow-sm">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-red/20 flex items-center justify-center">
+              {conversionMsg.icon}
+            </div>
             <div>
-              <div className="font-bold text-neutral-900">{conversionMsg.title}</div>
-              <div className="text-sm text-neutral-600">{conversionMsg.message}</div>
+              <div className="font-bold text-brand-navy text-lg">{conversionMsg.title}</div>
+              <div className="text-sm text-neutral-700 mt-1">{conversionMsg.message}</div>
             </div>
           </div>
         )}
@@ -636,6 +645,89 @@ export default function ConversionForm({
           </div>
         </div>
       </div>
+
+      {/* Success Modal */}
+      {showSuccess && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 animate-fadeIn">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center animate-fadeIn">
+            {/* Success Icon */}
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-brand-red to-brand-gold flex items-center justify-center">
+              <CheckCircle size={48} weight="bold" className="text-white" />
+            </div>
+
+            {/* Thank You Message */}
+            <h3 className="text-3xl font-bold text-brand-navy mb-4">
+              Merci pour votre confiance !
+            </h3>
+            
+            <p className="text-lg text-neutral-700 mb-6 leading-relaxed">
+              Votre demande a bien été reçue. Nous vous recontacterons dans les prochaines <span className="font-bold text-brand-red">24h-48h</span> pour finaliser votre dossier.
+            </p>
+
+            {/* Contact Info Reminder */}
+            <div className="bg-gradient-to-r from-brand-navy/5 to-brand-blue/5 rounded-2xl p-4 mb-6">
+              <p className="text-sm text-neutral-600 mb-2">
+                Besoin d'une réponse plus rapide ?
+              </p>
+              <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                <a
+                  href="tel:0979049486"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-brand-red text-white rounded-lg font-semibold hover:bg-brand-red-light transition-all text-sm"
+                >
+                  <Phone size={16} weight="bold" />
+                  09 79 04 94 86
+                </a>
+                <a
+                  href="https://wa.me/33602427345"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-whatsapp text-white rounded-lg font-semibold hover:bg-whatsapp-hover transition-all text-sm"
+                >
+                  <WhatsappLogo size={16} weight="fill" />
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+
+            {/* Close Button */}
+            <button
+              onClick={() => {
+                setShowSuccess(false);
+                setFormData({
+                  service: defaultService || '',
+                  immatriculation: '',
+                  marque: '',
+                  modele: '',
+                  annee: '',
+                  energie: '',
+                  boite: '',
+                  kilometrage: '',
+                  vehicleCondition: '',
+                  nom: '',
+                  prenom: '',
+                  phone: '',
+                  email: '',
+                  codePostal: '',
+                  ville: '',
+                  departement: '',
+                  message: '',
+                });
+                setStep(1);
+                if (trigger === 'button') {
+                  setIsOpen(false);
+                }
+              }}
+              className="w-full px-6 py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-xl font-semibold transition-all"
+            >
+              Fermer
+            </button>
+
+            <p className="text-xs text-neutral-500 mt-4">
+              Cette fenêtre se fermera automatiquement dans quelques secondes
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
