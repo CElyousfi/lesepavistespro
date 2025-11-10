@@ -262,23 +262,29 @@ Date: ${new Date().toLocaleString('fr-FR')}
     if (resend) {
       try {
         const { data, error } = await resend.emails.send({
-          from: 'Les Épavistes Pro <onboarding@resend.dev>', // Will use Resend's domain until you verify yours
-          to: 'contact@lesepavistespro.fr',
+          from: 'onboarding@resend.dev',
+          to: ['contact@lesepavistespro.fr'],
+          replyTo: formData.email,
           subject: `🚗 Nouvelle demande: ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} - ${formData.nom}`,
           html: emailHTML,
           text: emailText,
         });
 
         if (error) {
-          console.error('Resend error:', error);
+          console.error('❌ Resend error:', JSON.stringify(error, null, 2));
+          console.error('Error details:', error);
         } else {
-          console.log('Email sent successfully:', data);
+          console.log('✅ Email sent successfully!');
+          console.log('Email ID:', data?.id);
+          console.log('Sent to:', 'contact@lesepavistespro.fr');
         }
       } catch (emailError) {
-        console.error('Email sending failed:', emailError);
+        console.error('❌ Email sending failed:', emailError);
+        console.error('Error type:', typeof emailError);
+        console.error('Error message:', emailError instanceof Error ? emailError.message : 'Unknown error');
       }
     } else {
-      console.log('Resend not configured - email not sent. Add RESEND_API_KEY to environment variables.');
+      console.warn('⚠️ Resend not configured - email not sent. Add RESEND_API_KEY to environment variables.');
     }
 
     return NextResponse.json({ 
