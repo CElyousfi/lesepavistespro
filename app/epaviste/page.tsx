@@ -1,6 +1,5 @@
-'use client';
-
-import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin } from '@phosphor-icons/react';
+import type { Metadata } from 'next';
+import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { allDepartments } from '@/lib/locations-complete';
 import Header from '@/components/Header';
@@ -8,6 +7,11 @@ import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+
+export const metadata: Metadata = {
+  title: "Épaviste Île-de-France | Enlèvement d'épave gratuit 24h/24",
+  description: "⭐ Service d'enlèvement d'épave 100% GRATUIT en Île-de-France. Épaviste agréé VHU, intervention 24h/24, 7j/7. Certificat de destruction garanti. ☎️ 09 79 04 94 86",
+};
 
 export default function EpavistePage() {
   return (
