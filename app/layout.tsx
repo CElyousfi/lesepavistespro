@@ -18,15 +18,6 @@ export const metadata: Metadata = {
   },
   description: "⭐ Épaviste agréé VHU en Île-de-France. Enlèvement d'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. ☎️ 09 79 04 94 86. Paris 75, 77, 78, 91, 92, 93, 94, 95.",
   applicationName: 'Les Épavistes Pro',
-  icons: {
-    icon: [
-      { url: '/logo.png', sizes: 'any' },
-      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
-    ],
-    apple: '/logo.png',
-    shortcut: '/logo.png',
-  },
   keywords: [
     "épaviste",
     "enlèvement épave gratuit",
