@@ -7,6 +7,7 @@ import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import ConversionForm from '@/components/ConversionForm';
 
 export const metadata: Metadata = {
   title: "Rachat Voiture Île-de-France | Paiement Cash Immédiat",
@@ -187,6 +188,23 @@ export default function RachatVoiturePage() {
                 </Link>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Conversion Form Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-br from-brand-gold via-yellow-500 to-brand-gold">
+        <div className="container mx-auto px-[5%]">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Obtenez Votre Estimation Gratuite
+              </h2>
+              <p className="text-lg text-neutral-100">
+                Remplissez le formulaire • Paiement cash immédiat • Meilleur prix garanti
+              </p>
+            </div>
+            <ConversionForm trigger="inline" defaultService="rachat" />
           </div>
         </div>
       </section>

@@ -7,6 +7,7 @@ import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import ConversionForm from '@/components/ConversionForm';
 
 export const metadata: Metadata = {
   title: "Épaviste Île-de-France | Enlèvement d'épave gratuit 24h/24",
@@ -207,6 +208,23 @@ export default function EpavistePage() {
                 </Link>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Conversion Form Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-br from-brand-red via-brand-red-light to-brand-red">
+        <div className="container mx-auto px-[5%]">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Demandez Votre Enlèvement Gratuit
+              </h2>
+              <p className="text-lg text-neutral-100">
+                Remplissez le formulaire • Réponse sous 15 minutes • Service 100% gratuit
+              </p>
+            </div>
+            <ConversionForm trigger="inline" defaultService="epaviste" />
           </div>
         </div>
       </section>

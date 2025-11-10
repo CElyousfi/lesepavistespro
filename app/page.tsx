@@ -9,6 +9,7 @@ import FAQ from '@/components/FAQ';
 import DualServiceCTA from '@/components/DualServiceCTA';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import ConversionForm from '@/components/ConversionForm';
 
 export default function Home() {
   return (
@@ -35,6 +36,24 @@ export default function Home() {
         </section>
         
         <ProcessNew />
+        
+        {/* Conversion Form Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy-dark">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-[5%]">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8 text-white">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  Obtenez Votre Devis Gratuit en 2 Minutes
+                </h2>
+                <p className="text-lg text-neutral-200">
+                  Remplissez le formulaire et recevez une réponse sous 15 minutes
+                </p>
+              </div>
+              <ConversionForm trigger="inline" />
+            </div>
+          </div>
+        </section>
+        
         <Coverage />
         <AnimatedStats />
         
