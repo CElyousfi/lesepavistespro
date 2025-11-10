@@ -1,6 +1,6 @@
 'use client';
 
-import { Phone, EnvelopeSimple, MapPin, FacebookLogo, InstagramLogo, LinkedinLogo } from '@phosphor-icons/react';
+import { Phone, EnvelopeSimple, MapPin, FacebookLogo, InstagramLogo } from '@phosphor-icons/react';
 import Link from 'next/link';
 
 const Footer = () => {
@@ -18,14 +18,11 @@ const Footer = () => {
               Épaviste agréé VHU en Île-de-France. Service d'enlèvement d'épave gratuit et rachat de véhicules 7j/7.
             </p>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
+              <a href="https://web.facebook.com/profile.php?id=61552439650150" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors" aria-label="Facebook">
                 <FacebookLogo size={24} weight="regular" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
+              <a href="https://www.instagram.com/lesepavistespro" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors" aria-label="Instagram">
                 <InstagramLogo size={24} weight="regular" />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">
-                <LinkedinLogo size={24} weight="regular" />
               </a>
             </div>
           </div>

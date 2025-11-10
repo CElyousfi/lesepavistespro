@@ -74,10 +74,10 @@ export const seoConfig = {
   
   // Social media
   social: {
-    facebook: 'https://facebook.com/lesepavistespro',
-    instagram: 'https://instagram.com/lesepavistespro',
-    linkedin: 'https://linkedin.com/company/lesepavistespro',
-    twitter: 'https://twitter.com/lesepavistespro',
+    facebook: 'https://web.facebook.com/profile.php?id=61552439650150',
+    instagram: 'https://www.instagram.com/lesepavistespro',
+    linkedin: '',
+    twitter: '',
   },
   
   // Schema.org types

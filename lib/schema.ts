@@ -49,6 +49,10 @@ export function getLocalBusinessSchema() {
       bestRating: '5',
       worstRating: '1',
     },
+    sameAs: [
+      'https://web.facebook.com/profile.php?id=61552439650150',
+      'https://www.instagram.com/lesepavistespro',
+    ],
   };
 }
 
