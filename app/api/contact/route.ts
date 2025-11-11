@@ -63,12 +63,8 @@ function generateEmailHTML(formData: any) {
                 🚗 Informations du Véhicule
               </h2>
               <table width="100%" cellpadding="8" cellspacing="0" border="0">
-                <tr>
-                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Immatriculation</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.immatriculation}</td>
-                </tr>
                 <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Marque</td>
+                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 10px;">Marque</td>
                   <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.marque}</td>
                 </tr>
                 <tr>
@@ -80,20 +76,10 @@ function generateEmailHTML(formData: any) {
                   <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.annee}</td>
                 </tr>
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Kilométrage</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.kilometrage}</td>
-                </tr>
-                <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Énergie</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.energie}</td>
-                </tr>
-                <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Boîte</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.boite}</td>
-                </tr>
-                <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">État</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.vehicleCondition}</td>
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">État</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">
+                    ${formData.etat === 'roulante' ? '✅ Roulante' : formData.etat === 'non-roulante' ? '⚠️ Non roulante' : '🚨 Accidentée'}
+                  </td>
                 </tr>
               </table>
             </td>
@@ -107,25 +93,23 @@ function generateEmailHTML(formData: any) {
               </h2>
               <table width="100%" cellpadding="8" cellspacing="0" border="0">
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Nom</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.nom}</td>
+                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Prénom</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.prenom}</td>
                 </tr>
                 <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Prénom</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.prenom || 'Non renseigné'}</td>
-                </tr>
-                <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Téléphone</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">
-                    <a href="tel:${formData.phone}" style="color: #DC2626; text-decoration: none;">${formData.phone}</a>
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Téléphone</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">
+                    <a href="tel:${formData.phone}" style="color: #DC2626; text-decoration: none; font-weight: bold; font-size: 16px;">📞 ${formData.phone}</a>
                   </td>
                 </tr>
-                <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Email</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">
+                ${formData.email ? `
+                <tr>
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Email</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">
                     <a href="mailto:${formData.email}" style="color: #DC2626; text-decoration: none;">${formData.email}</a>
                   </td>
                 </tr>
+                ` : ''}
               </table>
             </td>
           </tr>
@@ -138,16 +122,20 @@ function generateEmailHTML(formData: any) {
               </h2>
               <table width="100%" cellpadding="8" cellspacing="0" border="0">
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Ville</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.ville}</td>
+                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Code postal</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.codePostal}</td>
                 </tr>
+                ${formData.ville ? `
                 <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Code postal</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.codePostal}</td>
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Ville</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.ville}</td>
                 </tr>
+                ` : ''}
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Département</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.departement}</td>
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Sous-sol / Parking</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">
+                    ${formData.sousSol ? '✅ Oui' : '❌ Non'}
+                  </td>
                 </tr>
               </table>
             </td>
@@ -227,31 +215,22 @@ SERVICE: ${formData.service === 'epaviste' ? 'Enlèvement d\'Épave' : 'Rachat d
 
 VÉHICULE
 --------
-Immatriculation: ${formData.immatriculation}
 Marque: ${formData.marque}
 Modèle: ${formData.modele}
 Année: ${formData.annee}
-Kilométrage: ${formData.kilometrage}
-Énergie: ${formData.energie}
-Boîte: ${formData.boite}
-État: ${formData.vehicleCondition}
+État: ${formData.etat === 'roulante' ? 'Roulante' : formData.etat === 'non-roulante' ? 'Non roulante' : 'Accidentée'}
 
 CONTACT
 -------
-Nom: ${formData.nom}
-Prénom: ${formData.prenom || 'Non renseigné'}
+Prénom: ${formData.prenom}
 Téléphone: ${formData.phone}
-Email: ${formData.email}
+Email: ${formData.email || 'Non renseigné'}
 
 LOCALISATION
 ------------
-Ville: ${formData.ville}
 Code postal: ${formData.codePostal}
-Département: ${formData.departement}
-
-MESSAGE
--------
-${formData.message || 'Aucun message complémentaire'}
+Ville: ${formData.ville || 'Non renseignée'}
+Sous-sol/Parking: ${formData.sousSol ? 'Oui' : 'Non'}
 
 Date: ${new Date().toLocaleString('fr-FR')}
     `;
@@ -265,7 +244,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
           from: 'onboarding@resend.dev',
           to: ['lesepavistespro@gmail.com'],
           replyTo: formData.email,
-          subject: `🚗 Nouvelle demande: ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} - ${formData.nom}`,
+          subject: `🚗 Nouvelle demande: ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} - ${formData.prenom} (${formData.phone})`,
           html: emailHTML,
           text: emailText,
         });

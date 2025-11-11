@@ -1,75 +1,113 @@
 'use client';
 
-import { useState } from 'react';
-import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Clock, Shield, Truck, X, Car } from '@phosphor-icons/react';
+import { useState, useEffect } from 'react';
+import { Phone, WhatsappLogo, CheckCircle, X, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
 import { trackFormSubmit } from '@/lib/analytics';
 
 interface FormData {
   service: 'epaviste' | 'rachat' | '';
-  // Vehicle details
-  immatriculation: string;
+  // Step 1: Vehicle
   marque: string;
   modele: string;
   annee: string;
-  energie: string;
-  boite: string;
-  kilometrage: string;
-  vehicleCondition: string;
-  // Contact info
-  nom: string;
+  etat: 'roulante' | 'non-roulante' | 'accidentee' | '';
+  // Step 2: Location
+  codePostal: string;
+  ville: string;
+  sousSol: boolean;
+  // Step 3: Contact
   prenom: string;
   phone: string;
   email: string;
-  codePostal: string;
-  ville: string;
-  departement: string;
-  message: string;
 }
 
 interface ConversionFormProps {
   defaultService?: 'epaviste' | 'rachat';
   trigger?: 'button' | 'inline';
   buttonText?: string;
+  cityName?: string;
 }
 
-export default function ConversionForm({ 
+export default function ConversionFormNew({ 
   defaultService, 
   trigger = 'button',
-  buttonText = "Obtenir mon devis gratuit"
+  buttonText = "📞 Être rappelé en 15 min",
+  cityName
 }: ConversionFormProps) {
   const [isOpen, setIsOpen] = useState(trigger === 'inline');
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(defaultService ? 2 : 1);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
+  
   const [formData, setFormData] = useState<FormData>({
     service: defaultService || '',
-    immatriculation: '',
     marque: '',
     modele: '',
     annee: '',
-    energie: '',
-    boite: '',
-    kilometrage: '',
-    vehicleCondition: '',
-    nom: '',
+    etat: '',
+    codePostal: '',
+    ville: cityName || '',
+    sousSol: false,
     prenom: '',
     phone: '',
     email: '',
-    codePostal: '',
-    ville: '',
-    departement: '',
-    message: '',
   });
 
-  const totalSteps = 5;
+  const totalSteps = 3;
 
-  // Update form data
-  const updateField = (field: keyof FormData, value: string) => {
+  // Update form data with validation
+  const updateField = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: '' }));
+    }
+  };
+
+  // Validation functions
+  const validateStep = (currentStep: number): boolean => {
+    const newErrors: Partial<Record<keyof FormData, string>> = {};
+
+    if (currentStep === 1) {
+      if (!formData.service) {
+        newErrors.service = 'Choisissez un service';
+      }
+    }
+
+    if (currentStep === 2) {
+      if (!formData.marque) newErrors.marque = 'Indiquez la marque';
+      if (!formData.modele) newErrors.modele = 'Indiquez le modèle';
+      if (!formData.annee) newErrors.annee = 'Indiquez l\'année';
+      if (!formData.etat) newErrors.etat = 'Précisez l\'état';
+    }
+
+    if (currentStep === 3) {
+      if (!formData.codePostal) newErrors.codePostal = 'Code postal requis';
+      if (formData.codePostal && !/^\d{5}$/.test(formData.codePostal)) {
+        newErrors.codePostal = 'Code postal invalide (5 chiffres)';
+      }
+    }
+
+    if (currentStep === 4) {
+      if (!formData.prenom) newErrors.prenom = 'Votre prénom pour vous rappeler';
+      if (!formData.phone) newErrors.phone = 'Numéro requis pour vous rappeler';
+      if (formData.phone && !/^0[1-9]\d{8}$/.test(formData.phone.replace(/\s/g, ''))) {
+        newErrors.phone = 'Numéro invalide (ex: 06 12 34 56 78)';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateStep(4)) return;
+    
+    setIsSubmitting(true);
     
     // Track form submission
     trackFormSubmit(formData.service || 'unknown');
@@ -88,130 +126,146 @@ export default function ConversionForm({
       
       if (result.success) {
         console.log('Form submitted successfully:', formData);
-      } else {
-        console.error('Form submission failed:', result.message);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
     }
     
-    // Show success modal regardless (better UX)
+    setIsSubmitting(false);
     setShowSuccess(true);
     
-    // Auto-close after 5 seconds
+    // Auto-close after 8 seconds
     setTimeout(() => {
       setShowSuccess(false);
       // Reset form
       setFormData({
         service: defaultService || '',
-        immatriculation: '',
         marque: '',
         modele: '',
         annee: '',
-        energie: '',
-        boite: '',
-        kilometrage: '',
-        vehicleCondition: '',
-        nom: '',
+        etat: '',
+        codePostal: '',
+        ville: cityName || '',
+        sousSol: false,
         prenom: '',
         phone: '',
         email: '',
-        codePostal: '',
-        ville: '',
-        departement: '',
-        message: '',
       });
-      setStep(1);
+      setStep(defaultService ? 2 : 1);
       if (trigger === 'button') {
         setIsOpen(false);
       }
-    }, 5000);
+    }, 8000);
   };
 
-  // Conversion triggers based on selections
-  const getConversionMessage = () => {
-    if (step === 2 && formData.service === 'epaviste') {
-      return {
-        icon: <CheckCircle size={24} weight="bold" className="text-green-500" />,
-        title: "Service 100% GRATUIT",
-        message: "Aucun frais caché. Nous payons même le remorquage !",
-      };
+  // Next step handler
+  const handleNext = () => {
+    if (validateStep(step)) {
+      setStep(prev => Math.min(prev + 1, 4));
     }
-    if (step === 2 && formData.service === 'rachat') {
-      return {
-        icon: <CurrencyEur size={24} weight="bold" className="text-brand-gold" />,
-        title: "Paiement IMMÉDIAT",
-        message: "Cash en main ou virement le jour même. Meilleur prix garanti !",
-      };
-    }
-    if (step === 3 && formData.marque) {
-      return {
-        icon: <Car size={24} weight="bold" className="text-brand-blue" />,
-        title: "Estimation personnalisée",
-        message: "Nous connaissons bien votre modèle. Prix juste garanti !",
-      };
-    }
-    if (step === 4) {
-      return {
-        icon: <Clock size={24} weight="bold" className="text-brand-red" />,
-        title: "Intervention sous 24-48h",
-        message: "Nous venons chez vous. Aucun déplacement nécessaire !",
-      };
-    }
-    if (step === 5) {
-      return {
-        icon: <Shield size={24} weight="bold" className="text-brand-blue" />,
-        title: "Réponse en moins de 15 minutes",
-        message: "Nous vous contactons rapidement avec votre devis personnalisé !",
-      };
-    }
-    return null;
   };
 
-  const conversionMsg = getConversionMessage();
+  // Previous step handler
+  const handleBack = () => {
+    setStep(prev => Math.max(prev - 1, 1));
+  };
+
+  // Get step title
+  const getStepTitle = () => {
+    if (step === 1) return 'Quel service ?';
+    if (step === 2) return 'Votre véhicule';
+    if (step === 3) return 'Lieu d\'enlèvement';
+    if (step === 4) return 'Vos coordonnées';
+    return '';
+  };
+
+  // Success Modal
+  if (showSuccess) {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center animate-scaleIn">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle size={48} weight="fill" className="text-green-500" />
+          </div>
+          
+          <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-3">
+            C'est noté ! 🎉
+          </h3>
+          
+          <p className="text-lg text-neutral-700 mb-2">
+            Un conseiller vous contacte dans les <strong className="text-brand-red">15 prochaines minutes</strong>.
+          </p>
+          
+          <p className="text-sm text-neutral-600 mb-6">
+            Votre numéro : <strong>{formData.phone}</strong>
+          </p>
+
+          <div className="space-y-3">
+            <a
+              href={`https://wa.me/33979049486?text=Bonjour, je viens de remplir le formulaire pour ${formData.service === 'epaviste' ? 'un enlèvement d\'épave' : 'un rachat de voiture'}. Pouvez-vous me rappeler ?`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
+            >
+              <WhatsappLogo size={24} weight="fill" />
+              <span>💬 Ou écrivez-nous sur WhatsApp</span>
+            </a>
+            
+            <button
+              onClick={() => setShowSuccess(false)}
+              className="w-full px-6 py-3 text-neutral-600 hover:text-neutral-900 font-medium transition-colors"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Render trigger button
   if (trigger === 'button' && !isOpen) {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="w-full px-8 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+        className="w-full px-8 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 active:scale-95"
       >
-        <Truck size={20} weight="bold" />
+        <Phone size={20} weight="bold" />
         {buttonText}
       </button>
     );
   }
 
   return (
-    <div className={`${trigger === 'inline' ? 'relative' : 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50'}`}>
-      <div className={`bg-white rounded-2xl shadow-2xl w-full ${trigger === 'inline' ? '' : 'max-w-2xl max-h-[90vh] overflow-y-auto'}`}>
+    <div className={`${trigger === 'inline' ? 'relative' : 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm'}`}>
+      <div className={`bg-white rounded-2xl shadow-2xl w-full ${trigger === 'inline' ? 'max-w-2xl mx-auto' : 'max-w-2xl max-h-[90vh] overflow-y-auto'}`}>
         {/* Header */}
-        <div className="bg-gradient-to-r from-brand-navy to-brand-navy-light text-white p-6 rounded-t-2xl relative">
+        <div className="bg-gradient-to-r from-brand-navy to-brand-navy-light text-white p-6 md:p-8 rounded-t-2xl relative">
           {trigger === 'button' && (
             <button
               onClick={() => setIsOpen(false)}
               className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-lg transition-colors"
+              aria-label="Fermer"
             >
               <X size={24} weight="bold" />
             </button>
           )}
           
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">
-            {formData.service === 'epaviste' ? 'Enlèvement Gratuit' : 
-             formData.service === 'rachat' ? 'Rachat Immédiat' : 
-             'Demande de Devis'}
-          </h2>
-          <p className="text-neutral-200">
-            Réponse en moins de 15 minutes • Service 24h/24
-          </p>
+          <div className="mb-4">
+            <div className="text-sm text-neutral-300 mb-2">
+              Étape {step} sur 4
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold">
+              {getStepTitle()}
+            </h2>
+          </div>
           
           {/* Progress bar */}
-          <div className="mt-4 flex gap-2">
-            {[1, 2, 3, 4, 5].map((s) => (
+          <div className="flex gap-2">
+            {[1, 2, 3, 4].map((s) => (
               <div
                 key={s}
-                className={`h-1 flex-1 rounded-full transition-all ${
+                className={`h-2 flex-1 rounded-full transition-all duration-300 ${
                   s <= step ? 'bg-brand-gold' : 'bg-white/20'
                 }`}
               />
@@ -219,104 +273,101 @@ export default function ConversionForm({
           </div>
         </div>
 
-        {/* Conversion Message */}
-        {conversionMsg && (
-          <div className="mx-6 mt-6 p-4 bg-gradient-to-r from-brand-red/10 to-brand-gold/10 border-2 border-brand-red/30 rounded-2xl flex items-start gap-3 animate-fadeIn shadow-sm">
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-red/20 flex items-center justify-center">
-              {conversionMsg.icon}
-            </div>
-            <div>
-              <div className="font-bold text-brand-navy text-lg">{conversionMsg.title}</div>
-              <div className="text-sm text-neutral-700 mt-1">{conversionMsg.message}</div>
-            </div>
-          </div>
-        )}
-
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
-          {/* Step 1: Service Selection */}
-          {step === 1 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-neutral-900">
-                Quel service vous intéresse ?
-              </h3>
-              
-              <div className="grid md:grid-cols-2 gap-4">
-                <button
-                  type="button"
-                  onClick={() => {
-                    updateField('service', 'epaviste');
-                    setStep(2);
-                  }}
-                  className={`p-6 rounded-xl border-2 transition-all text-left ${
-                    formData.service === 'epaviste'
-                      ? 'border-brand-red bg-brand-red/5'
-                      : 'border-neutral-200 hover:border-brand-red'
-                  }`}
-                >
-                  <Truck size={32} weight="bold" className="text-brand-red mb-3" />
-                  <div className="font-bold text-lg mb-1">Enlèvement d'Épave</div>
-                  <div className="text-sm text-neutral-600">
-                    Service 100% gratuit • Certificat VHU
-                  </div>
-                </button>
+        <form onSubmit={handleSubmit} className="p-6 md:p-8">
+          <div className="min-h-[300px]">
+            {/* Step 1: Service Selection */}
+            {step === 1 && (
+              <div className="space-y-4 animate-fadeIn">
+                <p className="text-neutral-600 mb-6">
+                  Choisissez le service dont vous avez besoin
+                </p>
+                
+                <div className="grid gap-4">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      updateField('service', 'epaviste');
+                      setStep(2);
+                    }}
+                    className={`p-6 rounded-xl border-2 transition-all text-left group hover:scale-[1.02] ${
+                      formData.service === 'epaviste'
+                        ? 'border-brand-red bg-brand-red/5 shadow-lg'
+                        : 'border-neutral-200 hover:border-brand-red hover:shadow-md'
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="text-4xl">🚗</div>
+                      <div className="flex-1">
+                        <div className="font-bold text-lg mb-1 text-neutral-900 group-hover:text-brand-red transition-colors">
+                          Enlèvement d'Épave
+                        </div>
+                        <div className="text-sm text-neutral-600">
+                          Service 100% gratuit • Certificat VHU • Intervention 24h
+                        </div>
+                      </div>
+                      <ArrowRight size={24} className="text-neutral-400 group-hover:text-brand-red transition-colors" />
+                    </div>
+                  </button>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    updateField('service', 'rachat');
-                    setStep(2);
-                  }}
-                  className={`p-6 rounded-xl border-2 transition-all text-left ${
-                    formData.service === 'rachat'
-                      ? 'border-brand-gold bg-brand-gold/5'
-                      : 'border-neutral-200 hover:border-brand-gold'
-                  }`}
-                >
-                  <CurrencyEur size={32} weight="bold" className="text-brand-gold mb-3" />
-                  <div className="font-bold text-lg mb-1">Rachat de Voiture</div>
-                  <div className="text-sm text-neutral-600">
-                    Paiement cash immédiat • Meilleur prix
-                  </div>
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      updateField('service', 'rachat');
+                      setStep(2);
+                    }}
+                    className={`p-6 rounded-xl border-2 transition-all text-left group hover:scale-[1.02] ${
+                      formData.service === 'rachat'
+                        ? 'border-brand-gold bg-brand-gold/5 shadow-lg'
+                        : 'border-neutral-200 hover:border-brand-gold hover:shadow-md'
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="text-4xl">💰</div>
+                      <div className="flex-1">
+                        <div className="font-bold text-lg mb-1 text-neutral-900 group-hover:text-brand-gold transition-colors">
+                          Rachat de Voiture
+                        </div>
+                        <div className="text-sm text-neutral-600">
+                          Paiement cash immédiat • Meilleur prix • Enlèvement gratuit
+                        </div>
+                      </div>
+                      <ArrowRight size={24} className="text-neutral-400 group-hover:text-brand-gold transition-colors" />
+                    </div>
+                  </button>
+                </div>
+                
+                {errors.service && (
+                  <p className="text-red-500 text-sm mt-2">⚠️ {errors.service}</p>
+                )}
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Step 2: Vehicle Identification */}
-          {step === 2 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-neutral-900">
-                Identification du véhicule
-              </h3>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Immatriculation *
-                </label>
-                <input
-                  type="text"
-                  value={formData.immatriculation}
-                  onChange={(e) => updateField('immatriculation', e.target.value.toUpperCase())}
-                  placeholder="Ex: AB-123-CD"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none uppercase"
-                  required
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
+            {/* Step 2: Vehicle Details */}
+            {step === 2 && (
+              <div className="space-y-5 animate-fadeIn">
                 <div>
                   <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Marque *
+                    Marque du véhicule *
                   </label>
                   <input
                     type="text"
                     value={formData.marque}
                     onChange={(e) => updateField('marque', e.target.value)}
-                    placeholder="Ex: Renault"
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
+                    placeholder="Ex: Renault, Peugeot, Citroën..."
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
+                      errors.marque ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                    }`}
+                    autoComplete="off"
                   />
+                  {errors.marque && (
+                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.marque}</p>
+                  )}
+                  {formData.marque && !errors.marque && (
+                    <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
+                      <CheckCircle size={16} weight="fill" /> Parfait !
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -327,469 +378,283 @@ export default function ConversionForm({
                     type="text"
                     value={formData.modele}
                     onChange={(e) => updateField('modele', e.target.value)}
-                    placeholder="Ex: Clio"
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
+                    placeholder="Ex: Clio, 308, C3..."
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
+                      errors.modele ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                    }`}
+                    autoComplete="off"
                   />
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={() => setStep(1)}
-                  className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
-                >
-                  Retour
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formData.immatriculation && formData.marque && formData.modele && setStep(3)}
-                  disabled={!formData.immatriculation || !formData.marque || !formData.modele}
-                  className="flex-1 px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Continuer
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 3: Vehicle Details */}
-          {step === 3 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-neutral-900">
-                Détails du véhicule
-              </h3>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Année de mise en circulation *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.annee}
-                    onChange={(e) => updateField('annee', e.target.value)}
-                    placeholder="Ex: 2015"
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
-                  />
+                  {errors.modele && (
+                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.modele}</p>
+                  )}
+                  {formData.modele && !errors.modele && (
+                    <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
+                      <CheckCircle size={16} weight="fill" /> Parfait !
+                    </p>
+                  )}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Kilométrage *
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.kilometrage}
-                    onChange={(e) => updateField('kilometrage', e.target.value)}
-                    placeholder="Ex: 150000 km"
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                      Année *
+                    </label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={formData.annee}
+                      onChange={(e) => updateField('annee', e.target.value)}
+                      placeholder="2015"
+                      maxLength={4}
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
+                        errors.annee ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                      }`}
+                      autoComplete="off"
+                    />
+                    {errors.annee && (
+                      <p className="text-red-500 text-sm mt-1">⚠️ {errors.annee}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                      État *
+                    </label>
+                    <select
+                      value={formData.etat}
+                      onChange={(e) => updateField('etat', e.target.value)}
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all appearance-none bg-white ${
+                        errors.etat ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                      }`}
+                    >
+                      <option value="">Choisir...</option>
+                      <option value="roulante">Roulante</option>
+                      <option value="non-roulante">Non roulante</option>
+                      <option value="accidentee">Accidentée</option>
+                    </select>
+                    {errors.etat && (
+                      <p className="text-red-500 text-sm mt-1">⚠️ {errors.etat}</p>
+                    )}
+                  </div>
                 </div>
+
+                {formData.service === 'epaviste' && (
+                  <div className="p-4 bg-green-50 border-2 border-green-200 rounded-xl">
+                    <p className="text-sm text-green-800 flex items-center gap-2">
+                      <CheckCircle size={20} weight="fill" className="text-green-600" />
+                      <strong>Service 100% GRATUIT</strong> • Aucun frais caché
+                    </p>
+                  </div>
+                )}
+
+                {formData.service === 'rachat' && (
+                  <div className="p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl">
+                    <p className="text-sm text-yellow-800 flex items-center gap-2">
+                      <span className="text-xl">💰</span>
+                      <strong>Paiement IMMÉDIAT</strong> • Cash ou virement le jour même
+                    </p>
+                  </div>
+                )}
               </div>
+            )}
 
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Énergie *
-                  </label>
-                  <select
-                    value={formData.energie}
-                    onChange={(e) => updateField('energie', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
-                  >
-                    <option value="">Sélectionnez...</option>
-                    <option value="essence">Essence</option>
-                    <option value="diesel">Diesel</option>
-                    <option value="electrique">Électrique</option>
-                    <option value="hybride">Hybride</option>
-                    <option value="gpl">GPL</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Boîte de vitesse *
-                  </label>
-                  <select
-                    value={formData.boite}
-                    onChange={(e) => updateField('boite', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
-                  >
-                    <option value="">Sélectionnez...</option>
-                    <option value="manuelle">Manuelle</option>
-                    <option value="automatique">Automatique</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  État du véhicule *
-                </label>
-                <select
-                  value={formData.vehicleCondition}
-                  onChange={(e) => updateField('vehicleCondition', e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                >
-                  <option value="">Sélectionnez...</option>
-                  <option value="roulant">Roulant</option>
-                  <option value="non-roulant">Non roulant</option>
-                  <option value="accidente">Accidenté</option>
-                  <option value="panne">En panne</option>
-                  <option value="epave">Épave</option>
-                </select>
-              </div>
-
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={() => setStep(2)}
-                  className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
-                >
-                  Retour
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formData.annee && formData.kilometrage && formData.energie && formData.boite && formData.vehicleCondition && setStep(4)}
-                  disabled={!formData.annee || !formData.kilometrage || !formData.energie || !formData.boite || !formData.vehicleCondition}
-                  className="flex-1 px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Continuer
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 4: Location Details */}
-          {step === 4 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-neutral-900">
-                Informations complémentaires
-              </h3>
-
-              <div className="grid md:grid-cols-2 gap-4">
+            {/* Step 3: Location */}
+            {step === 3 && (
+              <div className="space-y-5 animate-fadeIn">
                 <div>
                   <label className="block text-sm font-semibold text-neutral-700 mb-2">
                     Code postal *
                   </label>
                   <input
                     type="text"
+                    inputMode="numeric"
                     value={formData.codePostal}
                     onChange={(e) => updateField('codePostal', e.target.value)}
-                    placeholder="Ex: 75001"
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
+                    placeholder="75001"
+                    maxLength={5}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
+                      errors.codePostal ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                    }`}
+                    autoComplete="postal-code"
                   />
+                  {errors.codePostal && (
+                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.codePostal}</p>
+                  )}
+                  {formData.codePostal && !errors.codePostal && /^\d{5}$/.test(formData.codePostal) && (
+                    <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
+                      <CheckCircle size={16} weight="fill" /> Code postal valide
+                    </p>
+                  )}
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                    Département *
+                    Ville {cityName ? '' : '*'}
                   </label>
                   <input
                     type="text"
-                    value={formData.departement}
-                    onChange={(e) => updateField('departement', e.target.value)}
-                    placeholder="Ex: 75"
-                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                    required
+                    value={formData.ville}
+                    onChange={(e) => updateField('ville', e.target.value)}
+                    placeholder="Paris"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue transition-all"
+                    autoComplete="address-level2"
                   />
                 </div>
-              </div>
 
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={() => setStep(3)}
-                  className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
-                >
-                  Retour
-                </button>
-                <button
-                  type="button"
-                  onClick={() => formData.codePostal && formData.departement && setStep(5)}
-                  disabled={!formData.codePostal || !formData.departement}
-                  className="flex-1 px-6 py-3 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Continuer
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Step 5: Contact Info (FINAL) */}
-          {step === 5 && (
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-neutral-900">
-                Commençons par vos coordonnées
-              </h3>
-              <p className="text-neutral-600">
-                Pour vous recontacter rapidement avec votre devis personnalisé
-              </p>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Nom complet *
-                </label>
-                <input
-                  type="text"
-                  value={formData.nom}
-                  onChange={(e) => updateField('nom', e.target.value)}
-                  placeholder="Ex: Jean Dupont"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Téléphone *
-                </label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => updateField('phone', e.target.value)}
-                  placeholder="Ex: 06 12 34 56 78"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Ville *
-                </label>
-                <input
-                  type="text"
-                  value={formData.ville}
-                  onChange={(e) => updateField('ville', e.target.value)}
-                  placeholder="Ex: Paris"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Message complémentaire
-                </label>
-                <textarea
-                  value={formData.message}
-                  onChange={(e) => updateField('message', e.target.value)}
-                  placeholder="Ex: Le véhicule est dans un garage, besoin d'un treuil..."
-                  rows={3}
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none resize-none"
-                />
-                <p className="text-xs text-neutral-500 mt-1">
-                  Précisez si le véhicule nécessite un treuil, s'il est dans un garage, etc.
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-neutral-700 mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => updateField('email', e.target.value)}
-                  placeholder="Ex: jean.dupont@email.com"
-                  className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-brand-blue focus:outline-none"
-                  required
-                />
-              </div>
-
-              {/* Trust signals before submit */}
-              <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4 space-y-2">
-                <div className="flex items-center gap-2 text-sm text-neutral-700">
-                  <CheckCircle size={20} weight="bold" className="text-green-600" />
-                  <span>Réponse garantie en moins de 15 minutes</span>
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-3">
+                    Le véhicule est-il en sous-sol ou parking ?
+                  </label>
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => updateField('sousSol', true)}
+                      className={`flex-1 px-6 py-3 rounded-xl border-2 font-semibold transition-all ${
+                        formData.sousSol
+                          ? 'border-brand-blue bg-brand-blue text-white shadow-lg'
+                          : 'border-neutral-200 text-neutral-700 hover:border-brand-blue'
+                      }`}
+                    >
+                      Oui
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => updateField('sousSol', false)}
+                      className={`flex-1 px-6 py-3 rounded-xl border-2 font-semibold transition-all ${
+                        !formData.sousSol
+                          ? 'border-brand-blue bg-brand-blue text-white shadow-lg'
+                          : 'border-neutral-200 text-neutral-700 hover:border-brand-blue'
+                      }`}
+                    >
+                      Non
+                    </button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-neutral-700">
-                  <CheckCircle size={20} weight="bold" className="text-green-600" />
-                  <span>Aucun engagement • Devis 100% gratuit</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-neutral-700">
-                  <CheckCircle size={20} weight="bold" className="text-green-600" />
-                  <span>Vos données sont sécurisées et confidentielles</span>
+
+                <div className="p-4 bg-blue-50 border-2 border-blue-200 rounded-xl">
+                  <p className="text-sm text-blue-800">
+                    ⏱️ <strong>Intervention sous 24-48h</strong> • Nous venons chez vous
+                  </p>
                 </div>
               </div>
+            )}
 
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={() => setStep(4)}
-                  className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all"
-                >
-                  Retour
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-6 py-4 bg-gradient-to-r from-brand-red to-brand-red-light text-white rounded-xl font-bold hover:shadow-xl transition-all flex items-center justify-center gap-2"
-                >
-                  <Phone size={20} weight="bold" />
-                  Envoyer ma demande
-                </button>
+            {/* Step 4: Contact */}
+            {step === 4 && (
+              <div className="space-y-5 animate-fadeIn">
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Votre prénom (pour vous rappeler) *
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.prenom}
+                    onChange={(e) => updateField('prenom', e.target.value)}
+                    placeholder="Jean"
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
+                      errors.prenom ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                    }`}
+                    autoComplete="given-name"
+                  />
+                  {errors.prenom && (
+                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.prenom}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Téléphone 📞 *
+                  </label>
+                  <input
+                    type="tel"
+                    inputMode="tel"
+                    value={formData.phone}
+                    onChange={(e) => updateField('phone', e.target.value)}
+                    placeholder="06 12 34 56 78"
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
+                      errors.phone ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                    }`}
+                    autoComplete="tel"
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.phone}</p>
+                  )}
+                  {formData.phone && !errors.phone && /^0[1-9]\d{8}$/.test(formData.phone.replace(/\s/g, '')) && (
+                    <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
+                      <CheckCircle size={16} weight="fill" /> Numéro valide
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 mb-2">
+                    Email (facultatif)
+                  </label>
+                  <input
+                    type="email"
+                    inputMode="email"
+                    value={formData.email}
+                    onChange={(e) => updateField('email', e.target.value)}
+                    placeholder="jean@exemple.fr"
+                    className="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue transition-all"
+                    autoComplete="email"
+                  />
+                </div>
+
+                <div className="p-4 bg-gradient-to-r from-brand-red/10 to-brand-gold/10 border-2 border-brand-red/30 rounded-xl">
+                  <p className="text-sm text-neutral-800 flex items-center gap-2">
+                    <span className="text-xl">⚡</span>
+                    <strong>Réponse en moins de 15 minutes</strong> • Nous vous contactons rapidement
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
-        </form>
-
-        {/* Alternative contact methods */}
-        <div className="px-6 pb-6 border-t border-neutral-200 pt-6">
-          <p className="text-center text-sm text-neutral-600 mb-4">
-            Ou contactez-nous directement :
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href="tel:0979049486"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 border-2 border-brand-blue text-brand-blue rounded-xl font-semibold hover:bg-brand-blue hover:text-white transition-all"
-            >
-              <Phone size={20} weight="bold" />
-              09 79 04 94 86
-            </a>
-            <a
-              href="https://wa.me/33602427345"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-whatsapp text-white rounded-xl font-semibold hover:bg-whatsapp-hover transition-all"
-            >
-              <WhatsappLogo size={20} weight="fill" />
-              WhatsApp
-            </a>
+            )}
           </div>
-        </div>
-      </div>
 
-      {/* Success Modal - Professional Design */}
-      {showSuccess && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
-          <div className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden animate-fadeIn">
-            {/* Close Button */}
-            <button
-              onClick={() => {
-                setShowSuccess(false);
-                setFormData({
-                  service: defaultService || '',
-                  immatriculation: '',
-                  marque: '',
-                  modele: '',
-                  annee: '',
-                  energie: '',
-                  boite: '',
-                  kilometrage: '',
-                  vehicleCondition: '',
-                  nom: '',
-                  prenom: '',
-                  phone: '',
-                  email: '',
-                  codePostal: '',
-                  ville: '',
-                  departement: '',
-                  message: '',
-                });
-                setStep(1);
-                if (trigger === 'button') {
-                  setIsOpen(false);
-                }
-              }}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 hover:text-neutral-900 transition-all z-10"
-            >
-              <X size={20} weight="bold" />
-            </button>
-
-            {/* Content */}
-            <div className="p-8 sm:p-12 text-center">
-              {/* Success Illustration */}
-              <div className="relative w-full max-w-xs mx-auto mb-8">
-                <img 
-                  src="/mail.webp" 
-                  alt="Email envoyé avec succès" 
-                  className="w-full h-auto"
-                />
-              </div>
-
-              {/* Thank You Message */}
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy mb-3">
-                Merci !
-              </h2>
-              
-              <p className="text-lg text-neutral-600 mb-2">
-                Votre demande a été envoyée avec succès !
-              </p>
-              
-              <p className="text-base text-neutral-500 mb-8">
-                Nous vous recontacterons dans les <span className="font-semibold text-brand-red">24h-48h</span>.
-              </p>
-
-              {/* Quick Contact Options */}
-              <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-2xl p-6 mb-6">
-                <p className="text-sm font-semibold text-neutral-700 mb-4">
-                  Besoin d'une réponse immédiate ?
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <a
-                    href="tel:0979049486"
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-brand-red text-white rounded-xl font-semibold hover:bg-brand-red-light transition-all shadow-md hover:shadow-lg"
-                  >
-                    <Phone size={18} weight="bold" />
-                    <span className="text-sm">09 79 04 94 86</span>
-                  </a>
-                  <a
-                    href="https://wa.me/33602427345"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-whatsapp text-white rounded-xl font-semibold hover:bg-whatsapp-hover transition-all shadow-md hover:shadow-lg"
-                  >
-                    <WhatsappLogo size={18} weight="fill" />
-                    <span className="text-sm">WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Back to Homepage Button */}
+          {/* Navigation Buttons */}
+          <div className="flex gap-3 mt-8 pt-6 border-t-2 border-neutral-100">
+            {step > 1 && (
               <button
-                onClick={() => {
-                  setShowSuccess(false);
-                  setFormData({
-                    service: defaultService || '',
-                    immatriculation: '',
-                    marque: '',
-                    modele: '',
-                    annee: '',
-                    energie: '',
-                    boite: '',
-                    kilometrage: '',
-                    vehicleCondition: '',
-                    nom: '',
-                    prenom: '',
-                    phone: '',
-                    email: '',
-                    codePostal: '',
-                    ville: '',
-                    departement: '',
-                    message: '',
-                  });
-                  setStep(1);
-                  if (trigger === 'button') {
-                    setIsOpen(false);
-                  }
-                }}
-                className="w-full px-6 py-3.5 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all shadow-md hover:shadow-lg"
+                type="button"
+                onClick={handleBack}
+                className="px-6 py-3 border-2 border-neutral-300 text-neutral-700 rounded-xl font-semibold hover:bg-neutral-50 transition-all flex items-center gap-2"
               >
-                Retour à l'accueil
+                <ArrowLeft size={20} weight="bold" />
+                Retour
               </button>
-            </div>
+            )}
+            
+            {step < 4 ? (
+              <button
+                type="button"
+                onClick={handleNext}
+                className="flex-1 px-6 py-4 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 active:scale-95"
+              >
+                Continuer
+                <ArrowRight size={20} weight="bold" />
+              </button>
+            ) : (
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="flex-1 px-6 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95"
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-spin">⏳</span>
+                    Envoi en cours...
+                  </>
+                ) : (
+                  <>
+                    <Phone size={20} weight="bold" />
+                    📞 Être rappelé en 15 min
+                  </>
+                )}
+              </button>
+            )}
           </div>
-        </div>
-      )}
+        </form>
+      </div>
     </div>
   );
 }
