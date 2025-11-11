@@ -703,30 +703,13 @@ export default function ConversionForm({
 
             {/* Content */}
             <div className="p-8 sm:p-12 text-center">
-              {/* Animated Success Icon with Waves */}
-              <div className="relative w-32 h-32 mx-auto mb-8">
-                {/* Background Waves */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="absolute w-24 h-16 border-2 border-brand-blue/20 rounded-full animate-pulse" style={{ animationDelay: '0s' }}></div>
-                  <div className="absolute w-28 h-20 border-2 border-brand-blue/15 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                  <div className="absolute w-32 h-24 border-2 border-brand-blue/10 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                </div>
-                
-                {/* Email Icon with Checkmark */}
-                <div className="relative z-10 w-24 h-24 mx-auto bg-gradient-to-br from-brand-blue to-brand-navy rounded-full flex items-center justify-center shadow-xl">
-                  <div className="relative">
-                    {/* Envelope */}
-                    <div className="w-16 h-12 bg-white rounded-lg shadow-lg relative overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-brand-blue"></div>
-                      </div>
-                      {/* Checkmark */}
-                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
-                        <CheckCircle size={20} weight="fill" className="text-white" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {/* Success Illustration */}
+              <div className="relative w-full max-w-xs mx-auto mb-8">
+                <img 
+                  src="/mail.webp" 
+                  alt="Email envoyé avec succès" 
+                  className="w-full h-auto"
+                />
               </div>
 
               {/* Thank You Message */}
