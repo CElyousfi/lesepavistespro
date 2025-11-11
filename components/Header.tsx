@@ -205,16 +205,45 @@ const Header = () => {
       {/* Mobile Service Menu */}
       <MobileServiceMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
-      {/* Sticky Mobile CTA */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 p-4 shadow-lg z-50">
-        <a
-          href="tel:0979049486"
-          onClick={handleCallClick}
-          className="flex items-center justify-center space-x-2 bg-brand-red text-white py-3 rounded-lg font-semibold hover:bg-brand-red-light transition-colors shadow-lg"
-        >
-          <Phone size={20} weight="bold" />
-          <span>Appeler maintenant</span>
-        </a>
+      {/* Sticky Mobile CTAs - 3 buttons */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t-2 border-neutral-200 p-3 shadow-2xl z-50">
+        <div className="grid grid-cols-3 gap-2 max-w-lg mx-auto">
+          {/* Phone CTA */}
+          <a
+            href="tel:0979049486"
+            onClick={handleCallClick}
+            className="flex flex-col items-center justify-center bg-brand-red text-white py-3 px-2 rounded-lg font-semibold hover:bg-brand-red-light transition-colors shadow-md active:scale-95"
+          >
+            <Phone size={20} weight="bold" className="mb-1" />
+            <span className="text-xs">Appeler</span>
+          </a>
+          
+          {/* WhatsApp CTA */}
+          <a
+            href="https://wa.me/33979049486?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis%20pour%20l%27enl%C3%A8vement%20d%27une%20%C3%A9pave.%20Pouvez-vous%20me%20rappeler%20%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackWhatsAppClick('mobile_sticky')}
+            className="flex flex-col items-center justify-center bg-whatsapp text-white py-3 px-2 rounded-lg font-semibold hover:bg-whatsapp-hover transition-colors shadow-md active:scale-95"
+          >
+            <WhatsappLogo size={20} weight="fill" className="mb-1" />
+            <span className="text-xs">WhatsApp</span>
+          </a>
+          
+          {/* Form CTA */}
+          <button
+            onClick={() => {
+              const formSection = document.querySelector('section:has(form)');
+              if (formSection) {
+                formSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="flex flex-col items-center justify-center bg-brand-blue text-white py-3 px-2 rounded-lg font-semibold hover:bg-brand-blue/90 transition-colors shadow-md active:scale-95"
+          >
+            <EnvelopeSimple size={20} weight="bold" className="mb-1" />
+            <span className="text-xs">Devis</span>
+          </button>
+        </div>
       </div>
     </>
   );

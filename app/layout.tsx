@@ -115,7 +115,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} pb-20 lg:pb-0`}>
         {children}
         <Analytics />
       </body>
