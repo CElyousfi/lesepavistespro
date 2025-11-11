@@ -37,7 +37,7 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
     { name: city.name, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/${city.slug}/` }
   ]);
 
-  const cityFAQData = getCityFAQData(city.name, department.name);
+  const cityFAQData = getCityFAQData(city.name, department.name, city.slug);
 
   // Get nearby cities (first 6 from same department, excluding current)
   const nearbyCities = department.cities

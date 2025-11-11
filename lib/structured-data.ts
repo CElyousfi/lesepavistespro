@@ -247,29 +247,82 @@ export function getBreadcrumbData(items: Array<{ name: string; url: string }>) {
   };
 }
 
-// 7. CITY FAQ (local variations)
-export function getCityFAQData(cityName: string, deptName: string) {
+// 7. CITY FAQ (local variations with unique content)
+export function getCityFAQData(cityName: string, deptName: string, citySlug?: string) {
+  // Import city local data if available
+  let localData: any = null;
+  try {
+    const { getCityLocalData } = require('./city-local-data');
+    if (citySlug) {
+      localData = getCityLocalData(citySlug);
+    }
+  } catch (e) {
+    // City local data not available
+  }
+
+  const questions: any[] = [
+    // Core question 1
+    {
+      '@type': 'Question',
+      name: `Pouvez-vous enlever une épave en sous-sol à ${cityName} ?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: localData?.parkings?.length > 0
+          ? `Oui, nous intervenons 7j/7 en sous-sol à ${cityName}. Nous avons l'habitude d'intervenir dans les parkings locaux comme ${localData.parkings.slice(0, 2).join(', ')}. Équipement adapté pour tous types de sous-sols.`
+          : `Oui, nous intervenons 7j/7 en sous-sol à ${cityName} (parkings Indigo/Vinci), avec équipement adapté.`
+      }
+    },
+    // Core question 2
+    {
+      '@type': 'Question',
+      name: `Délai d'intervention à ${cityName} ?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `Généralement sous 24–48h à ${cityName}. Pour une urgence, contactez-nous par téléphone (09 79 04 94 86) ou WhatsApp.`
+      }
+    }
+  ];
+
+  // Add local fourrière question if data available
+  if (localData?.fourriere) {
+    questions.push({
+      '@type': 'Question',
+      name: `Où se trouve la fourrière à ${cityName} ?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `La fourrière locale est ${localData.fourriere.name}, située ${localData.fourriere.address}. Tarif : ${localData.fourriere.tarif}. Nous pouvons récupérer votre véhicule directement en fourrière et gérer toutes les démarches pour vous.`
+      }
+    });
+  }
+
+  // Add local access question if data available
+  if (localData?.acces) {
+    questions.push({
+      '@type': 'Question',
+      name: `Y a-t-il des contraintes d'accès à ${cityName} ?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: localData.acces
+      }
+    });
+  }
+
+  // Add local specificities question if data available
+  if (localData?.specificites && localData.specificites.length > 0) {
+    questions.push({
+      '@type': 'Question',
+      name: `Quelles sont les particularités de l'enlèvement d'épave à ${cityName} ?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `À ${cityName}, voici les points importants : ${localData.specificites.join('. ')}.`
+      }
+    });
+  }
+
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: `Pouvez-vous enlever une épave en sous-sol à ${cityName} ?`,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: `Oui, nous intervenons 7j/7 en sous-sol à ${cityName} (parkings Indigo/Vinci), avec équipement adapté.`
-        }
-      },
-      {
-        '@type': 'Question',
-        name: `Délai d'intervention à ${cityName} ?`,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: `Généralement sous 24–48h à ${cityName}. Pour une urgence, contactez-nous par téléphone ou WhatsApp.`
-        }
-      }
-    ]
+    mainEntity: questions
   };
 }
 
