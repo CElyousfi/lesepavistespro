@@ -102,7 +102,7 @@ const HeroNew = () => {
           <div className="hero-mosaic overflow-hidden -mx-4 md:-mx-6 lg:-mx-8 mt-auto">
             <div className="marquee-horizontal flex gap-3 md:gap-6 animate-marquee-horizontal">
               {/* First group */}
-              {marqueeImages.map((image) => (
+              {marqueeImages.map((image, index) => (
                 <div
                   key={`group1-${image.id}`}
                   className="flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-white rounded-xl md:rounded-2xl shadow-lg overflow-hidden relative"
@@ -112,6 +112,8 @@ const HeroNew = () => {
                     alt={image.alt}
                     fill
                     className="object-cover"
+                    priority={index === 0}
+                    loading={index === 0 ? undefined : 'lazy'}
                   />
                 </div>
               ))}
@@ -126,6 +128,7 @@ const HeroNew = () => {
                     alt={image.alt}
                     fill
                     className="object-cover"
+                    loading="lazy"
                   />
                 </div>
               ))}

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Clock, Shield, Truck, X, Car } from '@phosphor-icons/react';
+import { trackFormSubmit } from '@/lib/analytics';
 
 interface FormData {
   service: 'epaviste' | 'rachat' | '';
@@ -69,6 +70,9 @@ export default function ConversionForm({
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Track form submission
+    trackFormSubmit(formData.service || 'unknown');
     
     // Send form data to API
     try {

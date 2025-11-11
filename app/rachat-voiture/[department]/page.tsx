@@ -8,6 +8,7 @@ import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import type { Metadata } from 'next';
+import { getDepartmentLocalBusiness, renderJSONLD } from '@/lib/structured-data';
 
 export async function generateStaticParams() {
   return allDepartments.map((dept) => ({
@@ -39,8 +40,19 @@ export default async function DepartmentRachatPage({ params }: { params: Promise
     notFound();
   }
 
+  const structuredData = getDepartmentLocalBusiness(
+    dept.code,
+    `${dept.name} (${dept.code})`,
+    `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}/`
+  );
+
   return (
     <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(structuredData)}
+      />
       <Header />
       {/* Hero Section */}
       <section className="relative bg-brand-navy text-white py-20 md:py-32">

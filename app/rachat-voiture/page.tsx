@@ -8,6 +8,7 @@ import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
+import { getRachatServiceData, getPillarFAQData, renderJSONLD } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   title: "Rachat Voiture Île-de-France | Paiement Cash Immédiat",
@@ -15,8 +16,20 @@ export const metadata: Metadata = {
 };
 
 export default function RachatVoiturePage() {
+  const serviceData = getRachatServiceData();
+  const faqData = getPillarFAQData();
+
   return (
     <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(serviceData)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(faqData)}
+      />
       <Header />
       
       {/* Hero Section */}

@@ -7,6 +7,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { Clock, User, ArrowLeft, Phone } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { blogPosts } from '@/lib/blog-data';
+import { getBlogArticleData, renderJSONLD } from '@/lib/structured-data';
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -47,6 +48,16 @@ export async function generateStaticParams() {
 export default async function BlogPost({ params }: Props) {
   const { slug } = await params;
   const post = blogPosts.find(p => p.slug === slug);
+  
+  // Generate Article structured data
+  const articleData = post ? getBlogArticleData({
+    title: post.title,
+    description: post.excerpt,
+    author: 'Les Épavistes Pro',
+    publishDate: post.date,
+    image: post.image,
+    url: `https://www.lesepavistespro.fr/blog/${post.slug}`
+  }) : null;
 
   if (!post) {
     notFound();
@@ -54,6 +65,14 @@ export default async function BlogPost({ params }: Props) {
 
   return (
     <>
+      {/* Article Structured Data */}
+      {articleData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={renderJSONLD(articleData)}
+        />
+      )}
+      
       <Header />
       
       <main className="pt-28 md:pt-32 pb-20 bg-neutral-50 min-h-screen">

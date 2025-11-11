@@ -2,7 +2,7 @@
 
 import { notFound } from 'next/navigation';
 import { getCityBySlug } from '@/lib/locations-complete';
-import { CheckCircle, Clock, Shield, MapPin, CaretRight } from '@phosphor-icons/react';
+import { CheckCircle, Clock, Shield, MapPin, CaretRight, Car } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -13,6 +13,8 @@ import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import { getBreadcrumbData, getCityFAQData, renderJSONLD } from '@/lib/structured-data';
+import { getCityLocalData } from '@/lib/city-local-data';
 
 export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
   const result = getCityBySlug(citySlug);
@@ -23,6 +25,18 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
 
   const { city, department } = result;
 
+  // Get local data (fourrière, parking, etc.)
+  const localData = getCityLocalData(city.slug);
+
+  // Structured Data
+  const breadcrumbData = getBreadcrumbData([
+    { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste/' },
+    { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}/` },
+    { name: city.name, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}/${city.slug}/` }
+  ]);
+
+  const cityFAQData = getCityFAQData(city.name, department.name);
+
   // Get nearby cities (first 6 from same department, excluding current)
   const nearbyCities = department.cities
     .filter(c => c.slug !== city.slug)
@@ -30,6 +44,16 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
 
   return (
     <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(breadcrumbData)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(cityFAQData)}
+      />
+      
       <Header />
       {/* Hero Section */}
       <section className="relative bg-brand-navy text-white py-20 md:py-32">
@@ -95,10 +119,101 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
                 Nous sommes spécialisés dans l'enlèvement d'épaves à {city.name} et dans tout le {department.name}. 
                 Notre équipe peut intervenir rapidement, généralement sous 24 à 48 heures après votre demande.
               </p>
+              
+              {/* Local specific content */}
+              {localData && (
+                <>
+                  {localData.acces && (
+                    <div className="bg-blue-50 border-l-4 border-brand-blue p-4 my-6">
+                      <h3 className="font-bold text-brand-navy mb-2">Accès et intervention à {city.name}</h3>
+                      <p className="text-sm text-neutral-700">{localData.acces}</p>
+                    </div>
+                  )}
+                  
+                  {localData.specificites && localData.specificites.length > 0 && (
+                    <div className="my-6">
+                      <h3 className="font-bold text-neutral-900 mb-3">Spécificités locales :</h3>
+                      <ul className="space-y-2">
+                        {localData.specificites.map((spec, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <CheckCircle size={20} weight="bold" className="text-brand-blue flex-shrink-0 mt-0.5" />
+                            <span className="text-neutral-700">{spec}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
       </section>
+
+      {/* Local Fourrière & Parking Info */}
+      {localData && (localData.fourriere || localData.parkings.length > 0) && (
+        <section className="py-16 bg-gradient-to-br from-neutral-50 to-neutral-100">
+          <div className="container mx-auto px-[5%]">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-neutral-900 mb-8 text-center">
+                Informations pratiques à {city.name}
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Fourrière Info */}
+                {localData.fourriere && (
+                  <div className="bg-white p-6 rounded-2xl border-2 border-neutral-200 shadow-sm">
+                    <h3 className="font-bold text-brand-navy mb-4 flex items-center gap-2">
+                      <MapPin size={24} weight="bold" className="text-brand-red" />
+                      Fourrière locale
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <p><strong>{localData.fourriere.name}</strong></p>
+                      <p className="text-neutral-600">{localData.fourriere.address}</p>
+                      <p className="text-neutral-600">☎️ {localData.fourriere.phone}</p>
+                      <div className="pt-3 mt-3 border-t border-neutral-200">
+                        <p className="text-neutral-700"><strong>Tarif :</strong> {localData.fourriere.tarif}</p>
+                        <p className="text-neutral-700"><strong>Délai :</strong> {localData.fourriere.delai}</p>
+                      </div>
+                      <div className="pt-3 mt-3 bg-green-50 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                        <p className="text-sm text-green-800">
+                          💡 <strong>Astuce :</strong> Nous pouvons récupérer votre véhicule directement en fourrière et gérer les démarches.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Parking Info */}
+                {localData.parkings.length > 0 && (
+                  <div className="bg-white p-6 rounded-2xl border-2 border-neutral-200 shadow-sm">
+                    <h3 className="font-bold text-brand-navy mb-4 flex items-center gap-2">
+                      <Car size={24} weight="bold" className="text-brand-blue" />
+                      Parkings principaux
+                    </h3>
+                    <p className="text-sm text-neutral-600 mb-3">
+                      Nous intervenons dans tous les parkings de {city.name}, notamment :
+                    </p>
+                    <ul className="space-y-2">
+                      {localData.parkings.slice(0, 5).map((parking, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm">
+                          <CheckCircle size={16} weight="bold" className="text-brand-blue flex-shrink-0 mt-0.5" />
+                          <span className="text-neutral-700">{parking}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="pt-3 mt-3 bg-blue-50 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                      <p className="text-sm text-blue-800">
+                        🚛 <strong>Équipement :</strong> Treuil et matériel adapté pour sous-sols et rampes étroites.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Local Benefits */}
       <section className="py-20 md:py-28 bg-neutral-50">

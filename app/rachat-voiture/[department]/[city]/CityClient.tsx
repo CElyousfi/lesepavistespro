@@ -2,7 +2,7 @@
 
 import { notFound } from 'next/navigation';
 import { getCityBySlug } from '@/lib/locations-complete';
-import { CheckCircle, CurrencyEur, Shield, MapPin, Clock, CaretRight } from '@phosphor-icons/react';
+import { CheckCircle, CurrencyEur, Shield, MapPin, Clock, CaretRight, Car } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -13,6 +13,8 @@ import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import { getBreadcrumbData, getCityFAQData, renderJSONLD } from '@/lib/structured-data';
+import { getCityLocalData } from '@/lib/city-local-data';
 
 export default function CityRachatClient({ citySlug }: { citySlug: string }) {
   const result = getCityBySlug(citySlug);
@@ -23,6 +25,18 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
 
   const { city, department } = result;
 
+  // Get local data (fourrière, parking, etc.)
+  const localData = getCityLocalData(city.slug);
+
+  // Structured Data
+  const breadcrumbData = getBreadcrumbData([
+    { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture/' },
+    { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/` },
+    { name: city.name, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/${city.slug}/` }
+  ]);
+
+  const cityFAQData = getCityFAQData(city.name, department.name);
+
   // Get nearby cities (first 6 from same department, excluding current)
   const nearbyCities = department.cities
     .filter(c => c.slug !== city.slug)
@@ -30,6 +44,16 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
 
   return (
     <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(breadcrumbData)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(cityFAQData)}
+      />
+      
       <Header />
       {/* Hero Section */}
       <section className="relative bg-brand-navy text-white py-20 md:py-32">

@@ -10,10 +10,22 @@ import DualServiceCTA from '@/components/DualServiceCTA';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
+import { getHomeStructuredData, renderJSONLD } from '@/lib/structured-data';
 
 export default function Home() {
+  const structuredData = getHomeStructuredData();
+
   return (
     <div className="min-h-screen">
+      {/* Structured Data for SEO */}
+      {structuredData.map((data, index) => (
+        <script
+          key={index}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={renderJSONLD(data)}
+        />
+      ))}
+
       {/* Header is now inside HeroNew */}
       <main>
         <HeroNew />

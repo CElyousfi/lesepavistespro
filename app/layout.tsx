@@ -4,6 +4,7 @@ import "./globals.css";
 import "../styles/icon-animations.css";
 import Script from "next/script";
 import { getLocalBusinessSchema } from "@/lib/schema";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -110,6 +111,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
+        <Analytics />
       </body>
     </html>
   );

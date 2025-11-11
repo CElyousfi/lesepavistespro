@@ -8,6 +8,7 @@ import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
+import { getEpavisteServiceData, getPillarFAQData, renderJSONLD } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   title: "Épaviste Île-de-France | Enlèvement d'épave gratuit 24h/24",
@@ -15,8 +16,20 @@ export const metadata: Metadata = {
 };
 
 export default function EpavistePage() {
+  const serviceData = getEpavisteServiceData();
+  const faqData = getPillarFAQData();
+
   return (
     <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(serviceData)}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(faqData)}
+      />
       <Header />
       
       {/* Hero Section */}

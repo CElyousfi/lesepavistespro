@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { List, X, Phone, Truck, CurrencyEur, CaretDown, MapPin } from '@phosphor-icons/react';
+import { List, X, Phone, Truck, CurrencyEur, CaretDown, MapPin, WhatsappLogo, EnvelopeSimple } from '@phosphor-icons/react';
 import Button from './Button';
-import { trackCallClick } from '@/lib/analytics';
+import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
 import MobileServiceMenu from './MobileServiceMenu';
 
 const Header = () => {
@@ -136,8 +136,48 @@ const Header = () => {
               </Link>
             </nav>
 
-            {/* CTA Button */}
-            <div className="hidden md:block">
+            {/* CTA Buttons - 3 Actions */}
+            <div className="hidden lg:flex items-center gap-2">
+              {/* Phone CTA */}
+              <a 
+                href="tel:0979049486" 
+                onClick={handleCallClick}
+                className="flex items-center gap-2 px-4 py-2 bg-brand-red hover:bg-brand-red-light text-white rounded-lg transition-all text-sm font-semibold shadow-md hover:shadow-lg"
+              >
+                <Phone size={16} weight="bold" />
+                <span className="hidden xl:inline">09 79 04 94 86</span>
+                <span className="xl:hidden">Appeler</span>
+              </a>
+              
+              {/* WhatsApp CTA */}
+              <a 
+                href="https://wa.me/33602427345?text=Bonjour, je souhaite un devis"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick('header')}
+                className="flex items-center gap-2 px-4 py-2 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-lg transition-all text-sm font-semibold shadow-md hover:shadow-lg"
+              >
+                <WhatsappLogo size={16} weight="fill" />
+                <span>WhatsApp</span>
+              </a>
+              
+              {/* Form CTA */}
+              <button
+                onClick={() => {
+                  const formSection = document.querySelector('section:has(form)');
+                  if (formSection) {
+                    formSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-lg transition-all text-sm font-semibold shadow-md hover:shadow-lg"
+              >
+                <EnvelopeSimple size={16} weight="bold" />
+                <span>Devis</span>
+              </button>
+            </div>
+            
+            {/* Mobile - Single CTA */}
+            <div className="hidden md:block lg:hidden">
               <a href="tel:0979049486" onClick={handleCallClick}>
                 <Button size="sm" className="bg-brand-red hover:bg-brand-red-light text-white shadow-lg hover:shadow-xl">
                   <Phone size={16} weight="bold" className="mr-1" />

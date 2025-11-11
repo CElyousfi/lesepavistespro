@@ -9,6 +9,7 @@ import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import { getDepartmentLocalBusiness, renderJSONLD } from '@/lib/structured-data';
 
 export default function DepartmentClientPage({ departmentSlug }: { departmentSlug: string }) {
   const dept = getDepartmentBySlug(departmentSlug);
@@ -17,8 +18,19 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
     notFound();
   }
 
+  const structuredData = getDepartmentLocalBusiness(
+    dept.code,
+    `${dept.name} (${dept.code})`,
+    `https://www.lesepavistespro.fr/epaviste/${dept.slug}/`
+  );
+
   return (
     <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJSONLD(structuredData)}
+      />
       <Header />
       {/* Hero Section */}
       <section className="relative bg-white overflow-hidden flex items-center justify-center p-1 md:p-[0.25%] pt-24">
