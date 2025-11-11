@@ -11,6 +11,7 @@ import TrustBadges from '@/components/TrustBadges';
 import ServiceCard from '@/components/ServiceCard';
 import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
+import ConversionForm from '@/components/ConversionForm';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getBreadcrumbData, getCityFAQData, renderJSONLD } from '@/lib/structured-data';
@@ -205,6 +206,21 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
 
       {/* CTA Section */}
       <CTASection />
+
+      {/* Conversion Form */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-[5%]">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+              Demandez votre estimation gratuite à {city.name}
+            </h2>
+            <p className="text-lg text-neutral-600">
+              Obtenez le meilleur prix pour votre véhicule en moins de 15 minutes
+            </p>
+          </div>
+          <ConversionForm trigger="inline" />
+        </div>
+      </section>
 
       {/* FAQ */}
       <FAQ />
