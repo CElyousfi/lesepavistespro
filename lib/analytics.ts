@@ -4,7 +4,7 @@ declare global {
   }
 }
 
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-XXXXXXXXXX';
+export const GA_TRACKING_ID = 'G-RKMW16M4C2';
 
 // Track page views
 export const pageview = (url: string) => {

@@ -97,7 +97,7 @@ export default function RootLayout({
         {/* Google Analytics 4 */}
         <Script
           strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'}`}
+          src="https://www.googletagmanager.com/gtag/js?id=G-RKMW16M4C2"
         />
         <Script
           id="google-analytics"
@@ -107,7 +107,7 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX'}', {
+              gtag('config', 'G-RKMW16M4C2', {
                 page_path: window.location.pathname,
                 send_page_view: true
               });
