@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
+import ConversionForm from '@/components/ConversionForm';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import type { Metadata } from 'next';
@@ -281,6 +282,23 @@ export default async function DepartmentRachatPage({ params }: { params: Promise
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Conversion Form Section */}
+      <section className="py-20 md:py-28 bg-gradient-to-br from-neutral-50 to-white">
+        <div className="container mx-auto px-[5%]">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+                Obtenez votre estimation gratuite
+              </h2>
+              <p className="text-lg text-neutral-600">
+                Remplissez le formulaire • Paiement cash immédiat • Meilleur prix garanti
+              </p>
+            </div>
+            <ConversionForm trigger="inline" defaultService="rachat" />
           </div>
         </div>
       </section>
