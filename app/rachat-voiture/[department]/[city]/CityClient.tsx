@@ -1,5 +1,6 @@
 'use client';
 
+import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { getCityBySlug } from '@/lib/locations-complete';
 import { CheckCircle, CurrencyEur, Shield, MapPin, Clock, CaretRight, Car } from '@phosphor-icons/react';
@@ -46,13 +47,17 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
   return (
     <>
       {/* Structured Data for SEO */}
-      <script
+      <Script
+        id={`breadcrumb-rachat-${city.slug}`}
         type="application/ld+json"
-        dangerouslySetInnerHTML={renderJSONLD(breadcrumbData)}
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
-      <script
+      <Script
+        id={`faq-rachat-${city.slug}`}
         type="application/ld+json"
-        dangerouslySetInnerHTML={renderJSONLD(cityFAQData)}
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(cityFAQData) }}
       />
       
       <Header />

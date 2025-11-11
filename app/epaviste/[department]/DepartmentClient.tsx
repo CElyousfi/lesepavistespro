@@ -1,5 +1,6 @@
 'use client';
 
+import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { getDepartmentBySlug, type Department } from '@/lib/locations-complete';
 import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin } from '@phosphor-icons/react';
@@ -27,9 +28,11 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
   return (
     <>
       {/* Structured Data for SEO */}
-      <script
+      <Script
+        id={`department-${dept.slug}`}
         type="application/ld+json"
-        dangerouslySetInnerHTML={renderJSONLD(structuredData)}
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <Header />
       {/* Hero Section */}

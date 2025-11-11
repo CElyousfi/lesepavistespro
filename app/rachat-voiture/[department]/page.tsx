@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { getDepartmentBySlug, allDepartments } from '@/lib/locations-complete';
 import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin, Clock } from '@phosphor-icons/react/dist/ssr';
@@ -8,7 +9,7 @@ import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import type { Metadata } from 'next';
-import { getDepartmentLocalBusiness, renderJSONLD } from '@/lib/structured-data';
+import { getDepartmentLocalBusiness } from '@/lib/structured-data';
 
 export async function generateStaticParams() {
   return allDepartments.map((dept) => ({
@@ -49,9 +50,11 @@ export default async function DepartmentRachatPage({ params }: { params: Promise
   return (
     <>
       {/* Structured Data for SEO */}
-      <script
+      <Script
+        id={`department-rachat-${dept.slug}`}
         type="application/ld+json"
-        dangerouslySetInnerHTML={renderJSONLD(structuredData)}
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <Header />
       {/* Hero Section */}

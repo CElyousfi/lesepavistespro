@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+import Script from 'next/script';
 import Header from '@/components/Header';
 import HeroNew from '@/components/HeroNew';
 import ServiceSelector from '@/components/ServiceSelector';
@@ -10,21 +12,25 @@ import DualServiceCTA from '@/components/DualServiceCTA';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
-import { getHomeStructuredData, renderJSONLD } from '@/lib/structured-data';
+import { getHomeStructuredData } from '@/lib/structured-data';
 
 export default function Home() {
   const structuredData = getHomeStructuredData();
 
   return (
-    <div className="min-h-screen">
-      {/* Structured Data for SEO */}
+    <>
+      {/* Structured Data for SEO - Rendered in head via Script */}
       {structuredData.map((data, index) => (
-        <script
+        <Script
           key={index}
+          id={`structured-data-home-${index}`}
           type="application/ld+json"
-          dangerouslySetInnerHTML={renderJSONLD(data)}
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
+      
+      <div className="min-h-screen">
 
       {/* Header is now inside HeroNew */}
       <main>
@@ -93,5 +99,6 @@ export default function Home() {
       <Footer />
       <FloatingWhatsApp />
     </div>
+    </>
   );
 }

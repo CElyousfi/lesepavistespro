@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { allDepartments } from '@/lib/locations-complete';
@@ -8,7 +9,7 @@ import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
-import { getEpavisteServiceData, getPillarFAQData, renderJSONLD } from '@/lib/structured-data';
+import { getEpavisteServiceData, getPillarFAQData } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   title: "Épaviste Île-de-France | Enlèvement d'épave gratuit 24h/24",
@@ -21,14 +22,18 @@ export default function EpavistePage() {
 
   return (
     <>
-      {/* Structured Data for SEO */}
-      <script
+      {/* Structured Data for SEO - Rendered in head */}
+      <Script
+        id="structured-data-epaviste-service"
         type="application/ld+json"
-        dangerouslySetInnerHTML={renderJSONLD(serviceData)}
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceData) }}
       />
-      <script
+      <Script
+        id="structured-data-epaviste-faq"
         type="application/ld+json"
-        dangerouslySetInnerHTML={renderJSONLD(faqData)}
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
       />
       <Header />
       
