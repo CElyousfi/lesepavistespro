@@ -32,11 +32,11 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Épaviste</h4>
             <ul className="space-y-2 text-neutral-300 text-sm">
               <li><Link href="/epaviste" className="hover:text-brand-red transition-colors">Enlèvement d'épave gratuit</Link></li>
+              <li><Link href="/zones" className="hover:text-brand-gold transition-colors font-medium">📍 Toutes nos zones</Link></li>
               <li><Link href="/epaviste/paris-75" className="hover:text-brand-red transition-colors">Épaviste Paris</Link></li>
               <li><Link href="/epaviste/hauts-de-seine-92" className="hover:text-brand-red transition-colors">Épaviste 92</Link></li>
               <li><Link href="/epaviste/seine-saint-denis-93" className="hover:text-brand-red transition-colors">Épaviste 93</Link></li>
               <li><Link href="/epaviste/val-de-marne-94" className="hover:text-brand-red transition-colors">Épaviste 94</Link></li>
-              <li><Link href="/epaviste/val-d-oise-95" className="hover:text-brand-red transition-colors">Épaviste 95</Link></li>
             </ul>
           </div>
 
