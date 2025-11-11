@@ -664,49 +664,10 @@ export default function ConversionForm({
         </div>
       </div>
 
-      {/* Success Modal */}
+      {/* Success Modal - Professional Design */}
       {showSuccess && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 animate-fadeIn">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center animate-fadeIn">
-            {/* Success Icon */}
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-brand-red to-brand-gold flex items-center justify-center">
-              <CheckCircle size={48} weight="bold" className="text-white" />
-            </div>
-
-            {/* Thank You Message */}
-            <h3 className="text-3xl font-bold text-brand-navy mb-4">
-              Merci pour votre confiance !
-            </h3>
-            
-            <p className="text-lg text-neutral-700 mb-6 leading-relaxed">
-              Votre demande a bien été reçue. Nous vous recontacterons dans les prochaines <span className="font-bold text-brand-red">24h-48h</span> pour finaliser votre dossier.
-            </p>
-
-            {/* Contact Info Reminder */}
-            <div className="bg-gradient-to-r from-brand-navy/5 to-brand-blue/5 rounded-2xl p-4 mb-6">
-              <p className="text-sm text-neutral-600 mb-2">
-                Besoin d'une réponse plus rapide ?
-              </p>
-              <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                <a
-                  href="tel:0979049486"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-brand-red text-white rounded-lg font-semibold hover:bg-brand-red-light transition-all text-sm"
-                >
-                  <Phone size={16} weight="bold" />
-                  09 79 04 94 86
-                </a>
-                <a
-                  href="https://wa.me/33602427345"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-whatsapp text-white rounded-lg font-semibold hover:bg-whatsapp-hover transition-all text-sm"
-                >
-                  <WhatsappLogo size={16} weight="fill" />
-                  WhatsApp
-                </a>
-              </div>
-            </div>
-
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden animate-fadeIn">
             {/* Close Button */}
             <button
               onClick={() => {
@@ -735,14 +696,110 @@ export default function ConversionForm({
                   setIsOpen(false);
                 }
               }}
-              className="w-full px-6 py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-xl font-semibold transition-all"
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 hover:text-neutral-900 transition-all z-10"
             >
-              Fermer
+              <X size={20} weight="bold" />
             </button>
 
-            <p className="text-xs text-neutral-500 mt-4">
-              Cette fenêtre se fermera automatiquement dans quelques secondes
-            </p>
+            {/* Content */}
+            <div className="p-8 sm:p-12 text-center">
+              {/* Animated Success Icon with Waves */}
+              <div className="relative w-32 h-32 mx-auto mb-8">
+                {/* Background Waves */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute w-24 h-16 border-2 border-brand-blue/20 rounded-full animate-pulse" style={{ animationDelay: '0s' }}></div>
+                  <div className="absolute w-28 h-20 border-2 border-brand-blue/15 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="absolute w-32 h-24 border-2 border-brand-blue/10 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                </div>
+                
+                {/* Email Icon with Checkmark */}
+                <div className="relative z-10 w-24 h-24 mx-auto bg-gradient-to-br from-brand-blue to-brand-navy rounded-full flex items-center justify-center shadow-xl">
+                  <div className="relative">
+                    {/* Envelope */}
+                    <div className="w-16 h-12 bg-white rounded-lg shadow-lg relative overflow-hidden">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-brand-blue"></div>
+                      </div>
+                      {/* Checkmark */}
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+                        <CheckCircle size={20} weight="fill" className="text-white" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Thank You Message */}
+              <h2 className="text-3xl sm:text-4xl font-bold text-brand-navy mb-3">
+                Merci !
+              </h2>
+              
+              <p className="text-lg text-neutral-600 mb-2">
+                Votre demande a été envoyée avec succès !
+              </p>
+              
+              <p className="text-base text-neutral-500 mb-8">
+                Nous vous recontacterons dans les <span className="font-semibold text-brand-red">24h-48h</span>.
+              </p>
+
+              {/* Quick Contact Options */}
+              <div className="bg-gradient-to-br from-neutral-50 to-neutral-100 rounded-2xl p-6 mb-6">
+                <p className="text-sm font-semibold text-neutral-700 mb-4">
+                  Besoin d'une réponse immédiate ?
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="tel:0979049486"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-brand-red text-white rounded-xl font-semibold hover:bg-brand-red-light transition-all shadow-md hover:shadow-lg"
+                  >
+                    <Phone size={18} weight="bold" />
+                    <span className="text-sm">09 79 04 94 86</span>
+                  </a>
+                  <a
+                    href="https://wa.me/33602427345"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-whatsapp text-white rounded-xl font-semibold hover:bg-whatsapp-hover transition-all shadow-md hover:shadow-lg"
+                  >
+                    <WhatsappLogo size={18} weight="fill" />
+                    <span className="text-sm">WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Back to Homepage Button */}
+              <button
+                onClick={() => {
+                  setShowSuccess(false);
+                  setFormData({
+                    service: defaultService || '',
+                    immatriculation: '',
+                    marque: '',
+                    modele: '',
+                    annee: '',
+                    energie: '',
+                    boite: '',
+                    kilometrage: '',
+                    vehicleCondition: '',
+                    nom: '',
+                    prenom: '',
+                    phone: '',
+                    email: '',
+                    codePostal: '',
+                    ville: '',
+                    departement: '',
+                    message: '',
+                  });
+                  setStep(1);
+                  if (trigger === 'button') {
+                    setIsOpen(false);
+                  }
+                }}
+                className="w-full px-6 py-3.5 bg-brand-blue text-white rounded-xl font-semibold hover:bg-brand-blue/90 transition-all shadow-md hover:shadow-lg"
+              >
+                Retour à l'accueil
+              </button>
+            </div>
           </div>
         </div>
       )}
