@@ -63,6 +63,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "GoQitSAjNTkgl-uE18aHrk3DJyT5sAdzatuTaBYl18g",
+    other: {
+      'msvalidate.01': '028D2D1281F99EFDDA399E3F98954FBB',
+    },
   },
   alternates: {
     canonical: "https://lesepavistespro.fr",
