@@ -82,6 +82,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
+        {/* Bing Webmaster Tools Verification */}
+        <meta name="msvalidate.01" content="028D2D1281F99EFDDA399E3F98954FBB" />
+        
         {/* Schema.org JSON-LD for LocalBusiness */}
         <Script
           id="schema-local-business"
