@@ -263,7 +263,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
       try {
         const { data, error } = await resend.emails.send({
           from: 'onboarding@resend.dev',
-          to: ['contact@lesepavistespro.fr'],
+          to: ['lesepavistespro@gmail.com'],
           replyTo: formData.email,
           subject: `🚗 Nouvelle demande: ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} - ${formData.nom}`,
           html: emailHTML,
@@ -276,7 +276,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
         } else {
           console.log('✅ Email sent successfully!');
           console.log('Email ID:', data?.id);
-          console.log('Sent to:', 'contact@lesepavistespro.fr');
+          console.log('Sent to:', 'lesepavistespro@gmail.com');
         }
       } catch (emailError) {
         console.error('❌ Email sending failed:', emailError);
