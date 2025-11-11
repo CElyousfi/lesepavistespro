@@ -183,40 +183,149 @@ export default function ConversionFormNew({
   if (showSuccess) {
     return (
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
-        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center animate-scaleIn">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={48} weight="fill" className="text-green-500" />
-          </div>
-          
-          <h3 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-3">
-            C'est noté ! 🎉
-          </h3>
-          
-          <p className="text-lg text-neutral-700 mb-2">
-            Un conseiller vous contacte dans les <strong className="text-brand-red">15 prochaines minutes</strong>.
-          </p>
-          
-          <p className="text-sm text-neutral-600 mb-6">
-            Votre numéro : <strong>{formData.phone}</strong>
-          </p>
-
-          <div className="space-y-3">
-            <a
-              href={`https://wa.me/33979049486?text=Bonjour, je viens de remplir le formulaire pour ${formData.service === 'epaviste' ? 'un enlèvement d\'épave' : 'un rachat de voiture'}. Pouvez-vous me rappeler ?`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
-            >
-              <WhatsappLogo size={24} weight="fill" />
-              <span>💬 Ou écrivez-nous sur WhatsApp</span>
-            </a>
+        <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden animate-scaleIn">
+          {/* Hero Section with Illustration */}
+          <div className="relative bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-blue p-8 md:p-12 text-center overflow-hidden">
+            {/* Decorative circles */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-red/10 rounded-full blur-3xl"></div>
             
-            <button
-              onClick={() => setShowSuccess(false)}
-              className="w-full px-6 py-3 text-neutral-600 hover:text-neutral-900 font-medium transition-colors"
-            >
-              Fermer
-            </button>
+            <div className="relative z-10">
+              {/* Success Icon with Animation */}
+              <div className="relative inline-block mb-6">
+                <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75"></div>
+                <div className="relative w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-2xl">
+                  <CheckCircle size={56} weight="fill" className="text-green-500" />
+                </div>
+              </div>
+              
+              {/* Illustration */}
+              <div className="mb-6">
+                <div className="text-8xl mb-4 animate-bounce">🎉</div>
+              </div>
+              
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                C'est noté !
+              </h3>
+              
+              <p className="text-lg md:text-xl text-neutral-200 mb-2">
+                Votre demande a été envoyée avec succès
+              </p>
+              
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border-2 border-white/30 mt-4">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-white font-semibold">Demande reçue</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="p-8 md:p-10">
+            {/* Info Cards */}
+            <div className="grid md:grid-cols-2 gap-4 mb-8">
+              <div className="p-5 bg-gradient-to-br from-brand-red/10 to-red-50 border-2 border-brand-red/20 rounded-2xl">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-brand-red rounded-full flex items-center justify-center">
+                    <Phone size={20} weight="bold" className="text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-sm text-neutral-600 font-medium">Réponse rapide</div>
+                    <div className="text-lg font-bold text-brand-red">Sous 15 min</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-5 bg-gradient-to-br from-brand-gold/10 to-yellow-50 border-2 border-brand-gold/20 rounded-2xl">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center">
+                    <CheckCircle size={20} weight="bold" className="text-white" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-sm text-neutral-600 font-medium">Service</div>
+                    <div className="text-lg font-bold text-brand-gold">24h/24, 7j/7</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div className="p-6 bg-gradient-to-r from-neutral-50 to-neutral-100 rounded-2xl border-2 border-neutral-200 mb-6">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm text-neutral-600 font-medium">Votre numéro :</span>
+                <span className="text-lg font-bold text-brand-navy">{formData.phone}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-neutral-600 font-medium">Service demandé :</span>
+                <span className="text-lg font-bold text-brand-navy">
+                  {formData.service === 'epaviste' ? '🚛 Enlèvement d\'épave' : '💰 Rachat de voiture'}
+                </span>
+              </div>
+            </div>
+
+            {/* What Happens Next */}
+            <div className="mb-8">
+              <h4 className="text-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
+                <span className="text-2xl">📋</span>
+                Que se passe-t-il maintenant ?
+              </h4>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-brand-blue/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-brand-blue font-bold text-sm">1</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-neutral-900">Un conseiller vous appelle</div>
+                    <div className="text-sm text-neutral-600">Dans les 15 prochaines minutes</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-brand-blue/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-brand-blue font-bold text-sm">2</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-neutral-900">Estimation gratuite</div>
+                    <div className="text-sm text-neutral-600">Devis personnalisé en quelques minutes</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-brand-blue/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-brand-blue font-bold text-sm">3</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-neutral-900">Intervention rapide</div>
+                    <div className="text-sm text-neutral-600">Enlèvement sous 24-48h</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="space-y-3">
+              <a
+                href={`https://wa.me/33979049486?text=Bonjour, je viens de remplir le formulaire pour ${formData.service === 'epaviste' ? 'un enlèvement d\'épave' : 'un rachat de voiture'}. Pouvez-vous me rappeler ?`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl active:scale-95"
+              >
+                <WhatsappLogo size={24} weight="fill" />
+                <span>💬 Ou écrivez-nous sur WhatsApp</span>
+              </a>
+              
+              <a
+                href="tel:0979049486"
+                className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl active:scale-95"
+              >
+                <Phone size={24} weight="bold" />
+                <span>📞 Ou appelez-nous maintenant</span>
+              </a>
+              
+              <button
+                onClick={() => setShowSuccess(false)}
+                className="w-full px-6 py-3 text-neutral-600 hover:text-neutral-900 font-medium transition-colors rounded-xl hover:bg-neutral-100"
+              >
+                Fermer
+              </button>
+            </div>
           </div>
         </div>
       </div>
