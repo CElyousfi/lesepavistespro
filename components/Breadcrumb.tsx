@@ -17,7 +17,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
     <nav className="flex items-center gap-2 text-sm mb-8" aria-label="Breadcrumb">
       <Link 
         href="/" 
-        className="flex items-center gap-1 text-neutral-300 hover:text-white transition-colors"
+        className="flex items-center gap-1 text-white/80 hover:text-white transition-colors"
         aria-label="Accueil"
       >
         <House size={16} weight="bold" />
@@ -26,16 +26,16 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
       
       {items.map((item, index) => (
         <div key={index} className="flex items-center gap-2">
-          <CaretRight size={12} weight="bold" className="text-neutral-400" />
+          <CaretRight size={12} weight="bold" className="text-white/60" />
           {item.href ? (
             <Link 
               href={item.href}
-              className="text-neutral-300 hover:text-white transition-colors truncate max-w-[200px]"
+              className="text-white/80 hover:text-white transition-colors truncate max-w-[200px]"
             >
               {item.label}
             </Link>
           ) : (
-            <span className="text-white font-medium truncate max-w-[200px]">
+            <span className="text-white font-semibold truncate max-w-[200px]">
               {item.label}
             </span>
           )}
