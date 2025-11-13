@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { allDepartments, getCityBySlug } from '@/lib/locations-complete';
+import { generateEpavisteCityMeta } from '@/lib/seo';
 import CityEpavisteClient from './CityClient';
 
 // Generate static params for all cities
@@ -31,10 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 
   const { city, department } = result;
 
-  return {
-    title: `Épaviste ${city.name} (${city.postalCode}) | Enlèvement Gratuit 24h`,
-    description: `⭐ Épaviste agréé VHU à ${city.name} (${city.postalCode}) dans le ${department.name}. Enlèvement d'épave 100% GRATUIT sous 24h. ☎️ 09 79 04 94 86`,
-  };
+  return generateEpavisteCityMeta(city.name, department.slug, city.slug);
 }
 
 export default async function CityEpavistePage({ params }: { params: Promise<{ city: string }> }) {

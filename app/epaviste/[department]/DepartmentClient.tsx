@@ -11,7 +11,7 @@ import CTASection from '@/components/CTASection';
 import ConversionForm from '@/components/ConversionForm';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { getDepartmentLocalBusiness, renderJSONLD } from '@/lib/structured-data';
+import { getDepartmentLocalBusiness, getBreadcrumbData, renderJSONLD } from '@/lib/structured-data';
 
 export default function DepartmentClientPage({ departmentSlug }: { departmentSlug: string }) {
   const dept = getDepartmentBySlug(departmentSlug);
@@ -20,11 +20,19 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
     notFound();
   }
 
-  const structuredData = getDepartmentLocalBusiness(
+  const localBusinessData = getDepartmentLocalBusiness(
     dept.code,
     `${dept.name} (${dept.code})`,
     `https://www.lesepavistespro.fr/epaviste/${dept.slug}/`
   );
+
+  const breadcrumbData = getBreadcrumbData([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr/' },
+    { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
+    { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/epaviste/${dept.slug}` },
+  ]);
+
+  const structuredData = [localBusinessData, breadcrumbData];
 
   return (
     <>

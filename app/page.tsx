@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import Script from 'next/script';
 import Header from '@/components/Header';
 import HeroNew from '@/components/HeroNew';
@@ -13,6 +12,9 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
 import { getHomeStructuredData } from '@/lib/structured-data';
+import { generateHomeMeta } from '@/lib/seo';
+
+export const metadata = generateHomeMeta();
 
 export default function Home() {
   const structuredData = getHomeStructuredData();

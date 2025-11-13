@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { allDepartments, getCityBySlug } from '@/lib/locations-complete';
+import { generateRachatCityMeta } from '@/lib/seo';
 import CityRachatClient from './CityClient';
 
 // Generate static params for all cities
@@ -31,10 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 
   const { city, department } = result;
 
-  return {
-    title: `Rachat Voiture ${city.name} (${city.postalCode}) | Achat Cash Immédiat`,
-    description: `⭐ Rachat de voiture à ${city.name} (${city.postalCode}). Achat cash de véhicules HS, accidentés, en panne. Paiement immédiat. ☎️ 09 79 04 94 86`,
-  };
+  return generateRachatCityMeta(city.name, department.slug, city.slug);
 }
 
 export default async function CityRachatPage({ params }: { params: Promise<{ city: string }> }) {

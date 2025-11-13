@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin } from '@phosphor-icons/react/dist/ssr';
+import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin, Clock } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { allDepartments } from '@/lib/locations-complete';
 import Header from '@/components/Header';
@@ -10,11 +10,9 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
 import { getRachatServiceData, getPillarFAQData } from '@/lib/structured-data';
+import { generateRachatPillarMeta } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Rachat Voiture Île-de-France | Paiement Cash Immédiat",
-  description: "⭐ Rachat de voiture au meilleur prix en Île-de-France. Paiement cash immédiat, enlèvement gratuit. Voiture accidentée, en panne ou HS. ☎️ 09 79 04 94 86",
-};
+export const metadata = generateRachatPillarMeta();
 
 export default function RachatVoiturePage() {
   const serviceData = getRachatServiceData();

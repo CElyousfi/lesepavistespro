@@ -10,7 +10,8 @@ import ConversionForm from '@/components/ConversionForm';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import type { Metadata } from 'next';
-import { getDepartmentLocalBusiness } from '@/lib/structured-data';
+import { getDepartmentLocalBusiness, getBreadcrumbData } from '@/lib/structured-data';
+import { generateRachatDepartmentMeta } from '@/lib/seo';
 
 export async function generateStaticParams() {
   return allDepartments.map((dept) => ({
@@ -28,10 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ departmen
     };
   }
 
-  return {
-    title: `Rachat Voiture ${dept.name} (${dept.code}) | Paiement Cash Immédiat`,
-    description: `Rachat de voiture dans le ${dept.name}. Paiement cash immédiat, estimation gratuite. Tous véhicules : accidentés, en panne, HS. ☎️ 09 79 04 94 86`,
-  };
+  return generateRachatDepartmentMeta(dept.name, dept.slug);
 }
 
 export default async function DepartmentRachatPage({ params }: { params: Promise<{ department: string }> }) {
@@ -42,11 +40,19 @@ export default async function DepartmentRachatPage({ params }: { params: Promise
     notFound();
   }
 
-  const structuredData = getDepartmentLocalBusiness(
+  const localBusinessData = getDepartmentLocalBusiness(
     dept.code,
     `${dept.name} (${dept.code})`,
     `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}/`
   );
+
+  const breadcrumbData = getBreadcrumbData([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr/' },
+    { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
+    { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}` },
+  ]);
+
+  const structuredData = [localBusinessData, breadcrumbData];
 
   return (
     <>

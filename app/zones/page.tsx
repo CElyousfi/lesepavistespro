@@ -5,12 +5,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { allDepartments } from '@/lib/locations-complete';
+import { generateZonesMeta } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Toutes nos Zones d'Intervention en Île-de-France | Les Épavistes Pro",
-  description: "Découvrez toutes les villes d'Île-de-France où nous intervenons pour l'enlèvement d'épave gratuit et le rachat de voiture. 288 villes dans 8 départements.",
-  keywords: ['zones intervention', 'villes IDF', 'épaviste Île-de-France', 'rachat voiture IDF'],
-};
+export const metadata: Metadata = generateZonesMeta();
 
 export default function ZonesPage() {
   // Calculate total cities

@@ -10,11 +10,9 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
 import { getEpavisteServiceData, getPillarFAQData } from '@/lib/structured-data';
+import { generateEpavistePillarMeta } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Épaviste Île-de-France | Enlèvement d'épave gratuit 24h/24",
-  description: "⭐ Service d'enlèvement d'épave 100% GRATUIT en Île-de-France. Épaviste agréé VHU, intervention 24h/24, 7j/7. Certificat de destruction garanti. ☎️ 09 79 04 94 86",
-};
+export const metadata: Metadata = generateEpavistePillarMeta();
 
 export default function EpavistePage() {
   const serviceData = getEpavisteServiceData();
