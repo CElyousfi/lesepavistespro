@@ -3,7 +3,7 @@
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
 import { getCityBySlug } from '@/lib/locations-complete';
-import { CheckCircle, Clock, Shield, MapPin, CaretRight, Car } from '@phosphor-icons/react';
+import { CheckCircle, Clock, Shield, MapPin, CaretRight, Car, CurrencyEur } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Breadcrumb from '@/components/Breadcrumb';
@@ -315,6 +315,59 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
             </p>
           </div>
           <ConversionForm trigger="inline" />
+        </div>
+      </section>
+
+      {/* Internal Linking - Related Services & Cities */}
+      <section className="py-16 bg-neutral-50">
+        <div className="container mx-auto px-[5%]">
+          <div className="max-w-6xl mx-auto">
+            {/* Cross-link to Rachat */}
+            <div className="mb-12 p-6 bg-gradient-to-r from-brand-gold/10 to-yellow-50 border-2 border-brand-gold/20 rounded-2xl">
+              <h3 className="text-xl font-bold text-neutral-900 mb-3 flex items-center gap-2">
+                <CurrencyEur size={24} weight="bold" className="text-brand-gold" />
+                Vous souhaitez plutôt vendre votre voiture ?
+              </h3>
+              <p className="text-neutral-700 mb-4">
+                Découvrez notre service de rachat de voiture à {city.name}. Paiement cash immédiat, tous véhicules acceptés.
+              </p>
+              <Link
+                href={`/rachat-voiture/${department.slug}/${city.slug}`}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-gold hover:bg-brand-gold-light text-white rounded-xl font-semibold transition-all shadow-md hover:shadow-lg"
+              >
+                💰 Rachat voiture à {city.name}
+                <CaretRight size={16} weight="bold" />
+              </Link>
+            </div>
+
+            {/* Neighboring Cities */}
+            {department.cities.length > 1 && (
+              <div>
+                <h3 className="text-2xl font-bold text-neutral-900 mb-6">
+                  Épaviste dans les villes voisines
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {department.cities
+                    .filter(c => c.slug !== city.slug)
+                    .slice(0, 8)
+                    .map((neighborCity) => (
+                      <Link
+                        key={neighborCity.slug}
+                        href={`/epaviste/${department.slug}/${neighborCity.slug}`}
+                        className="flex items-center gap-2 p-4 bg-white rounded-xl border-2 border-neutral-200 hover:border-brand-red hover:shadow-md transition-all group"
+                      >
+                        <MapPin size={20} weight="bold" className="text-brand-red flex-shrink-0" />
+                        <div className="min-w-0">
+                          <div className="font-semibold text-neutral-900 group-hover:text-brand-red transition-colors truncate text-sm">
+                            {neighborCity.name}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 

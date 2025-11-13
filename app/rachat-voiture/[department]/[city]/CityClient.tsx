@@ -227,6 +227,59 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
         </div>
       </section>
 
+      {/* Internal Linking - Related Services & Cities */}
+      <section className="py-16 bg-neutral-50">
+        <div className="container mx-auto px-[5%]">
+          <div className="max-w-6xl mx-auto">
+            {/* Cross-link to Épaviste */}
+            <div className="mb-12 p-6 bg-gradient-to-r from-brand-red/10 to-red-50 border-2 border-brand-red/20 rounded-2xl">
+              <h3 className="text-xl font-bold text-neutral-900 mb-3 flex items-center gap-2">
+                <Car size={24} weight="bold" className="text-brand-red" />
+                Votre voiture est une épave ?
+              </h3>
+              <p className="text-neutral-700 mb-4">
+                Découvrez notre service d'enlèvement d'épave à {city.name}. Service 100% gratuit, intervention rapide.
+              </p>
+              <Link
+                href={`/epaviste/${department.slug}/${city.slug}`}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-semibold transition-all shadow-md hover:shadow-lg"
+              >
+                🚛 Épaviste à {city.name}
+                <CaretRight size={16} weight="bold" />
+              </Link>
+            </div>
+
+            {/* Neighboring Cities */}
+            {department.cities.length > 1 && (
+              <div>
+                <h3 className="text-2xl font-bold text-neutral-900 mb-6">
+                  Rachat voiture dans les villes voisines
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {department.cities
+                    .filter(c => c.slug !== city.slug)
+                    .slice(0, 8)
+                    .map((neighborCity) => (
+                      <Link
+                        key={neighborCity.slug}
+                        href={`/rachat-voiture/${department.slug}/${neighborCity.slug}`}
+                        className="flex items-center gap-2 p-4 bg-white rounded-xl border-2 border-neutral-200 hover:border-brand-gold hover:shadow-md transition-all group"
+                      >
+                        <MapPin size={20} weight="bold" className="text-brand-gold flex-shrink-0" />
+                        <div className="min-w-0">
+                          <div className="font-semibold text-neutral-900 group-hover:text-brand-gold transition-colors truncate text-sm">
+                            {neighborCity.name}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <FAQ />
 
