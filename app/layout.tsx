@@ -12,7 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://lesepavistespro.fr'),
+  metadataBase: new URL('https://www.lesepavistespro.fr'),
   title: {
     default: "Épaviste Île-de-France | Enlèvement d'épave gratuit & Rachat voiture 24h",
     template: '%s | Les Épavistes Pro',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     description: "Service d'enlèvement d'épave 100% gratuit 24h/24, 7j/7 en Île-de-France. Épaviste agréé VHU et rachat de véhicules au meilleur prix. Appelez le 09 79 04 94 86",
     type: "website",
     locale: "fr_FR",
-    url: "https://lesepavistespro.fr",
+    url: "https://www.lesepavistespro.fr",
     siteName: "Les Épavistes Pro",
     images: [
       {
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://lesepavistespro.fr",
+    canonical: "https://www.lesepavistespro.fr",
   },
 };
 
