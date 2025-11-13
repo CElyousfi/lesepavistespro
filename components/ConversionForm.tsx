@@ -19,6 +19,10 @@ interface FormData {
   prenom: string;
   phone: string;
   email: string;
+  // Hidden tracking fields
+  department?: string;
+  city?: string;
+  pageType?: string;
 }
 
 interface ConversionFormProps {
@@ -26,13 +30,17 @@ interface ConversionFormProps {
   trigger?: 'button' | 'inline';
   buttonText?: string;
   cityName?: string;
+  departmentName?: string;
+  pageType?: 'home' | 'pillar' | 'department' | 'city';
 }
 
 export default function ConversionFormNew({ 
   defaultService, 
   trigger = 'button',
   buttonText = "📞 Être rappelé en 15 min",
-  cityName
+  cityName,
+  departmentName,
+  pageType = 'home'
 }: ConversionFormProps) {
   const [isOpen, setIsOpen] = useState(trigger === 'inline');
   const [step, setStep] = useState(defaultService ? 2 : 1);
@@ -52,13 +60,32 @@ export default function ConversionFormNew({
     prenom: '',
     phone: '',
     email: '',
+    // Hidden tracking fields
+    department: departmentName,
+    city: cityName,
+    pageType: pageType,
   });
 
   const totalSteps = 3;
+  const [hasStartedForm, setHasStartedForm] = useState(false);
 
   // Update form data with validation
   const updateField = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Track form start on first interaction
+    if (!hasStartedForm) {
+      setHasStartedForm(true);
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'form_start', {
+          service: formData.service || defaultService,
+          page_type: formData.pageType,
+          department: formData.department,
+          city: formData.city,
+        });
+      }
+    }
+    
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
@@ -134,6 +161,16 @@ export default function ConversionFormNew({
     setIsSubmitting(false);
     setShowSuccess(true);
     
+    // Track success modal display
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'form_success_displayed', {
+        service: formData.service,
+        page_type: formData.pageType,
+        department: formData.department,
+        city: formData.city,
+      });
+    }
+    
     // Auto-close after 8 seconds
     setTimeout(() => {
       setShowSuccess(false);
@@ -161,7 +198,19 @@ export default function ConversionFormNew({
   // Next step handler
   const handleNext = () => {
     if (validateStep(step)) {
-      setStep(prev => Math.min(prev + 1, 4));
+      const nextStep = Math.min(step + 1, totalSteps + 1);
+      setStep(nextStep);
+      
+      // Track form step progression
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'form_step', {
+          step_number: nextStep,
+          service: formData.service,
+          page_type: formData.pageType,
+          department: formData.department,
+          city: formData.city,
+        });
+      }
     }
   };
 
@@ -302,21 +351,43 @@ export default function ConversionFormNew({
             {/* CTA Buttons */}
             <div className="space-y-3">
               <a
-                href={`https://wa.me/33979049486?text=Bonjour, je viens de remplir le formulaire pour ${formData.service === 'epaviste' ? 'un enlèvement d\'épave' : 'un rachat de voiture'}. Pouvez-vous me rappeler ?`}
+                href={`https://wa.me/33979049486?text=Bonjour, je viens de remplir le formulaire pour ${formData.service === 'epaviste' ? 'un enlèvement d\'épave' : 'un rachat de voiture'}. Voici les photos de mon véhicule :`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl active:scale-95"
+                onClick={() => {
+                  // Track WhatsApp click
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'click_whatsapp', {
+                      service: formData.service,
+                      page_type: formData.pageType,
+                      department: formData.department,
+                      city: formData.city,
+                    });
+                  }
+                }}
               >
                 <WhatsappLogo size={24} weight="fill" />
-                <span>💬 Ou écrivez-nous sur WhatsApp</span>
+                <span>📸 Envoyer des photos sur WhatsApp</span>
               </a>
               
               <a
                 href="tel:0979049486"
                 className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl active:scale-95"
+                onClick={() => {
+                  // Track call click
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'click_call', {
+                      service: formData.service,
+                      page_type: formData.pageType,
+                      department: formData.department,
+                      city: formData.city,
+                    });
+                  }
+                }}
               >
                 <Phone size={24} weight="bold" />
-                <span>📞 Ou appelez-nous maintenant</span>
+                <span>📞 Appeler maintenant</span>
               </a>
               
               <button
