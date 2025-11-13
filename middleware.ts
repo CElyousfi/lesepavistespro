@@ -7,17 +7,23 @@ import type { NextRequest } from 'next/server';
  */
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
+  const hostname = url.hostname;
 
-  // Force https + www
+  // Skip middleware for localhost and development
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('.local')) {
+    return NextResponse.next();
+  }
+
+  // Force https + www in production
   const isHttp = url.protocol === 'http:';
-  const isNonWww = !url.hostname.startsWith('www.');
+  const isNonWww = !hostname.startsWith('www.');
 
   if (isHttp || isNonWww) {
     url.protocol = 'https:';
-    if (isNonWww && !url.hostname.includes('localhost')) {
-      url.hostname = `www.${url.hostname}`;
+    if (isNonWww) {
+      url.hostname = `www.${hostname}`;
     }
-    return NextResponse.redirect(url.toString(), 308); // Permanent redirect
+    return NextResponse.redirect(url, 308); // Permanent redirect
   }
 
   return NextResponse.next();
