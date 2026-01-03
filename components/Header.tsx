@@ -220,7 +220,7 @@ const Header = () => {
           
           {/* WhatsApp CTA */}
           <a
-            href="https://wa.me/33979049486?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis%20pour%20l%27enl%C3%A8vement%20d%27une%20%C3%A9pave.%20Pouvez-vous%20me%20rappeler%20%3F"
+            href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis%20pour%20l%27enl%C3%A8vement%20d%27une%20%C3%A9pave.%20Pouvez-vous%20me%20rappeler%20%3F"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick('mobile_sticky')}

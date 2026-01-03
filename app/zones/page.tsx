@@ -47,7 +47,7 @@ export default function ZonesPage() {
                 <span>09 79 04 94 86</span>
               </a>
               <a
-                href="https://wa.me/33979049486"
+                href="https://wa.me/33602427345"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
@@ -167,7 +167,7 @@ export default function ZonesPage() {
                   <span>09 79 04 94 86</span>
                 </a>
                 <a
-                  href="https://wa.me/33979049486?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis"
+                  href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
