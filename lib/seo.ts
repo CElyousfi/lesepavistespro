@@ -76,9 +76,9 @@ export function generateMeta({
  */
 export function generateHomeMeta(): Metadata {
   return generateMeta({
-    title: 'Épaviste & Rachat voiture en Île-de-France – Service 24/7 | Les Épavistes Pro',
+    title: 'Épaviste Île-de-France – Enlèvement gratuit 24/7 & Rachat voiture agréé VHU',
     description:
-      'Épaviste rapide et gratuit en Île-de-France. Rachat voiture sans contrôle technique, paiement immédiat, intervention 24h/24. ☎️ 09 79 04 94 86',
+      'Épaviste agréé VHU en Île-de-France. Enlèvement d\'épave 100% GRATUIT 24h/24, rachat voiture sans CT, paiement cash immédiat. Intervention rapide 75, 77, 78, 91, 92, 93, 94, 95. ☎️ 09 79 04 94 86',
     path: '/',
   });
 }
@@ -111,9 +111,13 @@ export function generateRachatPillarMeta(): Metadata {
  * Generate SEO metadata for épaviste department page
  */
 export function generateEpavisteDepartmentMeta(deptName: string, deptSlug: string): Metadata {
+  // Extract department code from slug (e.g., "val-de-marne-94" -> "94")
+  const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
+  const deptCodeDisplay = deptCode ? ` (${deptCode})` : '';
+  
   return generateMeta({
-    title: `Épaviste ${deptName} – Intervention 24/7 | Les Épavistes Pro`,
-    description: `Épaviste agréé dans le ${deptName}. Enlèvement d'épave gratuit 24h/24, certificat VHU, intervention rapide. Service disponible dans tout le département.`,
+    title: `Épaviste ${deptName}${deptCodeDisplay} – Enlèvement gratuit 24/7 agréé VHU`,
+    description: `Épaviste agréé VHU dans le ${deptName} ${deptCode}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide partout dans le département. ☎️ 09 79 04 94 86`,
     path: `/epaviste/${deptSlug}`,
   });
 }
@@ -122,9 +126,13 @@ export function generateEpavisteDepartmentMeta(deptName: string, deptSlug: strin
  * Generate SEO metadata for rachat department page
  */
 export function generateRachatDepartmentMeta(deptName: string, deptSlug: string): Metadata {
+  // Extract department code from slug
+  const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
+  const deptCodeDisplay = deptCode ? ` (${deptCode})` : '';
+  
   return generateMeta({
-    title: `Rachat voiture ${deptName} – Paiement rapide, sans CT`,
-    description: `Rachat de voiture dans le ${deptName}. Sans contrôle technique, paiement cash immédiat, tous véhicules acceptés. Estimation gratuite en 15 minutes.`,
+    title: `Rachat voiture ${deptName}${deptCodeDisplay} – Sans CT, paiement cash immédiat`,
+    description: `Rachat de voiture dans le ${deptName} ${deptCode}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés (HS, accidentés, en panne). Estimation gratuite en 15 min. ☎️ 09 79 04 94 86`,
     path: `/rachat-voiture/${deptSlug}`,
   });
 }
@@ -135,11 +143,16 @@ export function generateRachatDepartmentMeta(deptName: string, deptSlug: string)
 export function generateEpavisteCityMeta(
   cityName: string,
   deptSlug: string,
-  citySlug: string
+  citySlug: string,
+  postalCode?: string
 ): Metadata {
+  // Extract department code from slug for display
+  const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
+  const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
+  
   return generateMeta({
-    title: `Épaviste à ${cityName} – Enlèvement gratuit 24/7`,
-    description: `Épaviste à ${cityName}. Enlèvement d'épave 100% gratuit, intervention rapide, certificat de destruction VHU. Service disponible 24h/24, 7j/7.`,
+    title: `Épaviste ${cityName}${postalDisplay} – Enlèvement gratuit 24/7 agréé VHU`,
+    description: `Épaviste agréé VHU à ${cityName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 2h. ☎️ 09 79 04 94 86`,
     path: `/epaviste/${deptSlug}/${citySlug}`,
   });
 }
@@ -150,11 +163,16 @@ export function generateEpavisteCityMeta(
 export function generateRachatCityMeta(
   cityName: string,
   deptSlug: string,
-  citySlug: string
+  citySlug: string,
+  postalCode?: string
 ): Metadata {
+  // Extract department code from slug for display
+  const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
+  const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
+  
   return generateMeta({
-    title: `Rachat voiture à ${cityName} – Sans CT, paiement immédiat`,
-    description: `Rachat de voiture à ${cityName}. Sans contrôle technique, paiement cash immédiat, tous véhicules acceptés. Estimation gratuite en 15 minutes.`,
+    title: `Rachat voiture ${cityName}${postalDisplay} – Sans CT, paiement cash immédiat`,
+    description: `Rachat de voiture à ${cityName}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés (HS, accidentés, en panne). Estimation gratuite. ☎️ 09 79 04 94 86`,
     path: `/rachat-voiture/${deptSlug}/${citySlug}`,
   });
 }

@@ -12,16 +12,24 @@ const faqs = [
     answer: 'Oui, l’enlèvement est 100% gratuit pour tout véhicule complet (avec moteur et éléments essentiels). Aucun frais caché, même si votre véhicule est en sous-sol ou difficile d’accès. C’est la loi française qui impose aux centres VHU agréés d’accepter gratuitement les véhicules hors d’usage.',
   },
   {
+    question: 'Dois-je être présent lors de l’enlèvement ?',
+    answer: 'Idéalement oui, pour signer les documents de cession. Si vous ne pouvez pas être présent, une procuration signée avec copie de votre pièce d’identité permet à un tiers de vous représenter. Nous nous adaptons à votre emploi du temps.',
+  },
+  {
+    question: 'Puis-je faire enlever une épave sans carte grise ?',
+    answer: 'Dans certains cas particuliers (véhicule très ancien, perte de papiers, succession), nous pouvons intervenir. Contactez-nous pour étudier votre situation. Des démarches spécifiques seront nécessaires auprès de la préfecture.',
+  },
+  {
+    question: 'Intervenez-vous en sous-sol ou parking privé ?',
+    answer: 'Oui, nous intervenons dans tous types de parkings : sous-sol, copropriété, parking privé, box fermé. Notre équipement (treuil, chariot) permet d’extraire les véhicules même dans les espaces étroits. Aucun surcoût.',
+  },
+  {
     question: 'Quels documents faut-il fournir ?',
     answer: 'Vous devez fournir : la carte grise originale avec la mention "cédé le" + date et signature, un certificat de non-gage de moins de 15 jours, une copie de votre pièce d’identité, et le formulaire Cerfa 15776*02 rempli. Nous vous aidons pour toutes ces démarches.',
   },
   {
-    question: 'Puis-je faire enlever une épave sans carte grise ?',
-    answer: 'Dans certains cas particuliers (véhicule très ancien, perte de papiers, succession), nous pouvons intervenir. Contactez-nous pour étudier votre situation. Des démarches spécifiques seront nécessaires.',
-  },
-  {
     question: 'Combien de temps prend l’intervention ?',
-    answer: 'Nous intervenons généralement sous 24 à 48h après votre demande. En urgence, nous pouvons intervenir sous 2h en région parisienne. L’enlèvement lui-même prend environ 30 minutes.',
+    answer: 'Nous intervenons généralement sous 24 à 48h après votre demande. En urgence, nous pouvons intervenir sous 2h en région parisienne. L’enlèvement lui-même prend environ 30 minutes. Vous recevez le certificat de destruction sous 15 jours.',
   },
   {
     question: 'Qu’est-ce que la prime à la conversion ?',

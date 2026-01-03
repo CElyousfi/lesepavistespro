@@ -1,6 +1,67 @@
 import { departments } from './locations';
 import { getSiteUrl } from './site';
 
+/**
+ * Organization schema for brand SERP ownership
+ */
+export function getOrganizationSchema() {
+  const baseUrl = getSiteUrl();
+  
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${baseUrl}/#organization`,
+    name: 'Les Épavistes Pro',
+    alternateName: 'Épaviste Île-de-France',
+    url: baseUrl,
+    logo: `${baseUrl}/logo_name.png`,
+    image: `${baseUrl}/icon.png`,
+    description: 'Épaviste agréé VHU en Île-de-France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés.',
+    telephone: '+33979049486',
+    email: 'contact@lesepavistespro.fr',
+    sameAs: [
+      'https://web.facebook.com/profile.php?id=61552439650150',
+      'https://www.instagram.com/lesepavistespro',
+    ],
+    areaServed: {
+      '@type': 'GeoCircle',
+      geoMidpoint: {
+        '@type': 'GeoCoordinates',
+        latitude: 48.8566,
+        longitude: 2.3522,
+      },
+      geoRadius: '50000', // 50km radius covering Île-de-France
+    },
+  };
+}
+
+/**
+ * WebSite schema with sitelinks searchbox for brand SERP
+ */
+export function getWebSiteSchema() {
+  const baseUrl = getSiteUrl();
+  
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${baseUrl}/#website`,
+    name: 'Les Épavistes Pro',
+    alternateName: 'Épaviste Île-de-France',
+    url: baseUrl,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${baseUrl}/epaviste/{search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+    publisher: {
+      '@id': `${baseUrl}/#organization`,
+    },
+  };
+}
+
 export function getLocalBusinessSchema() {
   const baseUrl = getSiteUrl();
   

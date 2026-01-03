@@ -61,10 +61,14 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
               <span className="block text-brand-red mt-2">Enlèvement Gratuit 24h</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-neutral-200 mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl text-neutral-200 mb-4 leading-relaxed">
               Épaviste agréé VHU dans tout le département {dept.name} ({dept.code}). 
               Enlèvement d'épave 100% gratuit, intervention rapide sous 24-48h, 
               certificat de destruction fourni.
+            </p>
+
+            <p className="text-sm md:text-base text-brand-red/90 font-semibold mb-8">
+              🚨 Intervention urgente aujourd'hui ? Appelez maintenant
             </p>
 
             {/* CTA Buttons */}
@@ -114,17 +118,17 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
             <div className="prose prose-lg max-w-none text-neutral-700">
               <p className="mb-4">
                 Vous avez une épave de voiture, moto, scooter ou utilitaire à faire enlever dans le département {dept.name} ({dept.code}) ? 
-                Notre service d'épaviste agréé VHU intervient gratuitement dans toutes les villes du département pour récupérer 
-                votre véhicule hors d'usage.
+                Notre service d'épaviste agréé VHU (centre de destruction automobile agréé préfecture) intervient gratuitement dans toutes les villes du département pour la destruction et le recyclage de votre véhicule hors d'usage.
               </p>
               <p className="mb-4">
-                Que votre véhicule soit accidenté, en panne, sans contrôle technique, brûlé ou simplement trop ancien, 
-                nous nous chargeons de son enlèvement gratuit et de toutes les démarches administratives. 
-                Le certificat de destruction vous est remis immédiatement.
+                Que votre véhicule soit accidenté, en panne, sans contrôle technique, brûlé, immobilisé ou simplement trop ancien, 
+                nous nous chargeons de son enlèvement gratuit et de toutes les démarches administratives obligatoires. 
+                Le certificat de destruction (déclaration de cession préfectorale) vous est remis immédiatement pour vous libérer de toute responsabilité légale.
               </p>
               <p>
-                Notre équipe d'épavistes professionnels dispose de l'équipement nécessaire pour intervenir même dans 
-                les situations difficiles : parking souterrain, terrain enclavé, voirie publique, etc.
+                Notre équipe de professionnels de la casse automobile dispose de l'équipement nécessaire pour intervenir même dans 
+                les situations difficiles : parking souterrain, copropriété, terrain enclavé, voirie publique, fourrière. 
+                Service de dépollution et démontage conforme aux normes environnementales.
               </p>
             </div>
           </div>
@@ -234,6 +238,47 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
         </div>
       </section>
 
+      {/* Related Services - Internal Linking */}
+      <section className="py-16 md:py-20 bg-white border-t border-neutral-200">
+        <div className="container mx-auto px-[5%]">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">
+              Nos autres services dans le {dept.name}
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Link
+                href={`/rachat-voiture/${dept.slug}`}
+                className="group p-6 bg-gradient-to-br from-brand-gold/5 to-brand-gold/10 rounded-xl border-2 border-brand-gold/20 hover:border-brand-gold hover:shadow-lg transition-all"
+              >
+                <h3 className="text-xl font-bold text-neutral-900 mb-2 group-hover:text-brand-gold transition-colors">
+                  Rachat voiture {dept.name} ({dept.code})
+                </h3>
+                <p className="text-neutral-600 mb-4">
+                  Nous rachetons également tous types de véhicules dans le {dept.name}. Paiement cash immédiat, sans contrôle technique.
+                </p>
+                <span className="text-brand-gold font-semibold group-hover:underline">
+                  Voir le service rachat →
+                </span>
+              </Link>
+              <Link
+                href="/epaviste"
+                className="group p-6 bg-gradient-to-br from-brand-blue/5 to-brand-blue/10 rounded-xl border-2 border-brand-blue/20 hover:border-brand-blue hover:shadow-lg transition-all"
+              >
+                <h3 className="text-xl font-bold text-neutral-900 mb-2 group-hover:text-brand-blue transition-colors">
+                  Épaviste Île-de-France
+                </h3>
+                <p className="text-neutral-600 mb-4">
+                  Découvrez notre service d'enlèvement d'épave dans tous les départements d'Île-de-France (75, 77, 78, 91, 92, 93, 94, 95).
+                </p>
+                <span className="text-brand-blue font-semibold group-hover:underline">
+                  Voir toutes nos zones →
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Conversion Form Section */}
       <section className="py-20 md:py-28 bg-gradient-to-br from-neutral-50 to-white">
         <div className="container mx-auto px-[5%]">
@@ -242,8 +287,11 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
               <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
                 Demandez votre enlèvement gratuit
               </h2>
-              <p className="text-lg text-neutral-600">
+              <p className="text-lg text-neutral-600 mb-2">
                 Remplissez le formulaire • Réponse sous 15 minutes • Service 100% gratuit
+              </p>
+              <p className="text-sm text-neutral-500">
+                💬 Demande non urgente ? WhatsApp ou formulaire ci-dessous
               </p>
             </div>
             <ConversionForm trigger="inline" defaultService="epaviste" />

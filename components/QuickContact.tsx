@@ -1,6 +1,7 @@
 'use client';
 
 import { Phone, WhatsappLogo } from '@phosphor-icons/react';
+import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
 
 interface QuickContactProps {
   service?: 'epaviste' | 'rachat';
@@ -14,26 +15,46 @@ export default function QuickContact({ service = 'epaviste', location, className
     : `Bonjour, je souhaite ${service === 'epaviste' ? "un devis pour l'enlèvement d'une épave" : "vendre ma voiture"}`;
 
   const primaryColor = service === 'epaviste' ? 'brand-red' : 'brand-gold';
+  
+  const handleCallClick = () => {
+    trackCallClick(location || service);
+  };
+  
+  const handleWhatsAppClick = () => {
+    trackWhatsAppClick(location || service);
+  };
+
+  // Deterministic micro-copy based on service type
+  const reassuranceCopy = service === 'epaviste' 
+    ? 'Enlèvement gratuit – aucune avance'
+    : 'Paiement cash – sans frais';
 
   return (
-    <div className={`flex flex-col sm:flex-row gap-4 ${className}`}>
-      <a 
-        href="tel:0979049486" 
-        className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-${primaryColor} hover:bg-${primaryColor}-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95`}
-      >
-        <Phone size={20} weight="bold" />
-        <span>09 79 04 94 86</span>
-      </a>
-      <a 
-        href={`https://wa.me/33602427345?text=${encodeURIComponent(whatsappMessage)}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
-      >
-        <WhatsappLogo size={20} weight="fill" />
-        <span className="hidden sm:inline">WhatsApp</span>
-        <span className="sm:hidden">Message</span>
-      </a>
+    <div className={`${className}`}>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <a 
+          href="tel:0979049486"
+          onClick={handleCallClick}
+          className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-${primaryColor} hover:bg-${primaryColor}-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95`}
+        >
+          <Phone size={20} weight="bold" />
+          <span>09 79 04 94 86</span>
+        </a>
+        <a 
+          href={`https://wa.me/33602427345?text=${encodeURIComponent(whatsappMessage)}`}
+          onClick={handleWhatsAppClick}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95"
+        >
+          <WhatsappLogo size={20} weight="fill" />
+          <span className="hidden sm:inline">WhatsApp</span>
+          <span className="sm:hidden">Message</span>
+        </a>
+      </div>
+      <p className="text-xs text-center text-neutral-500 mt-3">
+        {reassuranceCopy} • Documents gérés pour vous
+      </p>
     </div>
   );
 }

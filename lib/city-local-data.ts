@@ -349,6 +349,60 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Centre commercial Atlantis - parking spacieux',
       'Zone d\'affaires - parkings d\'entreprise nombreux'
     ]
+  },
+
+  // HIGH-PRIORITY CITIES (high impressions, 0% CTR - added for Phase 2 optimization)
+  'mantes-la-jolie': {
+    fourriere: {
+      name: 'Fourrière Mantes-la-Jolie',
+      address: 'Rue Pierre Curie, 78200 Mantes-la-Jolie',
+      phone: '01 30 98 55 00',
+      tarif: '100-150€ selon durée',
+      delai: 'Récupération en journée'
+    },
+    parkings: ['Parking Gare', 'Parking Val Fourré', 'Parking Centre Commercial'],
+    acces: 'Ville moyenne des Yvelines. Accès facile, peu de contraintes de circulation.',
+    specificites: [
+      'Quartier Val Fourré - grands parkings résidentiels',
+      'Bords de Seine - accès parfois limité en bord de fleuve',
+      'Zone commerciale - intervention facilitée week-end',
+      'Tarifs fourrière modérés comparé à Paris'
+    ]
+  },
+  'les-mureaux': {
+    fourriere: {
+      name: 'Fourrière Les Mureaux',
+      address: 'Avenue Paul Raoult, 78130 Les Mureaux',
+      phone: '01 30 91 37 00',
+      tarif: '100-150€ selon durée',
+      delai: 'Récupération en journée'
+    },
+    parkings: ['Parking Gare', 'Parking Centre-Ville', 'Parking Zone Commerciale'],
+    acces: 'Ville industrielle et résidentielle. Accès bon, parkings spacieux.',
+    specificites: [
+      'Zone industrielle importante - grands espaces',
+      'Quartiers résidentiels modernes - parkings souterrains nombreux',
+      'Proximité A13 - intervention rapide depuis Paris',
+      'Peu de restrictions de circulation'
+    ]
+  },
+  'fontainebleau': {
+    fourriere: {
+      name: 'Fourrière Fontainebleau',
+      address: 'Rue de la Chancellerie, 77300 Fontainebleau',
+      phone: '01 60 74 64 00',
+      tarif: '80-120€ selon durée',
+      delai: 'Récupération en journée'
+    },
+    parkings: ['Parking Château', 'Parking Gare', 'Parking Centre-Ville'],
+    acces: 'Ville touristique et résidentielle. Centre historique avec restrictions, périphérie accessible.',
+    specificites: [
+      'Zone touristique - restrictions circulation centre historique',
+      'Forêt de Fontainebleau - zones pavillonnaires étendues',
+      'Château - parking visiteurs important',
+      'Quartiers résidentiels calmes - intervention facilitée',
+      'Tarifs fourrière moins élevés qu\'en petite couronne'
+    ]
   }
 };
 

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 
   const { city, department } = result;
 
-  return generateEpavisteCityMeta(city.name, department.slug, city.slug);
+  return generateEpavisteCityMeta(city.name, department.slug, city.slug, city.postalCode);
 }
 
 export default async function CityEpavistePage({ params }: { params: Promise<{ city: string }> }) {

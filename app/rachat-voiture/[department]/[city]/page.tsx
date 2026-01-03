@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
 
   const { city, department } = result;
 
-  return generateRachatCityMeta(city.name, department.slug, city.slug);
+  return generateRachatCityMeta(city.name, department.slug, city.slug, city.postalCode);
 }
 
 export default async function CityRachatPage({ params }: { params: Promise<{ city: string }> }) {

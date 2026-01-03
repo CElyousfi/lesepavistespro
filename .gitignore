@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# SEO analytics data (sensitive)
+/SEO DATA/
+scripts/radar-report.json
+
+# Temporary images
+*.jpeg
+*.jpg
+*.png
+!public/**/*.png
+!public/**/*.jpg
+!public/**/*.jpeg

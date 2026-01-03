@@ -116,14 +116,22 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
               Enlèvement d'épave à {city.name} ({city.postalCode})
             </h2>
             <div className="prose prose-lg max-w-none text-neutral-700">
-              <p className="mb-4">
-                Vous habitez {city.name} et vous avez besoin de faire enlever une épave de voiture, moto, scooter ou utilitaire ? 
-                Notre service d'épaviste agréé VHU intervient gratuitement à {city.name} ({city.postalCode}) 
-                pour récupérer votre véhicule hors d'usage, quel que soit son état.
+              <h3 className="text-xl font-bold text-neutral-900 mb-3">Service d'enlèvement à {city.name}</h3>
+              <p className="mb-3">
+                Vous habitez {city.name} ({city.postalCode}) et vous avez besoin de faire enlever une épave ? 
+                Notre service d'épaviste agréé VHU intervient gratuitement pour récupérer votre véhicule hors d'usage.
               </p>
+              
+              <h3 className="text-xl font-bold text-neutral-900 mb-3 mt-6">Délai d'intervention</h3>
+              <p className="mb-3">
+                Intervention rapide sous 24-48h à {city.name} et dans tout le {department.name}. 
+                En urgence, nous pouvons intervenir le jour même.
+              </p>
+              
+              <h3 className="text-xl font-bold text-neutral-900 mb-3 mt-6">Comment nous contacter</h3>
               <p className="mb-4">
-                Nous sommes spécialisés dans l'enlèvement d'épaves à {city.name} et dans tout le {department.name}. 
-                Notre équipe peut intervenir rapidement, généralement sous 24 à 48 heures après votre demande.
+                ☎️ Appelez le 09 79 04 94 86 pour une intervention urgente<br/>
+                💬 WhatsApp ou formulaire pour une demande de devis
               </p>
               
               {/* Local specific content */}

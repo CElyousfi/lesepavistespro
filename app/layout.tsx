@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "../styles/icon-animations.css";
 import Script from "next/script";
-import { getLocalBusinessSchema } from "@/lib/schema";
+import { getLocalBusinessSchema, getOrganizationSchema, getWebSiteSchema } from "@/lib/schema";
 import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
@@ -96,12 +96,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const localBusinessSchema = getLocalBusinessSchema();
+  const organizationSchema = getOrganizationSchema();
+  const webSiteSchema = getWebSiteSchema();
 
   return (
     <html lang="fr">
       <head>
         {/* Bing Webmaster Tools Verification */}
         <meta name="msvalidate.01" content="028D2D1281F99EFDDA399E3F98954FBB" />
+        
+        {/* Schema.org JSON-LD for Organization (Brand SERP) */}
+        <Script
+          id="schema-organization"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        
+        {/* Schema.org JSON-LD for WebSite (Sitelinks Searchbox) */}
+        <Script
+          id="schema-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webSiteSchema),
+          }}
+        />
         
         {/* Schema.org JSON-LD for LocalBusiness */}
         <Script
