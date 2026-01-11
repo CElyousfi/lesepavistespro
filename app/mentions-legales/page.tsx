@@ -51,7 +51,7 @@ export default function MentionsLegalesPage() {
                     <li><strong>SIRET :</strong> [À compléter]</li>
                     <li><strong>TVA intracommunautaire :</strong> [À compléter]</li>
                     <li><strong>Téléphone :</strong> <a href="tel:0979049486" className="text-brand-red hover:underline">09 79 04 94 86</a></li>
-                    <li><strong>Email :</strong> <a href="mailto:contact@lesepavistespro.fr" className="text-brand-red hover:underline">contact@lesepavistespro.fr</a></li>
+                    <li><strong>Email :</strong> <a href="mailto:lesepavistespro@gmail.com" className="text-brand-red hover:underline">lesepavistespro@gmail.com</a></li>
                   </ul>
                 </div>
               </div>
@@ -104,7 +104,7 @@ export default function MentionsLegalesPage() {
                     Pour exercer ces droits, vous pouvez nous contacter :
                   </p>
                   <ul className="list-disc ml-6 space-y-2">
-                    <li>Par email : <a href="mailto:contact@lesepavistespro.fr" className="text-brand-red hover:underline">contact@lesepavistespro.fr</a></li>
+                    <li>Par email : <a href="mailto:lesepavistespro@gmail.com" className="text-brand-red hover:underline">lesepavistespro@gmail.com</a></li>
                     <li>Par téléphone : <a href="tel:0979049486" className="text-brand-red hover:underline">09 79 04 94 86</a></li>
                   </ul>
                   <p className="mt-4">
@@ -191,7 +191,7 @@ export default function MentionsLegalesPage() {
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">Email :</span>
-                        <a href="mailto:contact@lesepavistespro.fr" className="text-brand-red hover:underline">contact@lesepavistespro.fr</a>
+                        <a href="mailto:lesepavistespro@gmail.com" className="text-brand-red hover:underline">lesepavistespro@gmail.com</a>
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">WhatsApp :</span>

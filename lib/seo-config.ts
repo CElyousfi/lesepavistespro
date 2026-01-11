@@ -13,7 +13,7 @@ export const seoConfig = {
   // Contact information
   phone: '09 79 04 94 86',
   whatsapp: '+33602427345',
-  email: 'contact@lesepavistespro.fr',
+  email: 'lesepavistespro@gmail.com',
   
   // Business information
   businessName: 'Les Épavistes Pro',

@@ -18,7 +18,7 @@ export function getOrganizationSchema() {
     image: `${baseUrl}/icon.png`,
     description: 'Épaviste agréé VHU en Île-de-France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés.',
     telephone: '+33979049486',
-    email: 'contact@lesepavistespro.fr',
+    email: 'lesepavistespro@gmail.com',
     sameAs: [
       'https://web.facebook.com/profile.php?id=61552439650150',
       'https://www.instagram.com/lesepavistespro',
@@ -73,7 +73,7 @@ export function getLocalBusinessSchema() {
     description: 'Épaviste agréé VHU en Île-de-France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés ou hors d\'usage.',
     url: baseUrl,
     telephone: '+33979049486',
-    email: 'contact@lesepavistespro.fr',
+    email: 'lesepavistespro@gmail.com',
     priceRange: 'Gratuit',
     image: `${baseUrl}/icon.png`,
     address: {
