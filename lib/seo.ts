@@ -54,20 +54,20 @@ export function generateMeta({
     },
     robots: noIndex
       ? {
-          index: false,
-          follow: false,
-        }
+        index: false,
+        follow: false,
+      }
       : {
+        index: true,
+        follow: true,
+        googleBot: {
           index: true,
           follow: true,
-          googleBot: {
-            index: true,
-            follow: true,
-            'max-video-preview': -1,
-            'max-image-preview': 'large',
-            'max-snippet': -1,
-          },
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
         },
+      },
   };
 }
 
@@ -76,9 +76,9 @@ export function generateMeta({
  */
 export function generateHomeMeta(): Metadata {
   return generateMeta({
-    title: 'Épaviste Île-de-France – Enlèvement gratuit 24/7 & Rachat voiture agréé VHU',
+    title: 'Épaviste France entière – Enlèvement gratuit 24/7 & Rachat voiture agréé VHU',
     description:
-      'Épaviste agréé VHU en Île-de-France. Enlèvement d\'épave 100% GRATUIT 24h/24, rachat voiture sans CT, paiement cash immédiat. Intervention rapide 75, 77, 78, 91, 92, 93, 94, 95. ☎️ 09 79 04 94 86',
+      'Épaviste agréé VHU partout en France. Enlèvement d\'épave 100% GRATUIT 24h/24, rachat voiture sans CT, paiement cash immédiat. Intervention rapide dans toutes les régions. 09 79 04 94 86',
     path: '/',
   });
 }
@@ -88,9 +88,9 @@ export function generateHomeMeta(): Metadata {
  */
 export function generateEpavistePillarMeta(): Metadata {
   return generateMeta({
-    title: 'Épaviste Île-de-France – Enlèvement d\'épave gratuit 24/7 | Les Épavistes Pro',
+    title: 'Épaviste France – Enlèvement d\'épave gratuit',
     description:
-      'Service d\'enlèvement d\'épave 100% gratuit en Île-de-France. Épaviste agréé VHU, intervention 24h/24, certificat de destruction fourni. Appelez le 09 79 04 94 86',
+      'Service d\'enlèvement d\'épave 100% gratuit partout en France. Épaviste agréé VHU, intervention 24h/24, certificat de destruction fourni. 18 régions couvertes. 09 79 04 94 86',
     path: '/epaviste',
   });
 }
@@ -100,9 +100,9 @@ export function generateEpavistePillarMeta(): Metadata {
  */
 export function generateRachatPillarMeta(): Metadata {
   return generateMeta({
-    title: 'Rachat voiture Île-de-France – Sans contrôle technique, paiement immédiat',
+    title: 'Rachat voiture France – Paiement cash immédiat',
     description:
-      'Rachat de voiture en Île-de-France sans CT. Paiement cash immédiat, tous véhicules acceptés : HS, accidentés, en panne. Estimation gratuite ☎️ 09 79 04 94 86',
+      'Rachat de voiture partout en France sans CT. Paiement cash immédiat, tous véhicules acceptés : HS, accidentés, en panne. Estimation gratuite 09 79 04 94 86',
     path: '/rachat-voiture',
   });
 }
@@ -114,10 +114,10 @@ export function generateEpavisteDepartmentMeta(deptName: string, deptSlug: strin
   // Extract department code from slug (e.g., "val-de-marne-94" -> "94")
   const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
   const deptCodeDisplay = deptCode ? ` (${deptCode})` : '';
-  
+
   return generateMeta({
-    title: `Épaviste ${deptName}${deptCodeDisplay} – Enlèvement gratuit 24/7 agréé VHU`,
-    description: `Épaviste agréé VHU dans le ${deptName} ${deptCode}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide partout dans le département. ☎️ 09 79 04 94 86`,
+    title: `Épaviste ${deptName}${deptCodeDisplay} – Gratuit 24/7`,
+    description: `Épaviste agréé VHU dans le ${deptName} ${deptCode}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide partout dans le département. 09 79 04 94 86`,
     path: `/epaviste/${deptSlug}`,
   });
 }
@@ -129,10 +129,10 @@ export function generateRachatDepartmentMeta(deptName: string, deptSlug: string)
   // Extract department code from slug
   const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
   const deptCodeDisplay = deptCode ? ` (${deptCode})` : '';
-  
+
   return generateMeta({
-    title: `Rachat voiture ${deptName}${deptCodeDisplay} – Sans CT, paiement cash immédiat`,
-    description: `Rachat de voiture dans le ${deptName} ${deptCode}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés (HS, accidentés, en panne). Estimation gratuite en 15 min. ☎️ 09 79 04 94 86`,
+    title: `Rachat ${deptName}${deptCodeDisplay} – Cash immédiat`,
+    description: `Rachat de voiture dans le ${deptName} ${deptCode}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés (HS, accidentés, en panne). Estimation gratuite en 15 min. 09 79 04 94 86`,
     path: `/rachat-voiture/${deptSlug}`,
   });
 }
@@ -149,10 +149,10 @@ export function generateEpavisteCityMeta(
   // Extract department code from slug for display
   const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
   const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
-  
+
   return generateMeta({
-    title: `Épaviste ${cityName}${postalDisplay} – Enlèvement gratuit 24/7 agréé VHU`,
-    description: `Épaviste agréé VHU à ${cityName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 2h. ☎️ 09 79 04 94 86`,
+    title: `Épaviste ${cityName}${postalDisplay} – Gratuit 24/7`,
+    description: `Épaviste agréé VHU à ${cityName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 2h. 09 79 04 94 86`,
     path: `/epaviste/${deptSlug}/${citySlug}`,
   });
 }
@@ -169,10 +169,10 @@ export function generateRachatCityMeta(
   // Extract department code from slug for display
   const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
   const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
-  
+
   return generateMeta({
-    title: `Rachat voiture ${cityName}${postalDisplay} – Sans CT, paiement cash immédiat`,
-    description: `Rachat de voiture à ${cityName}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés (HS, accidentés, en panne). Estimation gratuite. ☎️ 09 79 04 94 86`,
+    title: `Rachat ${cityName}${postalDisplay} – Cash immédiat`,
+    description: `Rachat de voiture à ${cityName}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés (HS, accidentés, en panne). Estimation gratuite. 09 79 04 94 86`,
     path: `/rachat-voiture/${deptSlug}/${citySlug}`,
   });
 }
@@ -182,9 +182,9 @@ export function generateRachatCityMeta(
  */
 export function generateZonesMeta(): Metadata {
   return generateMeta({
-    title: 'Zones d\'intervention – Épaviste & Rachat voiture en Île-de-France',
+    title: 'Zones d\'intervention – Épaviste & Rachat voiture',
     description:
-      'Découvrez toutes nos zones d\'intervention en Île-de-France. Service d\'épaviste et rachat voiture disponible dans 8 départements et 288 villes.',
+      'Découvrez toutes nos zones d\'intervention en France. Service d\'épaviste et rachat voiture disponible dans 18 régions, 101 départements et plus de 35 000 communes.',
     path: '/zones',
   });
 }
@@ -194,8 +194,30 @@ export function generateZonesMeta(): Metadata {
  */
 export function generateBlogPostMeta(title: string, description: string, slug: string): Metadata {
   return generateMeta({
-    title: `${title} | Les Épavistes Pro`,
+    title,
     description,
     path: `/blog/${slug}`,
+  });
+}
+
+/**
+ * Generate SEO metadata for region landing page
+ */
+export function generateEpavisteRegionMeta(regionName: string, regionSlug: string): Metadata {
+  return generateMeta({
+    title: `Épaviste ${regionName} – Gratuit 24/7`,
+    description: `Épaviste agréé VHU en ${regionName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide dans tous les départements de la région. 09 79 04 94 86`,
+    path: `/epaviste/${regionSlug}`,
+  });
+}
+
+/**
+ * Generate SEO metadata for rachat voiture region landing page
+ */
+export function generateRachatRegionMeta(regionName: string, regionSlug: string): Metadata {
+  return generateMeta({
+    title: `Rachat ${regionName} – Cash immédiat`,
+    description: `Rachat de voiture en ${regionName}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés. Intervention dans tous les départements. 09 79 04 94 86`,
+    path: `/rachat-voiture/${regionSlug}`,
   });
 }

@@ -9,8 +9,8 @@ import { blogPosts } from '@/lib/blog-data';
 import BlogAnimations from './BlogAnimations';
 
 export const metadata: Metadata = {
-  title: "Blog Épaviste | Conseils & Actualités Enlèvement Épave Île-de-France",
-  description: "Découvrez nos articles sur l'enlèvement d'épave, le rachat de voiture, les démarches VHU et conseils pour vendre votre véhicule en Île-de-France.",
+  title: "Blog Épaviste – Conseils & Actualités Enlèvement Épave France",
+  description: "Découvrez nos articles sur l'enlèvement d'épave, le rachat de voiture, les démarches VHU et conseils pour vendre votre véhicule en France.",
   keywords: [
     "blog épaviste",
     "conseils enlèvement épave",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Blog Épaviste | Conseils Enlèvement Épave",
-    description: "Tous nos conseils et actualités sur l'enlèvement d'épave et le rachat de voiture en Île-de-France",
+    description: "Tous nos conseils et actualités sur l'enlèvement d'épave et le rachat de voiture en France",
     type: "website",
   },
   alternates: {
@@ -47,7 +47,7 @@ export default function BlogPage() {
                 Blog Épaviste Pro
               </h1>
               <p className="text-xl md:text-2xl text-neutral-200 leading-relaxed">
-                Conseils, actualités et guides pratiques sur l'enlèvement d'épave et le rachat de voiture en Île-de-France
+                Conseils, actualités et guides pratiques sur l'enlèvement d'épave et le rachat de voiture en France
               </p>
               </div>
             </div>
@@ -122,7 +122,7 @@ export default function BlogPage() {
                 Besoin d'un enlèvement d'épave ?
               </h2>
               <p className="text-xl text-neutral-600 mb-8">
-                Service gratuit, rapide et professionnel en Île-de-France
+                Service gratuit, rapide et professionnel partout en France
               </p>
               <a 
                 href="tel:0979049486"

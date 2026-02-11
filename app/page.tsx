@@ -44,7 +44,7 @@ export default function Home() {
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-12 md:mb-16">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 md:mb-6 tracking-tight">
-                  Nos Services en Île-de-France
+                  Nos Services partout en France
                 </h2>
                 <p className="text-lg sm:text-xl text-neutral-600 max-w-3xl mx-auto px-4 font-light leading-relaxed">
                   Choisissez le service dont vous avez besoin

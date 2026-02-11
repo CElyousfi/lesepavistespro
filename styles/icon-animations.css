@@ -1,15 +1,19 @@
 /* Icon Animation Styles - Professional & Catchy */
 
-/* CTA Icons - Most attention-grabbing */
+/* CTA Icons - Subtle attention-grabbing */
 @keyframes pulse-ring {
   0% {
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
-    transform: scale(1.1);
-    opacity: 0.7;
+    transform: scale(1.05);
+    /* Reduced from 1.1 */
+    opacity: 0.8;
+    /* Reduced fade */
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -17,85 +21,149 @@
 }
 
 @keyframes shake-subtle {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-2px); }
-  75% { transform: translateX(2px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-1px);
+  }
+
+  /* Reduced from 2px */
+  75% {
+    transform: translateX(1px);
+  }
+
+  /* Reduced from 2px */
 }
 
 @keyframes bounce-subtle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
+
+  /* Reduced from 4px */
 }
 
 @keyframes rotate-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes scale-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+  }
+
+  /* Reduced from 1.05 */
 }
 
 /* CTA Phone Icon - Pulsing ring effect */
 .icon-cta-pulse {
-  animation: pulse-ring 2s ease-in-out infinite;
+  animation: pulse-ring 3s ease-in-out infinite;
+  /* Slower animation */
 }
 
-/* CTA Button Icons - Shake on hover */
+/* CTA Button Icons - Subtle movement on hover */
 .icon-cta-shake:hover {
-  animation: shake-subtle 0.5s ease-in-out;
+  animation: shake-subtle 0.6s ease-in-out;
+  /* Slower duration */
 }
 
 /* Arrow Icons - Bounce */
 .icon-arrow-bounce {
-  animation: bounce-subtle 2s ease-in-out infinite;
+  animation: bounce-subtle 2.5s ease-in-out infinite;
+  /* Slower */
 }
 
 /* Service Icons - Scale on hover */
 .icon-service-scale {
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Smoother transition */
 }
 
 .icon-service-scale:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  /* Reduced from 1.1 */
 }
 
 /* Stats Icons - Subtle pulse */
 .icon-stats-pulse {
-  animation: scale-pulse 3s ease-in-out infinite;
+  animation: scale-pulse 4s ease-in-out infinite;
+  /* Slower */
 }
 
 /* Loading/Processing Icons - Rotate */
 .icon-rotate {
-  animation: rotate-slow 3s linear infinite;
+  animation: rotate-slow 4s linear infinite;
+  /* Slower */
 }
 
 /* Hover grow effect */
 .icon-hover-grow {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .icon-hover-grow:hover {
-  transform: scale(1.15);
+  transform: scale(1.08);
+  /* Reduced from 1.15 */
 }
 
 /* Float effect for decorative icons */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+
+  /* Reduced from 10px */
 }
 
 .icon-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
+  /* Slower */
 }
 
 /* Glow effect for important icons */
 @keyframes glow {
-  0%, 100% { filter: drop-shadow(0 0 2px currentColor); }
-  50% { filter: drop-shadow(0 0 8px currentColor); }
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 5px currentColor);
+  }
+
+  /* Reduced from 8px */
 }
 
 .icon-glow {
-  animation: glow 2s ease-in-out infinite;
+  animation: glow 3s ease-in-out infinite;
+  /* Slower */
 }

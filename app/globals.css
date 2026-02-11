@@ -20,16 +20,16 @@
 }
 
 :root {
-  /* YOUR Brand Colors */
-  --brand-navy: #002654;
-  --brand-red: #ED2939;
+  /* Brand Colors - Corporate Trust Palette */
+  --brand-navy: #0B1C33;
+  --brand-red: #B91C1C;
   
   /* Neutral Colors */
   --background: #ffffff;
-  --background-gray: #f8fafc;
-  --foreground: #0f172a;
-  --border-gray: #e2e8f0;
-  --text-gray: #64748b;
+  --background-gray: #F8FAFC;
+  --foreground: #0F172A;
+  --border-gray: #E2E8F0;
+  --text-gray: #64748B;
 }
 
 * {

@@ -4,7 +4,7 @@ import { allDepartments } from '@/lib/locations-complete';
 
 /**
  * Rachat voiture city pages sitemap
- * ~144 cities across 8 departments
+ * ~35,000 cities across 101 departments
  */
 export async function GET() {
   const base = getSiteUrl();

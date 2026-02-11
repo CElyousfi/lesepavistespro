@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Mentions Légales',
-  description: 'Mentions légales du site Les Épavistes Pro - Épaviste agréé VHU en Île-de-France.',
+  description: 'Mentions légales du site Les Épavistes Pro - Épaviste agréé VHU en France.',
   robots: {
     index: true,
     follow: true,

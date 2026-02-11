@@ -1,27 +1,21 @@
 import { NextResponse } from 'next/server';
 import { getSiteUrl } from '@/lib/site';
-import { allDepartments } from '@/lib/locations-complete';
+import { regions } from '@/lib/locations-complete';
 
 /**
- * Épaviste city pages sitemap
- * ~35,000 cities across 101 departments
+ * Rachat voiture region pages sitemap
+ * 18 regions across France
  */
 export async function GET() {
   const base = getSiteUrl();
   const buildTime = new Date().toISOString();
 
-  const urls: { loc: string; lastmod: string; changefreq: string; priority: number }[] = [];
-
-  for (const dept of allDepartments) {
-    for (const city of dept.cities) {
-      urls.push({
-        loc: `${base}/epaviste/${dept.slug}/${city.slug}`,
-        lastmod: buildTime,
-        changefreq: 'monthly',
-        priority: 0.7,
-      });
-    }
-  }
+  const urls = regions.map(region => ({
+    loc: `${base}/rachat-voiture/${region.slug}`,
+    lastmod: buildTime,
+    changefreq: 'monthly',
+    priority: 0.85,
+  }));
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

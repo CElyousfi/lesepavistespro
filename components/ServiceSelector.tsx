@@ -40,7 +40,7 @@ export default function ServiceSelector({ className = '' }: ServiceSelectorProps
           </h3>
           <p className="text-neutral-700 leading-relaxed">
             Service 100% gratuit pour tous types de véhicules : voitures, motos, scooters, utilitaires. 
-            Intervention rapide 7j/7 dans toute l'Île-de-France.
+            Intervention rapide 7j/7 partout en France.
           </p>
         </div>
 

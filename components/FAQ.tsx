@@ -40,8 +40,8 @@ const faqs = [
     answer: 'Votre véhicule est acheminé vers notre centre VHU agréé où il est dépollué (retrait des fluides toxiques), démonté (récupération des pièces réutilisables) et recyclé (jusqu’à 95% du poids). Vous recevez un certificat de destruction officiel sous 15 jours.',
   },
   {
-    question: 'Intervenez-vous partout en Île-de-France ?',
-    answer: 'Oui, nous couvrons l’intégralité de l’Île-de-France : Paris (75) et les 7 départements (77, 78, 91, 92, 93, 94, 95). Plus de 1 200 communes desservies sans frais supplémentaires.',
+    question: 'Intervenez-vous partout en France ?',
+    answer: 'Oui, nous couvrons l’intégralité de la France : 18 régions, 101 départements, plus de 35 000 communes desservies sans frais supplémentaires.',
   },
   {
     question: 'Puis-je vendre mon épave au lieu de la faire enlever gratuitement ?',

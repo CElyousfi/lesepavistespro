@@ -137,7 +137,7 @@ export default function MobileServiceMenu({ isOpen, onClose }: MobileServiceMenu
         {/* Footer */}
         <div className="p-6 text-center text-sm text-neutral-600">
           <p>Disponible 7j/7</p>
-          <p className="font-semibold text-neutral-900 mt-1">Toute l'Île-de-France</p>
+          <p className="font-semibold text-neutral-900 mt-1">Partout en France</p>
         </div>
       </div>
     </>

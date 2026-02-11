@@ -1,4 +1,4 @@
-import { departments } from './locations';
+import { regions } from './locations-national';
 import { getSiteUrl } from './site';
 
 /**
@@ -12,11 +12,11 @@ export function getOrganizationSchema() {
     '@type': 'Organization',
     '@id': `${baseUrl}/#organization`,
     name: 'Les Épavistes Pro',
-    alternateName: 'Épaviste Île-de-France',
+    alternateName: 'Épaviste France',
     url: baseUrl,
     logo: `${baseUrl}/logo_name.png`,
     image: `${baseUrl}/icon.png`,
-    description: 'Épaviste agréé VHU en Île-de-France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés.',
+    description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés.',
     telephone: '+33979049486',
     email: 'lesepavistespro@gmail.com',
     sameAs: [
@@ -24,13 +24,8 @@ export function getOrganizationSchema() {
       'https://www.instagram.com/lesepavistespro',
     ],
     areaServed: {
-      '@type': 'GeoCircle',
-      geoMidpoint: {
-        '@type': 'GeoCoordinates',
-        latitude: 48.8566,
-        longitude: 2.3522,
-      },
-      geoRadius: '50000', // 50km radius covering Île-de-France
+      '@type': 'Country',
+      name: 'France',
     },
   };
 }
@@ -46,7 +41,7 @@ export function getWebSiteSchema() {
     '@type': 'WebSite',
     '@id': `${baseUrl}/#website`,
     name: 'Les Épavistes Pro',
-    alternateName: 'Épaviste Île-de-France',
+    alternateName: 'Épaviste France',
     url: baseUrl,
     potentialAction: {
       '@type': 'SearchAction',
@@ -70,7 +65,7 @@ export function getLocalBusinessSchema() {
     '@type': 'LocalBusiness',
     '@id': `${baseUrl}/#business`,
     name: 'Les Épavistes Pro',
-    description: 'Épaviste agréé VHU en Île-de-France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés ou hors d\'usage.',
+    description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés ou hors d\'usage.',
     url: baseUrl,
     telephone: '+33979049486',
     email: 'lesepavistespro@gmail.com',
@@ -78,7 +73,6 @@ export function getLocalBusinessSchema() {
     image: `${baseUrl}/icon.png`,
     address: {
       '@type': 'PostalAddress',
-      addressRegion: 'Île-de-France',
       addressCountry: 'FR',
     },
     geo: {
@@ -86,9 +80,9 @@ export function getLocalBusinessSchema() {
       latitude: 48.8566,
       longitude: 2.3522,
     },
-    areaServed: departments.map(dept => ({
-      '@type': 'State',
-      name: dept.name,
+    areaServed: regions.map(region => ({
+      '@type': 'AdministrativeArea',
+      name: region.name,
     })),
     openingHoursSpecification: [
       {
@@ -132,8 +126,8 @@ export function getServiceSchema(serviceName: string, serviceDescription: string
       telephone: '+33979049486',
     },
     areaServed: {
-      '@type': 'State',
-      name: 'Île-de-France',
+      '@type': 'Country',
+      name: 'France',
     },
     url: serviceUrl,
     offers: {

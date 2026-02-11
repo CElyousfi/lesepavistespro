@@ -2,10 +2,10 @@ import { getSiteUrl } from '@/lib/site';
 
 /**
  * Sitemap Index Route Handler
- * Returns proper <sitemapindex> XML pointing to 6 child sitemaps
+ * Returns proper <sitemapindex> XML pointing to 8 child sitemaps
  * 
  * CRITICAL FIX: This generates a sitemap INDEX, not a regular sitemap
- * Google will discover all 329 URLs across the 6 child sitemaps
+ * Google will discover all URLs across the 8 child sitemaps
  */
 export async function GET() {
   const base = getSiteUrl();
@@ -13,6 +13,8 @@ export async function GET() {
   const sitemaps = [
     `${base}/sitemap-static.xml`,
     `${base}/sitemap-blog.xml`,
+    `${base}/sitemap-epaviste-regions.xml`,
+    `${base}/sitemap-rachat-regions.xml`,
     `${base}/sitemap-epaviste-departements.xml`,
     `${base}/sitemap-rachat-departements.xml`,
     `${base}/sitemap-epaviste-cities.xml`,

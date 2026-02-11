@@ -34,10 +34,10 @@ interface ConversionFormProps {
   pageType?: 'home' | 'pillar' | 'department' | 'city';
 }
 
-export default function ConversionFormNew({ 
-  defaultService, 
+export default function ConversionFormNew({
+  defaultService,
   trigger = 'button',
-  buttonText = "📞 Être rappelé en 15 min",
+  buttonText = "Être rappelé en 15 min",
   cityName,
   departmentName,
   pageType = 'home'
@@ -47,7 +47,7 @@ export default function ConversionFormNew({
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
-  
+
   const [formData, setFormData] = useState<FormData>({
     service: defaultService || '',
     marque: '',
@@ -72,7 +72,7 @@ export default function ConversionFormNew({
   // Update form data with validation
   const updateField = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    
+
     // Track form start on first interaction
     if (!hasStartedForm) {
       setHasStartedForm(true);
@@ -85,7 +85,7 @@ export default function ConversionFormNew({
         });
       }
     }
-    
+
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
@@ -131,14 +131,14 @@ export default function ConversionFormNew({
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateStep(4)) return;
-    
+
     setIsSubmitting(true);
-    
+
     // Track form submission
     trackFormSubmit(formData.service || 'unknown');
-    
+
     // Send form data to API
     try {
       const response = await fetch('/api/contact', {
@@ -150,17 +150,17 @@ export default function ConversionFormNew({
       });
 
       const result = await response.json();
-      
+
       if (result.success) {
         console.log('Form submitted successfully:', formData);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
     }
-    
+
     setIsSubmitting(false);
     setShowSuccess(true);
-    
+
     // Track success modal display
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'form_success_displayed', {
@@ -170,7 +170,7 @@ export default function ConversionFormNew({
         city: formData.city,
       });
     }
-    
+
     // Auto-close after 8 seconds
     setTimeout(() => {
       setShowSuccess(false);
@@ -200,7 +200,7 @@ export default function ConversionFormNew({
     if (validateStep(step)) {
       const nextStep = Math.min(step + 1, totalSteps + 1);
       setStep(nextStep);
-      
+
       // Track form step progression
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'form_step', {
@@ -238,7 +238,7 @@ export default function ConversionFormNew({
             {/* Decorative circles */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-brand-gold/10 rounded-full blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-red/10 rounded-full blur-3xl"></div>
-            
+
             <div className="relative z-10">
               {/* Success Icon with Animation */}
               <div className="relative inline-block mb-6">
@@ -247,20 +247,20 @@ export default function ConversionFormNew({
                   <CheckCircle size={56} weight="fill" className="text-green-500" />
                 </div>
               </div>
-              
+
               {/* Illustration */}
               <div className="mb-6">
-                <div className="text-8xl mb-4 animate-bounce">🎉</div>
+                <div className="text-8xl mb-4 font-bold text-white">!</div>
               </div>
-              
+
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 C'est noté !
               </h3>
-              
+
               <p className="text-lg md:text-xl text-neutral-200 mb-2">
                 Votre demande a été envoyée avec succès
               </p>
-              
+
               <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full border-2 border-white/30 mt-4">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                 <span className="text-white font-semibold">Demande reçue</span>
@@ -314,7 +314,7 @@ export default function ConversionFormNew({
             {/* What Happens Next */}
             <div className="mb-8">
               <h4 className="text-lg font-bold text-neutral-900 mb-4 flex items-center gap-2">
-                <span className="text-2xl">📋</span>
+                <span className="text-2xl text-brand-blue">●</span>
                 Que se passe-t-il maintenant ?
               </h4>
               <div className="space-y-3">
@@ -370,7 +370,7 @@ export default function ConversionFormNew({
                 <WhatsappLogo size={24} weight="fill" />
                 <span>📸 Envoyer des photos sur WhatsApp</span>
               </a>
-              
+
               <a
                 href="tel:0979049486"
                 className="flex items-center justify-center gap-3 w-full px-6 py-4 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl active:scale-95"
@@ -389,7 +389,7 @@ export default function ConversionFormNew({
                 <Phone size={24} weight="bold" />
                 <span>📞 Appeler maintenant</span>
               </a>
-              
+
               <button
                 onClick={() => setShowSuccess(false)}
                 className="w-full px-6 py-3 text-neutral-600 hover:text-neutral-900 font-medium transition-colors rounded-xl hover:bg-neutral-100"
@@ -430,7 +430,7 @@ export default function ConversionFormNew({
               <X size={24} weight="bold" />
             </button>
           )}
-          
+
           <div className="mb-4">
             <div className="text-sm text-neutral-300 mb-2">
               Étape {step} sur 4
@@ -439,15 +439,14 @@ export default function ConversionFormNew({
               {getStepTitle()}
             </h2>
           </div>
-          
+
           {/* Progress bar */}
           <div className="flex gap-2">
             {[1, 2, 3, 4].map((s) => (
               <div
                 key={s}
-                className={`h-2 flex-1 rounded-full transition-all duration-300 ${
-                  s <= step ? 'bg-brand-gold' : 'bg-white/20'
-                }`}
+                className={`h-2 flex-1 rounded-full transition-all duration-300 ${s <= step ? 'bg-brand-gold' : 'bg-white/20'
+                  }`}
               />
             ))}
           </div>
@@ -462,7 +461,7 @@ export default function ConversionFormNew({
                 <p className="text-neutral-600 mb-6">
                   Choisissez le service dont vous avez besoin
                 </p>
-                
+
                 <div className="grid gap-4">
                   <button
                     type="button"
@@ -470,14 +469,13 @@ export default function ConversionFormNew({
                       updateField('service', 'epaviste');
                       setStep(2);
                     }}
-                    className={`p-6 rounded-xl border-2 transition-all text-left group hover:scale-[1.02] ${
-                      formData.service === 'epaviste'
+                    className={`p-6 rounded-xl border-2 transition-all text-left group hover:scale-[1.02] ${formData.service === 'epaviste'
                         ? 'border-brand-red bg-brand-red/5 shadow-lg'
                         : 'border-neutral-200 hover:border-brand-red hover:shadow-md'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-start gap-4">
-                      <div className="text-4xl">🚗</div>
+                      <div className="text-4xl text-brand-red font-bold">●</div>
                       <div className="flex-1">
                         <div className="font-bold text-lg mb-1 text-neutral-900 group-hover:text-brand-red transition-colors">
                           Enlèvement d'Épave
@@ -496,14 +494,13 @@ export default function ConversionFormNew({
                       updateField('service', 'rachat');
                       setStep(2);
                     }}
-                    className={`p-6 rounded-xl border-2 transition-all text-left group hover:scale-[1.02] ${
-                      formData.service === 'rachat'
+                    className={`p-6 rounded-xl border-2 transition-all text-left group hover:scale-[1.02] ${formData.service === 'rachat'
                         ? 'border-brand-gold bg-brand-gold/5 shadow-lg'
                         : 'border-neutral-200 hover:border-brand-gold hover:shadow-md'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-start gap-4">
-                      <div className="text-4xl">💰</div>
+                      <div className="text-4xl text-brand-gold font-bold">●</div>
                       <div className="flex-1">
                         <div className="font-bold text-lg mb-1 text-neutral-900 group-hover:text-brand-gold transition-colors">
                           Rachat de Voiture
@@ -516,9 +513,9 @@ export default function ConversionFormNew({
                     </div>
                   </button>
                 </div>
-                
+
                 {errors.service && (
-                  <p className="text-red-500 text-sm mt-2">⚠️ {errors.service}</p>
+                  <p className="text-red-500 text-sm mt-2">Attention: {errors.service}</p>
                 )}
               </div>
             )}
@@ -535,13 +532,12 @@ export default function ConversionFormNew({
                     value={formData.marque}
                     onChange={(e) => updateField('marque', e.target.value)}
                     placeholder="Ex: Renault, Peugeot, Citroën..."
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
-                      errors.marque ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
-                    }`}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${errors.marque ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                      }`}
                     autoComplete="off"
                   />
                   {errors.marque && (
-                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.marque}</p>
+                    <p className="text-red-500 text-sm mt-1">Attention: {errors.marque}</p>
                   )}
                   {formData.marque && !errors.marque && (
                     <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
@@ -559,13 +555,12 @@ export default function ConversionFormNew({
                     value={formData.modele}
                     onChange={(e) => updateField('modele', e.target.value)}
                     placeholder="Ex: Clio, 308, C3..."
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
-                      errors.modele ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
-                    }`}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${errors.modele ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                      }`}
                     autoComplete="off"
                   />
                   {errors.modele && (
-                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.modele}</p>
+                    <p className="text-red-500 text-sm mt-1">Attention: {errors.modele}</p>
                   )}
                   {formData.modele && !errors.modele && (
                     <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
@@ -586,13 +581,12 @@ export default function ConversionFormNew({
                       onChange={(e) => updateField('annee', e.target.value)}
                       placeholder="2015"
                       maxLength={4}
-                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
-                        errors.annee ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
-                      }`}
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${errors.annee ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                        }`}
                       autoComplete="off"
                     />
                     {errors.annee && (
-                      <p className="text-red-500 text-sm mt-1">⚠️ {errors.annee}</p>
+                      <p className="text-red-500 text-sm mt-1">Attention: {errors.annee}</p>
                     )}
                   </div>
 
@@ -603,9 +597,8 @@ export default function ConversionFormNew({
                     <select
                       value={formData.etat}
                       onChange={(e) => updateField('etat', e.target.value)}
-                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all appearance-none bg-white ${
-                        errors.etat ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
-                      }`}
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all appearance-none bg-white ${errors.etat ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                        }`}
                     >
                       <option value="">Choisir...</option>
                       <option value="roulante">Roulante</option>
@@ -613,7 +606,7 @@ export default function ConversionFormNew({
                       <option value="accidentee">Accidentée</option>
                     </select>
                     {errors.etat && (
-                      <p className="text-red-500 text-sm mt-1">⚠️ {errors.etat}</p>
+                      <p className="text-red-500 text-sm mt-1">Attention: {errors.etat}</p>
                     )}
                   </div>
                 </div>
@@ -630,7 +623,7 @@ export default function ConversionFormNew({
                 {formData.service === 'rachat' && (
                   <div className="p-4 bg-yellow-50 border-2 border-yellow-200 rounded-xl">
                     <p className="text-sm text-yellow-800 flex items-center gap-2">
-                      <span className="text-xl">💰</span>
+                      <span className="text-xl text-yellow-600 font-bold">€</span>
                       <strong>Paiement IMMÉDIAT</strong> • Cash ou virement le jour même
                     </p>
                   </div>
@@ -652,13 +645,12 @@ export default function ConversionFormNew({
                     onChange={(e) => updateField('codePostal', e.target.value)}
                     placeholder="75001"
                     maxLength={5}
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
-                      errors.codePostal ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
-                    }`}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${errors.codePostal ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                      }`}
                     autoComplete="postal-code"
                   />
                   {errors.codePostal && (
-                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.codePostal}</p>
+                    <p className="text-red-500 text-sm mt-1">Attention: {errors.codePostal}</p>
                   )}
                   {formData.codePostal && !errors.codePostal && /^\d{5}$/.test(formData.codePostal) && (
                     <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
@@ -689,22 +681,20 @@ export default function ConversionFormNew({
                     <button
                       type="button"
                       onClick={() => updateField('sousSol', true)}
-                      className={`flex-1 px-6 py-3 rounded-xl border-2 font-semibold transition-all ${
-                        formData.sousSol
+                      className={`flex-1 px-6 py-3 rounded-xl border-2 font-semibold transition-all ${formData.sousSol
                           ? 'border-brand-blue bg-brand-blue text-white shadow-lg'
                           : 'border-neutral-200 text-neutral-700 hover:border-brand-blue'
-                      }`}
+                        }`}
                     >
                       Oui
                     </button>
                     <button
                       type="button"
                       onClick={() => updateField('sousSol', false)}
-                      className={`flex-1 px-6 py-3 rounded-xl border-2 font-semibold transition-all ${
-                        !formData.sousSol
+                      className={`flex-1 px-6 py-3 rounded-xl border-2 font-semibold transition-all ${!formData.sousSol
                           ? 'border-brand-blue bg-brand-blue text-white shadow-lg'
                           : 'border-neutral-200 text-neutral-700 hover:border-brand-blue'
-                      }`}
+                        }`}
                     >
                       Non
                     </button>
@@ -713,7 +703,7 @@ export default function ConversionFormNew({
 
                 <div className="p-4 bg-blue-50 border-2 border-blue-200 rounded-xl">
                   <p className="text-sm text-blue-800">
-                    ⏱️ <strong>Intervention sous 24-48h</strong> • Nous venons chez vous
+                    <strong>Intervention sous 24-48h</strong> • Nous venons chez vous
                   </p>
                 </div>
               </div>
@@ -731,13 +721,12 @@ export default function ConversionFormNew({
                     value={formData.prenom}
                     onChange={(e) => updateField('prenom', e.target.value)}
                     placeholder="Jean"
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
-                      errors.prenom ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
-                    }`}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${errors.prenom ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                      }`}
                     autoComplete="given-name"
                   />
                   {errors.prenom && (
-                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.prenom}</p>
+                    <p className="text-red-500 text-sm mt-1">Attention: {errors.prenom}</p>
                   )}
                 </div>
 
@@ -751,13 +740,12 @@ export default function ConversionFormNew({
                     value={formData.phone}
                     onChange={(e) => updateField('phone', e.target.value)}
                     placeholder="06 12 34 56 78"
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${
-                      errors.phone ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
-                    }`}
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-blue/50 transition-all ${errors.phone ? 'border-red-500' : 'border-neutral-200 focus:border-brand-blue'
+                      }`}
                     autoComplete="tel"
                   />
                   {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">⚠️ {errors.phone}</p>
+                    <p className="text-red-500 text-sm mt-1">Attention: {errors.phone}</p>
                   )}
                   {formData.phone && !errors.phone && /^0[1-9]\d{8}$/.test(formData.phone.replace(/\s/g, '')) && (
                     <p className="text-green-600 text-sm mt-1 flex items-center gap-1">
@@ -783,7 +771,7 @@ export default function ConversionFormNew({
 
                 <div className="p-4 bg-gradient-to-r from-brand-red/10 to-brand-gold/10 border-2 border-brand-red/30 rounded-xl">
                   <p className="text-sm text-neutral-800 flex items-center gap-2">
-                    <span className="text-xl">⚡</span>
+                    <span className="text-xl text-brand-red font-bold">!</span>
                     <strong>Réponse en moins de 15 minutes</strong> • Nous vous contactons rapidement
                   </p>
                 </div>
@@ -803,7 +791,7 @@ export default function ConversionFormNew({
                 Retour
               </button>
             )}
-            
+
             {step < 4 ? (
               <button
                 type="button"

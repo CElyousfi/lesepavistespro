@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin, Clock } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
-import { allDepartments } from '@/lib/locations-complete';
+import { regions } from '@/lib/locations-complete';
 import Header from '@/components/Header';
 import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
@@ -17,6 +17,9 @@ export const metadata = generateRachatPillarMeta();
 export default function RachatVoiturePage() {
   const serviceData = getRachatServiceData();
   const faqData = getPillarFAQData();
+
+  const metroRegions = regions.filter(r => !['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
+  const outremerRegions = regions.filter(r => ['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
 
   return (
     <>
@@ -43,17 +46,17 @@ export default function RachatVoiturePage() {
             <div className="relative z-10 max-w-4xl mx-auto text-center">
             <div className="inline-block bg-brand-gold/10 border border-brand-gold/30 rounded-full px-4 py-2 mb-6">
               <span className="text-brand-gold font-semibold text-sm">
-                Rachat cash en Île-de-France
+                Rachat cash partout en France
               </span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Rachat de Voiture Île-de-France
+              Rachat de Voiture France
               <span className="block text-brand-gold mt-2">Paiement Immédiat</span>
             </h1>
             
             <p className="text-lg md:text-xl text-neutral-200 mb-8 leading-relaxed">
-              Nous rachetons tous types de véhicules en Île-de-France : voitures HS, accidentées, 
+              Nous rachetons tous types de véhicules partout en France : voitures HS, accidentées, 
               en panne, sans contrôle technique. Estimation gratuite et paiement cash immédiat.
             </p>
 
@@ -64,7 +67,7 @@ export default function RachatVoiturePage() {
                 09 79 04 94 86
               </a>
               <a 
-                href="https://wa.me/33602427345?text=Bonjour, je souhaite vendre ma voiture en Île-de-France"
+                href="https://wa.me/33602427345?text=Bonjour, je souhaite vendre ma voiture"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
@@ -99,17 +102,17 @@ export default function RachatVoiturePage() {
         <div className="container mx-auto px-[5%]">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
-              Rachat de voiture en Île-de-France
+              Rachat de voiture partout en France
             </h2>
             <div className="prose prose-lg max-w-none text-neutral-700">
               <p className="mb-4">
-                Vous souhaitez vendre rapidement votre voiture en Île-de-France ? Notre service de rachat 
-                de véhicules vous propose une estimation gratuite et un paiement immédiat pour tous types 
+                Vous souhaitez vendre rapidement votre voiture ? Notre service de rachat 
+                de véhicules intervient partout en France et vous propose une estimation gratuite et un paiement immédiat pour tous types 
                 de voitures : véhicules d'occasion, voitures accidentées, véhicules en panne, épaves, 
                 voitures sans contrôle technique.
               </p>
               <p className="mb-4">
-                Nous intervenons dans tous les départements d'Île-de-France (75, 77, 78, 91, 92, 93, 94, 95) 
+                Nous intervenons dans les 18 régions de France, 101 départements et plus de 35 000 communes 
                 pour racheter votre véhicule au meilleur prix. Le paiement s'effectue immédiatement en 
                 espèces, par chèque ou par virement selon votre préférence.
               </p>
@@ -177,29 +180,50 @@ export default function RachatVoiturePage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
-                Rachat de voiture dans toute l'Île-de-France
+                Rachat de voiture partout en France
               </h2>
               <p className="text-lg text-neutral-600">
-                Sélectionnez votre département pour voir toutes les villes desservies
+                Sélectionnez votre région pour voir tous les départements desservis
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {allDepartments.map((dept) => (
+            <h3 className="text-xl font-bold text-neutral-800 mb-6">France métropolitaine</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12">
+              {metroRegions.map((region) => (
                 <Link
-                  key={dept.slug}
-                  href={`/rachat-voiture/${dept.slug}`}
+                  key={region.slug}
+                  href={`/rachat-voiture/${region.slug}`}
                   className="flex flex-col items-center gap-3 p-6 bg-neutral-50 rounded-2xl border-2 border-neutral-200 hover:border-brand-gold hover:shadow-lg transition-all group"
                 >
                   <div className="w-16 h-16 rounded-full bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
                     <MapPin size={32} weight="bold" className="text-brand-gold" />
                   </div>
                   <div className="text-center">
-                    <div className="font-bold text-neutral-900 group-hover:text-brand-gold transition-colors">
-                      {dept.name}
+                    <div className="font-bold text-neutral-900 group-hover:text-brand-gold transition-colors text-sm">
+                      {region.name}
                     </div>
-                    <div className="text-sm text-neutral-500">({dept.code})</div>
-                    <div className="text-xs text-neutral-400 mt-1">{dept.cities.length} villes</div>
+                    <div className="text-xs text-neutral-500 mt-1">{region.departments.length} départements</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <h3 className="text-xl font-bold text-neutral-800 mb-6">Outre-mer</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {outremerRegions.map((region) => (
+                <Link
+                  key={region.slug}
+                  href={`/rachat-voiture/${region.slug}`}
+                  className="flex flex-col items-center gap-3 p-6 bg-neutral-50 rounded-2xl border-2 border-neutral-200 hover:border-brand-gold hover:shadow-lg transition-all group"
+                >
+                  <div className="w-14 h-14 rounded-full bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
+                    <MapPin size={28} weight="bold" className="text-brand-gold" />
+                  </div>
+                  <div className="text-center">
+                    <div className="font-bold text-neutral-900 group-hover:text-brand-gold transition-colors text-sm">
+                      {region.name}
+                    </div>
+                    <div className="text-xs text-neutral-500 mt-1">{region.departments.length} département{region.departments.length > 1 ? 's' : ''}</div>
                   </div>
                 </Link>
               ))}

@@ -24,7 +24,7 @@ const services = [
   {
     icon: Clock,
     title: 'Intervention rapide 7j/7',
-    description: 'Disponibles 7 jours sur 7, de 8h à 21h. Intervention sous 24h partout en Île-de-France. Urgence possible sous 2h.',
+    description: 'Disponibles 7 jours sur 7, de 8h à 21h. Intervention sous 24h partout en France. Urgence possible sous 2h.',
   },
   {
     icon: Recycle,

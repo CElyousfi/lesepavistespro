@@ -1,6 +1,8 @@
 // Structured Data (JSON-LD) for SEO
 // Complete implementation for Les Épavistes Pro
 
+import { regions, allDepartments } from './locations-national';
+
 const BUSINESS_ID = 'https://www.lesepavistespro.fr/#business';
 const WEBSITE_ID = 'https://www.lesepavistespro.fr/#website';
 const PHONE = '+33979049486';
@@ -9,68 +11,15 @@ const LOGO_URL = 'https://www.lesepavistespro.fr/logo.png';
 const FACEBOOK_URL = 'https://web.facebook.com/profile.php?id=61552439650150';
 const INSTAGRAM_URL = 'https://www.instagram.com/lesepavistespro';
 
-// All cities by department
-const CITIES_BY_DEPT = {
-  '75': [
-    'Paris 1er', 'Paris 2e', 'Paris 3e', 'Paris 4e', 'Paris 5e',
-    'Paris 6e', 'Paris 7e', 'Paris 8e', 'Paris 9e', 'Paris 10e',
-    'Paris 11e', 'Paris 12e', 'Paris 13e', 'Paris 14e', 'Paris 15e',
-    'Paris 16e', 'Paris 17e', 'Paris 18e', 'Paris 19e', 'Paris 20e'
-  ],
-  '77': [
-    'Meaux', 'Melun', 'Chelles', 'Pontault-Combault', 'Savigny-le-Temple',
-    'Bussy-Saint-Georges', 'Villeparisis', 'Champs-sur-Marne', 'Torcy',
-    'Fontainebleau', 'Montereau-Fault-Yonne', 'La Ferté-sous-Jouarre',
-    'Provins', 'Brie-Comte-Robert'
-  ],
-  '78': [
-    'Versailles', 'Sartrouville', 'Mantes-la-Jolie', 'Saint-Germain-en-Laye',
-    'Poissy', 'Conflans-Sainte-Honorine', 'Rambouillet', 'Trappes',
-    'Houilles', 'Les Mureaux', 'Chatou'
-  ],
-  '91': [
-    'Évry-Courcouronnes', 'Corbeil-Essonnes', 'Massy', 'Savigny-sur-Orge',
-    'Sainte-Geneviève-des-Bois', 'Palaiseau', 'Viry-Châtillon',
-    'Athis-Mons', 'Brunoy', 'Draveil', 'Yerres'
-  ],
-  '92': [
-    'Boulogne-Billancourt', 'Nanterre', 'Courbevoie', 'Colombes',
-    'Asnières-sur-Seine', 'Rueil-Malmaison', 'Issy-les-Moulineaux',
-    'Neuilly-sur-Seine', 'Levallois-Perret', 'Clichy', 'Suresnes', 'Puteaux'
-  ],
-  '93': [
-    'Saint-Denis', 'Montreuil', 'Aubervilliers', 'Aulnay-sous-Bois',
-    'Drancy', 'Noisy-le-Grand', 'Pantin', 'Bobigny', 'Le Blanc-Mesnil',
-    'La Courneuve', 'Épinay-sur-Seine'
-  ],
-  '94': [
-    'Créteil', 'Vitry-sur-Seine', 'Champigny-sur-Marne', 'Saint-Maur-des-Fossés',
-    'Ivry-sur-Seine', 'Villejuif', 'Maisons-Alfort', 'Alfortville',
-    'Choisy-le-Roi', 'Le Perreux-sur-Marne', 'Nogent-sur-Marne'
-  ],
-  '95': [
-    'Argenteuil', 'Sarcelles', 'Cergy', 'Garges-lès-Gonesse',
-    'Goussainville', 'Ermont', 'Franconville', 'Taverny', 'Pontoise',
-    'Bezons', 'Montmorency'
-  ]
-};
-
-// Generate area served for all IDF
+// Generate area served for all of France (regions + key cities)
 function getAllAreaServed() {
-  const areas = [
-    { '@type': 'AdministrativeArea', name: 'Paris (75)' },
-    { '@type': 'AdministrativeArea', name: 'Seine-et-Marne (77)' },
-    { '@type': 'AdministrativeArea', name: 'Yvelines (78)' },
-    { '@type': 'AdministrativeArea', name: 'Essonne (91)' },
-    { '@type': 'AdministrativeArea', name: 'Hauts-de-Seine (92)' },
-    { '@type': 'AdministrativeArea', name: 'Seine-Saint-Denis (93)' },
-    { '@type': 'AdministrativeArea', name: 'Val-de-Marne (94)' },
-    { '@type': 'AdministrativeArea', name: "Val-d'Oise (95)" }
+  const areas: Array<{ '@type': string; name: string }> = [
+    { '@type': 'Country', name: 'France' },
   ];
 
-  // Add all cities
-  Object.values(CITIES_BY_DEPT).flat().forEach(city => {
-    areas.push({ '@type': 'City', name: city });
+  // Add all regions
+  regions.forEach(region => {
+    areas.push({ '@type': 'AdministrativeArea', name: region.name });
   });
 
   return areas;
@@ -91,7 +40,6 @@ export function getHomeStructuredData() {
       priceRange: '€',
       address: {
         '@type': 'PostalAddress',
-        addressRegion: 'Île-de-France',
         addressCountry: 'FR'
       },
       openingHoursSpecification: [{
@@ -133,17 +81,17 @@ export function getEpavisteServiceData() {
     '@type': 'Service',
     name: "Enlèvement d'épave gratuit (VHU agréé)",
     serviceType: 'Épaviste',
-    areaServed: 'Île-de-France',
+    areaServed: 'France',
     provider: { '@type': 'LocalBusiness', '@id': BUSINESS_ID },
     offers: {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'EUR',
-      description: 'Intervention 24–48h, 7j/7 — certificat de destruction VHU, sous-sol et fourrière possibles'
+      description: 'Intervention 24–48h, 7j/7 partout en France — certificat de destruction VHU, sous-sol et fourrière possibles'
     },
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Épaviste Île-de-France',
+      name: 'Épaviste France',
       itemListElement: [
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Enlèvement épave voiture' } },
         { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Épave utilitaire' } },
@@ -161,7 +109,7 @@ export function getRachatServiceData() {
     '@type': 'Service',
     name: 'Rachat de voiture – paiement rapide',
     serviceType: 'Rachat automobile',
-    areaServed: 'Île-de-France',
+    areaServed: 'France',
     provider: { '@type': 'LocalBusiness', '@id': BUSINESS_ID },
     offers: {
       '@type': 'Offer',
@@ -183,7 +131,7 @@ export function getPillarFAQData() {
         name: "L'enlèvement d'épave est-il vraiment gratuit ?",
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Oui, 100% gratuit pour véhicule complet en Île-de-France. Intervention sous 24–48h, 7j/7.'
+          text: 'Oui, 100% gratuit pour véhicule complet partout en France. Intervention sous 24–48h, 7j/7.'
         }
       },
       {
@@ -196,10 +144,10 @@ export function getPillarFAQData() {
       },
       {
         '@type': 'Question',
-        name: 'Intervenez-vous partout en Île-de-France ?',
+        name: 'Intervenez-vous partout en France ?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Oui : Paris (75) et départements 77, 78, 91, 92, 93, 94, 95 — plus de 1 200 communes desservies.'
+          text: 'Oui, nous intervenons dans toute la France : 18 régions, 101 départements, plus de 35 000 communes desservies.'
         }
       },
       {
@@ -224,7 +172,9 @@ export function getPillarFAQData() {
 
 // 5. DEPARTMENT LOCAL BUSINESS
 export function getDepartmentLocalBusiness(deptCode: string, deptName: string, url: string) {
-  const cities = CITIES_BY_DEPT[deptCode as keyof typeof CITIES_BY_DEPT] || [];
+  // Find department from national data to get city names
+  const dept = allDepartments.find(d => d.code === deptCode);
+  const cityNames = dept ? dept.cities.slice(0, 20).map(c => c.name) : [];
   
   return {
     '@context': 'https://schema.org',
@@ -236,7 +186,7 @@ export function getDepartmentLocalBusiness(deptCode: string, deptName: string, u
     openingHours: 'Mo-Su 00:00-23:59',
     areaServed: [
       { '@type': 'AdministrativeArea', name: deptName },
-      ...cities.map(city => ({ '@type': 'City', name: city }))
+      ...cityNames.map(city => ({ '@type': 'City', name: city }))
     ]
   };
 }

@@ -7,8 +7,8 @@ export const seoConfig = {
   // Base configuration
   siteName: 'Les Épavistes Pro',
   siteUrl: 'https://lesepavistespro.fr',
-  defaultTitle: 'Épaviste Île-de-France | Enlèvement d\'épave gratuit & Rachat voiture 24h',
-  defaultDescription: '⭐ Épaviste agréé VHU en Île-de-France. Enlèvement d\'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. ☎️ 09 79 04 94 86',
+  defaultTitle: 'Épaviste France | Enlèvement d\'épave gratuit & Rachat voiture 24h',
+  defaultDescription: '⭐ Épaviste agréé VHU partout en France. Enlèvement d\'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. ☎️ 09 79 04 94 86',
   
   // Contact information
   phone: '09 79 04 94 86',
@@ -34,7 +34,7 @@ export const seoConfig = {
   
   // Primary keywords (high-value, high-intent)
   primaryKeywords: [
-    'épaviste île-de-france',
+    'épaviste france',
     'enlèvement épave gratuit',
     'rachat voiture accidentée',
     'épaviste agréé vhu',

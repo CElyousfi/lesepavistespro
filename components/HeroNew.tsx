@@ -57,11 +57,11 @@ const HeroNew = () => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
                 Enlèvement d'épave{' '}
                 <span className="text-brand-red italic">100% gratuit</span>
-                {' '}en Île-de-France
+                {' '}partout en France
               </h1>
               <p className="text-sm sm:text-base md:text-lg text-neutral-200 leading-relaxed max-w-3xl mx-auto px-2">
                 Épaviste agréé VHU disponible 7j/7. Service rapide d'enlèvement gratuit et rachat de véhicules 
-                accidentés, HS ou en panne dans toute l'Île-de-France.
+                accidentés, HS ou en panne partout en France. 18 régions, 101 départements couverts.
               </p>
             </div>
 

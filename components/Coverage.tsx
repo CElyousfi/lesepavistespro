@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import { MapPin } from '@phosphor-icons/react';
-import { allDepartments } from '@/lib/locations-complete';
+import { regions } from '@/lib/locations-complete';
 
 const Coverage = () => {
-  // Get top cities from each department
-  const topCities = allDepartments.flatMap(dept => 
-    dept.cities.slice(0, 2).map(city => ({
+  // Get top cities from key regions for display
+  const keyDepts = regions.flatMap(r => r.departments).slice(0, 16);
+  const topCities = keyDepts.flatMap(dept => 
+    dept.cities.slice(0, 1).map(city => ({
       name: city.name,
       slug: city.slug,
       deptSlug: dept.slug,
@@ -23,19 +24,19 @@ const Coverage = () => {
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 tracking-tight">
-              Couverture complète de l'Île-de-France
+              Couverture nationale complète
             </h2>
             <p className="text-lg text-neutral-600 font-light leading-relaxed">
-              Intervention rapide dans les 8 départements de la région. Plus de 1 200 communes desservies.
+              Intervention rapide dans les 18 régions de France. Plus de 35 000 communes desservies.
             </p>
           </div>
 
           {/* Departments Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {allDepartments.map((dept) => (
+            {regions.filter(r => !['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug)).map((region) => (
               <Link
-                key={dept.code}
-                href={`/epaviste/${dept.slug}`}
+                key={region.slug}
+                href={`/epaviste/${region.slug}`}
                 className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-neutral-200 hover:border-brand-blue group"
               >
                 <div className="flex items-start space-x-4">
@@ -43,12 +44,12 @@ const Coverage = () => {
                     <MapPin size={24} weight="bold" className="text-brand-blue group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm text-neutral-500 mb-1 font-medium">{dept.code}</div>
+                    <div className="text-sm text-neutral-500 mb-1 font-medium">{region.departments.length} dép.</div>
                     <h3 className="text-lg font-bold text-neutral-900 group-hover:text-brand-blue transition-colors mb-2">
-                      {dept.name}
+                      {region.name}
                     </h3>
                     <p className="text-sm text-neutral-600">
-                      {dept.cities.length} villes
+                      {region.departments.reduce((sum, d) => sum + d.cities.length, 0)} communes
                     </p>
                   </div>
                 </div>
@@ -75,7 +76,7 @@ const Coverage = () => {
             </div>
             <div className="mt-8 text-center">
               <p className="text-neutral-600 mb-4">
-                Et toutes les autres communes d'Île-de-France...
+                Et toutes les autres communes de France...
               </p>
               <Link 
                 href="/epaviste"

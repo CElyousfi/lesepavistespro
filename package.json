@@ -9,6 +9,7 @@
     "lint": "eslint",
     "seo-check": "tsx scripts/seo-qa-check.ts",
     "radar": "tsx scripts/search-demand-radar.ts",
+    "generate-locations": "tsx scripts/generate-full-locations.ts",
     "prebuild": "npm run seo-check"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.0",
+    "csv-parse": "^6.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "postcss": "^8.4.0",

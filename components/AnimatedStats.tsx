@@ -13,7 +13,7 @@ const stats: Stat[] = [
   {
     number: '+250',
     label: 'Clients satisfaits',
-    description: 'Plus de 250 clients satisfaits en Île-de-France. Service rapide et professionnel garanti.'
+    description: 'Plus de 250 clients satisfaits partout en France. Service rapide et professionnel garanti.'
   },
   {
     number: '100%',
@@ -28,7 +28,7 @@ const stats: Stat[] = [
   {
     number: '24h',
     label: 'Intervention',
-    description: 'Intervention rapide sous 24-48h partout en Île-de-France. Prise en charge immédiate.'
+    description: 'Intervention rapide sous 24-48h partout en France. Prise en charge immédiate.'
   }
 ];
 

@@ -4,7 +4,7 @@ import { MapPin, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { allDepartments } from '@/lib/locations-complete';
+import { regions, allDepartments } from '@/lib/locations-complete';
 import { generateZonesMeta } from '@/lib/seo';
 
 export const metadata: Metadata = generateZonesMeta();
@@ -12,6 +12,7 @@ export const metadata: Metadata = generateZonesMeta();
 export default function ZonesPage() {
   // Calculate total cities
   const totalCities = allDepartments.reduce((sum, dept) => sum + dept.cities.length, 0);
+  const totalDepartments = allDepartments.length;
 
   return (
     <>
@@ -31,11 +32,11 @@ export default function ZonesPage() {
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               Nos Zones d'Intervention
-              <span className="block text-brand-red mt-2">en Île-de-France</span>
+              <span className="block text-brand-red mt-2">partout en France</span>
             </h1>
             
             <p className="text-lg md:text-xl text-neutral-200 mb-8 leading-relaxed">
-              Nous intervenons dans <strong className="text-white">{totalCities} villes</strong> réparties sur <strong className="text-white">8 départements</strong> d'Île-de-France pour l'enlèvement d'épave gratuit et le rachat de voiture.
+              Nous intervenons dans <strong className="text-white">{totalCities.toLocaleString('fr-FR')} communes</strong> réparties sur <strong className="text-white">{totalDepartments} départements</strong> et <strong className="text-white">{regions.length} régions</strong> pour l'enlèvement d'épave gratuit et le rachat de voiture.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -68,8 +69,8 @@ export default function ZonesPage() {
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
               <div className="text-center p-6 bg-gradient-to-br from-brand-navy to-brand-navy-light rounded-2xl text-white">
-                <div className="text-4xl font-bold mb-2">{allDepartments.length}</div>
-                <div className="text-sm text-neutral-200">Départements</div>
+                <div className="text-4xl font-bold mb-2">{regions.length}</div>
+                <div className="text-sm text-neutral-200">Régions</div>
               </div>
               <div className="text-center p-6 bg-gradient-to-br from-brand-red to-red-600 rounded-2xl text-white">
                 <div className="text-4xl font-bold mb-2">{totalCities}</div>
@@ -85,40 +86,40 @@ export default function ZonesPage() {
               </div>
             </div>
 
-            {/* Departments List */}
+            {/* Regions & Departments List */}
             <div className="space-y-12">
-              {allDepartments.map((department) => (
-                <div key={department.slug} className="bg-neutral-50 rounded-2xl p-8 border-2 border-neutral-200">
-                  {/* Department Header */}
+              {regions.map((region) => (
+                <div key={region.slug} className="bg-neutral-50 rounded-2xl p-8 border-2 border-neutral-200">
+                  {/* Region Header */}
                   <div className="mb-6">
                     <div className="flex items-center gap-3 mb-3">
                       <MapPin size={32} weight="bold" className="text-brand-red" />
                       <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">
-                        {department.name} ({department.code})
+                        {region.name}
                       </h2>
                     </div>
                     <p className="text-neutral-600">
-                      {department.cities.length} villes couvertes • Intervention sous 24-48h
+                      {region.departments.length} départements • {region.departments.reduce((sum, d) => sum + d.cities.length, 0).toLocaleString('fr-FR')} communes couvertes
                     </p>
                   </div>
 
-                  {/* Cities Grid */}
+                  {/* Departments Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                    {department.cities
+                    {region.departments
                       .sort((a, b) => a.name.localeCompare(b.name))
-                      .map((city) => (
+                      .map((dept) => (
                         <Link
-                          key={city.slug}
-                          href={`/epaviste/${department.slug}/${city.slug}`}
+                          key={dept.slug}
+                          href={`/epaviste/${dept.slug}`}
                           className="group p-4 bg-white hover:bg-brand-navy border-2 border-neutral-200 hover:border-brand-navy rounded-xl transition-all hover:shadow-lg"
                         >
                           <div className="flex items-center justify-between">
                             <div>
                               <div className="font-semibold text-neutral-900 group-hover:text-white transition-colors">
-                                {city.name}
+                                {dept.name} ({dept.code})
                               </div>
                               <div className="text-sm text-neutral-500 group-hover:text-neutral-300 transition-colors">
-                                {city.postalCode}
+                                {dept.cities.length} communes
                               </div>
                             </div>
                             <div className="text-brand-red group-hover:text-white transition-colors">
@@ -129,21 +130,14 @@ export default function ZonesPage() {
                       ))}
                   </div>
 
-                  {/* Department Links */}
+                  {/* Region Links */}
                   <div className="mt-6 pt-6 border-t-2 border-neutral-200 flex flex-wrap gap-3">
                     <Link
-                      href={`/epaviste/${department.slug}`}
+                      href={`/epaviste/${region.slug}`}
                       className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red hover:bg-brand-red-light text-white rounded-lg font-semibold transition-all text-sm"
                     >
                       <span>🚗</span>
-                      <span>Épaviste {department.name}</span>
-                    </Link>
-                    <Link
-                      href={`/rachat-voiture/${department.slug}`}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-brand-gold hover:bg-yellow-600 text-white rounded-lg font-semibold transition-all text-sm"
-                    >
-                      <span>💰</span>
-                      <span>Rachat {department.name}</span>
+                      <span>Épaviste {region.name}</span>
                     </Link>
                   </div>
                 </div>
@@ -156,7 +150,7 @@ export default function ZonesPage() {
                 Votre ville n'est pas listée ?
               </h2>
               <p className="text-lg text-neutral-200 mb-8 max-w-2xl mx-auto">
-                Contactez-nous ! Nous intervenons dans toute l'Île-de-France et pouvons nous déplacer dans votre commune.
+                Contactez-nous ! Nous intervenons partout en France et pouvons nous déplacer dans votre commune.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a

@@ -7,14 +7,14 @@ import { CheckCircle, Warning, FileText, CurrencyEur } from '@phosphor-icons/rea
 import { getBlogArticleData, renderJSONLD } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
-  title: "Rachat sans CT en Île-de-France : Démarches & Légalité | Les Épavistes Pro",
-  description: "Guide complet sur le rachat de voiture sans contrôle technique en IDF. Démarches légales, documents nécessaires, prix et conseils d'experts.",
-  keywords: ['rachat sans CT', 'voiture sans contrôle technique', 'vente sans CT', 'Île-de-France'],
+  title: "Rachat sans CT en France : Démarches & Légalité",
+  description: "Guide complet sur le rachat de voiture sans contrôle technique. Démarches légales, documents nécessaires, prix et conseils d'experts.",
+  keywords: ['rachat sans CT', 'voiture sans contrôle technique', 'vente sans CT', 'France'],
 };
 
 export default function RachatSansCTPage() {
   const articleData = getBlogArticleData({
-    title: "Rachat sans CT en Île-de-France : Démarches & Légalité",
+    title: "Rachat sans CT en France : Démarches & Légalité",
     description: "Guide complet sur le rachat de voiture sans contrôle technique. Tout ce qu'il faut savoir sur la légalité, les démarches et les prix.",
     author: 'Les Épavistes Pro',
     publishDate: '2024-11-11',
@@ -37,7 +37,7 @@ export default function RachatSansCTPage() {
           <div className="container mx-auto px-[5%]">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Rachat sans CT en Île-de-France
+                Rachat sans CT en France
               </h1>
               <p className="text-xl text-neutral-200">
                 Démarches, légalité et conseils pour vendre votre voiture sans contrôle technique
@@ -224,7 +224,7 @@ export default function RachatSansCTPage() {
                     Quel est le délai pour vendre sans CT ?
                   </summary>
                   <p className="mt-3 text-neutral-700">
-                    Vous pouvez vendre immédiatement. Nous intervenons sous 24-48h partout en Île-de-France. 
+                    Vous pouvez vendre immédiatement. Nous intervenons sous 24-48h partout en France. 
                     Estimation et paiement le jour même de l'enlèvement.
                   </p>
                 </details>

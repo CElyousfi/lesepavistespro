@@ -4,7 +4,7 @@ import { allDepartments } from '@/lib/locations-complete';
 
 /**
  * Rachat voiture department pages sitemap
- * 8 departments in Île-de-France
+ * 101 departments across France
  */
 export async function GET() {
   const base = getSiteUrl();

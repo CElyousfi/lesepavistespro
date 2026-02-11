@@ -141,7 +141,8 @@ function checkTitleLengths() {
     titleMatches.forEach(match => {
       const title = match.replace(/title:\s*`/, '').replace(/`$/, '');
       // Remove template variables for length estimation
-      const estimatedLength = title.replace(/\$\{[^}]+\}/g, '').length + 20; // Add buffer for variables
+      // Add 15 chars buffer for variables + 21 chars for ' | Les Épavistes Pro' suffix from layout template
+      const estimatedLength = title.replace(/\$\{[^}]+\}/g, '').length + 15 + 21;
       
       if (estimatedLength > 65) {
         longTitles++;
@@ -187,23 +188,26 @@ function checkGeographicScope() {
   const locationsFile = path.join(process.cwd(), 'lib/locations-complete.ts');
   const content = fs.readFileSync(locationsFile, 'utf-8');
   
-  // Check that only Île-de-France departments are present
-  const validDepts = ['75', '77', '78', '91', '92', '93', '94', '95'];
-  const hasFranceWide = content.includes('France entière') || content.includes('toute la France');
-  
-  if (!hasFranceWide) {
-    addResult(true, '✓ No nationwide coverage claims');
+  // Check that national location data is properly loaded
+  const locationsNationalFile = path.join(process.cwd(), 'lib/locations-national.ts');
+  const nationalContent = fs.readFileSync(locationsNationalFile, 'utf-8');
+
+  // Count regions (match region-level entries: name + slug + departments pattern)
+  const regionCount = (nationalContent.match(/name:\s*"[^"]+",\n\s*slug:\s*"[a-z-]+",\n\s*departments:\s*\[/g) || []).length;
+
+  if (regionCount >= 18) {
+    addResult(true, `✓ National coverage: ${regionCount} regions found`);
   } else {
-    addResult(false, '✗ WARNING: Nationwide coverage detected');
+    addResult(false, `⚠ Found ${regionCount} regions (expected 18+)`, 'warning');
   }
-  
-  // Count departments
-  const deptCount = (content.match(/code:\s*["'](\d{2,3})["']/g) || []).length;
-  
-  if (deptCount === 8) {
-    addResult(true, `✓ Exactly 8 departments (Île-de-France only)`);
+
+  // Verify re-export layer exists
+  const hasReExport = content.includes('locations-national');
+
+  if (hasReExport) {
+    addResult(true, '✓ locations-complete.ts re-exports from locations-national.ts');
   } else {
-    addResult(false, `⚠ Found ${deptCount} departments (expected 8)`, 'warning');
+    addResult(false, '✗ locations-complete.ts missing re-export from locations-national.ts');
   }
 }
 

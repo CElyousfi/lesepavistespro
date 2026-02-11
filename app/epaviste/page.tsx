@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
-import { allDepartments } from '@/lib/locations-complete';
+import { regions } from '@/lib/locations-complete';
 import Header from '@/components/Header';
 import FAQ from '@/components/FAQ';
 import CTASection from '@/components/CTASection';
@@ -17,6 +17,10 @@ export const metadata: Metadata = generateEpavistePillarMeta();
 export default function EpavistePage() {
   const serviceData = getEpavisteServiceData();
   const faqData = getPillarFAQData();
+
+  // Separate metropolitan and overseas regions
+  const metroRegions = regions.filter(r => !['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
+  const outremerRegions = regions.filter(r => ['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
 
   return (
     <>
@@ -43,18 +47,19 @@ export default function EpavistePage() {
             <div className="relative z-10 max-w-4xl mx-auto text-center">
             <div className="inline-block bg-brand-red/10 border border-brand-red/30 rounded-full px-4 py-2 mb-6">
               <span className="text-brand-red font-semibold text-sm">
-                Service disponible 24h/24, 7j/7 en Île-de-France
+                Service disponible 24h/24, 7j/7 partout en France
               </span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Épaviste Île-de-France
+              Épaviste France entière
               <span className="block text-brand-red mt-2">Enlèvement Gratuit 24h</span>
             </h1>
             
             <p className="text-lg md:text-xl text-neutral-200 mb-8 leading-relaxed">
-              Épaviste agréé VHU dans toute l'Île-de-France. Enlèvement d'épave 100% gratuit, 
+              Épaviste agréé VHU partout en France. Enlèvement d'épave 100% gratuit, 
               intervention rapide sous 24-48h, certificat de destruction fourni immédiatement.
+              18 régions, 101 départements, plus de 35 000 communes desservies.
             </p>
 
             {/* CTA Buttons */}
@@ -64,7 +69,7 @@ export default function EpavistePage() {
                 09 79 04 94 86
               </a>
               <a 
-                href="https://wa.me/33602427345?text=Bonjour, je souhaite un devis pour l'enlèvement d'une épave en Île-de-France"
+                href="https://wa.me/33602427345?text=Bonjour, je souhaite un devis pour l'enlèvement d'une épave"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl"
@@ -99,14 +104,13 @@ export default function EpavistePage() {
         <div className="container mx-auto px-[5%]">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
-              Service d'enlèvement d'épave en Île-de-France
+              Service d'enlèvement d'épave partout en France
             </h2>
             <div className="prose prose-lg max-w-none text-neutral-700">
               <p className="mb-4">
-                Vous avez une épave de voiture, moto, scooter ou utilitaire à faire enlever en Île-de-France ? 
-                Notre service d'épaviste agréé VHU intervient gratuitement dans tous les départements de la 
-                région (Paris 75, Seine-et-Marne 77, Yvelines 78, Essonne 91, Hauts-de-Seine 92, 
-                Seine-Saint-Denis 93, Val-de-Marne 94, Val-d'Oise 95).
+                Vous avez une épave de voiture, moto, scooter ou utilitaire à faire enlever ? 
+                Notre service d'épaviste agréé VHU intervient gratuitement dans toute la France métropolitaine 
+                et les départements d'outre-mer. Nous couvrons 18 régions, 101 départements et plus de 35 000 communes.
               </p>
               <p className="mb-4">
                 Que votre véhicule soit accidenté, en panne, sans contrôle technique, brûlé ou simplement 
@@ -114,7 +118,7 @@ export default function EpavistePage() {
                 administratives. Le certificat de destruction vous est remis immédiatement.
               </p>
               <p>
-                Notre équipe d'épavistes professionnels dispose de l'équipement nécessaire pour intervenir 
+                Notre réseau d'épavistes professionnels dispose de l'équipement nécessaire pour intervenir 
                 même dans les situations difficiles : parking souterrain, terrain enclavé, voirie publique, etc.
               </p>
             </div>
@@ -154,7 +158,7 @@ export default function EpavistePage() {
                 <div>
                   <h3 className="font-bold text-neutral-900 mb-2">Intervention rapide</h3>
                   <p className="text-neutral-600">
-                    Prise en charge sous 24-48h dans toute l'Île-de-France. Service d'urgence disponible.
+                    Prise en charge sous 24-48h partout en France. Service d'urgence disponible.
                   </p>
                 </div>
               </div>
@@ -180,9 +184,9 @@ export default function EpavistePage() {
                   </div>
                 </div>
                 <div>
-                  <h3 className="font-bold text-neutral-900 mb-2">Couverture totale</h3>
+                  <h3 className="font-bold text-neutral-900 mb-2">Couverture nationale</h3>
                   <p className="text-neutral-600">
-                    Tous les départements d'Île-de-France desservis, aucun frais de déplacement.
+                    18 régions, 101 départements, plus de 35 000 communes desservies en France.
                   </p>
                 </div>
               </div>
@@ -191,35 +195,56 @@ export default function EpavistePage() {
         </div>
       </section>
 
-      {/* Departments List */}
+      {/* Regions Grid - Metropolitan */}
       <section className="py-20 md:py-28 bg-white">
         <div className="container mx-auto px-[5%]">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
-                Villes desservies en Île-de-France
+                Choisissez votre région
               </h2>
               <p className="text-lg text-neutral-600">
-                Sélectionnez votre département pour voir toutes les villes desservies
+                Sélectionnez votre région pour voir tous les départements et villes desservis
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {allDepartments.map((dept) => (
+            <h3 className="text-xl font-bold text-neutral-800 mb-6">France métropolitaine</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12">
+              {metroRegions.map((region) => (
                 <Link
-                  key={dept.slug}
-                  href={`/epaviste/${dept.slug}`}
+                  key={region.slug}
+                  href={`/epaviste/${region.slug}`}
                   className="flex flex-col items-center gap-3 p-6 bg-neutral-50 rounded-2xl border-2 border-neutral-200 hover:border-brand-blue hover:shadow-lg transition-all group"
                 >
                   <div className="w-16 h-16 rounded-full bg-brand-red/10 flex items-center justify-center group-hover:bg-brand-red/20 transition-colors">
                     <MapPin size={32} weight="bold" className="text-brand-red" />
                   </div>
                   <div className="text-center">
-                    <div className="font-bold text-neutral-900 group-hover:text-brand-blue transition-colors">
-                      {dept.name}
+                    <div className="font-bold text-neutral-900 group-hover:text-brand-blue transition-colors text-sm">
+                      {region.name}
                     </div>
-                    <div className="text-sm text-neutral-500">({dept.code})</div>
-                    <div className="text-xs text-neutral-400 mt-1">{dept.cities.length} villes</div>
+                    <div className="text-xs text-neutral-500 mt-1">{region.departments.length} départements</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <h3 className="text-xl font-bold text-neutral-800 mb-6">Outre-mer</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {outremerRegions.map((region) => (
+                <Link
+                  key={region.slug}
+                  href={`/epaviste/${region.slug}`}
+                  className="flex flex-col items-center gap-3 p-6 bg-neutral-50 rounded-2xl border-2 border-neutral-200 hover:border-brand-blue hover:shadow-lg transition-all group"
+                >
+                  <div className="w-14 h-14 rounded-full bg-brand-red/10 flex items-center justify-center group-hover:bg-brand-red/20 transition-colors">
+                    <MapPin size={28} weight="bold" className="text-brand-red" />
+                  </div>
+                  <div className="text-center">
+                    <div className="font-bold text-neutral-900 group-hover:text-brand-blue transition-colors text-sm">
+                      {region.name}
+                    </div>
+                    <div className="text-xs text-neutral-500 mt-1">{region.departments.length} département{region.departments.length > 1 ? 's' : ''}</div>
                   </div>
                 </Link>
               ))}

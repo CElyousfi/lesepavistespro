@@ -37,7 +37,7 @@ const StatsNew = () => {
                 <p className="text-neutral-700 leading-relaxed">
                   Chez Les Épavistes Pro, nos interventions génèrent des résultats concrets et mesurables : 
                   enlèvements gratuits, rachats au meilleur prix, certificats de destruction rapides... 
-                  autant de services que nous assurons pour nos clients en Île-de-France.
+                  autant de services que nous assurons pour nos clients partout en France.
                 </p>
               </div>
 

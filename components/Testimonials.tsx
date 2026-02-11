@@ -130,7 +130,7 @@ const Testimonials = () => {
               Ils nous font confiance
             </h2>
             <p className="text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto font-light">
-              Découvrez les témoignages de nos clients satisfaits en Île-de-France.
+              Découvrez les témoignages de nos clients satisfaits partout en France.
             </p>
           </div>
 

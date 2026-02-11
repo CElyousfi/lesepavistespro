@@ -3,8 +3,8 @@ import { getSiteUrl } from '@/lib/site';
 import { allDepartments } from '@/lib/locations-complete';
 
 /**
- * Épaviste department pages sitemap
- * 8 departments in Île-de-France
+ * Epaviste department pages sitemap
+ * 101 departments across France
  */
 export async function GET() {
   const base = getSiteUrl();

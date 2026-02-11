@@ -12,82 +12,82 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         
-        // RED BULL INSPIRED COLOR PALETTE - Next Level Energy
+        // CORPORATE TRUST PALETTE - Professional & Reliable
         brand: {
-          // Navy - Primary brand color (Deep Blue)
+          // Navy - Primary brand color (Deep Executive Blue)
           navy: {
-            DEFAULT: "#0F2D5B", // Red Bull Dark Blue - main brand color
-            light: "#1A4278",   // Lighter blue for hover states
-            dark: "#091D3C",    // Red Bull Darkest Blue - depth
+            DEFAULT: "#0B1C33", // Deep authoritative navy
+            light: "#162A47",   // Lighter navy for hover
+            dark: "#050E1A",    // Darkest navy - almost black
           },
-          // Blue - Secondary accent (same as navy for consistency)
+          // Blue - Secondary accent (Trust Blue)
           blue: {
-            DEFAULT: "#0F2D5B", // Red Bull Dark Blue
-            light: "#1A4278",   // Lighter blue - hover states
-            dark: "#091D3C",    // Darkest blue - active states
+            DEFAULT: "#0F4C81", // Classic Blue - Trust & Dependability
+            light: "#1D5D9B",   // Lighter blue
+            dark: "#083054",    // Dark blue
           },
-          // Red - Accent color (Red Bull Red - Energy!)
+          // Red - Accent color (Subtle & Professional)
           red: {
-            DEFAULT: "#E41349", // Red Bull Red - primary CTA
-            light: "#FF1F5A",   // Light red - hover
-            dark: "#C10D3A",    // Dark red - active
+            DEFAULT: "#B91C1C", // Deep professional red (not bright/alarmist)
+            light: "#DC2626",   // Hover red
+            dark: "#991B1B",    // Active red
           },
-          // Gold - Premium accent (Red Bull Yellow)
+          // Gold - Premium accent (Muted Gold/Brass)
           gold: {
-            DEFAULT: "#FDD205", // Red Bull Yellow - secondary CTA
-            light: "#FFDC33",   // Light yellow - hover
-            dark: "#E5BD00",    // Dark yellow - active
+            DEFAULT: "#C5A059", // Muted metallic gold/brass
+            light: "#D4B372",   // Lighter gold
+            dark: "#A3823E",    // Darker antique gold
           },
         },
         
-        // Neutral Colors - Clean & Modern (Red Bull Style)
+        // Neutral Colors - Slate/Cool Tones for Tech/Professional Feel
         neutral: {
-          50: "#FFFFFF",   // Pure white - backgrounds
-          100: "#F5F5F5",  // Very light gray - subtle backgrounds
-          200: "#E8E8E8",  // Light gray - borders, dividers
-          300: "#D3D3D3",  // Red Bull Gray - disabled states
-          400: "#B8B8B8",  // Medium gray - placeholders
-          500: "#9E9E9E",  // Medium dark - secondary text
-          600: "#757575",  // Dark gray - body text
-          700: "#424242",  // Darker - headings
-          800: "#212121",  // Very dark - emphasis
-          900: "#091D3C",  // Red Bull Dark Blue - maximum contrast
+          50: "#F8FAFC",   // Clean white-blue tint
+          100: "#F1F5F9",  // Very light slate
+          200: "#E2E8F0",  // Light slate - borders
+          300: "#CBD5E1",  // Slate gray - disabled
+          400: "#94A3B8",  // Medium slate - accents
+          500: "#64748B",  // Slate - secondary text
+          600: "#475569",  // Dark slate - body text
+          700: "#334155",  // Darker slate - headings
+          800: "#1E293B",  // Very dark slate
+          900: "#0F172A",  // Deepest slate - maximum contrast
         },
         
-        // Semantic Colors - User Feedback (Red Bull Palette)
+        // Semantic Colors - Professional Feedback
         success: {
-          DEFAULT: "#FDD205", // Yellow for success (Red Bull style)
-          light: "#FFDC33",   // Light yellow - hover
-          dark: "#E5BD00",    // Dark yellow - active
-          bg: "#FFFEF0",      // Background for success messages
+          DEFAULT: "#10B981", // Professional emerald
+          light: "#34D399",   // Light emerald
+          dark: "#059669",    // Dark emerald
+          bg: "#ECFDF5",      // Background for success
         },
         warning: {
-          DEFAULT: "#FDD205", // Red Bull Yellow - warning states
-          light: "#FFDC33",   // Light yellow - hover
-          dark: "#E5BD00",    // Dark yellow - active
-          bg: "#FFFEF0",      // Background for warnings
+          DEFAULT: "#F59E0B", // Professional amber
+          light: "#FBBF24",   // Light amber
+          dark: "#D97706",    // Dark amber
+          bg: "#FFFBEB",      // Background for warnings
         },
         error: {
-          DEFAULT: "#E41349", // Red Bull Red - error states
-          light: "#FF1F5A",   // Light red - hover
-          dark: "#C10D3A",    // Dark red - active
-          bg: "#FFF0F3",      // Background for errors
+          DEFAULT: "#EF4444", // Standard professional red
+          light: "#F87171",   // Light red
+          dark: "#B91C1C",    // Dark red
+          bg: "#FEF2F2",      // Background for errors
         },
         info: {
-          DEFAULT: "#0F2D5B", // Red Bull Blue - info states
-          light: "#1A4278",   // Light blue - hover
-          dark: "#091D3C",    // Dark blue - active
-          bg: "#F0F4FF",      // Background for info
+          DEFAULT: "#3B82F6", // Standard blue
+          light: "#60A5FA",   // Light blue
+          dark: "#2563EB",    // Dark blue
+          bg: "#EFF6FF",      // Background for info
         },
         
-        // Service Card Backgrounds - Red Bull Energy Style
+        // Service Card Backgrounds - Sophisticated & Clean
         service: {
-          beige: "#FFFFFF",   // Pure white - clean
-          purple: "#F0F4FF",  // Soft blue tint - premium (épaviste)
-          green: "#FFFEF0",   // Soft yellow tint - energy
-          blue: "#F0F4FF",    // Soft blue - premium (rachat)
-          gold: "#FFFEF0",    // Soft yellow - premium value
-          pink: "#FFF0F3",    // Soft red tint - action
+          beige: "#FFFFFF",   // Pure white
+          purple: "#F8FAFC",  // Very subtle slate tint
+          green: "#F0FDF4",   // Very subtle green tint
+          blue: "#F0F9FF",    // Very subtle blue tint
+          gold: "#FFFAEB",    // Very subtle gold tint
+          pink: "#FEF2F2",    // Very subtle red tint
         },
         
         // WhatsApp Brand Color
@@ -98,7 +98,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
     },
   },

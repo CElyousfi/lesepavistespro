@@ -15,7 +15,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">Les Épavistes Pro</h3>
             <p className="text-neutral-300 mb-4">
-              Épaviste agréé VHU en Île-de-France. Service d'enlèvement d'épave gratuit et rachat de véhicules 7j/7.
+              Épaviste agréé VHU partout en France. Service d'enlèvement d'épave gratuit et rachat de véhicules 7j/7.
             </p>
             <div className="flex space-x-4">
               <a href="https://web.facebook.com/profile.php?id=61552439650150" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors" aria-label="Facebook">
@@ -33,10 +33,10 @@ const Footer = () => {
             <ul className="space-y-2 text-neutral-300 text-sm">
               <li><Link href="/epaviste" className="hover:text-brand-red transition-colors">Enlèvement d'épave gratuit</Link></li>
               <li><Link href="/zones" className="hover:text-brand-gold transition-colors font-medium">📍 Toutes nos zones</Link></li>
-              <li><Link href="/epaviste/paris-75" className="hover:text-brand-red transition-colors">Épaviste Paris</Link></li>
-              <li><Link href="/epaviste/hauts-de-seine-92" className="hover:text-brand-red transition-colors">Épaviste 92</Link></li>
-              <li><Link href="/epaviste/seine-saint-denis-93" className="hover:text-brand-red transition-colors">Épaviste 93</Link></li>
-              <li><Link href="/epaviste/val-de-marne-94" className="hover:text-brand-red transition-colors">Épaviste 94</Link></li>
+              <li><Link href="/epaviste/ile-de-france" className="hover:text-brand-red transition-colors">Épaviste Île-de-France</Link></li>
+              <li><Link href="/epaviste/auvergne-rhone-alpes" className="hover:text-brand-red transition-colors">Épaviste Auvergne-Rhône-Alpes</Link></li>
+              <li><Link href="/epaviste/provence-alpes-cote-d-azur" className="hover:text-brand-red transition-colors">Épaviste PACA</Link></li>
+              <li><Link href="/epaviste/hauts-de-france" className="hover:text-brand-red transition-colors">Épaviste Hauts-de-France</Link></li>
             </ul>
           </div>
 
@@ -46,10 +46,10 @@ const Footer = () => {
             <ul className="space-y-2 text-neutral-300 text-sm">
               <li><Link href="/rachat-voiture" className="hover:text-brand-gold transition-colors">Rachat voiture cash</Link></li>
               <li><Link href="/rachat-voiture/paris-75" className="hover:text-brand-gold transition-colors">Rachat Paris</Link></li>
-              <li><Link href="/rachat-voiture/hauts-de-seine-92" className="hover:text-brand-gold transition-colors">Rachat 92</Link></li>
-              <li><Link href="/rachat-voiture/seine-saint-denis-93" className="hover:text-brand-gold transition-colors">Rachat 93</Link></li>
-              <li><Link href="/rachat-voiture/val-de-marne-94" className="hover:text-brand-gold transition-colors">Rachat 94</Link></li>
-              <li><Link href="/rachat-voiture/val-d-oise-95" className="hover:text-brand-gold transition-colors">Rachat 95</Link></li>
+              <li><Link href="/rachat-voiture/rhone-69" className="hover:text-brand-gold transition-colors">Rachat Lyon</Link></li>
+              <li><Link href="/rachat-voiture/bouches-du-rhone-13" className="hover:text-brand-gold transition-colors">Rachat Marseille</Link></li>
+              <li><Link href="/rachat-voiture/gironde-33" className="hover:text-brand-gold transition-colors">Rachat Bordeaux</Link></li>
+              <li><Link href="/rachat-voiture/nord-59" className="hover:text-brand-gold transition-colors">Rachat Lille</Link></li>
             </ul>
           </div>
 
@@ -71,7 +71,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <MapPin size={18} weight="bold" className="mr-2 mt-0.5 flex-shrink-0 text-brand-red" />
-                <span>Île-de-France</span>
+                <span>France entière</span>
               </li>
             </ul>
             <div className="mt-6 p-4 bg-white/5 rounded-lg border border-white/10">

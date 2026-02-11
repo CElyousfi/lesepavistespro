@@ -185,7 +185,7 @@ function generateEmailHTML(formData: any) {
             <td style="background-color: #1f2937; padding: 20px 30px; text-align: center;">
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                 Les Épavistes Pro - Service d'enlèvement d'épave 24h/24, 7j/7<br>
-                Île-de-France • 09 79 04 94 86 • lesepavistespro@gmail.com
+                France entière • 09 79 04 94 86 • lesepavistespro@gmail.com
               </p>
             </td>
           </tr>
