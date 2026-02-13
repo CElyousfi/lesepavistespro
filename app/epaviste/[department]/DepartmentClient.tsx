@@ -73,6 +73,13 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
           certificat de destruction fourni.
         </p>
 
+        <p className="text-sm text-brand-red/90 font-semibold mb-2">
+          🚨 Intervention urgente aujourd'hui ? Appelez maintenant
+        </p>
+        <p className="text-sm text-neutral-500 mb-8">
+          💬 Demande non urgente ? WhatsApp ou formulaire ci-dessous
+        </p>
+
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-12 sm:mb-16">
           <ConversionForm
