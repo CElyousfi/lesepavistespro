@@ -263,11 +263,11 @@ verification: {
 
 ---
 
-## 🎨 Brand Colors (Optimized for Conversions)
-- **Navy**: #0A2540 (Trust, professionalism)
-- **Blue**: #0066CC (Action, reliability)
-- **Red**: #E63946 (Urgency, CTA)
-- **Orange**: #FF8C42 (Energy, secondary CTA)
+## 🎨 Brand Colors (Verified)
+- **Navy**: #162A46 (Trust, professionalism, footer/headings)
+- **Red**: #DC2627 (Urgency, Call-to-Action, accents)
+- **Gold**: #D4B372 (Premium service, 5-star reviews)
+- **White**: #FFFFFF (Clean backgrounds, negative space)
 - **WhatsApp Green**: #25D366 (Official brand color)
 
 ---

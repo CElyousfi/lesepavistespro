@@ -1,5 +1,4 @@
 import Script from 'next/script';
-import Header from '@/components/Header';
 import HeroNew from '@/components/HeroNew';
 import ServiceSelector from '@/components/ServiceSelector';
 import ProcessNew from '@/components/ProcessNew';
@@ -11,6 +10,7 @@ import DualServiceCTA from '@/components/DualServiceCTA';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
+import ScrollAnimation from '@/components/ScrollAnimation';
 import { getHomeStructuredData } from '@/lib/structured-data';
 import { generateHomeMeta } from '@/lib/seo';
 
@@ -21,7 +21,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Structured Data for SEO - Rendered in head via Script */}
       {structuredData.map((data, index) => (
         <Script
           key={index}
@@ -31,76 +30,79 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
-      
-      <div className="min-h-screen">
 
-      {/* Header is now inside HeroNew */}
-      <main>
-        <HeroNew />
-        
-        {/* Dual Service Selector with Beautiful Illustrated Cards */}
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-[5%]">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-12 md:mb-16">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-900 mb-4 md:mb-6 tracking-tight">
-                  Nos Services partout en France
-                </h2>
-                <p className="text-lg sm:text-xl text-neutral-600 max-w-3xl mx-auto px-4 font-light leading-relaxed">
-                  Choisissez le service dont vous avez besoin
-                </p>
-              </div>
-              <ServiceSelector />
-            </div>
-          </div>
-        </section>
-        
-        <ProcessNew />
-        
-        {/* Conversion Form Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy-dark">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-[5%]">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8 text-white">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Obtenez Votre Devis Gratuit en 2 Minutes
-                </h2>
-                <p className="text-lg text-neutral-200">
-                  Remplissez le formulaire et recevez une réponse sous 15 minutes
-                </p>
-              </div>
-              <ConversionForm trigger="inline" />
-            </div>
-          </div>
-        </section>
-        
-        <Coverage />
-        <AnimatedStats />
-        
-        {/* Decorative Separator */}
-        <div className="relative py-12 bg-white">
-          <div className="container mx-auto px-[5%]">
-            <div className="max-w-6xl mx-auto">
-              <div className="flex items-center gap-4">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neutral-300 to-neutral-300"></div>
-                <div className="flex items-center gap-2 text-neutral-400">
-                  <div className="w-2 h-2 rounded-full bg-brand-red animate-pulse"></div>
-                  <div className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                  <div className="w-2 h-2 rounded-full bg-brand-blue animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+      <div className="min-h-screen bg-white">
+        <main>
+          {/* Hero with Header inside */}
+          <HeroNew />
+
+          {/* Services Section */}
+          <section className="py-24 md:py-32 bg-brand-surface">
+            <div className="container mx-auto px-4">
+              <ScrollAnimation className="w-full">
+                <div className="max-w-6xl mx-auto">
+                  <div className="text-center mb-16">
+                    <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Nos services</span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight">
+                      Votre solution complète
+                    </h2>
+                    <p className="text-lg text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+                      Choisissez le service dont vous avez besoin
+                    </p>
+                  </div>
+                  <ServiceSelector />
                 </div>
-                <div className="flex-1 h-px bg-gradient-to-l from-transparent via-neutral-300 to-neutral-300"></div>
+              </ScrollAnimation>
+            </div>
+          </section>
+
+          {/* Divider */}
+          <div className="divider-glow"></div>
+
+          {/* Process */}
+          <ProcessNew />
+
+          {/* Conversion Form Section */}
+          <section className="py-24 md:py-32 bg-white relative overflow-hidden border-t border-b border-neutral-200">
+
+            <div className="container mx-auto px-4 relative z-10">
+              <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-10">
+                  <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Devis gratuit</span>
+                  <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-4 tracking-tight">
+                    Obtenez votre devis en 2 minutes
+                  </h2>
+                  <p className="text-lg text-neutral-600">
+                    Remplissez le formulaire et recevez une réponse sous 15 minutes
+                  </p>
+                </div>
+                <ConversionForm trigger="inline" />
               </div>
             </div>
-          </div>
-        </div>
-        
-        <DualServiceCTA />
-        <Testimonials />
-        <FAQ />
-      </main>
-      <Footer />
-      <FloatingWhatsApp />
-    </div>
+          </section>
+
+          {/* Stats */}
+          <AnimatedStats />
+
+          {/* Coverage */}
+          <Coverage />
+
+          {/* Testimonials */}
+          <Testimonials />
+
+          {/* Divider */}
+          <div className="divider-glow"></div>
+
+          {/* CTA */}
+          <DualServiceCTA />
+
+          {/* FAQ */}
+          <FAQ />
+        </main>
+
+        <Footer />
+        <FloatingWhatsApp />
+      </div>
     </>
   );
 }

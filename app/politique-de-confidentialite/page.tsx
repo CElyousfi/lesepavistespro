@@ -18,14 +18,14 @@ export default function PolitiqueConfidentialitePage() {
     <>
       <Header />
       
-      <main className="bg-neutral-50 min-h-screen">
+      <main className="bg-white min-h-screen">
         {/* Hero Section */}
         <section className="relative bg-white overflow-hidden pt-32 md:pt-36 pb-12">
           <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-brand-navy mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-brand-navy mb-4 tracking-tight">
               Politique de Confidentialité
             </h1>
-            <p className="text-lg text-neutral-600">
+            <p className="text-lg text-neutral-500">
               Protection de vos données personnelles sur lesepavistespro.fr
             </p>
           </div>
@@ -34,12 +34,12 @@ export default function PolitiqueConfidentialitePage() {
         {/* Content Section */}
         <section className="py-12">
           <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-            <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+            <div className="bg-brand-surface rounded-2xl border border-neutral-200 p-8 md:p-12">
               
               {/* Introduction */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">Introduction</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Les Épavistes Pro accorde une grande importance à la protection de vos données personnelles. Cette politique de confidentialité vous informe sur la manière dont nous collectons, utilisons, stockons et protégeons vos données conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés.
                   </p>
@@ -52,7 +52,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 1. Responsable du traitement */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">1. Responsable du traitement des données</h2>
-                <div className="prose prose-lg max-w-none text-neutral-700">
+                <div className="prose prose-lg max-w-none text-neutral-400">
                   <p className="mb-3">
                     Le responsable du traitement de vos données personnelles est :
                   </p>
@@ -68,7 +68,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 2. Données collectées */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">2. Données personnelles collectées</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Nous collectons les données personnelles suivantes :
                   </p>
@@ -93,7 +93,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 3. Finalités du traitement */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">3. Finalités du traitement</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Vos données personnelles sont collectées et traitées pour les finalités suivantes :
                   </p>
@@ -111,7 +111,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 4. Base légale */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">4. Base légale du traitement</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Le traitement de vos données repose sur les bases légales suivantes :
                   </p>
@@ -127,7 +127,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 5. Destinataires des données */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">5. Destinataires des données</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Vos données personnelles sont destinées aux personnes suivantes :
                   </p>
@@ -146,7 +146,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 6. Durée de conservation */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">6. Durée de conservation des données</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Vos données sont conservées pendant les durées suivantes :
                   </p>
@@ -166,12 +166,12 @@ export default function PolitiqueConfidentialitePage() {
               {/* 7. Vos droits */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">7. Vos droits sur vos données</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Conformément au RGPD, vous disposez des droits suivants :
                   </p>
                   
-                  <div className="bg-neutral-50 rounded-xl p-6 space-y-4">
+                  <div className="bg-white border border-neutral-200 rounded-xl p-6 space-y-4">
                     <div>
                       <h4 className="font-semibold text-brand-navy mb-2">✓ Droit d'accès</h4>
                       <p className="text-sm">Obtenir une copie de vos données personnelles</p>
@@ -223,7 +223,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 8. Cookies */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">8. Utilisation des cookies</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <h3 className="text-xl font-semibold text-brand-navy mt-6 mb-3">Qu'est-ce qu'un cookie ?</h3>
                   <p>
                     Un cookie est un petit fichier texte déposé sur votre appareil lors de la visite d'un site web. Il permet de mémoriser des informations sur votre navigation.
@@ -231,12 +231,12 @@ export default function PolitiqueConfidentialitePage() {
 
                   <h3 className="text-xl font-semibold text-brand-navy mt-6 mb-3">Types de cookies utilisés</h3>
                   <div className="space-y-4">
-                    <div className="bg-neutral-50 rounded-lg p-4">
+                    <div className="bg-white border border-neutral-200 rounded-lg p-4">
                       <h4 className="font-semibold mb-2">🔹 Cookies essentiels (obligatoires)</h4>
                       <p className="text-sm">Nécessaires au fonctionnement du site (session, sécurité)</p>
                       <p className="text-sm text-neutral-600 mt-1">Durée : Session</p>
                     </div>
-                    <div className="bg-neutral-50 rounded-lg p-4">
+                    <div className="bg-white border border-neutral-200 rounded-lg p-4">
                       <h4 className="font-semibold mb-2">📊 Cookies analytiques (Google Analytics)</h4>
                       <p className="text-sm">Mesure d'audience et statistiques de visite</p>
                       <p className="text-sm text-neutral-600 mt-1">Durée : 13 mois</p>
@@ -262,7 +262,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 9. Sécurité */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">9. Sécurité des données</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre :
                   </p>
@@ -288,7 +288,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 10. Transfert de données */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">10. Transfert de données hors UE</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Certains de nos prestataires (Google Analytics, Vercel) peuvent être situés hors de l'Union Européenne.
                   </p>
@@ -305,7 +305,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 11. Mineurs */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">11. Protection des mineurs</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Notre site n'est pas destiné aux personnes de moins de 18 ans. Nous ne collectons pas sciemment de données personnelles concernant des mineurs.
                   </p>
@@ -318,7 +318,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 12. Modifications */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">12. Modifications de la politique</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Les modifications entreront en vigueur dès leur publication sur cette page.
                   </p>
@@ -334,7 +334,7 @@ export default function PolitiqueConfidentialitePage() {
               {/* 13. Contact */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">13. Nous contacter</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-600 space-y-4">
                   <p>
                     Pour toute question concernant cette politique de confidentialité ou vos données personnelles, contactez-nous :
                   </p>
@@ -343,15 +343,15 @@ export default function PolitiqueConfidentialitePage() {
                     <ul className="space-y-3">
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">📞 Téléphone :</span>
-                        <a href="tel:0979049486" className="hover:text-brand-red transition-colors">09 79 04 94 86</a>
+                        <a href="tel:0979049486" className="hover:text-brand-gold transition-colors">09 79 04 94 86</a>
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">📧 Email :</span>
-                        <a href="mailto:lesepavistespro@gmail.com" className="hover:text-brand-red transition-colors">lesepavistespro@gmail.com</a>
+                        <a href="mailto:lesepavistespro@gmail.com" className="hover:text-brand-gold transition-colors">lesepavistespro@gmail.com</a>
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">💬 WhatsApp :</span>
-                        <a href="https://wa.me/33602427345" target="_blank" rel="noopener noreferrer" className="hover:text-brand-red transition-colors">+33 6 02 42 73 45</a>
+                        <a href="https://wa.me/33602427345" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">+33 6 02 42 73 45</a>
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">🕐 Disponibilité :</span>

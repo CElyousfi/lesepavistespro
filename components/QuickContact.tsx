@@ -4,14 +4,17 @@ import { useState, useEffect } from 'react';
 import { Phone, WhatsappLogo } from '@phosphor-icons/react';
 import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
 import { isAdsTraffic } from '@/lib/trafficSource';
+import ConversionForm from '@/components/ConversionForm';
 
 interface QuickContactProps {
   service?: 'epaviste' | 'rachat';
   location?: string;
   className?: string;
+  cityName?: string;
+  departmentName?: string;
 }
 
-export default function QuickContact({ service = 'epaviste', location, className = '' }: QuickContactProps) {
+export default function QuickContact({ service = 'epaviste', location, className = '', cityName, departmentName }: QuickContactProps) {
   const [isFromAds, setIsFromAds] = useState(false);
 
   useEffect(() => {
@@ -47,11 +50,20 @@ export default function QuickContact({ service = 'epaviste', location, className
         </p>
       )}
       
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <ConversionForm
+          trigger="button"
+          defaultService={service}
+          buttonText={service === 'epaviste' ? 'Demander un Enlèvement' : 'Estimer ma Voiture'}
+          pageType="city"
+          cityName={cityName}
+          departmentName={departmentName}
+          className="w-full sm:w-auto sm:min-w-[280px]"
+        />
         <a 
           href="tel:0979049486"
           onClick={handleCallClick}
-          className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-${primaryColor} hover:bg-${primaryColor}-light text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 ${isFromAds ? 'ring-2 ring-offset-2 ring-brand-red' : ''}`}
+          className={`inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all ${isFromAds ? 'ring-2 ring-offset-2 ring-brand-red' : ''}`}
         >
           <Phone size={20} weight="bold" />
           <span>09 79 04 94 86</span>
@@ -61,7 +73,7 @@ export default function QuickContact({ service = 'epaviste', location, className
           onClick={handleWhatsAppClick}
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex items-center justify-center gap-2 px-8 py-4 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 ${isFromAds ? 'opacity-75' : ''}`}
+          className={`inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover ${isFromAds ? 'opacity-75' : ''}`}
         >
           <WhatsappLogo size={20} weight="fill" />
           <span className="hidden sm:inline">WhatsApp</span>

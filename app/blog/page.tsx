@@ -35,47 +35,46 @@ export default function BlogPage() {
     <>
       <BlogAnimations />
       <Header />
-      
-      <main className="bg-neutral-50 min-h-screen">
+
+      <main className="bg-white min-h-screen">
         {/* Hero Section */}
-        <section className="relative bg-white overflow-hidden min-h-[60vh] flex items-center justify-center p-1 md:p-[0.25%] pt-28 md:pt-32">
-          <div className="w-full md:w-[99.5%] relative z-10">
-            <div className="w-full bg-brand-navy text-white border-2 border-neutral-200 rounded-2xl md:rounded-3xl p-8 md:p-12">
-              <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy-dark opacity-95 rounded-2xl md:rounded-3xl"></div>
-              <div className="relative z-10 max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+        <section className="relative bg-white overflow-hidden pt-32 pb-20">
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-navy/[0.05] border border-brand-navy/[0.08] text-sm font-medium text-brand-navy/70 mb-8">
+                Actualités &amp; Conseils
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-tight tracking-tight text-brand-navy">
                 Blog Épaviste Pro
               </h1>
-              <p className="text-xl md:text-2xl text-neutral-200 leading-relaxed">
-                Conseils, actualités et guides pratiques sur l'enlèvement d'épave et le rachat de voiture en France
+              <p className="text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+                Tout savoir sur l&apos;enlèvement d&apos;épave, le rachat de voiture et les démarches VHU en France.
               </p>
-              </div>
             </div>
           </div>
         </section>
 
         {/* Blog Posts Grid */}
         <section className="py-16 md:py-20">
-          <div className="container mx-auto px-[5%]">
+          <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {blogPosts.map((post, index) => (
-                  <Link 
+                  <Link
                     key={post.slug}
                     href={`/blog/${post.slug}`}
-                    className={`group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover-lift scroll-animate animation-delay-${index * 100}`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="group bg-white rounded-2xl overflow-hidden border border-neutral-200 hover:border-brand-red/20 hover:shadow-lg transition-all duration-500 block"
                   >
                     {/* Blog Image */}
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative h-56 overflow-hidden">
                       <Image
                         src={post.image}
                         alt={post.title}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-4 left-4 z-10">
-                        <span className="bg-brand-red text-white px-3 py-1 rounded-full text-xs font-semibold">
+                        <span className="bg-brand-red text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
                           {post.category}
                         </span>
                       </div>
@@ -83,28 +82,28 @@ export default function BlogPage() {
 
                     {/* Content */}
                     <div className="p-6">
-                      <div className="flex items-center gap-4 text-sm text-neutral-500 mb-3">
-                        <div className="flex items-center gap-1">
-                          <Clock size={16} weight="bold" />
+                      <div className="flex items-center gap-4 text-xs font-medium text-neutral-500 mb-4">
+                        <div className="flex items-center gap-1.5">
+                          <Clock size={14} weight="fill" />
                           <span>{post.readTime}</span>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <User size={16} weight="bold" />
+                        <div className="flex items-center gap-1.5">
+                          <User size={14} weight="fill" />
                           <span>{new Date(post.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                         </div>
                       </div>
 
-                      <h2 className="text-xl font-bold text-neutral-900 mb-3 group-hover:text-brand-red transition-colors line-clamp-2">
+                      <h2 className="text-lg font-bold text-brand-navy mb-3 group-hover:text-brand-red transition-colors line-clamp-2">
                         {post.title}
                       </h2>
 
-                      <p className="text-neutral-600 mb-4 line-clamp-3">
+                      <p className="text-neutral-600 mb-5 line-clamp-3 leading-relaxed text-sm">
                         {post.excerpt}
                       </p>
 
-                      <div className="flex items-center gap-2 text-brand-red font-semibold group-hover:gap-3 transition-all">
-                        <span>Lire l'article</span>
-                        <ArrowRight size={20} weight="bold" className="group-hover:translate-x-1 transition-transform" />
+                      <div className="flex items-center gap-2 text-brand-red font-semibold group-hover:gap-3 transition-all text-sm">
+                        <span>Lire l&apos;article</span>
+                        <ArrowRight size={16} weight="bold" className="group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </Link>
@@ -115,21 +114,29 @@ export default function BlogPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-[5%]">
+        <section className="py-24 bg-brand-surface border-t border-neutral-200">
+          <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
-                Besoin d'un enlèvement d'épave ?
+              <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight">
+                Besoin d&apos;un enlèvement d&apos;épave ?
               </h2>
-              <p className="text-xl text-neutral-600 mb-8">
-                Service gratuit, rapide et professionnel partout en France
+              <p className="text-lg text-neutral-600 mb-10 max-w-2xl mx-auto">
+                Service gratuit, rapide et professionnel partout en France. Obtenez votre certificat de destruction immédiatement.
               </p>
-              <a 
-                href="tel:0979049486"
-                className="inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red-light text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
-              >
-                <span>09 79 04 94 86</span>
-              </a>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a
+                  href="tel:0979049486"
+                  className="inline-flex items-center justify-center gap-3 bg-brand-red text-white px-8 py-4 rounded-full font-semibold text-base hover:bg-brand-red/90 hover:scale-[1.02] transition-all shadow-lg w-full sm:w-auto"
+                >
+                  <span>09 79 04 94 86</span>
+                </a>
+                <Link
+                  href="/epaviste"
+                  className="inline-flex items-center justify-center gap-3 bg-white border-2 border-brand-navy text-brand-navy hover:bg-brand-navy hover:text-white px-8 py-4 rounded-full font-semibold text-base transition-all w-full sm:w-auto"
+                >
+                  En savoir plus
+                </Link>
+              </div>
             </div>
           </div>
         </section>

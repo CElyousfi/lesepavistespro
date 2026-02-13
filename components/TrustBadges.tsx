@@ -25,14 +25,14 @@ export default function TrustBadges({ variant = 'horizontal', service = 'epavist
 
   if (variant === 'grid') {
     return (
-      <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 ${className}`}>
+      <div className={`grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 ${className}`}>
         {badges.map((badge, index) => (
           <div
             key={index}
-            className="flex flex-col items-center gap-2 p-4 bg-white rounded-xl border-2 border-neutral-100 hover:border-neutral-200 transition-all"
+            className="flex flex-col items-center gap-2 p-3 sm:p-4 bg-white rounded-xl border border-neutral-200 hover:border-neutral-300 transition-all"
           >
-            <badge.icon size={32} weight="bold" className={badge.colorClass} />
-            <span className="text-sm font-semibold text-neutral-900 text-center">{badge.text}</span>
+            <badge.icon size={28} className={`${badge.colorClass} sm:w-8 sm:h-8`} weight="fill" />
+            <span className="text-sm font-semibold text-brand-navy text-center">{badge.text}</span>
           </div>
         ))}
       </div>
@@ -40,11 +40,11 @@ export default function TrustBadges({ variant = 'horizontal', service = 'epavist
   }
 
   return (
-    <div className={`flex flex-wrap justify-center gap-6 text-sm ${className}`}>
+    <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-xs sm:text-sm border-t border-neutral-200 pt-6 sm:pt-8 ${className}`}>
       {badges.map((badge, index) => (
-        <div key={index} className="flex items-center gap-2">
-          <badge.icon size={20} weight="bold" className={badge.colorClass} />
-          <span>{badge.text}</span>
+        <div key={index} className="flex flex-col items-center gap-2">
+          <badge.icon size={22} weight="fill" className={badge.colorClass} />
+          <span className="font-semibold text-neutral-700">{badge.text}</span>
         </div>
       ))}
     </div>

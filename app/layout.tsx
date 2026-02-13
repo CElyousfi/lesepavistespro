@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import "../styles/icon-animations.css";
 import Script from "next/script";
@@ -9,6 +9,13 @@ import { Analytics } from "@vercel/analytics/next";
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-inter",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
@@ -153,7 +160,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} pb-20 lg:pb-0`}>
+      <body className={`${inter.variable} ${playfair.variable} font-sans pb-20 lg:pb-0 bg-white text-brand-navy`}>
         {children}
         <Analytics />
       </body>

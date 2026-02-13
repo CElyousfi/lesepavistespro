@@ -1,77 +1,55 @@
-'use client';
-
-import { Phone, WhatsappLogo } from '@phosphor-icons/react';
-import Button from './Button';
-import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
+import React from 'react';
+import { Phone, WhatsappLogo } from '@phosphor-icons/react/dist/ssr';
 
 const CTASection = () => {
-  const phoneNumber = '0979049486';
-  const whatsappNumber = '33602427345';
-
-  const handleCallClick = () => {
-    trackCallClick('cta-section');
-  };
-
-  const handleWhatsAppClick = () => {
-    trackWhatsAppClick('cta-section');
-  };
-
   return (
-    <section className="py-20 md:py-28 bg-white relative overflow-hidden">
-      <div className="container mx-auto px-[5%]">
-        {/* Boxed CTA Container */}
-        <div className="max-w-6xl mx-auto bg-brand-navy text-white rounded-3xl border-2 border-neutral-200 relative overflow-hidden shadow-2xl">
-          {/* Textured background with gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy-dark"></div>
-          
-          {/* Decorative texture elements for depth */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-brand-red rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand-red rounded-full blur-3xl"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
-              <div className="absolute inset-0" style={{
-                backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)',
-                backgroundSize: '40px 40px'
-              }}></div>
-            </div>
-          </div>
+    <section className="py-24 md:py-32 bg-brand-navy relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-red/[0.08] rounded-full blur-[200px]"></div>
+      </div>
 
-          {/* Content */}
-          <div className="relative z-10 py-12 md:py-16 px-8 md:px-12">
-            <div className="max-w-4xl mx-auto text-center">
-          {/* Heading */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 tracking-tight leading-tight">
-            Et vous, <span className="text-brand-red italic">combien</span> pourriez-vous récupérer ?
-          </h2>
-          
-          {/* Description */}
-          <p className="text-base md:text-lg text-neutral-200 mb-8 max-w-3xl mx-auto font-light leading-relaxed">
-            Un service rapide et efficace : intervention sous 24h pour enlever votre épave gratuitement 
-            et vous remettre votre certificat de destruction.
-          </p>
+      <div className="container mx-auto px-4 relative z-10 text-center">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.05] tracking-tight">
+          Besoin d&apos;un enlèvement<br /><span className="text-brand-gold">urgent ?</span>
+        </h2>
+        <p className="text-neutral-300 text-lg max-w-2xl mx-auto mb-12">
+          Nos épavistes agréés interviennent 7j/7 partout en France.
+          Service 100% gratuit et conforme à la loi.
+        </p>
 
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <a href={`tel:${phoneNumber}`} onClick={handleCallClick}>
-              <button className="px-6 py-3 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-medium transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
-                <Phone size={16} weight="bold" />
-                Prendre rendez-vous
-              </button>
-            </a>
-            <a 
-              href={`https://wa.me/${whatsappNumber}?text=Bonjour, je souhaite un devis pour l'enlèvement d'une épave`}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleWhatsAppClick}
-            >
-              <button className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-medium transition-all border-2 border-white/20 hover:border-white/40 flex items-center gap-2">
-                <WhatsappLogo size={16} weight="fill" />
-                Poser une question
-              </button>
-            </a>
-          </div>
-            </div>
-          </div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+          <a
+            href="tel:0979049486"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red text-white rounded-full font-semibold text-base hover:bg-brand-red/90 hover:scale-[1.02] transition-all shadow-lg min-w-[220px]"
+          >
+            <Phone size={20} weight="bold" />
+            09 79 04 94 86
+          </a>
+
+          <a
+            href="https://wa.me/33602427345"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-whatsapp text-white rounded-full font-semibold text-base hover:bg-whatsapp-hover hover:scale-[1.02] transition-all shadow-lg min-w-[220px]"
+          >
+            <WhatsappLogo size={20} weight="fill" />
+            WhatsApp
+          </a>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-neutral-400 text-xs sm:text-sm font-medium">
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-brand-gold rounded-full"></span>
+            Intervention 24/7
+          </span>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-brand-gold rounded-full"></span>
+            Agrément VHU
+          </span>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-brand-gold rounded-full"></span>
+            Certificat immédiat
+          </span>
         </div>
       </div>
     </section>

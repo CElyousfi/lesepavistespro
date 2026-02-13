@@ -1,5 +1,4 @@
-'use client';
-
+import { motion } from 'framer-motion';
 import { Icon } from '@phosphor-icons/react';
 import { ReactNode } from 'react';
 
@@ -11,26 +10,30 @@ interface ServiceCardProps {
   className?: string;
 }
 
-export default function ServiceCard({ 
-  icon: IconComponent, 
-  title, 
-  description, 
-  color = 'red',
-  className = '' 
+export default function ServiceCard({
+  icon: IconComponent,
+  title,
+  description,
+  color = 'red', // kept as is
+  className = ''
 }: ServiceCardProps) {
   const colorClasses = {
-    red: 'bg-brand-red/10 text-brand-red',
-    orange: 'bg-brand-gold/10 text-brand-gold',
-    blue: 'bg-brand-blue/10 text-brand-blue',
+    red: 'bg-brand-red/10 text-brand-red group-hover:bg-brand-red group-hover:text-white',
+    orange: 'bg-brand-gold/10 text-brand-gold group-hover:bg-brand-gold group-hover:text-white',
+    blue: 'bg-brand-blue/10 text-brand-blue group-hover:bg-brand-navy group-hover:text-white',
   };
 
   return (
-    <div className={`bg-white p-6 rounded-2xl border-2 border-neutral-200 hover:border-neutral-300 hover:shadow-lg transition-all group ${className}`}>
-      <div className={`w-12 h-12 rounded-xl ${colorClasses[color]} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-        <IconComponent size={24} weight="bold" />
+    <motion.div
+      whileHover={{ y: -8, boxShadow: '0 20px 40px -15px rgba(0, 0, 0, 0.1)' }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className={`bg-white p-8 rounded-2xl border border-neutral-100 hover:border-brand-red/20 transition-colors group ${className}`}
+    >
+      <div className={`w-14 h-14 rounded-2xl ${colorClasses[color]} flex items-center justify-center mb-6 transition-colors duration-300`}>
+        <IconComponent size={28} weight="fill" />
       </div>
-      <h3 className="font-bold text-neutral-900 mb-2 text-lg">{title}</h3>
+      <h3 className="font-serif font-bold text-brand-navy mb-3 text-xl">{title}</h3>
       <p className="text-neutral-600 leading-relaxed">{description}</p>
-    </div>
+    </motion.div>
   );
 }

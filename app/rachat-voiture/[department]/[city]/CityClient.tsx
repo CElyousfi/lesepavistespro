@@ -6,6 +6,7 @@ import { getCityBySlug } from '@/lib/locations-complete';
 import { CheckCircle, CurrencyEur, Shield, MapPin, Clock, CaretRight, Car } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
 import QuickContact from '@/components/QuickContact';
 import TrustBadges from '@/components/TrustBadges';
@@ -62,60 +63,57 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
       
       <Header />
       {/* Hero Section */}
-      <section className="relative bg-brand-navy text-white py-20 md:py-32">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy-dark opacity-95"></div>
-        
-        <div className="container mx-auto px-[5%] relative z-10">
-          {/* Breadcrumb */}
-          <div className="max-w-4xl mx-auto">
-            <Breadcrumb 
-              items={[
-                { label: 'Rachat Voiture', href: '/rachat-voiture' },
-                { label: department.name, href: `/rachat-voiture/${department.slug}` },
-                { label: city.name }
-              ]}
-            />
-          </div>
-
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-block bg-brand-gold/10 border border-brand-gold/30 rounded-full px-4 py-2 mb-6">
-              <span className="text-brand-gold font-semibold text-sm">
-                Rachat cash à {city.name}
-              </span>
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Rachat Voiture {city.name}
-              <span className="block text-brand-gold mt-2">Paiement Immédiat ({city.postalCode})</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-neutral-200 mb-8 leading-relaxed">
-              Rachat de voiture à {city.name} dans le {department.name} ({department.code}). 
-              Nous achetons tous véhicules : HS, accidentés, en panne, sans CT. 
-              Estimation gratuite et paiement cash immédiat.
-            </p>
-
-            {/* CTA Buttons */}
-            <QuickContact 
-              service="rachat" 
-              location={`${city.name} (${city.postalCode})`}
-              className="justify-center mb-12"
-            />
-
-            {/* Trust Indicators */}
-            <TrustBadges service="rachat" />
-          </div>
+      <LocationHero accentColor="gold">
+        {/* Breadcrumb */}
+        <div className="mb-6">
+          <Breadcrumb 
+            items={[
+              { label: 'Rachat Voiture', href: '/rachat-voiture' },
+              { label: department.name, href: `/rachat-voiture/${department.slug}` },
+              { label: city.name }
+            ]}
+          />
         </div>
-      </section>
+
+        <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-brand-navy/[0.05] border border-brand-navy/[0.08] mb-8 sm:mb-10">
+          <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+          <span className="text-xs sm:text-sm font-medium text-brand-navy/70">
+            Rachat cash à {city.name}
+          </span>
+        </div>
+        
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
+          Rachat Voiture {city.name}
+          <br /><span className="text-brand-gold">Paiement Immédiat ({city.postalCode})</span>
+        </h1>
+        
+        <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
+          Rachat de voiture à {city.name} dans le {department.name} ({department.code}). 
+          Nous achetons tous véhicules : HS, accidentés, en panne, sans CT. 
+          Estimation gratuite et paiement cash immédiat.
+        </p>
+
+        {/* CTA Buttons */}
+        <QuickContact 
+          service="rachat" 
+          location={`${city.name} (${city.postalCode})`}
+          cityName={city.name}
+          departmentName={department.name}
+          className="justify-center mb-12 sm:mb-16"
+        />
+
+        {/* Trust Indicators */}
+        <TrustBadges service="rachat" />
+      </LocationHero>
 
       {/* Service Description */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="container mx-auto px-[5%]">
+      <section className="py-16 sm:py-24 bg-brand-surface">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
-              Rachat de voiture à {city.name} ({city.postalCode})
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 sm:mb-8 leading-tight tracking-tight">
+              Rachat de voiture <span className="text-brand-gold">à {city.name} ({city.postalCode})</span>
             </h2>
-            <div className="prose prose-lg max-w-none text-neutral-700">
+            <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
               <p className="mb-4">
                 Vous habitez {city.name} et vous souhaitez vendre rapidement votre voiture ? 
                 Notre service de rachat de véhicules intervient à {city.name} ({city.postalCode}) 
@@ -131,14 +129,17 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
       </section>
 
       {/* Local Benefits */}
-      <section className="py-20 md:py-28 bg-neutral-50">
-        <div className="container mx-auto px-[5%]">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-12 text-center">
-              Pourquoi nous choisir à {city.name} ?
-            </h2>
+      <section className="py-16 sm:py-24 bg-white border-y border-neutral-200">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10 sm:mb-16">
+              <span className="text-brand-gold font-semibold tracking-wider uppercase text-sm mb-4 block">Nos Engagements</span>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy tracking-tight">
+                Pourquoi nous choisir à {city.name} ?
+              </h2>
+            </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-4">
               <ServiceCard
                 icon={CurrencyEur}
                 title="Meilleur prix garanti"
@@ -170,23 +171,26 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
 
       {/* Nearby Cities */}
       {nearbyCities.length > 0 && (
-        <section className="py-20 md:py-28 bg-white">
-          <div className="container mx-auto px-[5%]">
+        <section className="py-16 sm:py-24 bg-brand-surface">
+          <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">
-                Rachat de voiture près de {city.name}
-              </h2>
+              <div className="text-center mb-10 sm:mb-16">
+                <span className="inline-block text-brand-gold text-sm font-semibold tracking-wider uppercase mb-4">Villes proches</span>
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy tracking-tight">
+                  Rachat de voiture près de {city.name}
+                </h2>
+              </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {nearbyCities.map((nearbyCity) => (
                   <Link
                     key={nearbyCity.slug}
                     href={`/rachat-voiture/${department.slug}/${nearbyCity.slug}`}
-                    className="flex items-center gap-2 p-4 bg-neutral-50 rounded-xl border-2 border-neutral-200 hover:border-brand-gold hover:shadow-md transition-all group"
+                    className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-gold/30 hover:shadow-md transition-all duration-300 group"
                   >
                     <MapPin size={18} weight="bold" className="text-brand-gold flex-shrink-0" />
                     <div className="min-w-0">
-                      <div className="font-semibold text-neutral-900 group-hover:text-brand-gold transition-colors text-sm truncate">
+                      <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-gold transition-colors truncate">
                         {nearbyCity.name}
                       </div>
                       <div className="text-xs text-neutral-500">{nearbyCity.postalCode}</div>
@@ -198,7 +202,7 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
               <div className="text-center mt-8">
                 <Link
                   href={`/rachat-voiture/${department.slug}`}
-                  className="inline-flex items-center gap-2 text-brand-gold hover:text-brand-gold-dark font-semibold transition-colors"
+                  className="inline-flex items-center gap-2 text-brand-gold hover:text-brand-gold/80 font-semibold transition-colors"
                 >
                   Voir toutes les villes du {department.name}
                   <CaretRight size={16} weight="bold" />
@@ -213,38 +217,41 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
       <CTASection />
 
       {/* Conversion Form */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-[5%]">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
-              Demandez votre estimation gratuite à {city.name}
-            </h2>
-            <p className="text-lg text-neutral-600">
-              Obtenez le meilleur prix pour votre véhicule en moins de 15 minutes
-            </p>
+      <section className="py-16 sm:py-24 bg-white relative overflow-hidden border-t border-b border-neutral-200">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 sm:mb-10">
+              <span className="inline-block text-brand-gold text-sm font-semibold tracking-wider uppercase mb-4">Estimation gratuite</span>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-4 tracking-tight">
+                Demandez votre estimation gratuite à {city.name}
+              </h2>
+              <p className="text-lg text-neutral-600">
+                Remplissez le formulaire &bull; Paiement cash immédiat &bull; Meilleur prix garanti
+              </p>
+            </div>
+            <ConversionForm trigger="inline" />
           </div>
-          <ConversionForm trigger="inline" />
         </div>
       </section>
 
       {/* Internal Linking - Related Services & Cities */}
-      <section className="py-16 bg-neutral-50">
-        <div className="container mx-auto px-[5%]">
+      <section className="py-16 sm:py-24 bg-white border-t border-neutral-200">
+        <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Cross-link to Épaviste */}
-            <div className="mb-12 p-6 bg-gradient-to-r from-brand-red/10 to-red-50 border-2 border-brand-red/20 rounded-2xl">
-              <h3 className="text-xl font-bold text-neutral-900 mb-3 flex items-center gap-2">
-                <Car size={24} weight="bold" className="text-brand-red" />
+            <div className="mb-8 sm:mb-12 p-5 sm:p-8 bg-white rounded-2xl border border-neutral-200 hover:shadow-md transition-all duration-500">
+              <h3 className="text-lg font-bold text-brand-navy mb-3 flex items-center gap-2">
+                <Car size={24} weight="fill" className="text-brand-red" />
                 Votre voiture est une épave ?
               </h3>
-              <p className="text-neutral-700 mb-4">
+              <p className="text-neutral-600 leading-relaxed text-sm mb-4">
                 Découvrez notre service d'enlèvement d'épave à {city.name}. Service 100% gratuit, intervention rapide.
               </p>
               <Link
                 href={`/epaviste/${department.slug}/${city.slug}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-red hover:bg-brand-red-light text-white rounded-xl font-semibold transition-all shadow-md hover:shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-red hover:bg-brand-red/90 text-white rounded-full font-semibold transition-all shadow-sm hover:shadow-md text-sm"
               >
-                🚛 Épaviste à {city.name}
+                Épaviste à {city.name}
                 <CaretRight size={16} weight="bold" />
               </Link>
             </div>
@@ -252,10 +259,10 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
             {/* Neighboring Cities */}
             {department.cities.length > 1 && (
               <div>
-                <h3 className="text-2xl font-bold text-neutral-900 mb-6">
+                <h3 className="text-lg font-bold text-brand-navy mb-6">
                   Rachat voiture dans les villes voisines
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                   {department.cities
                     .filter(c => c.slug !== city.slug)
                     .slice(0, 8)
@@ -263,11 +270,11 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
                       <Link
                         key={neighborCity.slug}
                         href={`/rachat-voiture/${department.slug}/${neighborCity.slug}`}
-                        className="flex items-center gap-2 p-4 bg-white rounded-xl border-2 border-neutral-200 hover:border-brand-gold hover:shadow-md transition-all group"
+                        className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-gold/30 hover:shadow-md transition-all duration-300 group"
                       >
-                        <MapPin size={20} weight="bold" className="text-brand-gold flex-shrink-0" />
+                        <MapPin size={18} weight="bold" className="text-brand-gold flex-shrink-0" />
                         <div className="min-w-0">
-                          <div className="font-semibold text-neutral-900 group-hover:text-brand-gold transition-colors truncate text-sm">
+                          <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-gold transition-colors truncate">
                             {neighborCity.name}
                           </div>
                         </div>

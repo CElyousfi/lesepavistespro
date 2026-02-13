@@ -1,6 +1,7 @@
 'use client';
 
-import { Phone, WhatsappLogo, Truck, CurrencyEur } from '@phosphor-icons/react';
+import { Phone, WhatsappLogo, ArrowRight } from '@phosphor-icons/react';
+import ScrollAnimation from './ScrollAnimation';
 
 interface DualServiceCTAProps {
   className?: string;
@@ -8,101 +9,60 @@ interface DualServiceCTAProps {
 
 export default function DualServiceCTA({ className = '' }: DualServiceCTAProps) {
   return (
-    <section className={`py-20 md:py-28 bg-white ${className}`}>
-      {/* Boxed container with 5% padding */}
-      <div className="container mx-auto px-[5%]">
-        <div className="max-w-6xl mx-auto">
-          {/* Boxed section with gradient background */}
-          <div className="bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy rounded-3xl p-8 md:p-12 lg:p-16">
-            {/* Header */}
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6 tracking-tight">
-                Besoin d'aide ? Contactez-nous !
+    <section className={`py-24 md:py-32 bg-brand-surface relative overflow-hidden ${className}`}>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <ScrollAnimation>
+            {/* Header - Bold like Lorikeet's "Complex is our comfort zone" */}
+            <div className="text-center mb-16">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-brand-navy tracking-tight leading-[1.05] mb-6">
+                Besoin d&apos;aide ?<br />
+                <span className="text-brand-red">Contactez-nous</span>
               </h2>
-              <p className="text-lg sm:text-xl text-neutral-200 max-w-3xl mx-auto font-light leading-relaxed">
+              <p className="text-lg text-neutral-600 max-w-2xl mx-auto leading-relaxed">
                 Épaviste ou rachat de voiture, nous sommes disponibles 7j/7 pour vous répondre
               </p>
             </div>
+          </ScrollAnimation>
 
-          {/* Dual Service CTAs */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-12">
-            {/* Épaviste CTA */}
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border-2 border-white/20 hover:border-brand-red/50 transition-all group">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center">
-                  <Truck size={28} weight="bold" className="text-brand-red icon-hover-grow" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold text-white">Enlèvement d'Épave</h3>
-              </div>
-              <p className="text-white/80 mb-6 text-sm">
-                Service gratuit • Intervention rapide • Certificat VHU
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a 
-                  href="tel:0979049486"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-red hover:bg-brand-red-light text-white rounded-lg font-semibold transition-all text-sm group/btn"
-                >
-                  <Phone size={18} weight="bold" className="icon-cta-pulse group-hover/btn:icon-cta-shake" />
-                  <span>09 79 04 94 86</span>
-                </a>
-                <a 
-                  href="https://wa.me/33602427345?text=Bonjour, je souhaite un devis pour l'enlèvement d'une épave"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-lg font-semibold transition-all text-sm group/btn"
-                >
-                  <WhatsappLogo size={18} weight="fill" className="icon-hover-grow" />
-                  <span>WhatsApp</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Rachat CTA */}
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border-2 border-white/20 hover:border-brand-gold/50 transition-all group">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center">
-                  <CurrencyEur size={28} weight="bold" className="text-brand-gold icon-hover-grow" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-bold text-white">Rachat de Voiture</h3>
-              </div>
-              <p className="text-white/80 mb-6 text-sm">
-                Paiement cash • Estimation gratuite • Meilleur prix
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a 
-                  href="tel:0979049486"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-gold hover:bg-brand-gold-light text-white rounded-lg font-semibold transition-all text-sm group/btn"
-                >
-                  <Phone size={18} weight="bold" className="icon-cta-pulse group-hover/btn:icon-cta-shake" />
-                  <span>09 79 04 94 86</span>
-                </a>
-                <a 
-                  href="https://wa.me/33602427345?text=Bonjour, je souhaite vendre ma voiture"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-whatsapp hover:bg-whatsapp-hover text-white rounded-lg font-semibold transition-all text-sm group/btn"
-                >
-                  <WhatsappLogo size={18} weight="fill" className="icon-hover-grow" />
-                  <span>WhatsApp</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-            {/* Quick Contact Bar - Mobile Optimized */}
-            <div className="text-center">
-              <p className="text-neutral-300 text-sm md:text-base mb-4">
-                Disponible 7j/7 • Réponse rapide • Service professionnel
-              </p>
-              <a 
+          {/* CTA Buttons - Clean and prominent */}
+          <ScrollAnimation delay={0.2}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+              <a
                 href="tel:0979049486"
-                className="inline-flex items-center gap-2 text-white hover:text-brand-red transition-colors text-lg md:text-xl font-bold group"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red text-white rounded-full font-semibold text-base hover:bg-brand-red/90 hover:scale-[1.02] transition-all shadow-lg min-w-[220px]"
               >
-                <Phone size={24} weight="bold" className="icon-cta-pulse group-hover:icon-glow" />
+                <Phone size={20} weight="bold" />
                 09 79 04 94 86
               </a>
+              <a
+                href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20un%20devis"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-whatsapp text-white rounded-full font-semibold text-base hover:bg-whatsapp-hover hover:scale-[1.02] transition-all shadow-lg min-w-[220px]"
+              >
+                <WhatsappLogo size={20} weight="fill" />
+                WhatsApp
+              </a>
             </div>
-          </div>
+          </ScrollAnimation>
+
+          {/* Bottom link */}
+          <ScrollAnimation delay={0.3}>
+            <div className="text-center">
+              <button
+                onClick={() => {
+                  const formSection = document.querySelector('section:has(form)');
+                  if (formSection) formSection.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-2 text-neutral-500 hover:text-brand-navy text-sm font-medium transition-colors group"
+              >
+                Ou remplissez notre formulaire de devis gratuit
+                <ArrowRight size={14} weight="bold" className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </ScrollAnimation>
         </div>
       </div>
     </section>

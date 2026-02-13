@@ -33,13 +33,17 @@ export default function RachatSansCTPage() {
       
       <main className="pt-28 md:pt-32 pb-20 bg-white">
         {/* Hero */}
-        <section className="bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy-dark text-white py-16">
-          <div className="container mx-auto px-[5%]">
+        <section className="relative bg-white overflow-hidden pt-8 pb-16">
+          <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-brand-navy/[0.05] border border-brand-navy/[0.08] mb-10">
+                <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+                <span className="text-sm font-medium text-brand-navy/70">Guide pratique</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
                 Rachat sans CT en France
               </h1>
-              <p className="text-xl text-neutral-200">
+              <p className="text-lg md:text-xl text-neutral-600 leading-relaxed">
                 Démarches, légalité et conseils pour vendre votre voiture sans contrôle technique
               </p>
             </div>
@@ -47,8 +51,8 @@ export default function RachatSansCTPage() {
         </section>
 
         {/* Content */}
-        <section className="py-16">
-          <div className="container mx-auto px-[5%]">
+        <section className="py-24">
+          <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto prose prose-lg">
               
               <h2>Est-il légal de vendre une voiture sans CT ?</h2>
@@ -90,9 +94,9 @@ export default function RachatSansCTPage() {
               <p>Pour vendre légalement votre voiture sans contrôle technique à un professionnel :</p>
 
               <div className="grid md:grid-cols-2 gap-4 my-6 not-prose">
-                <div className="bg-neutral-50 p-6 rounded-xl border-2 border-neutral-200">
-                  <FileText size={32} weight="bold" className="text-brand-blue mb-3" />
-                  <h3 className="font-bold text-neutral-900 mb-2">Documents obligatoires</h3>
+                <div className="bg-white p-6 rounded-2xl border border-neutral-200">
+                  <FileText size={32} weight="fill" className="text-brand-red mb-3" />
+                  <h3 className="font-bold text-brand-navy mb-2">Documents obligatoires</h3>
                   <ul className="text-neutral-700 space-y-2 text-sm">
                     <li>• Carte grise (certificat d'immatriculation)</li>
                     <li>• Certificat de situation administrative (non-gage)</li>
@@ -101,9 +105,9 @@ export default function RachatSansCTPage() {
                   </ul>
                 </div>
 
-                <div className="bg-neutral-50 p-6 rounded-xl border-2 border-neutral-200">
-                  <Warning size={32} weight="bold" className="text-brand-gold mb-3" />
-                  <h3 className="font-bold text-neutral-900 mb-2">Mentions obligatoires</h3>
+                <div className="bg-white p-6 rounded-2xl border border-neutral-200">
+                  <Warning size={32} weight="fill" className="text-brand-gold mb-3" />
+                  <h3 className="font-bold text-brand-navy mb-2">Mentions obligatoires</h3>
                   <ul className="text-neutral-700 space-y-2 text-sm">
                     <li>• "Vendu sans contrôle technique"</li>
                     <li>• "Vendu pour destruction" ou "pour pièces"</li>
@@ -151,7 +155,7 @@ export default function RachatSansCTPage() {
                     1
                   </div>
                   <div>
-                    <h3 className="font-bold text-neutral-900 mb-2">Contactez-nous</h3>
+                    <h3 className="font-bold text-brand-navy mb-2">Contactez-nous</h3>
                     <p className="text-neutral-700">
                       Appelez le <strong>09 79 04 94 86</strong> ou envoyez un message WhatsApp avec les informations de votre véhicule 
                       (marque, modèle, année, état, photos si possible).
@@ -164,7 +168,7 @@ export default function RachatSansCTPage() {
                     2
                   </div>
                   <div>
-                    <h3 className="font-bold text-neutral-900 mb-2">Estimation gratuite</h3>
+                    <h3 className="font-bold text-brand-navy mb-2">Estimation gratuite</h3>
                     <p className="text-neutral-700">
                       Nous évaluons votre véhicule et vous proposons un prix de rachat immédiat, sans engagement. 
                       Estimation transparente basée sur l'état réel.
@@ -177,7 +181,7 @@ export default function RachatSansCTPage() {
                     3
                   </div>
                   <div>
-                    <h3 className="font-bold text-neutral-900 mb-2">Paiement et enlèvement</h3>
+                    <h3 className="font-bold text-brand-navy mb-2">Paiement et enlèvement</h3>
                     <p className="text-neutral-700">
                       Si vous acceptez notre offre, nous venons chercher votre véhicule à domicile et vous payons immédiatement 
                       (espèces, chèque ou virement selon votre préférence).
@@ -189,19 +193,19 @@ export default function RachatSansCTPage() {
               <h2>Pourquoi choisir Les Épavistes Pro ?</h2>
               
               <div className="grid md:grid-cols-3 gap-4 my-6 not-prose">
-                <div className="text-center p-6 bg-neutral-50 rounded-xl">
-                  <CheckCircle size={48} weight="bold" className="text-green-600 mx-auto mb-3" />
-                  <h3 className="font-bold text-neutral-900 mb-2">100% Légal</h3>
+                <div className="text-center p-6 bg-white rounded-2xl border border-neutral-200">
+                  <CheckCircle size={48} weight="fill" className="text-green-600 mx-auto mb-3" />
+                  <h3 className="font-bold text-brand-navy mb-2">100% Légal</h3>
                   <p className="text-sm text-neutral-600">Professionnel agréé, toutes démarches conformes</p>
                 </div>
-                <div className="text-center p-6 bg-neutral-50 rounded-xl">
-                  <CurrencyEur size={48} weight="bold" className="text-brand-gold mx-auto mb-3" />
-                  <h3 className="font-bold text-neutral-900 mb-2">Meilleur Prix</h3>
+                <div className="text-center p-6 bg-white rounded-2xl border border-neutral-200">
+                  <CurrencyEur size={48} weight="fill" className="text-brand-gold mx-auto mb-3" />
+                  <h3 className="font-bold text-brand-navy mb-2">Meilleur Prix</h3>
                   <p className="text-sm text-neutral-600">Estimation juste et paiement immédiat</p>
                 </div>
-                <div className="text-center p-6 bg-neutral-50 rounded-xl">
-                  <FileText size={48} weight="bold" className="text-brand-blue mx-auto mb-3" />
-                  <h3 className="font-bold text-neutral-900 mb-2">Sans Tracas</h3>
+                <div className="text-center p-6 bg-white rounded-2xl border border-neutral-200">
+                  <FileText size={48} weight="fill" className="text-brand-red mx-auto mb-3" />
+                  <h3 className="font-bold text-brand-navy mb-2">Sans Tracas</h3>
                   <p className="text-sm text-neutral-600">On s'occupe de tout, enlèvement gratuit</p>
                 </div>
               </div>
@@ -209,8 +213,8 @@ export default function RachatSansCTPage() {
               <h2>Questions fréquentes</h2>
               
               <div className="space-y-4 my-6">
-                <details className="bg-neutral-50 p-6 rounded-xl">
-                  <summary className="font-bold text-neutral-900 cursor-pointer">
+                <details className="bg-brand-surface p-6 rounded-2xl">
+                  <summary className="font-bold text-brand-navy cursor-pointer">
                     Puis-je vendre ma voiture avec un CT refusé ?
                   </summary>
                   <p className="mt-3 text-neutral-700">
@@ -219,8 +223,8 @@ export default function RachatSansCTPage() {
                   </p>
                 </details>
 
-                <details className="bg-neutral-50 p-6 rounded-xl">
-                  <summary className="font-bold text-neutral-900 cursor-pointer">
+                <details className="bg-brand-surface p-6 rounded-2xl">
+                  <summary className="font-bold text-brand-navy cursor-pointer">
                     Quel est le délai pour vendre sans CT ?
                   </summary>
                   <p className="mt-3 text-neutral-700">
@@ -229,8 +233,8 @@ export default function RachatSansCTPage() {
                   </p>
                 </details>
 
-                <details className="bg-neutral-50 p-6 rounded-xl">
-                  <summary className="font-bold text-neutral-900 cursor-pointer">
+                <details className="bg-brand-surface p-6 rounded-2xl">
+                  <summary className="font-bold text-brand-navy cursor-pointer">
                     Que devient ma voiture après la vente ?
                   </summary>
                   <p className="mt-3 text-neutral-700">

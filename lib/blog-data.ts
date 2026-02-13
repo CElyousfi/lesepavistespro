@@ -248,7 +248,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Contactez-nous maintenant pour un enlèvement gratuit</h2>
       <p>Ne laissez plus votre épave vous coûter de l'argent en assurance et en stationnement. Faites-la enlever <strong>gratuitement</strong> dès aujourd'hui !</p>
       
-      <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
+      <p><strong>Appelez le 09 79 04 94 86</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong> pour devis rapide</p>
       <p>⏰ <strong>Réponse immédiate</strong> - Service client réactif</p>
       
@@ -414,7 +414,7 @@ export const blogPosts: BlogPost[] = [
       <h3>1. Résilier votre assurance auto (URGENT !)</h3>
       <p><strong>Dans les 15 jours</strong> suivant la réception du certificat :</p>
       <ul>
-        <li>📞 Contactez votre assureur</li>
+        <li>Contactez votre assureur</li>
         <li>📧 Envoyez le certificat de destruction</li>
         <li>📝 Demandez la résiliation immédiate</li>
         <li>💰 Récupérez le trop-perçu au prorata</li>
@@ -550,7 +550,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Contactez-nous pour votre certificat de destruction</h2>
       <p>Ne prenez aucun risque avec votre épave. Confiez-la à un professionnel agréé et obtenez votre certificat de destruction en toute sécurité.</p>
       
-      <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
+      <p><strong>Appelez le 09 79 04 94 86</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong> pour questions rapides</p>
       <p>⏰ <strong>Service client réactif</strong> - Réponse immédiate</p>
       
@@ -1120,7 +1120,7 @@ export const blogPosts: BlogPost[] = [
       <p><strong>Le piège :</strong> Un "épaviste" se présente comme professionnel mais n'a PAS d'agrément VHU.</p>
       <p><strong>Conséquences :</strong></p>
       <ul>
-        <li>❌ Pas de certificat de destruction valide</li>
+        <li>Pas de certificat de destruction valide</li>
         <li>❌ Vous restez propriétaire légalement</li>
         <li>❌ Risque de pollution environnementale</li>
         <li>❌ Amende possible de 1 500€</li>
@@ -1243,7 +1243,7 @@ export const blogPosts: BlogPost[] = [
       
       <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong> pour questions rapides</p>
-      <p>⏰ <strong>Intervention 24-48h</strong> partout en Île-de-France</p>
+      <p><strong>Intervention 24-48h</strong> partout en Île-de-France</p>
       <p>📄 <strong>Certificat VHU garanti</strong> sous 15 jours</p>
       
       <p><strong>Agrément VHU officiel • Service 100% gratuit • +250 clients satisfaits !</strong></p>
@@ -1475,22 +1475,22 @@ export const blogPosts: BlogPost[] = [
 
       <p><strong>Documents à CONSERVER :</strong></p>
       <ul>
-        <li>📄 <strong>Votre exemplaire du certificat de cession</strong> (CRUCIAL !)</li>
+        <li><strong>Votre exemplaire du certificat de cession</strong> (CRUCIAL !)</li>
         <li>📄 Copie de la carte grise barrée (photo avec votre téléphone)</li>
         <li>📄 Reçu de paiement</li>
       </ul>
 
-      <p><strong>⚠️ Conservez ces documents pendant 2 ans minimum !</strong></p>
+      <p><strong>Conservez ces documents pendant 2 ans minimum !</strong></p>
 
       <h3>Étape 7 : Déclarer la cession en ligne (OBLIGATOIRE)</h3>
       <p><strong>Dans les 15 jours suivant la vente :</strong></p>
 
       <p><strong>Sur ants.gouv.fr :</strong></p>
       <ul>
-        <li>1️⃣ Connectez-vous avec FranceConnect</li>
+        <li>1. Connectez-vous avec FranceConnect</li>
         <li>2️⃣ Sélectionnez "Déclarer la cession d'un véhicule"</li>
         <li>3️⃣ Renseignez les informations du véhicule</li>
-        <li>4️⃣ Indiquez la date et l'heure de cession</li>
+        <li>4. Indiquez la date et l'heure de cession</li>
         <li>5️⃣ Téléchargez le certificat de cession (PDF)</li>
         <li>6️⃣ Validez la déclaration</li>
       </ul>
@@ -1503,7 +1503,7 @@ export const blogPosts: BlogPost[] = [
       <p><strong>Dans les 15 jours :</strong></p>
       <ul>
         <li>📞 Contactez votre assureur</li>
-        <li>📧 Envoyez le certificat de cession</li>
+        <li>Envoyez le certificat de cession</li>
         <li>📝 Demandez la résiliation immédiate</li>
         <li>💰 Récupérez le trop-perçu au prorata</li>
       </ul>
@@ -1521,14 +1521,14 @@ export const blogPosts: BlogPost[] = [
       <ul>
         <li>📞 Informez l'organisme de crédit</li>
         <li>💰 Soldez le crédit avec l'argent de la vente</li>
-        <li>📄 Obtenez un certificat de non-gage</li>
-        <li>✅ Puis vendez normalement</li>
+        <li>Obtenez un certificat de non-gage</li>
+        <li>Puis vendez normalement</li>
       </ul>
 
       <h3>Véhicule hérité</h3>
       <p><strong>Documents supplémentaires nécessaires :</strong></p>
       <ul>
-        <li>📄 Acte de succession</li>
+        <li>Acte de succession</li>
         <li>📄 Certificat d'hérédité</li>
         <li>📄 Pièce d'identité de l'héritier</li>
         <li>📄 Carte grise au nom du défunt</li>
@@ -1545,23 +1545,23 @@ export const blogPosts: BlogPost[] = [
       <h3>Véhicule de société</h3>
       <p><strong>Documents professionnels :</strong></p>
       <ul>
-        <li>📄 Kbis de moins de 3 mois</li>
-        <li>📄 Pouvoir de signature</li>
-        <li>📄 Cachet de l'entreprise</li>
+        <li>Kbis de moins de 3 mois</li>
+        <li>Pouvoir de signature</li>
+        <li>Cachet de l'entreprise</li>
       </ul>
 
       <h2>Erreurs à éviter absolument</h2>
 
-      <h3>❌ Erreur #1 : Vendre sans certificat de cession</h3>
+      <h3>Erreur #1 : Vendre sans certificat de cession</h3>
       <p><strong>Conséquence :</strong> Vous restez responsable du véhicule et recevrez toutes les amendes !</p>
 
       <h3>❌ Erreur #2 : Ne pas déclarer la cession</h3>
       <p><strong>Conséquence :</strong> Amende de 135€ + continuation des frais d'assurance et taxes.</p>
 
-      <h3>❌ Erreur #3 : Oublier de barrer la carte grise</h3>
+      <h3>Erreur #3 : Oublier de barrer la carte grise</h3>
       <p><strong>Conséquence :</strong> L'acheteur peut faire des modifications sans votre accord.</p>
 
-      <h3>❌ Erreur #4 : Ne pas conserver de preuve</h3>
+      <h3>Erreur #4 : Ne pas conserver de preuve</h3>
       <p><strong>Conséquence :</strong> Impossible de prouver la vente en cas de litige.</p>
 
       <h3>❌ Erreur #5 : Accepter un paiement en espèces sans reçu</h3>
@@ -1592,28 +1592,28 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Vendre votre voiture HS avec Les Épavistes Pro</h2>
 
-      <h3>✅ Service complet et gratuit</h3>
+      <h3>Service complet et gratuit</h3>
       <ul>
         <li>🚛 <strong>Enlèvement gratuit</strong> à domicile</li>
         <li>💰 <strong>Rachat possible</strong> si état correct (200-5000€)</li>
         <li>📝 <strong>Démarches administratives</strong> gérées pour vous</li>
-        <li>⚡ <strong>Intervention 24-48h</strong> partout en Île-de-France</li>
+        <li><strong>Intervention 24-48h</strong> partout en Île-de-France</li>
       </ul>
 
       <h3>✅ Processus ultra-simplifié</h3>
       <ul>
-        <li>1️⃣ Vous nous appelez : <strong>09 79 04 94 86</strong></li>
+        <li>1. Vous nous appelez : <strong>09 79 04 94 86</strong></li>
         <li>2️⃣ Nous estimons votre véhicule (gratuit)</li>
-        <li>3️⃣ Nous venons l'enlever (gratuit)</li>
-        <li>4️⃣ Nous vous payons (si rachat)</li>
+        <li>3. Nous venons l'enlever (gratuit)</li>
+        <li>4. Nous vous payons (si rachat)</li>
         <li>5️⃣ Nous gérons toute la paperasse</li>
       </ul>
 
-      <h3>✅ Documents fournis</h3>
+      <h3>Documents fournis</h3>
       <ul>
-        <li>📄 Certificat de cession rempli</li>
+        <li>Certificat de cession rempli</li>
         <li>📄 Déclaration de cession en ligne</li>
-        <li>📄 Certificat de destruction VHU (si applicable)</li>
+        <li>Certificat de destruction VHU (si applicable)</li>
         <li>📄 Reçu de paiement</li>
       </ul>
 
@@ -1621,8 +1621,8 @@ export const blogPosts: BlogPost[] = [
       <p>Ne vous compliquez pas la vie avec les démarches administratives. Les Épavistes Pro s'occupe de TOUT pour vous !</p>
       
       <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
-      <p>💬 <strong>WhatsApp disponible</strong> pour estimation rapide</p>
-      <p>⏰ <strong>Intervention 24-48h</strong> partout en Île-de-France</p>
+      <p><strong>WhatsApp disponible</strong> pour estimation rapide</p>
+      <p><strong>Intervention 24-48h</strong> partout en Île-de-France</p>
       <p>💰 <strong>Paiement immédiat</strong> si rachat</p>
       
       <p><strong>Service gratuit • Démarches simplifiées • +250 clients satisfaits !</strong></p>
@@ -1646,7 +1646,7 @@ export const blogPosts: BlogPost[] = [
         <li>✅ Pourquoi le service est gratuit (et légal)</li>
         <li>❌ Les arnaques à éviter absolument</li>
         <li>💰 Les vrais coûts cachés à surveiller</li>
-        <li>📄 Ce qui est inclus dans le service gratuit</li>
+        <li>Ce qui est inclus dans le service gratuit</li>
         <li>🚨 Comment repérer un épaviste malhonnnête</li>
       </ul>
 
@@ -1664,7 +1664,7 @@ export const blogPosts: BlogPost[] = [
         <li>🔧 <strong>Le remorquage</strong> : avec dépanneuse professionnelle</li>
         <li>🌍 <strong>La dépollution</strong> : vidange des fluides, retrait batterie, gaz clim</li>
         <li>♻️ <strong>Le recyclage</strong> : démantèlement et tri des matériaux</li>
-        <li>📄 <strong>Le certificat de destruction</strong> : document officiel VHU</li>
+        <li><strong>Le certificat de destruction</strong> : document officiel VHU</li>
         <li>📝 <strong>Les démarches administratives</strong> : déclaration de cession</li>
       </ul>
 
@@ -1714,10 +1714,10 @@ export const blogPosts: BlogPost[] = [
       <ul>
         <li>✅ Confirmez par écrit (SMS, email) que le service est 100% gratuit</li>
         <li>✅ Vérifiez l'agrément VHU avant l'intervention</li>
-        <li>✅ Refusez de payer si on vous demande de l'argent</li>
+        <li>Refusez de payer si on vous demande de l'argent</li>
       </ul>
 
-      <h3>🚨 Arnaque #2 : Les "frais de remorquage"</h3>
+      <h3>Arnaque #2 : Les "frais de remorquage"</h3>
       <p><strong>Le piège :</strong> "Le remorquage est gratuit mais la dépanneuse coûte 100-300€"</p>
       
       <p><strong>La vérité :</strong> Le remorquage ET la dépanneuse sont INCLUS dans le service gratuit.</p>
@@ -1729,7 +1729,7 @@ export const blogPosts: BlogPost[] = [
         <li>❌ "Frais de manutention" : 80€</li>
       </ul>
 
-      <h3>🚨 Arnaque #3 : Les "frais administratifs"</h3>
+      <h3>Arnaque #3 : Les "frais administratifs"</h3>
       <p><strong>Le piège :</strong> "Le certificat de destruction coûte 50€" ou "Frais de dossier : 30€"</p>
       
       <p><strong>La vérité :</strong> TOUS les documents sont gratuits, y compris le certificat de destruction VHU.</p>
@@ -1739,9 +1739,9 @@ export const blogPosts: BlogPost[] = [
       
       <p><strong>Conséquences :</strong></p>
       <ul>
-        <li>❌ Pas de certificat de destruction valide</li>
+        <li>Pas de certificat de destruction valide</li>
         <li>❌ Vous restez propriétaire légalement</li>
-        <li>❌ Continuation des frais d'assurance et taxes</li>
+        <li>Continuation des frais d'assurance et taxes</li>
         <li>❌ Amende possible de 1 500€</li>
       </ul>
 
@@ -1825,14 +1825,14 @@ export const blogPosts: BlogPost[] = [
         <li>"Le certificat de destruction est-il inclus ?"</li>
       </ul>
 
-      <p><strong>💡 Conservez ces messages comme preuve !</strong></p>
+      <p><strong>Conservez ces messages comme preuve !</strong></p>
 
       <h3>3. Consultez les avis clients</h3>
       <p><strong>Vérifiez sur :</strong></p>
       <ul>
-        <li>⭐ Google My Business</li>
+        <li>Google My Business</li>
         <li>📱 Réseaux sociaux (Facebook, Instagram)</li>
-        <li>🌐 Sites d'avis (Trustpilot)</li>
+        <li>Sites d'avis (Trustpilot)</li>
       </ul>
 
       <p><strong>Points d'alerte dans les avis :</strong></p>
@@ -1846,7 +1846,7 @@ export const blogPosts: BlogPost[] = [
       <p><strong>Si on vous propose :</strong></p>
       <ul>
         <li>⚠️ "On vous PAIE pour enlever votre épave" (sans voir le véhicule)</li>
-        <li>⚠️ "Service en 2h chrono" (trop rapide = suspect)</li>
+        <li>"Service en 2h chrono" (trop rapide = suspect)</li>
         <li>⚠️ "Pas besoin de documents" (illégal !)</li>
       </ul>
 
@@ -1863,7 +1863,7 @@ export const blogPosts: BlogPost[] = [
       <h3>Que faire si on me demande de payer ?</h3>
       <p><strong>3 actions immédiates :</strong></p>
       <ul>
-        <li>1️⃣ <strong>REFUSEZ de payer</strong></li>
+        <li>1. <strong>REFUSEZ de payer</strong></li>
         <li>2️⃣ <strong>Demandez l'agrément VHU</strong></li>
         <li>3️⃣ <strong>Signalez à la préfecture</strong> si arnaque confirmée</li>
       </ul>
@@ -1884,13 +1884,13 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Les Épavistes Pro : Service 100% gratuit garanti</h2>
 
-      <h3>✅ Engagement de transparence totale</h3>
+      <h3>Engagement de transparence totale</h3>
       <p><strong>Notre promesse :</strong></p>
       <ul>
         <li>💵 <strong>0€</strong> - Aucun frais, jamais</li>
         <li>📄 <strong>Confirmation écrite</strong> avant intervention</li>
         <li>🔖 <strong>Agrément VHU officiel</strong> vérifiable</li>
-        <li>📝 <strong>Tous documents inclus</strong> (certificat VHU, cession...)</li>
+        <li><strong>Tous documents inclus</strong> (certificat VHU, cession...)</li>
       </ul>
 
       <h3>✅ Ce qui est vraiment inclus (sans frais cachés)</h3>
@@ -1899,14 +1899,14 @@ export const blogPosts: BlogPost[] = [
         <li>🔧 Remorquage avec dépanneuse professionnelle</li>
         <li>🌍 Dépollution complète et écologique</li>
         <li>♻️ Recyclage dans centre VHU agréé</li>
-        <li>📄 Certificat de destruction sous 15 jours</li>
+        <li>Certificat de destruction sous 15 jours</li>
         <li>📝 Démarches administratives gérées</li>
       </ul>
 
-      <h3>✅ Nos garanties</h3>
+      <h3>Nos garanties</h3>
       <ul>
         <li>✅ <strong>Agrément VHU officiel</strong> - Vérifiable en préfecture</li>
-        <li>✅ <strong>Intervention 24-48h</strong> - Toute l'Île-de-France</li>
+        <li><strong>Intervention 24-48h</strong> - Toute l'Île-de-France</li>
         <li>✅ <strong>+250 clients satisfaits</strong> - Avis vérifiés</li>
         <li>✅ <strong>Disponible 7j/7</strong> - Même week-ends et jours fériés</li>
       </ul>
@@ -1915,8 +1915,8 @@ export const blogPosts: BlogPost[] = [
       <p>Ne payez JAMAIS pour un enlèvement d'épave ! Avec Les Épavistes Pro, le service est <strong>100% gratuit, garanti par écrit</strong>.</p>
       
       <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
-      <p>💬 <strong>WhatsApp disponible</strong> pour confirmation gratuite</p>
-      <p>⏰ <strong>Intervention 24-48h</strong> partout en Île-de-France</p>
+      <p><strong>WhatsApp disponible</strong> pour confirmation gratuite</p>
+      <p><strong>Intervention 24-48h</strong> partout en Île-de-France</p>
       <p>💵 <strong>0€ garanti</strong> - Aucun frais caché</p>
       
       <p><strong>Service 100% gratuit • Agrément VHU officiel • +250 clients satisfaits !</strong></p>

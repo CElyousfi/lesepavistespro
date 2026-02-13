@@ -6,6 +6,7 @@ import { getCityBySlug } from '@/lib/locations-complete';
 import { CheckCircle, Clock, Shield, MapPin, CaretRight, Car, CurrencyEur } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
 import QuickContact from '@/components/QuickContact';
 import TrustBadges from '@/components/TrustBadges';
@@ -62,73 +63,70 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
       
       <Header />
       {/* Hero Section */}
-      <section className="relative bg-brand-navy text-white py-20 md:py-32">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy-dark opacity-95"></div>
-        
-        <div className="container mx-auto px-[5%] relative z-10">
-          {/* Breadcrumb */}
-          <div className="max-w-4xl mx-auto">
-            <Breadcrumb 
-              items={[
-                { label: 'Épaviste', href: '/epaviste' },
-                { label: department.name, href: `/epaviste/${department.slug}` },
-                { label: city.name }
-              ]}
-            />
-          </div>
-
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-block bg-brand-red/10 border border-brand-red/30 rounded-full px-4 py-2 mb-6">
-              <span className="text-brand-red font-semibold text-sm">
-                Service disponible 24h/24, 7j/7 à {city.name}
-              </span>
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Épaviste {city.name}
-              <span className="block text-brand-red mt-2">Enlèvement Gratuit ({city.postalCode})</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-neutral-200 mb-8 leading-relaxed">
-              Épaviste agréé VHU à {city.name} dans le {department.name} ({department.code}). 
-              Enlèvement d'épave 100% gratuit, intervention rapide sous 24h, 
-              certificat de destruction fourni immédiatement.
-            </p>
-
-            {/* CTA Buttons */}
-            <QuickContact 
-              service="epaviste" 
-              location={`${city.name} (${city.postalCode})`}
-              className="justify-center mb-12"
-            />
-
-            {/* Trust Indicators */}
-            <TrustBadges service="epaviste" />
-          </div>
+      <LocationHero>
+        {/* Breadcrumb */}
+        <div className="mb-6">
+          <Breadcrumb 
+            items={[
+              { label: 'Épaviste', href: '/epaviste' },
+              { label: department.name, href: `/epaviste/${department.slug}` },
+              { label: city.name }
+            ]}
+          />
         </div>
-      </section>
+
+        <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-brand-navy/[0.05] border border-brand-navy/[0.08] mb-8 sm:mb-10">
+          <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
+          <span className="text-xs sm:text-sm font-medium text-brand-navy/70">
+            Service disponible 24h/24, 7j/7 à {city.name}
+          </span>
+        </div>
+        
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
+          Épaviste {city.name}
+          <br /><span className="text-brand-red">Enlèvement Gratuit ({city.postalCode})</span>
+        </h1>
+        
+        <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
+          Épaviste agréé VHU à {city.name} dans le {department.name} ({department.code}). 
+          Enlèvement d'épave 100% gratuit, intervention rapide sous 24h, 
+          certificat de destruction fourni immédiatement.
+        </p>
+
+        {/* CTA Buttons */}
+        <QuickContact 
+          service="epaviste" 
+          location={`${city.name} (${city.postalCode})`}
+          cityName={city.name}
+          departmentName={department.name}
+          className="justify-center mb-12 sm:mb-16"
+        />
+
+        {/* Trust Indicators */}
+        <TrustBadges service="epaviste" />
+      </LocationHero>
 
       {/* Service Description */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="container mx-auto px-[5%]">
+      <section className="py-16 sm:py-24 bg-brand-surface">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 sm:mb-8 leading-tight tracking-tight">
               Enlèvement d'épave à {city.name} ({city.postalCode})
             </h2>
-            <div className="prose prose-lg max-w-none text-neutral-700">
-              <h3 className="text-xl font-bold text-neutral-900 mb-3">Service d'enlèvement à {city.name}</h3>
+            <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
+              <h3 className="text-xl font-bold text-brand-navy mb-3">Service d'enlèvement à {city.name}</h3>
               <p className="mb-3">
                 Vous habitez {city.name} ({city.postalCode}) et vous avez besoin de faire enlever une épave ? 
                 Notre service d'épaviste agréé VHU intervient gratuitement pour récupérer votre véhicule hors d'usage.
               </p>
               
-              <h3 className="text-xl font-bold text-neutral-900 mb-3 mt-6">Délai d'intervention</h3>
+              <h3 className="text-xl font-bold text-brand-navy mb-3 mt-6">Délai d'intervention</h3>
               <p className="mb-3">
                 Intervention rapide sous 24-48h à {city.name} et dans tout le {department.name}. 
                 En urgence, nous pouvons intervenir le jour même.
               </p>
               
-              <h3 className="text-xl font-bold text-neutral-900 mb-3 mt-6">Comment nous contacter</h3>
+              <h3 className="text-xl font-bold text-brand-navy mb-3 mt-6">Comment nous contacter</h3>
               <p className="mb-4">
                 ☎️ Appelez le 09 79 04 94 86 pour une intervention urgente<br/>
                 💬 WhatsApp ou formulaire pour une demande de devis
@@ -138,19 +136,19 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
               {localData && (
                 <>
                   {localData.acces && (
-                    <div className="bg-blue-50 border-l-4 border-brand-blue p-4 my-6">
+                    <div className="bg-white p-4 sm:p-6 rounded-2xl border-l-2 border-brand-red shadow-sm my-6">
                       <h3 className="font-bold text-brand-navy mb-2">Accès et intervention à {city.name}</h3>
-                      <p className="text-sm text-neutral-700">{localData.acces}</p>
+                      <p className="text-sm text-neutral-600">{localData.acces}</p>
                     </div>
                   )}
                   
                   {localData.specificites && localData.specificites.length > 0 && (
                     <div className="my-6">
-                      <h3 className="font-bold text-neutral-900 mb-3">Spécificités locales :</h3>
+                      <h3 className="font-bold text-brand-navy mb-3">Spécificités locales :</h3>
                       <ul className="space-y-2">
                         {localData.specificites.map((spec, idx) => (
                           <li key={idx} className="flex items-start gap-2">
-                            <CheckCircle size={20} weight="bold" className="text-brand-blue flex-shrink-0 mt-0.5" />
+                            <CheckCircle size={20} weight="fill" className="text-brand-red flex-shrink-0 mt-0.5" />
                             <span className="text-neutral-700">{spec}</span>
                           </li>
                         ))}
@@ -166,19 +164,22 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
 
       {/* Local Fourrière & Parking Info */}
       {localData && (localData.fourriere || localData.parkings.length > 0) && (
-        <section className="py-16 bg-gradient-to-br from-neutral-50 to-neutral-100">
-          <div className="container mx-auto px-[5%]">
+        <section className="py-16 sm:py-24 bg-white border-y border-neutral-200">
+          <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-neutral-900 mb-8 text-center">
-                Informations pratiques à {city.name}
-              </h2>
+              <div className="text-center mb-16">
+                <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Infos pratiques</span>
+                <h2 className="text-3xl md:text-5xl font-bold text-brand-navy tracking-tight">
+                  Informations pratiques à {city.name}
+                </h2>
+              </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-4">
                 {/* Fourrière Info */}
                 {localData.fourriere && (
-                  <div className="bg-white p-6 rounded-2xl border-2 border-neutral-200 shadow-sm">
+                  <div className="bg-white p-5 sm:p-8 rounded-2xl border border-neutral-200 hover:shadow-md transition-all duration-500">
                     <h3 className="font-bold text-brand-navy mb-4 flex items-center gap-2">
-                      <MapPin size={24} weight="bold" className="text-brand-red" />
+                      <MapPin size={24} weight="bold" className="text-brand-red flex-shrink-0" />
                       Fourrière locale
                     </h3>
                     <div className="space-y-2 text-sm">
@@ -189,7 +190,7 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
                         <p className="text-neutral-700"><strong>Tarif :</strong> {localData.fourriere.tarif}</p>
                         <p className="text-neutral-700"><strong>Délai :</strong> {localData.fourriere.delai}</p>
                       </div>
-                      <div className="pt-3 mt-3 bg-green-50 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                      <div className="pt-3 mt-3 bg-green-50 -mx-4 sm:-mx-6 -mb-4 sm:-mb-6 p-4 rounded-b-2xl">
                         <p className="text-sm text-green-800">
                           💡 <strong>Astuce :</strong> Nous pouvons récupérer votre véhicule directement en fourrière et gérer les démarches.
                         </p>
@@ -200,9 +201,9 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
                 
                 {/* Parking Info */}
                 {localData.parkings.length > 0 && (
-                  <div className="bg-white p-6 rounded-2xl border-2 border-neutral-200 shadow-sm">
+                  <div className="bg-white p-5 sm:p-8 rounded-2xl border border-neutral-200 hover:shadow-md transition-all duration-500">
                     <h3 className="font-bold text-brand-navy mb-4 flex items-center gap-2">
-                      <Car size={24} weight="bold" className="text-brand-blue" />
+                      <Car size={24} weight="fill" className="text-brand-red flex-shrink-0" />
                       Parkings principaux
                     </h3>
                     <p className="text-sm text-neutral-600 mb-3">
@@ -211,12 +212,12 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
                     <ul className="space-y-2">
                       {localData.parkings.slice(0, 5).map((parking, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-sm">
-                          <CheckCircle size={16} weight="bold" className="text-brand-blue flex-shrink-0 mt-0.5" />
+                            <CheckCircle size={16} weight="fill" className="text-brand-blue flex-shrink-0 mt-0.5" />
                           <span className="text-neutral-700">{parking}</span>
                         </li>
                       ))}
                     </ul>
-                    <div className="pt-3 mt-3 bg-blue-50 -mx-6 -mb-6 p-4 rounded-b-2xl">
+                    <div className="pt-3 mt-3 bg-blue-50 -mx-4 sm:-mx-6 -mb-4 sm:-mb-6 p-4 rounded-b-2xl">
                       <p className="text-sm text-blue-800">
                         🚛 <strong>Équipement :</strong> Treuil et matériel adapté pour sous-sols et rampes étroites.
                       </p>
@@ -230,14 +231,17 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
       )}
 
       {/* Local Benefits */}
-      <section className="py-20 md:py-28 bg-neutral-50">
-        <div className="container mx-auto px-[5%]">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-12 text-center">
-              Notre service à {city.name}
-            </h2>
+      <section className="py-16 sm:py-24 bg-brand-surface">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10 sm:mb-16">
+              <span className="text-brand-red font-semibold tracking-wider uppercase text-sm mb-4 block">Nos Engagements</span>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy tracking-tight">
+                Notre service à {city.name}
+              </h2>
+            </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-4">
               <ServiceCard
                 icon={CheckCircle}
                 title="Enlèvement 100% gratuit"
@@ -269,23 +273,26 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
 
       {/* Nearby Cities */}
       {nearbyCities.length > 0 && (
-        <section className="py-20 md:py-28 bg-white">
-          <div className="container mx-auto px-[5%]">
+        <section className="py-16 sm:py-24 bg-white border-y border-neutral-200">
+          <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">
-                Nous intervenons aussi près de {city.name}
-              </h2>
+              <div className="text-center mb-10 sm:mb-16">
+                <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Villes proches</span>
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy tracking-tight">
+                  Nous intervenons aussi près de {city.name}
+                </h2>
+              </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {nearbyCities.map((nearbyCity) => (
                   <Link
                     key={nearbyCity.slug}
                     href={`/epaviste/${department.slug}/${nearbyCity.slug}`}
-                    className="flex items-center gap-2 p-4 bg-neutral-50 rounded-xl border-2 border-neutral-200 hover:border-brand-blue hover:shadow-md transition-all group"
+                    className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-red/30 hover:shadow-md transition-all duration-300 group"
                   >
                     <MapPin size={18} weight="bold" className="text-brand-red flex-shrink-0" />
                     <div className="min-w-0">
-                      <div className="font-semibold text-neutral-900 group-hover:text-brand-blue transition-colors text-sm truncate">
+                      <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-red transition-colors truncate">
                         {nearbyCity.name}
                       </div>
                       <div className="text-xs text-neutral-500">{nearbyCity.postalCode}</div>
@@ -297,7 +304,7 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
               <div className="text-center mt-8">
                 <Link
                   href={`/epaviste/${department.slug}`}
-                  className="inline-flex items-center gap-2 text-brand-blue hover:text-brand-blue-dark font-semibold transition-colors"
+                  className="inline-flex items-center gap-2 text-brand-red hover:text-brand-red/80 font-semibold transition-colors"
                 >
                   Voir toutes les villes du {department.name}
                   <CaretRight size={16} weight="bold" />
@@ -312,38 +319,41 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
       <CTASection />
 
       {/* Conversion Form */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-[5%]">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
-              Demandez votre devis gratuit à {city.name}
-            </h2>
-            <p className="text-lg text-neutral-600">
-              Remplissez le formulaire ci-dessous pour recevoir votre estimation en moins de 15 minutes
-            </p>
+      <section className="py-16 sm:py-24 bg-white relative overflow-hidden border-t border-b border-neutral-200">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 sm:mb-10">
+              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Devis gratuit</span>
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-4 tracking-tight">
+                Demandez votre devis gratuit à {city.name}
+              </h2>
+              <p className="text-lg text-neutral-600">
+                Remplissez le formulaire &bull; Réponse sous 15 minutes &bull; Service 100% gratuit
+              </p>
+            </div>
+            <ConversionForm trigger="inline" />
           </div>
-          <ConversionForm trigger="inline" />
         </div>
       </section>
 
       {/* Internal Linking - Related Services & Cities */}
-      <section className="py-16 bg-neutral-50">
-        <div className="container mx-auto px-[5%]">
+      <section className="py-16 sm:py-24 bg-brand-surface">
+        <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Cross-link to Rachat */}
-            <div className="mb-12 p-6 bg-gradient-to-r from-brand-gold/10 to-yellow-50 border-2 border-brand-gold/20 rounded-2xl">
-              <h3 className="text-xl font-bold text-neutral-900 mb-3 flex items-center gap-2">
-                <CurrencyEur size={24} weight="bold" className="text-brand-gold" />
+            <div className="mb-8 sm:mb-12 p-5 sm:p-8 bg-white rounded-2xl border border-neutral-200 hover:shadow-md transition-all duration-500">
+              <h3 className="text-lg font-bold text-brand-navy mb-3 flex items-center gap-2">
+                <CurrencyEur size={24} weight="fill" className="text-brand-gold" />
                 Vous souhaitez plutôt vendre votre voiture ?
               </h3>
-              <p className="text-neutral-700 mb-4">
+              <p className="text-neutral-600 leading-relaxed text-sm mb-4">
                 Découvrez notre service de rachat de voiture à {city.name}. Paiement cash immédiat, tous véhicules acceptés.
               </p>
               <Link
                 href={`/rachat-voiture/${department.slug}/${city.slug}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-gold hover:bg-brand-gold-light text-white rounded-xl font-semibold transition-all shadow-md hover:shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-gold hover:bg-brand-gold/90 text-white rounded-full font-semibold transition-all shadow-sm hover:shadow-md text-sm"
               >
-                💰 Rachat voiture à {city.name}
+                Rachat voiture à {city.name}
                 <CaretRight size={16} weight="bold" />
               </Link>
             </div>
@@ -351,10 +361,10 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
             {/* Neighboring Cities */}
             {department.cities.length > 1 && (
               <div>
-                <h3 className="text-2xl font-bold text-neutral-900 mb-6">
+                <h3 className="text-lg font-bold text-brand-navy mb-6">
                   Épaviste dans les villes voisines
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                   {department.cities
                     .filter(c => c.slug !== city.slug)
                     .slice(0, 8)
@@ -362,11 +372,11 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
                       <Link
                         key={neighborCity.slug}
                         href={`/epaviste/${department.slug}/${neighborCity.slug}`}
-                        className="flex items-center gap-2 p-4 bg-white rounded-xl border-2 border-neutral-200 hover:border-brand-red hover:shadow-md transition-all group"
+                        className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-red/30 hover:shadow-md transition-all duration-300 group"
                       >
-                        <MapPin size={20} weight="bold" className="text-brand-red flex-shrink-0" />
+                        <MapPin size={18} weight="bold" className="text-brand-red flex-shrink-0" />
                         <div className="min-w-0">
-                          <div className="font-semibold text-neutral-900 group-hover:text-brand-red transition-colors truncate text-sm">
+                          <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-red transition-colors truncate">
                             {neighborCity.name}
                           </div>
                         </div>

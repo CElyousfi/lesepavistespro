@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Phone, Truck, FileText, CurrencyEur } from '@phosphor-icons/react';
+import ScrollAnimation from './ScrollAnimation';
 
 const steps = [
   {
@@ -33,66 +34,68 @@ const steps = [
 const ProcessNew = () => {
   const [openStep, setOpenStep] = useState<number | null>(null);
 
+  const toggleStep = (index: number) => {
+    setOpenStep(openStep === index ? null : index);
+  };
+
   return (
-    <section id="comment-ca-marche" className="py-20 md:py-28 bg-white">
-      <div className="container mx-auto px-[5%]">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 tracking-tight">
-              Notre méthodologie
-            </h2>
+    <section id="comment-ca-marche" className="py-24 md:py-32 bg-brand-surface relative">
+
+      <div className="container mx-auto px-4 relative z-10">
+        <ScrollAnimation className="w-full">
+          <div className="max-w-4xl mx-auto">
+            {/* Section Header */}
+            <div className="mb-16 text-center">
+              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Comment ça marche</span>
+              <h2 className="text-3xl md:text-5xl font-bold text-brand-navy tracking-tight">
+                Notre méthodologie
+              </h2>
+            </div>
+
+            {/* Steps List */}
+            <ul className="space-y-3">
+              {steps.map((step, index) => {
+                const Icon = step.icon;
+                const isOpen = openStep === index;
+
+                return (
+                  <ScrollAnimation key={index} delay={index * 0.1} className="w-full">
+                    <li
+                      className={`rounded-2xl overflow-hidden transition-all duration-500 border ${isOpen ? 'border-brand-red/30 bg-white shadow-md' : 'border-neutral-200 bg-white hover:border-neutral-300 hover:shadow-sm'}`}
+                    >
+                      <button
+                        onClick={() => toggleStep(index)}
+                        className="w-full p-6 md:p-8 flex items-center justify-between gap-6 text-left group"
+                      >
+                        <div className="flex items-center gap-6 flex-1">
+                          <div className={`text-4xl md:text-5xl font-bold transition-colors ${isOpen ? 'text-brand-red' : 'text-neutral-200 group-hover:text-neutral-300'}`}>
+                            {step.number}
+                          </div>
+                          <h3 className={`text-lg md:text-xl font-bold transition-colors ${isOpen ? 'text-brand-navy' : 'text-neutral-700 group-hover:text-brand-navy'}`}>
+                            {step.title}
+                          </h3>
+                        </div>
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${isOpen ? 'bg-brand-red text-white' : 'bg-neutral-100 text-neutral-400 group-hover:bg-neutral-200 group-hover:text-neutral-600'}`}>
+                          <Icon size={24} weight="bold" />
+                        </div>
+                      </button>
+
+                      <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                        <div className="overflow-hidden">
+                          <div className="px-6 md:px-8 pb-6 md:pb-8 pt-0 md:pl-[88px]">
+                            <p className="text-neutral-600 leading-relaxed">
+                              {step.description}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ScrollAnimation>
+                );
+              })}
+            </ul>
           </div>
-
-          {/* Steps List */}
-          <ul className="space-y-4">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              const isOpen = openStep === index;
-              
-              return (
-                <li
-                  key={index}
-                  className="border-2 border-neutral-200 rounded-2xl overflow-hidden transition-all duration-300 hover:border-brand-blue hover:shadow-lg"
-                >
-                  {/* Step Header - Clickable */}
-                  <button
-                    onClick={() => setOpenStep(isOpen ? null : index)}
-                    className="w-full p-6 md:p-8 flex items-center justify-between gap-6 text-left"
-                  >
-                    <div className="flex items-center gap-6 flex-1">
-                      {/* Step Number */}
-                      <div className="text-5xl md:text-6xl font-bold text-brand-red opacity-20">
-                        {step.number}
-                      </div>
-                      
-                      {/* Title */}
-                      <h3 className="text-xl md:text-2xl font-bold text-neutral-900">
-                        {step.title}
-                      </h3>
-                    </div>
-
-                    {/* Icon */}
-                    <div className="w-16 h-16 bg-brand-gold/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-brand-gold/20 transition-colors">
-                      <Icon size={32} weight="bold" className="text-brand-gold" />
-                    </div>
-                  </button>
-
-                  {/* Step Content - Expandable */}
-                  {isOpen && (
-                    <div className="px-6 md:px-8 pb-6 md:pb-8 pt-0">
-                      <div className="pl-0 md:pl-24">
-                        <p className="text-neutral-700 leading-relaxed">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        </ScrollAnimation>
       </div>
     </section>
   );

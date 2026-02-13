@@ -18,14 +18,14 @@ export default function MentionsLegalesPage() {
     <>
       <Header />
       
-      <main className="bg-neutral-50 min-h-screen">
+      <main className="bg-white min-h-screen">
         {/* Hero Section */}
         <section className="relative bg-white overflow-hidden pt-32 md:pt-36 pb-12">
           <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-brand-navy mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-brand-navy mb-4 tracking-tight">
               Mentions Légales
             </h1>
-            <p className="text-lg text-neutral-600">
+            <p className="text-lg text-neutral-500">
               Informations légales concernant le site lesepavistespro.fr
             </p>
           </div>
@@ -34,12 +34,12 @@ export default function MentionsLegalesPage() {
         {/* Content Section */}
         <section className="py-12">
           <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-            <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+            <div className="bg-brand-surface rounded-2xl border border-neutral-200 p-8 md:p-12">
               
               {/* 1. Éditeur du site */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">1. Éditeur du site</h2>
-                <div className="prose prose-lg max-w-none text-neutral-700">
+                <div className="max-w-none text-neutral-400">
                   <p className="mb-3">
                     Le site <strong>lesepavistespro.fr</strong> est édité par :
                   </p>
@@ -59,7 +59,7 @@ export default function MentionsLegalesPage() {
               {/* 2. Directeur de la publication */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">2. Directeur de la publication</h2>
-                <p className="text-neutral-700">
+                <p className="text-neutral-500">
                   Le directeur de la publication du site est le représentant légal de la société Les Épavistes Pro.
                 </p>
               </div>
@@ -67,7 +67,7 @@ export default function MentionsLegalesPage() {
               {/* 3. Hébergement */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">3. Hébergement du site</h2>
-                <div className="prose prose-lg max-w-none text-neutral-700">
+                <div className="max-w-none text-neutral-400">
                   <p className="mb-3">Le site est hébergé par :</p>
                   <ul className="list-none space-y-2 ml-0">
                     <li><strong>Hébergeur :</strong> Vercel Inc.</li>
@@ -80,7 +80,7 @@ export default function MentionsLegalesPage() {
               {/* 4. Propriété intellectuelle */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">4. Propriété intellectuelle</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-500 space-y-4">
                   <p>
                     L'ensemble du contenu de ce site (textes, images, vidéos, logos, icônes, etc.) est la propriété exclusive de Les Épavistes Pro, sauf mention contraire.
                   </p>
@@ -96,7 +96,7 @@ export default function MentionsLegalesPage() {
               {/* 5. Données personnelles */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">5. Protection des données personnelles</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-500 space-y-4">
                   <p>
                     Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition aux données personnelles vous concernant.
                   </p>
@@ -119,7 +119,7 @@ export default function MentionsLegalesPage() {
               {/* 6. Cookies */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">6. Cookies</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-500 space-y-4">
                   <p>
                     Le site utilise des cookies pour améliorer l'expérience utilisateur et analyser le trafic via Google Analytics.
                   </p>
@@ -132,7 +132,7 @@ export default function MentionsLegalesPage() {
               {/* 7. Responsabilité */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">7. Limitation de responsabilité</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-500 space-y-4">
                   <p>
                     Les Épavistes Pro s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site, dont elle se réserve le droit de corriger, à tout moment et sans préavis, le contenu.
                   </p>
@@ -153,7 +153,7 @@ export default function MentionsLegalesPage() {
               {/* 8. Liens hypertextes */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">8. Liens hypertextes</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-500 space-y-4">
                   <p>
                     Le site peut contenir des liens hypertextes vers d'autres sites. Les Épavistes Pro n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
                   </p>
@@ -166,7 +166,7 @@ export default function MentionsLegalesPage() {
               {/* 9. Droit applicable */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">9. Droit applicable et juridiction</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-500 space-y-4">
                   <p>
                     Les présentes mentions légales sont régies par le droit français.
                   </p>
@@ -179,11 +179,11 @@ export default function MentionsLegalesPage() {
               {/* 10. Contact */}
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">10. Contact</h2>
-                <div className="text-neutral-700 space-y-4">
+                <div className="text-neutral-500 space-y-4">
                   <p>
                     Pour toute question concernant ces mentions légales, vous pouvez nous contacter :
                   </p>
-                  <div className="bg-neutral-50 rounded-xl p-6 mt-4">
+                  <div className="bg-white rounded-xl p-6 mt-4 border border-neutral-200">
                     <ul className="space-y-3">
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">Téléphone :</span>
