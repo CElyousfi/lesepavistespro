@@ -60,24 +60,30 @@ function generateEmailHTML(formData: any) {
           <tr>
             <td style="padding: 20px 30px;">
               <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 20px; font-weight: bold; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                🚗 Informations du Véhicule
+                ${formData.vehicleType === 'moto' ? '🏍️' : '🚗'} Informations du Véhicule
               </h2>
               <table width="100%" cellpadding="8" cellspacing="0" border="0">
                 <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 10px;">Marque</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.marque}</td>
+                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 10px;">Type</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">
+                    ${formData.vehicleType === 'moto' ? '🏍️ Moto' : '🚗 Auto'}
+                  </td>
                 </tr>
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Modèle</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.modele}</td>
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Marque</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.marque}</td>
                 </tr>
                 <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Année</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.annee}</td>
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Modèle</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.modele}</td>
                 </tr>
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">État</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Année</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.annee}</td>
+                </tr>
+                <tr style="background-color: #f9fafb;">
+                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">État</td>
+                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">
                     ${formData.etat === 'roulante' ? '✅ Roulante' : formData.etat === 'non-roulante' ? '⚠️ Non roulante' : '🚨 Accidentée'}
                   </td>
                 </tr>
@@ -215,6 +221,7 @@ SERVICE: ${formData.service === 'epaviste' ? 'Enlèvement d\'Épave' : 'Rachat d
 
 VÉHICULE
 --------
+Type: ${formData.vehicleType === 'moto' ? 'Moto' : 'Auto'}
 Marque: ${formData.marque}
 Modèle: ${formData.modele}
 Année: ${formData.annee}
@@ -244,7 +251,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
           from: 'onboarding@resend.dev',
           to: ['lesepavistespro@gmail.com'],
           replyTo: formData.email,
-          subject: `🚗 Nouvelle demande: ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} - ${formData.prenom} (${formData.phone})`,
+          subject: `${formData.vehicleType === 'moto' ? '🏍️' : '🚗'} Nouvelle demande: ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} - ${formData.prenom} (${formData.phone})`,
           html: emailHTML,
           text: emailText,
         });
@@ -264,6 +271,38 @@ Date: ${new Date().toLocaleString('fr-FR')}
       }
     } else {
       console.warn('⚠️ Resend not configured - email not sent. Add RESEND_API_KEY to environment variables.');
+    }
+
+    // Send to Google Sheets (non-blocking)
+    const sheetsUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+    if (sheetsUrl) {
+      try {
+        await fetch(sheetsUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            date: new Date().toLocaleString('fr-FR'),
+            service: formData.service === 'epaviste' ? 'Enlèvement d\'Épave' : 'Rachat de Voiture',
+            vehicleType: formData.vehicleType === 'moto' ? 'Moto' : 'Auto',
+            marque: formData.marque,
+            modele: formData.modele,
+            annee: formData.annee,
+            etat: formData.etat === 'roulante' ? 'Roulante' : formData.etat === 'non-roulante' ? 'Non roulante' : 'Accidentée',
+            prenom: formData.prenom,
+            phone: formData.phone,
+            email: formData.email || '',
+            codePostal: formData.codePostal,
+            ville: formData.ville || '',
+            sousSol: formData.sousSol ? 'Oui' : 'Non',
+            source: formData.pageType || 'home',
+          }),
+        });
+        console.log('✅ Google Sheets: data sent');
+      } catch (sheetError) {
+        console.error('❌ Google Sheets error:', sheetError);
+      }
+    } else {
+      console.warn('⚠️ GOOGLE_SHEETS_WEBHOOK_URL not set - skipping Sheets');
     }
 
     return NextResponse.json({ 
