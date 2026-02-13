@@ -1,12 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { Phone, WhatsappLogo, CheckCircle, X, ArrowRight, ArrowLeft } from '@phosphor-icons/react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import { createPortal } from 'react-dom';
+import { Phone, WhatsappLogo, CheckCircle, X, ArrowRight, ArrowLeft, MapPin, Car, Motorcycle } from '@phosphor-icons/react';
 import { trackFormSubmit } from '@/lib/analytics';
+import { getMarqueNames, getModelsForMarque, getYearOptions } from '@/lib/vehicle-data';
+import SearchableSelect from '@/components/SearchableSelect';
+import PostalCodeSelect from '@/components/PostalCodeSelect';
 
 interface FormData {
   service: 'epaviste' | 'rachat' | '';
   // Step 1: Vehicle
+  vehicleType: 'auto' | 'moto';
   marque: string;
   modele: string;
   annee: string;
@@ -53,6 +58,7 @@ export default function ConversionFormNew({
 
   const [formData, setFormData] = useState<FormData>({
     service: defaultService || '',
+    vehicleType: 'auto',
     marque: '',
     modele: '',
     annee: '',
@@ -68,6 +74,25 @@ export default function ConversionFormNew({
     city: cityName,
     pageType: pageType,
   });
+
+  // Memoized vehicle data
+  const marqueNames = useMemo(() => getMarqueNames(formData.vehicleType), [formData.vehicleType]);
+  const modelNames = useMemo(() => getModelsForMarque(formData.marque, formData.vehicleType), [formData.marque, formData.vehicleType]);
+  const yearOptions = useMemo(() => getYearOptions(), []);
+
+  // Reset model when marque changes
+  useEffect(() => {
+    if (formData.marque) {
+      setFormData(prev => ({ ...prev, modele: '' }));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.marque]);
+
+  // Reset marque and model when vehicle type changes
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, marque: '', modele: '' }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData.vehicleType]);
 
   const totalSteps = 4;
 
@@ -155,6 +180,7 @@ export default function ConversionFormNew({
       setShowSuccess(false);
       setFormData({
         service: defaultService || '',
+        vehicleType: 'auto',
         marque: '',
         modele: '',
         annee: '',
@@ -191,7 +217,7 @@ export default function ConversionFormNew({
 
   // Success Modal
   if (showSuccess) {
-    return (
+    return createPortal(
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fadeIn">
         <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden animate-scaleIn border border-neutral-200">
           <div className="p-12 text-center">
@@ -210,7 +236,8 @@ export default function ConversionFormNew({
             </button>
           </div>
         </div>
-      </div>
+      </div>,
+      document.body
     );
   }
 
@@ -227,8 +254,8 @@ export default function ConversionFormNew({
     );
   }
 
-  return (
-    <div className={`${trigger === 'inline' ? 'relative' : 'fixed inset-0 z-[60] flex items-end sm:items-center justify-center sm:p-4 bg-black/70 backdrop-blur-sm'}`}>
+  const formContent = (
+    <div className={`${trigger === 'inline' ? 'relative' : 'fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4 bg-black/85 backdrop-blur-md'}`}>
       <div className={`bg-white shadow-xl w-full border border-neutral-200 ${trigger === 'inline' ? 'max-w-2xl mx-auto rounded-2xl' : 'max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto rounded-t-2xl sm:rounded-2xl'}`}>
         {/* Header */}
         <div className="bg-brand-surface p-5 sm:p-6 md:p-8 rounded-t-2xl relative border-b border-neutral-200">
@@ -320,80 +347,94 @@ export default function ConversionFormNew({
 
             {/* Step 2: Vehicle */}
             {step === 2 && (
-              <div className="space-y-5 animate-fadeIn">
-                <div className="grid md:grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Marque</label>
-                    <input
-                      type="text"
-                      value={formData.marque}
-                      onChange={(e) => updateField('marque', e.target.value)}
-                      placeholder="Renault, Peugeot..."
-                      className="w-full h-12 px-4 rounded-xl border border-neutral-200 bg-white text-brand-navy focus:border-brand-red/40 focus:ring-2 focus:ring-brand-red/10 outline-none transition-all placeholder:text-neutral-400"
-                    />
-                    {errors.marque && <p className="text-xs text-brand-red font-semibold">{errors.marque}</p>}
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Modèle</label>
-                    <input
-                      type="text"
-                      value={formData.modele}
-                      onChange={(e) => updateField('modele', e.target.value)}
-                      placeholder="Clio, 208..."
-                      className="w-full h-12 px-4 rounded-xl border border-neutral-200 bg-white text-brand-navy focus:border-brand-red/40 focus:ring-2 focus:ring-brand-red/10 outline-none transition-all placeholder:text-neutral-400"
-                    />
-                    {errors.modele && <p className="text-xs text-brand-red font-semibold">{errors.modele}</p>}
+              <div className="space-y-4 animate-fadeIn">
+                {/* Auto / Moto toggle */}
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Type de véhicule</label>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => updateField('vehicleType', 'auto')}
+                      className={`flex-1 h-11 rounded-xl font-semibold text-sm transition-all border flex items-center justify-center gap-2 ${
+                        formData.vehicleType === 'auto'
+                          ? 'bg-brand-red/5 border-brand-red/30 text-brand-red'
+                          : 'bg-white border-neutral-200 text-neutral-500 hover:border-neutral-300'
+                      }`}
+                    >
+                      <Car size={18} weight="bold" /> Auto
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => updateField('vehicleType', 'moto')}
+                      className={`flex-1 h-11 rounded-xl font-semibold text-sm transition-all border flex items-center justify-center gap-2 ${
+                        formData.vehicleType === 'moto'
+                          ? 'bg-brand-red/5 border-brand-red/30 text-brand-red'
+                          : 'bg-white border-neutral-200 text-neutral-500 hover:border-neutral-300'
+                      }`}
+                    >
+                      <Motorcycle size={18} weight="bold" /> Moto
+                    </button>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Année</label>
-                    <input
-                      type="text"
-                      inputMode="numeric"
-                      value={formData.annee}
-                      onChange={(e) => updateField('annee', e.target.value)}
-                      placeholder="2010"
-                      maxLength={4}
-                      className="w-full h-12 px-4 rounded-xl border border-neutral-200 bg-white text-brand-navy focus:border-brand-red/40 focus:ring-2 focus:ring-brand-red/10 outline-none transition-all placeholder:text-neutral-400"
-                    />
-                    {errors.annee && <p className="text-xs text-brand-red font-semibold">{errors.annee}</p>}
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">État</label>
-                    <select
-                      value={formData.etat}
-                      onChange={(e) => updateField('etat', e.target.value)}
-                      className="w-full h-12 px-4 rounded-xl border border-neutral-200 bg-white text-brand-navy focus:border-brand-red/40 focus:ring-2 focus:ring-brand-red/10 outline-none transition-all"
-                    >
-                      <option value="">Choisir...</option>
-                      <option value="roulante">Roulante</option>
-                      <option value="non-roulante">Non roulante</option>
-                      <option value="accidentee">Accidentée</option>
-                    </select>
-                    {errors.etat && <p className="text-xs text-brand-red font-semibold">{errors.etat}</p>}
-                  </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <SearchableSelect
+                    label="Marque"
+                    options={marqueNames}
+                    value={formData.marque}
+                    onChange={(val) => updateField('marque', val)}
+                    placeholder="Rechercher une marque..."
+                    error={errors.marque}
+                  />
+                  <SearchableSelect
+                    label="Modèle"
+                    options={modelNames}
+                    value={formData.modele}
+                    onChange={(val) => updateField('modele', val)}
+                    placeholder={formData.marque ? 'Rechercher un modèle...' : 'Choisir la marque d\'abord'}
+                    error={errors.modele}
+                    disabled={!formData.marque}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <SearchableSelect
+                    label="Année"
+                    options={yearOptions}
+                    value={formData.annee}
+                    onChange={(val) => updateField('annee', val)}
+                    placeholder="Année..."
+                    error={errors.annee}
+                  />
+                  <SearchableSelect
+                    label="État"
+                    options={['Roulante', 'Non roulante', 'Accidentée']}
+                    value={formData.etat === 'roulante' ? 'Roulante' : formData.etat === 'non-roulante' ? 'Non roulante' : formData.etat === 'accidentee' ? 'Accidentée' : ''}
+                    onChange={(val) => {
+                      const map: Record<string, string> = { 'Roulante': 'roulante', 'Non roulante': 'non-roulante', 'Accidentée': 'accidentee' };
+                      updateField('etat', map[val] || '');
+                    }}
+                    placeholder="État du véhicule..."
+                    error={errors.etat}
+                  />
                 </div>
               </div>
             )}
 
             {/* Step 3: Location */}
             {step === 3 && (
-              <div className="space-y-5 animate-fadeIn">
-                <div className="space-y-2">
-                  <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Code Postal</label>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    value={formData.codePostal}
-                    onChange={(e) => updateField('codePostal', e.target.value)}
-                    placeholder="75001"
-                    maxLength={5}
-                    className="w-full h-12 px-4 rounded-xl border border-neutral-200 bg-white text-brand-navy focus:border-brand-red/40 focus:ring-2 focus:ring-brand-red/10 outline-none transition-all placeholder:text-neutral-400"
-                  />
-                  {errors.codePostal && <p className="text-xs text-brand-red font-semibold">{errors.codePostal}</p>}
-                </div>
+              <div className="space-y-4 animate-fadeIn">
+                <PostalCodeSelect
+                  value={formData.codePostal}
+                  cityValue={formData.ville}
+                  onSelect={(code, city) => {
+                    setFormData(prev => ({ ...prev, codePostal: code, ville: city }));
+                    if (errors.codePostal) {
+                      setErrors(prev => ({ ...prev, codePostal: '' }));
+                    }
+                  }}
+                  error={errors.codePostal}
+                />
 
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Sous-sol / Parking difficile ?</label>
@@ -489,4 +530,10 @@ export default function ConversionFormNew({
       </div>
     </div>
   );
+
+  if (trigger === 'button') {
+    return createPortal(formContent, document.body);
+  }
+
+  return formContent;
 }
