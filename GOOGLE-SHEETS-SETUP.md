@@ -23,6 +23,16 @@ function doPost(e) {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var data = JSON.parse(e.postData.contents);
     
+    // Auto-insert headers if Row 1 is empty
+    if (!sheet.getRange('A1').getValue()) {
+      var headers = ['Date', 'Service', 'Type', 'Marque', 'Modèle', 'Année', 'État', 'Prénom', 'Téléphone', 'Email', 'Code Postal', 'Ville', 'Sous-sol'];
+      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+      sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
+      sheet.getRange(1, 1, 1, headers.length).setBackground('#002654');
+      sheet.getRange(1, 1, 1, headers.length).setFontColor('#ffffff');
+      sheet.setFrozenRows(1);
+    }
+    
     sheet.appendRow([
       data.date || new Date().toLocaleString('fr-FR'),
       data.service || '',
