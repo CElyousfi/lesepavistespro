@@ -27,11 +27,11 @@ export default function RachatDepartmentContent({ departmentSlug }: { department
   const localBusinessData = getDepartmentLocalBusiness(
     dept.code,
     `${dept.name} (${dept.code})`,
-    `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}/`
+    `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}`
   );
 
   const breadcrumbData = getBreadcrumbData([
-    { name: 'Accueil', url: 'https://www.lesepavistespro.fr/' },
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
     { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
     { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}` },
   ]);

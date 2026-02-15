@@ -1,24 +1,40 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
 import { Phone, EnvelopeSimple, MapPin, Clock, WhatsappLogo, MessengerLogo } from '@phosphor-icons/react/dist/ssr';
+import { getBreadcrumbSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
     title: 'Contactez Les Épavistes Pro | Enlèvement Épave Gratuit',
-    description: 'Besoin d\'un épaviste ou d\'un rachat de voiture ? Contactez-nous par téléphone, WhatsApp ou via notre formulaire. Intervention rapide 7j/7 en Île-de-France.',
+    description: 'Besoin d\'un épaviste ou d\'un rachat de voiture ? Contactez-nous par téléphone, WhatsApp ou via notre formulaire. Intervention rapide 7j/7 partout en France.',
     keywords: [
         "contact épaviste",
         "numéro épaviste gratuit",
         "adresse les épavistes pro",
         "devis rachat voiture",
     ],
+    alternates: {
+        canonical: 'https://www.lesepavistespro.fr/contact',
+    },
 };
 
 export default function ContactPage() {
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+        { name: 'Contact', url: 'https://www.lesepavistespro.fr/contact' },
+    ]);
+
     return (
         <>
+            <Script
+                id="structured-data-contact-breadcrumb"
+                type="application/ld+json"
+                strategy="beforeInteractive"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             <Header />
 
             <main className="bg-white min-h-screen">

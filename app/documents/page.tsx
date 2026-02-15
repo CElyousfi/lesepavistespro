@@ -1,17 +1,33 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { IdentificationCard, FileText, CheckCircle, DownloadSimple } from '@phosphor-icons/react/dist/ssr';
+import { getBreadcrumbSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
     title: 'Documents à Fournir pour Enlèvement Épave | Liste Complète',
     description: 'Liste des documents obligatoires pour l\'enlèvement de votre épave (Carte Grise, Certificat de non-gage, Pièce d\'identité). Téléchargez les CERFA.',
+    alternates: {
+        canonical: 'https://www.lesepavistespro.fr/documents',
+    },
 };
 
 export default function DocumentsPage() {
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+        { name: 'Documents', url: 'https://www.lesepavistespro.fr/documents' },
+    ]);
+
     return (
         <>
+            <Script
+                id="structured-data-documents-breadcrumb"
+                type="application/ld+json"
+                strategy="beforeInteractive"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             <Header />
 
             <main className="bg-white min-h-screen">

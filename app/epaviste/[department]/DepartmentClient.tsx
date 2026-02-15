@@ -27,11 +27,11 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
   const localBusinessData = getDepartmentLocalBusiness(
     dept.code,
     `${dept.name} (${dept.code})`,
-    `https://www.lesepavistespro.fr/epaviste/${dept.slug}/`
+    `https://www.lesepavistespro.fr/epaviste/${dept.slug}`
   );
 
   const breadcrumbData = getBreadcrumbData([
-    { name: 'Accueil', url: 'https://www.lesepavistespro.fr/' },
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
     { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
     { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/epaviste/${dept.slug}` },
   ]);

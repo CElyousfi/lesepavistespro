@@ -1922,4 +1922,251 @@ export const blogPosts: BlogPost[] = [
       <p><strong>Service 100% gratuit • Agrément VHU officiel • +250 clients satisfaits !</strong></p>
     `
   },
+  {
+    slug: "enlevement-epave-sous-sol-parking-souterrain",
+    title: "Enlèvement d'épave en sous-sol et parking souterrain : Guide complet",
+    excerpt: "Comment faire enlever une épave d'un parking souterrain ou d'un sous-sol ? Équipement spécialisé, démarches et solutions pour les situations difficiles.",
+    category: "Guide Pratique",
+    date: "2024-12-01",
+    readTime: "9 min",
+    image: "/blog/blog1.png",
+    keywords: ["enlèvement épave sous-sol", "épave parking souterrain", "épaviste sous-sol", "remorquage parking", "épave copropriété"],
+    content: `
+      <h2>Enlèvement d'épave en sous-sol : un défi technique maîtrisé</h2>
+      <p>Vous avez une épave immobilisée dans un <strong>parking souterrain</strong>, un <strong>sous-sol de copropriété</strong> ou un <strong>garage fermé</strong> ? Cette situation est plus courante qu'on ne le pense et nécessite l'intervention d'un épaviste professionnel équipé.</p>
+
+      <p>Chez <strong>Les Épavistes Pro</strong>, nous disposons du matériel adapté pour intervenir dans les espaces les plus contraints :</p>
+      <ul>
+        <li>🔧 <strong>Treuil électrique</strong> pour tirer les véhicules sans moteur</li>
+        <li>🛞 <strong>Chariots de manutention</strong> pour les véhicules sans roues</li>
+        <li>🚛 <strong>Dépanneuse compacte</strong> pour les rampes étroites</li>
+        <li>📏 <strong>Équipement adapté</strong> aux hauteurs limitées (< 2m)</li>
+      </ul>
+
+      <h2>Les situations que nous gérons en sous-sol</h2>
+
+      <h3>1. Véhicule en panne dans un parking souterrain</h3>
+      <p>Votre voiture est tombée en panne dans un parking Indigo, Vinci ou Q-Park ? Nous intervenons directement sur place pour la remorquer, même si elle ne démarre plus.</p>
+
+      <h3>2. Épave abandonnée en copropriété</h3>
+      <p>Un véhicule abandonné occupe une place de parking dans votre copropriété ? En tant que syndic ou copropriétaire, vous pouvez faire appel à nos services après mise en demeure du propriétaire.</p>
+      <p><strong>Procédure légale :</strong></p>
+      <ul>
+        <li>1️⃣ Identifier le propriétaire via la plaque d'immatriculation</li>
+        <li>2️⃣ Envoyer une mise en demeure par courrier recommandé</li>
+        <li>3️⃣ Attendre le délai légal de 30 jours</li>
+        <li>4️⃣ Contacter un épaviste agréé VHU pour l'enlèvement</li>
+      </ul>
+
+      <h3>3. Véhicule accidenté dans un garage privé</h3>
+      <p>Après un accident, votre véhicule est immobilisé dans votre garage ? Nous venons le chercher gratuitement, même dans les espaces les plus exigus.</p>
+
+      <h2>Comment se déroule l'intervention en sous-sol ?</h2>
+
+      <h3>Étape 1 : Évaluation de l'accès</h3>
+      <p>Nous vérifions :</p>
+      <ul>
+        <li>La <strong>hauteur de la rampe</strong> (minimum 1,90m pour notre équipement)</li>
+        <li>La <strong>largeur des voies</strong> de circulation</li>
+        <li>Le <strong>rayon de braquage</strong> nécessaire</li>
+        <li>La présence de <strong>barrières ou portails</strong> à ouvrir</li>
+      </ul>
+
+      <h3>Étape 2 : Préparation du véhicule</h3>
+      <p>Notre équipe prépare le véhicule pour le remorquage :</p>
+      <ul>
+        <li>Déverrouillage du frein à main si nécessaire</li>
+        <li>Mise en place des chariots de manutention</li>
+        <li>Protection des véhicules voisins</li>
+      </ul>
+
+      <h3>Étape 3 : Extraction et chargement</h3>
+      <p>Le véhicule est extrait du sous-sol à l'aide de notre treuil et chargé sur la dépanneuse en surface. <strong>Durée moyenne : 30-45 minutes.</strong></p>
+
+      <h2>Combien coûte l'enlèvement d'une épave en sous-sol ?</h2>
+      <p><strong>C'est 100% GRATUIT !</strong> Même en sous-sol, l'enlèvement d'une épave par un épaviste agréé VHU ne vous coûte rien. Le surcoût lié à l'équipement spécialisé est entièrement pris en charge par notre centre de recyclage.</p>
+
+      <h2>Contactez-nous pour un enlèvement en sous-sol</h2>
+      <p><strong>Appelez le 09 79 04 94 86</strong> et précisez que votre véhicule se trouve en sous-sol. Nous adapterons notre intervention en conséquence.</p>
+      <p>💬 <strong>WhatsApp disponible</strong> - Envoyez-nous des photos de l'accès pour une évaluation rapide</p>
+      <p>⏰ <strong>Intervention sous 24-48h</strong> partout en France</p>
+    `
+  },
+  {
+    slug: "prime-conversion-2025-conditions-montant",
+    title: "Prime à la conversion 2025 : Conditions, montant et démarches",
+    excerpt: "Tout savoir sur la prime à la conversion automobile en 2025. Conditions d'éligibilité, montants, véhicules concernés et comment en bénéficier.",
+    category: "Réglementation",
+    date: "2025-01-15",
+    readTime: "11 min",
+    image: "/blog/blog2.png",
+    keywords: ["prime conversion 2025", "prime à la casse", "aide achat voiture", "bonus écologique", "prime conversion conditions"],
+    content: `
+      <h2>Qu'est-ce que la prime à la conversion en 2025 ?</h2>
+      <p>La <strong>prime à la conversion</strong> (anciennement "prime à la casse") est une aide financière de l'État français destinée à encourager le remplacement des véhicules anciens et polluants par des modèles plus propres.</p>
+
+      <p>En 2025, cette prime peut atteindre <strong>jusqu'à 6 000€</strong> selon votre situation et le type de véhicule acheté.</p>
+
+      <h2>Conditions d'éligibilité en 2025</h2>
+
+      <h3>Conditions liées au propriétaire</h3>
+      <ul>
+        <li>✅ Être <strong>majeur et domicilié en France</strong></li>
+        <li>✅ Avoir un <strong>revenu fiscal de référence</strong> inférieur à certains seuils</li>
+        <li>✅ Ne pas avoir bénéficié de la prime dans les 3 dernières années</li>
+      </ul>
+
+      <h3>Conditions liées au véhicule mis au rebut</h3>
+      <ul>
+        <li>📋 Véhicule <strong>immatriculé en France</strong></li>
+        <li>📋 Véhicule <strong>diesel immatriculé avant 2011</strong> (norme Euro 1 à 4)</li>
+        <li>📋 Véhicule <strong>essence immatriculé avant 2006</strong> (norme Euro 1 à 3)</li>
+        <li>📋 Véhicule <strong>assuré depuis au moins 12 mois</strong> au nom du demandeur</li>
+        <li>📋 Véhicule <strong>non gagé et non endommagé</strong></li>
+      </ul>
+
+      <h3>Conditions liées au véhicule acheté</h3>
+      <ul>
+        <li>🚗 Véhicule <strong>électrique ou hybride rechargeable</strong></li>
+        <li>🚗 Émissions de CO2 <strong>inférieures à 50 g/km</strong></li>
+        <li>🚗 Prix d'achat <strong>inférieur à 47 000€ TTC</strong></li>
+        <li>🚗 Véhicule <strong>neuf ou d'occasion récent</strong> (moins de 2 ans)</li>
+      </ul>
+
+      <h2>Montants de la prime à la conversion 2025</h2>
+
+      <h3>Pour un véhicule électrique neuf</h3>
+      <ul>
+        <li>💰 <strong>Ménages très modestes</strong> : jusqu'à 6 000€</li>
+        <li>💰 <strong>Ménages modestes</strong> : jusqu'à 4 000€</li>
+        <li>💰 <strong>Autres ménages</strong> : jusqu'à 2 500€</li>
+      </ul>
+
+      <h3>Pour un véhicule électrique d'occasion</h3>
+      <ul>
+        <li>💰 <strong>Ménages très modestes</strong> : jusqu'à 3 000€</li>
+        <li>💰 <strong>Ménages modestes</strong> : jusqu'à 1 500€</li>
+      </ul>
+
+      <h2>Comment bénéficier de la prime à la conversion ?</h2>
+
+      <h3>Étape 1 : Vérifiez votre éligibilité</h3>
+      <p>Rendez-vous sur le site officiel <strong>primealaconversion.gouv.fr</strong> pour simuler votre prime.</p>
+
+      <h3>Étape 2 : Achetez votre nouveau véhicule</h3>
+      <p>La prime peut être déduite directement par le concessionnaire ou demandée en ligne après l'achat.</p>
+
+      <h3>Étape 3 : Faites détruire votre ancien véhicule</h3>
+      <p>Remettez votre ancien véhicule à un <strong>centre VHU agréé</strong> comme Les Épavistes Pro. Vous recevrez un <strong>certificat de destruction</strong> indispensable pour votre dossier.</p>
+
+      <h3>Étape 4 : Constituez votre dossier</h3>
+      <p>Documents nécessaires :</p>
+      <ul>
+        <li>📄 Certificat de destruction du véhicule mis au rebut</li>
+        <li>📄 Facture d'achat du nouveau véhicule</li>
+        <li>📄 Carte grise de l'ancien véhicule</li>
+        <li>📄 Dernier avis d'imposition</li>
+        <li>📄 RIB pour le versement de la prime</li>
+      </ul>
+
+      <h2>Le rôle de l'épaviste dans la prime à la conversion</h2>
+      <p>Pour bénéficier de la prime, votre ancien véhicule <strong>doit obligatoirement être détruit</strong> dans un centre VHU agréé. C'est là que Les Épavistes Pro intervient :</p>
+      <ul>
+        <li>✅ <strong>Enlèvement gratuit</strong> de votre ancien véhicule</li>
+        <li>✅ <strong>Certificat de destruction officiel</strong> sous 15 jours</li>
+        <li>✅ <strong>Centre VHU agréé</strong> par la préfecture</li>
+        <li>✅ <strong>Accompagnement</strong> dans vos démarches</li>
+      </ul>
+
+      <h2>Contactez-nous pour la destruction de votre ancien véhicule</h2>
+      <p>Vous souhaitez bénéficier de la prime à la conversion ? Commencez par faire enlever gratuitement votre ancien véhicule.</p>
+      <p><strong>Appelez le 09 79 04 94 86</strong></p>
+      <p>💬 <strong>WhatsApp disponible</strong></p>
+      <p>⏰ <strong>Certificat de destruction garanti sous 15 jours</strong></p>
+    `
+  },
+  {
+    slug: "epaviste-moto-scooter-enlevement-gratuit",
+    title: "Épaviste moto et scooter : Enlèvement gratuit de votre deux-roues",
+    excerpt: "Comment faire enlever gratuitement une épave de moto ou scooter ? Conditions, documents et démarches pour la destruction de votre deux-roues.",
+    category: "Guide Pratique",
+    date: "2025-02-01",
+    readTime: "8 min",
+    image: "/blog/blog3.png",
+    keywords: ["épaviste moto", "enlèvement scooter gratuit", "épave moto", "destruction deux-roues", "épaviste scooter"],
+    content: `
+      <h2>Enlèvement gratuit de moto et scooter : comment ça marche ?</h2>
+      <p>Vous avez une <strong>moto accidentée</strong>, un <strong>scooter en panne</strong> ou un <strong>deux-roues hors d'usage</strong> ? Comme pour les voitures, l'enlèvement d'une épave de moto ou scooter est <strong>100% gratuit</strong> lorsqu'il est effectué par un épaviste agréé VHU.</p>
+
+      <p><strong>Les Épavistes Pro</strong> prennent en charge tous les types de deux-roues :</p>
+      <ul>
+        <li>🏍️ <strong>Motos</strong> de toutes cylindrées (50cc à 1800cc)</li>
+        <li>🛵 <strong>Scooters</strong> (50cc, 125cc, maxi-scooters)</li>
+        <li>🏎️ <strong>Quads et SSV</strong></li>
+        <li>🚲 <strong>Cyclomoteurs</strong> et mobylettes</li>
+        <li>⚡ <strong>Motos et scooters électriques</strong></li>
+      </ul>
+
+      <h2>Conditions pour l'enlèvement gratuit d'une moto/scooter</h2>
+
+      <h3>Votre deux-roues est éligible si :</h3>
+      <ul>
+        <li>✅ Il est <strong>immatriculé</strong> (carte grise à votre nom)</li>
+        <li>✅ Il est <strong>complet</strong> (cadre + moteur minimum)</li>
+        <li>✅ Vous êtes le <strong>propriétaire</strong> ou avez une procuration</li>
+      </ul>
+
+      <h3>Cas particuliers acceptés :</h3>
+      <ul>
+        <li>✅ Moto <strong>accidentée</strong> (même épave totale)</li>
+        <li>✅ Scooter <strong>sans batterie</strong></li>
+        <li>✅ Deux-roues <strong>sans contrôle technique</strong></li>
+        <li>✅ Moto <strong>immobilisée depuis des années</strong></li>
+        <li>✅ Scooter <strong>volé et retrouvé</strong> (avec dépôt de plainte)</li>
+      </ul>
+
+      <h2>Documents nécessaires pour l'enlèvement</h2>
+      <p>Les documents sont les mêmes que pour une voiture :</p>
+      <ul>
+        <li>📄 <strong>Carte grise originale</strong> du deux-roues</li>
+        <li>🆔 <strong>Pièce d'identité</strong> du propriétaire</li>
+        <li>🏠 <strong>Justificatif de domicile</strong> de moins de 6 mois</li>
+      </ul>
+
+      <p><strong>⚠️ Cas des scooters 50cc non immatriculés :</strong> Certains anciens scooters 50cc n'ont jamais été immatriculés. Dans ce cas, un simple justificatif d'achat ou une déclaration sur l'honneur peut suffire. Contactez-nous pour en discuter.</p>
+
+      <h2>Combien vaut une épave de moto ou scooter ?</h2>
+      <p>La valeur d'une épave de deux-roues dépend de plusieurs facteurs :</p>
+      <ul>
+        <li>💰 <strong>Moto sportive récente</strong> (Yamaha R1, Kawasaki ZX) : pièces très recherchées</li>
+        <li>💰 <strong>Moto trail/routière</strong> (BMW GS, Honda Africa Twin) : bonne valeur résiduelle</li>
+        <li>💰 <strong>Scooter 125cc</strong> (Honda PCX, Yamaha XMAX) : demande forte en pièces</li>
+        <li>💰 <strong>Scooter 50cc</strong> : valeur principalement dans les métaux</li>
+      </ul>
+
+      <p>Dans certains cas, nous pouvons vous proposer un <strong>rachat</strong> de votre moto ou scooter en plus de l'enlèvement gratuit.</p>
+
+      <h2>Déroulement de l'enlèvement</h2>
+      <ol>
+        <li><strong>Contactez-nous</strong> par téléphone, WhatsApp ou formulaire</li>
+        <li><strong>Décrivez votre deux-roues</strong> (marque, modèle, état, localisation)</li>
+        <li><strong>Prenez rendez-vous</strong> pour l'enlèvement (sous 24-48h)</li>
+        <li><strong>Signez les documents</strong> de cession sur place</li>
+        <li><strong>Recevez votre certificat</strong> de destruction sous 15 jours</li>
+      </ol>
+
+      <h2>Que faire après la destruction de votre moto/scooter ?</h2>
+      <ul>
+        <li>📧 <strong>Résiliez votre assurance</strong> avec le certificat de destruction</li>
+        <li>🏛️ <strong>Déclarez la cession</strong> sur le site de l'ANTS</li>
+        <li>💰 <strong>Récupérez le trop-perçu</strong> d'assurance au prorata</li>
+      </ul>
+
+      <h2>Contactez-nous pour l'enlèvement de votre moto ou scooter</h2>
+      <p>Service gratuit, rapide et professionnel pour tous les deux-roues.</p>
+      <p><strong>Appelez le 09 79 04 94 86</strong></p>
+      <p>💬 <strong>WhatsApp disponible</strong> - Envoyez des photos pour une estimation rapide</p>
+      <p>⏰ <strong>Intervention sous 24-48h</strong> partout en France</p>
+    `
+  },
 ];

@@ -13,11 +13,15 @@ import ConversionForm from '@/components/ConversionForm';
 import ScrollAnimation from '@/components/ScrollAnimation';
 import { getHomeStructuredData } from '@/lib/structured-data';
 import { generateHomeMeta } from '@/lib/seo';
+import { getEpaveRemovalHowToSchema, getDefaultReviewsSchema, getSpeakableSchema } from '@/lib/schema';
 
 export const metadata = generateHomeMeta();
 
 export default function Home() {
   const structuredData = getHomeStructuredData();
+  const howToSchema = getEpaveRemovalHowToSchema();
+  const reviewsSchema = getDefaultReviewsSchema();
+  const speakableSchema = getSpeakableSchema('https://www.lesepavistespro.fr/');
 
   return (
     <>
@@ -30,6 +34,24 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
+      <Script
+        id="structured-data-howto"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <Script
+        id="structured-data-reviews"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsSchema) }}
+      />
+      <Script
+        id="structured-data-speakable"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
+      />
 
       <div className="min-h-screen bg-white">
         <main>

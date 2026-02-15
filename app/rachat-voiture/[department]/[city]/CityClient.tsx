@@ -33,9 +33,9 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
 
   // Structured Data
   const breadcrumbData = getBreadcrumbData([
-    { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture/' },
-    { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/` },
-    { name: city.name, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/${city.slug}/` }
+    { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
+    { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}` },
+    { name: city.name, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/${city.slug}` }
   ]);
 
   const cityFAQData = getCityFAQData(city.name, department.name, city.slug);

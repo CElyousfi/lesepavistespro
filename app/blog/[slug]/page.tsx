@@ -7,7 +7,8 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { Clock, User, ArrowLeft, Phone } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { blogPosts } from '@/lib/blog-data';
-import { getBlogArticleData, renderJSONLD } from '@/lib/structured-data';
+import { getBlogArticleData, renderJSONLD, getBreadcrumbData } from '@/lib/structured-data';
+import { getSpeakableSchema } from '@/lib/schema';
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
     },
     alternates: {
-      canonical: `https://lesepavistespro.fr/blog/${post.slug}`,
+      canonical: `https://www.lesepavistespro.fr/blog/${post.slug}`,
     },
   };
 }
@@ -59,6 +60,17 @@ export default async function BlogPost({ params }: Props) {
     url: `https://www.lesepavistespro.fr/blog/${post.slug}`
   }) : null;
 
+  const breadcrumbData = post ? getBreadcrumbData([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+    { name: 'Blog', url: 'https://www.lesepavistespro.fr/blog' },
+    { name: post.title, url: `https://www.lesepavistespro.fr/blog/${post.slug}` },
+  ]) : null;
+
+  const speakableData = post ? getSpeakableSchema(
+    `https://www.lesepavistespro.fr/blog/${post.slug}`,
+    ['h1', 'article h2', '.prose p:first-of-type']
+  ) : null;
+
   if (!post) {
     notFound();
   }
@@ -70,6 +82,20 @@ export default async function BlogPost({ params }: Props) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={renderJSONLD(articleData)}
+        />
+      )}
+      {/* Breadcrumb Structured Data */}
+      {breadcrumbData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={renderJSONLD(breadcrumbData)}
+        />
+      )}
+      {/* Speakable Structured Data */}
+      {speakableData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={renderJSONLD(speakableData)}
         />
       )}
 

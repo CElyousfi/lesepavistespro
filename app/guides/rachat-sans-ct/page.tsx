@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import CTASection from '@/components/CTASection';
 import { CheckCircle, Warning, FileText, CurrencyEur } from '@phosphor-icons/react/dist/ssr';
-import { getBlogArticleData, renderJSONLD } from '@/lib/structured-data';
+import { getBlogArticleData, renderJSONLD, getBreadcrumbData } from '@/lib/structured-data';
 
 export const metadata: Metadata = {
   title: "Rachat sans CT en France : Démarches & Légalité",
   description: "Guide complet sur le rachat de voiture sans contrôle technique. Démarches légales, documents nécessaires, prix et conseils d'experts.",
   keywords: ['rachat sans CT', 'voiture sans contrôle technique', 'vente sans CT', 'France'],
+  alternates: {
+    canonical: 'https://www.lesepavistespro.fr/guides/rachat-sans-ct',
+  },
 };
 
 export default function RachatSansCTPage() {
@@ -21,8 +25,21 @@ export default function RachatSansCTPage() {
     url: 'https://www.lesepavistespro.fr/guides/rachat-sans-ct'
   });
 
+  const breadcrumbData = getBreadcrumbData([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+    { name: 'Guides', url: 'https://www.lesepavistespro.fr/guides/rachat-sans-ct' },
+    { name: 'Rachat sans CT', url: 'https://www.lesepavistespro.fr/guides/rachat-sans-ct' },
+  ]);
+
   return (
     <>
+      {/* Breadcrumb Structured Data */}
+      <Script
+        id="structured-data-guide-breadcrumb"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
       {/* Article Structured Data */}
       <script
         type="application/ld+json"

@@ -19,6 +19,7 @@ export async function GET() {
     `${base}/sitemap-rachat-departements.xml`,
     `${base}/sitemap-epaviste-cities.xml`,
     `${base}/sitemap-rachat-cities.xml`,
+    `${base}/sitemap-images.xml`,
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

@@ -33,9 +33,9 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
 
   // Structured Data
   const breadcrumbData = getBreadcrumbData([
-    { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste/' },
-    { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}/` },
-    { name: city.name, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}/${city.slug}/` }
+    { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
+    { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}` },
+    { name: city.name, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}/${city.slug}` }
   ]);
 
   const cityFAQData = getCityFAQData(city.name, department.name, city.slug);

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import Link from 'next/link';
 import { MapPin, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
 import Header from '@/components/Header';
@@ -6,6 +7,7 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { regions, allDepartments } from '@/lib/locations-complete';
 import { generateZonesMeta } from '@/lib/seo';
+import { getBreadcrumbSchema } from '@/lib/schema';
 
 export const metadata: Metadata = generateZonesMeta();
 
@@ -14,8 +16,19 @@ export default function ZonesPage() {
   const totalCities = allDepartments.reduce((sum, dept) => sum + dept.cities.length, 0);
   const totalDepartments = allDepartments.length;
 
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+    { name: 'Zones d\'intervention', url: 'https://www.lesepavistespro.fr/zones' },
+  ]);
+
   return (
     <>
+      <Script
+        id="structured-data-zones-breadcrumb"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Header />
       
       {/* Hero Section */}

@@ -11,6 +11,9 @@ export const metadata: Metadata = {
         index: false,
         follow: true,
     },
+    alternates: {
+        canonical: 'https://www.lesepavistespro.fr/cookies',
+    },
 };
 
 export default function CookiesPage() {

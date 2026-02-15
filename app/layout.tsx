@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import "../styles/icon-animations.css";
@@ -18,6 +18,14 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#1a1a2e',
+  colorScheme: 'light',
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.lesepavistespro.fr'),
   title: {
@@ -26,6 +34,11 @@ export const metadata: Metadata = {
   },
   description: "Épaviste agréé VHU partout en France. Enlèvement d'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. 18 régions, 101 départements. 09 79 04 94 86.",
   applicationName: 'Les Épavistes Pro',
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true,
+  },
   icons: {
     icon: [
       { url: '/icon.png', sizes: '512x512', type: 'image/png' },
@@ -50,10 +63,21 @@ export const metadata: Metadata = {
     "épaviste gratuit",
     "destruction véhicule",
     "dépollution voiture",
+    "épaviste Île-de-France",
+    "enlèvement voiture épave",
+    "rachat véhicule hors d'usage",
+    "épaviste agréé préfecture",
+    "enlèvement épave sous-sol",
+    "rachat voiture sans contrôle technique",
+    "épaviste 24h/24",
+    "certificat de destruction VHU",
+    "casse automobile agréée",
+    "centre VHU agréé",
   ],
   authors: [{ name: "Les Épavistes Pro" }],
   creator: "Les Épavistes Pro",
   publisher: "Les Épavistes Pro",
+  category: 'Automobile',
   openGraph: {
     title: "Épaviste France | Enlèvement d'épave gratuit 24h",
     description: "Service d'enlèvement d'épave 100% gratuit 24h/24, 7j/7 partout en France. Épaviste agréé VHU et rachat de véhicules au meilleur prix. Appelez le 09 79 04 94 86",
@@ -61,12 +85,20 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://www.lesepavistespro.fr",
     siteName: "Les Épavistes Pro",
+    countryName: 'France',
     images: [
+      {
+        url: '/images/hero-home.png',
+        width: 1200,
+        height: 630,
+        alt: 'Les Épavistes Pro - Épaviste agréé VHU en France',
+        type: 'image/png',
+      },
       {
         url: '/icon.png',
         width: 512,
         height: 512,
-        alt: 'Les Épavistes Pro - Épaviste agréé VHU',
+        alt: 'Les Épavistes Pro Logo',
       },
     ],
   },
@@ -74,6 +106,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Épaviste France | Enlèvement gratuit 24h",
     description: "Enlèvement d'épave 100% gratuit 24h/24, 7j/7. Épaviste agréé VHU partout en France.",
+    images: ['/images/hero-home.png'],
   },
   robots: {
     index: true,
@@ -94,6 +127,15 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://www.lesepavistespro.fr",
+    languages: {
+      'fr-FR': 'https://www.lesepavistespro.fr',
+    },
+  },
+  other: {
+    'geo.region': 'FR',
+    'geo.placename': 'France',
+    'ICBM': '48.8566, 2.3522',
+    'revisit-after': '3 days',
   },
 };
 
@@ -107,8 +149,14 @@ export default function RootLayout({
   const webSiteSchema = getWebSiteSchema();
 
   return (
-    <html lang="fr">
+    <html lang="fr" dir="ltr">
       <head>
+        {/* Preconnect to critical third-party origins */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
         {/* Bing Webmaster Tools Verification */}
         <meta name="msvalidate.01" content="028D2D1281F99EFDDA399E3F98954FBB" />
 

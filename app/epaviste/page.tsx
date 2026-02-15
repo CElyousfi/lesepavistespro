@@ -12,12 +12,19 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
 import { getEpavisteServiceData, getPillarFAQData } from '@/lib/structured-data';
 import { generateEpavistePillarMeta } from '@/lib/seo';
+import { getEpaveRemovalHowToSchema, getBreadcrumbSchema, getSpeakableSchema } from '@/lib/schema';
 
 export const metadata: Metadata = generateEpavistePillarMeta();
 
 export default function EpavistePage() {
   const serviceData = getEpavisteServiceData();
   const faqData = getPillarFAQData();
+  const howToSchema = getEpaveRemovalHowToSchema();
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+    { name: 'Épaviste France', url: 'https://www.lesepavistespro.fr/epaviste' },
+  ]);
+  const speakableSchema = getSpeakableSchema('https://www.lesepavistespro.fr/epaviste');
 
   // Separate metropolitan and overseas regions
   const metroRegions = regions.filter(r => !['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
@@ -37,6 +44,24 @@ export default function EpavistePage() {
         type="application/ld+json"
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
+      />
+      <Script
+        id="structured-data-epaviste-howto"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <Script
+        id="structured-data-epaviste-breadcrumb"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <Script
+        id="structured-data-epaviste-speakable"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
       <Header />
 

@@ -2,8 +2,10 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 /**
- * Middleware to enforce canonical host (www + https)
- * All traffic must go through https://www.lesepavistespro.fr
+ * Middleware for SEO canonicalization
+ * 1. Force https + www (canonical host)
+ * 2. Remove trailing slashes (prevent duplicate content)
+ * 3. Lowercase URL paths (prevent duplicate content)
  */
 export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
@@ -24,6 +26,19 @@ export function middleware(req: NextRequest) {
       url.hostname = `www.${hostname}`;
     }
     return NextResponse.redirect(url, 308); // Permanent redirect
+  }
+
+  // Remove trailing slashes (except root /)
+  if (url.pathname !== '/' && url.pathname.endsWith('/')) {
+    url.pathname = url.pathname.replace(/\/+$/, '');
+    return NextResponse.redirect(url, 308);
+  }
+
+  // Lowercase URL paths (prevent duplicate content from mixed case)
+  const lowercasePath = url.pathname.toLowerCase();
+  if (url.pathname !== lowercasePath) {
+    url.pathname = lowercasePath;
+    return NextResponse.redirect(url, 308);
   }
 
   return NextResponse.next();

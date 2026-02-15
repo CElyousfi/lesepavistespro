@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: 'https://www.lesepavistespro.fr/politique-de-confidentialite',
+  },
 };
 
 export default function PolitiqueConfidentialitePage() {

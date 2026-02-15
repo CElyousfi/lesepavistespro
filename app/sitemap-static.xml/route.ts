@@ -16,6 +16,11 @@ export async function GET() {
     { loc: `${base}/zones`, changefreq: 'weekly', priority: 0.85 },
     { loc: `${base}/blog`, changefreq: 'weekly', priority: 0.8 },
     { loc: `${base}/contact`, changefreq: 'monthly', priority: 0.7 },
+    { loc: `${base}/faq`, changefreq: 'monthly', priority: 0.7 },
+    { loc: `${base}/conformite-vhu`, changefreq: 'monthly', priority: 0.7 },
+    { loc: `${base}/documents`, changefreq: 'monthly', priority: 0.6 },
+    { loc: `${base}/guides/rachat-sans-ct`, changefreq: 'monthly', priority: 0.6 },
+    { loc: `${base}/cookies`, changefreq: 'yearly', priority: 0.3 },
     { loc: `${base}/mentions-legales`, changefreq: 'yearly', priority: 0.3 },
     { loc: `${base}/politique-de-confidentialite`, changefreq: 'yearly', priority: 0.3 },
   ];

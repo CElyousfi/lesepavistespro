@@ -1,18 +1,34 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import FAQ from '@/components/FAQ';
 import { Question } from '@phosphor-icons/react/dist/ssr';
+import { getBreadcrumbSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
     title: 'Questions Fréquentes (FAQ) | Enlèvement Épave',
     description: 'Toutes les réponses à vos questions sur l\'enlèvement d\'épave gratuit, les documents à fournir, la prime à la conversion et le rachat de voiture.',
+    alternates: {
+        canonical: 'https://www.lesepavistespro.fr/faq',
+    },
 };
 
 export default function FAQPage() {
+    const breadcrumbSchema = getBreadcrumbSchema([
+        { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+        { name: 'FAQ', url: 'https://www.lesepavistespro.fr/faq' },
+    ]);
+
     return (
         <>
+            <Script
+                id="structured-data-faq-breadcrumb"
+                type="application/ld+json"
+                strategy="beforeInteractive"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             <Header />
 
             <main className="bg-white min-h-screen">

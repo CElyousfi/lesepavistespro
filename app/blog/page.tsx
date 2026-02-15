@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from '@/components/Header';
@@ -7,6 +8,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { Clock, User, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { blogPosts } from '@/lib/blog-data';
 import BlogAnimations from './BlogAnimations';
+import { getBreadcrumbSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: "Blog Épaviste – Conseils & Actualités Enlèvement Épave France",
@@ -26,13 +28,24 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://lesepavistespro.fr/blog",
+    canonical: "https://www.lesepavistespro.fr/blog",
   },
 };
 
 export default function BlogPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+    { name: 'Blog', url: 'https://www.lesepavistespro.fr/blog' },
+  ]);
+
   return (
     <>
+      <Script
+        id="structured-data-blog-breadcrumb"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <BlogAnimations />
       <Header />
 

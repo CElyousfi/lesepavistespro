@@ -12,12 +12,18 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
 import { getRachatServiceData, getPillarFAQData } from '@/lib/structured-data';
 import { generateRachatPillarMeta } from '@/lib/seo';
+import { getBreadcrumbSchema, getSpeakableSchema } from '@/lib/schema';
 
 export const metadata = generateRachatPillarMeta();
 
 export default function RachatVoiturePage() {
   const serviceData = getRachatServiceData();
   const faqData = getPillarFAQData();
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
+    { name: 'Rachat Voiture France', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
+  ]);
+  const speakableSchema = getSpeakableSchema('https://www.lesepavistespro.fr/rachat-voiture');
 
   const metroRegions = regions.filter(r => !['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
   const outremerRegions = regions.filter(r => ['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
@@ -36,6 +42,18 @@ export default function RachatVoiturePage() {
         type="application/ld+json"
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
+      />
+      <Script
+        id="structured-data-rachat-breadcrumb"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <Script
+        id="structured-data-rachat-speakable"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
       <Header />
 

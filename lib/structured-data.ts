@@ -303,8 +303,9 @@ export function getBlogArticleData(article: {
     datePublished: article.publishDate,
     dateModified: article.modifiedDate || article.publishDate,
     author: {
-      '@type': 'Person',
-      name: article.author
+      '@type': 'Organization',
+      name: article.author,
+      url: 'https://www.lesepavistespro.fr'
     },
     publisher: {
       '@type': 'Organization',
