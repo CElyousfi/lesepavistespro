@@ -4,12 +4,16 @@ import { Resend } from 'resend';
 // Initialize Resend only if API key is available
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
-// HTML Email Template
+// HTML Email Template — matches website brand identity
 function generateEmailHTML(formData: any) {
-  const serviceColor = formData.service === 'epaviste' ? '#DC2626' : '#D97706';
-  const serviceName = formData.service === 'epaviste' ? 'Enlèvement d\'Épave' : 'Rachat de Voiture';
-  const serviceIcon = formData.service === 'epaviste' ? '🚛' : '💰';
-  
+  const isEpaviste = formData.service === 'epaviste';
+  const serviceName = isEpaviste ? 'Enlèvement d\'Épave' : 'Rachat de Voiture';
+  const isMoto = formData.vehicleType === 'moto';
+  const etatLabel = formData.etat === 'roulante' ? 'Roulante' : formData.etat === 'non-roulante' ? 'Non roulante' : 'Accidentée';
+  const etatColor = formData.etat === 'roulante' ? '#16a34a' : formData.etat === 'non-roulante' ? '#d97706' : '#A92020';
+  const dateStr = new Date().toLocaleString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  const whatsappLink = `https://wa.me/33602427345?text=${encodeURIComponent(`Bonjour, suite à la demande de ${formData.prenom} (${formData.phone}) pour ${serviceName} - ${formData.marque} ${formData.modele}`)}`;
+
   return `
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,185 +22,298 @@ function generateEmailHTML(formData: any) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nouvelle Demande - Les Épavistes Pro</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f3f4f6;">
-  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f3f4f6; padding: 40px 20px;">
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #F8F9FB; -webkit-font-smoothing: antialiased;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F8F9FB; padding: 32px 16px;">
     <tr>
       <td align="center">
+
+        <!-- Pre-header text (hidden) -->
+        <div style="display: none; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #F8F9FB;">
+          ${serviceName} — ${formData.prenom} • ${formData.phone} • ${formData.marque} ${formData.modele} ${formData.annee}
+        </div>
+
         <!-- Main Container -->
-        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-          
-          <!-- Header -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #002654 0%, #003d7a 100%); padding: 40px 30px; text-align: center;">
-              <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">
-                ${serviceIcon} Nouvelle Demande
-              </h1>
-              <p style="margin: 10px 0 0 0; color: #e5e7eb; font-size: 16px;">
-                Les Épavistes Pro
-              </p>
-            </td>
-          </tr>
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 24px -4px rgba(20, 38, 65, 0.12);">
 
-          <!-- Service Badge -->
+          <!-- ═══ HEADER ═══ -->
           <tr>
-            <td style="padding: 30px 30px 20px 30px;">
-              <div style="background-color: ${serviceColor}; color: #ffffff; padding: 12px 20px; border-radius: 8px; display: inline-block; font-weight: bold; font-size: 16px;">
-                ${serviceName}
-              </div>
-              <p style="margin: 15px 0 0 0; color: #6b7280; font-size: 14px;">
-                Reçu le ${new Date().toLocaleString('fr-FR', { 
-                  weekday: 'long', 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric', 
-                  hour: '2-digit', 
-                  minute: '2-digit' 
-                })}
-              </p>
-            </td>
-          </tr>
-
-          <!-- Vehicle Information -->
-          <tr>
-            <td style="padding: 20px 30px;">
-              <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 20px; font-weight: bold; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                ${formData.vehicleType === 'moto' ? '🏍️' : '🚗'} Informations du Véhicule
-              </h2>
-              <table width="100%" cellpadding="8" cellspacing="0" border="0">
-                <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 10px;">Type</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">
-                    ${formData.vehicleType === 'moto' ? '🏍️ Moto' : '🚗 Auto'}
+            <td style="background-color: #142641; padding: 0;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="padding: 32px 36px 24px 36px;">
+                    <!-- Logo -->
+                    <table cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="font-size: 22px; font-weight: 800; letter-spacing: -0.5px;">
+                          <span style="color: #ffffff;">LesEpavistes</span><span style="color: #A92020;">pro</span>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Marque</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.marque}</td>
-                </tr>
-                <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Modèle</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.modele}</td>
-                </tr>
-                <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Année</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.annee}</td>
-                </tr>
-                <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">État</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">
-                    ${formData.etat === 'roulante' ? '✅ Roulante' : formData.etat === 'non-roulante' ? '⚠️ Non roulante' : '🚨 Accidentée'}
+                  <td style="padding: 0 36px 32px 36px;">
+                    <h1 style="margin: 0 0 8px 0; color: #ffffff; font-size: 24px; font-weight: 700; line-height: 1.3;">
+                      Nouvelle demande reçue
+                    </h1>
+                    <p style="margin: 0; color: #D4B372; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
+                      ${serviceName}
+                    </p>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- Contact Information -->
+          <!-- ═══ DATE BAR ═══ -->
           <tr>
-            <td style="padding: 20px 30px;">
-              <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 20px; font-weight: bold; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                👤 Coordonnées du Client
-              </h2>
-              <table width="100%" cellpadding="8" cellspacing="0" border="0">
+            <td style="background-color: #D4B372; padding: 10px 36px;">
+              <p style="margin: 0; color: #142641; font-size: 13px; font-weight: 600;">
+                Reçu le ${dateStr}
+              </p>
+            </td>
+          </tr>
+
+          <!-- ═══ CLIENT PRIORITY CARD ═══ -->
+          <tr>
+            <td style="padding: 28px 36px 0 36px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #142641; border-radius: 12px; overflow: hidden;">
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Prénom</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.prenom}</td>
-                </tr>
-                <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Téléphone</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">
-                    <a href="tel:${formData.phone}" style="color: #DC2626; text-decoration: none; font-weight: bold; font-size: 16px;">📞 ${formData.phone}</a>
+                  <td style="padding: 20px 24px;">
+                    <p style="margin: 0 0 4px 0; color: #D4B372; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Client</p>
+                    <p style="margin: 0 0 12px 0; color: #ffffff; font-size: 20px; font-weight: 700;">${formData.prenom}</p>
+                    <table cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding-right: 16px;">
+                          <a href="tel:${formData.phone}" style="color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; letter-spacing: 0.5px;">${formData.phone}</a>
+                        </td>
+                        ${formData.email ? `
+                        <td style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 16px;">
+                          <a href="mailto:${formData.email}" style="color: #D4B372; font-size: 13px; text-decoration: none;">${formData.email}</a>
+                        </td>
+                        ` : ''}
+                      </tr>
+                    </table>
                   </td>
                 </tr>
-                ${formData.email ? `
-                <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Email</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">
-                    <a href="mailto:${formData.email}" style="color: #DC2626; text-decoration: none;">${formData.email}</a>
-                  </td>
-                </tr>
-                ` : ''}
               </table>
             </td>
           </tr>
 
-          <!-- Location Information -->
+          <!-- ═══ VEHICLE SECTION ═══ -->
           <tr>
-            <td style="padding: 20px 30px;">
-              <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 20px; font-weight: bold; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                📍 Localisation
-              </h2>
-              <table width="100%" cellpadding="8" cellspacing="0" border="0">
+            <td style="padding: 28px 36px 0 36px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; width: 40%; padding: 8px 0;">Code postal</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">${formData.codePostal}</td>
+                  <td style="padding-bottom: 14px; border-bottom: 2px solid #D4B372;">
+                    <p style="margin: 0; color: #142641; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                      Véhicule
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 16px;">
+                <tr>
+                  <td style="padding: 10px 14px; background-color: #F8F9FB; border-radius: 8px 8px 0 0;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="40%" style="color: #737373; font-size: 13px;">Type</td>
+                        <td style="color: #142641; font-size: 14px; font-weight: 600;">${isMoto ? 'Moto' : 'Auto'}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="40%" style="color: #737373; font-size: 13px;">Marque</td>
+                        <td style="color: #142641; font-size: 14px; font-weight: 700;">${formData.marque}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; background-color: #F8F9FB;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="40%" style="color: #737373; font-size: 13px;">Modèle</td>
+                        <td style="color: #142641; font-size: 14px; font-weight: 700;">${formData.modele}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="40%" style="color: #737373; font-size: 13px;">Année</td>
+                        <td style="color: #142641; font-size: 14px; font-weight: 600;">${formData.annee}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; background-color: #F8F9FB; border-radius: 0 0 8px 8px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="40%" style="color: #737373; font-size: 13px;">État</td>
+                        <td>
+                          <span style="display: inline-block; background-color: ${etatColor}; color: #ffffff; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;">
+                            ${etatLabel}
+                          </span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ═══ LOCATION SECTION ═══ -->
+          <tr>
+            <td style="padding: 28px 36px 0 36px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="padding-bottom: 14px; border-bottom: 2px solid #D4B372;">
+                    <p style="margin: 0; color: #142641; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                      Localisation
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 16px;">
+                <tr>
+                  <td style="padding: 10px 14px; background-color: #F8F9FB; border-radius: 8px 8px 0 0;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="40%" style="color: #737373; font-size: 13px;">Code postal</td>
+                        <td style="color: #142641; font-size: 14px; font-weight: 700; letter-spacing: 1px;">${formData.codePostal}</td>
+                      </tr>
+                    </table>
+                  </td>
                 </tr>
                 ${formData.ville ? `
-                <tr style="background-color: #f9fafb;">
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 10px;">Ville</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 10px;">${formData.ville}</td>
+                <tr>
+                  <td style="padding: 10px 14px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="40%" style="color: #737373; font-size: 13px;">Ville</td>
+                        <td style="color: #142641; font-size: 14px; font-weight: 700;">${formData.ville}</td>
+                      </tr>
+                    </table>
+                  </td>
                 </tr>
                 ` : ''}
                 <tr>
-                  <td style="color: #6b7280; font-size: 14px; padding: 8px 0;">Sous-sol / Parking</td>
-                  <td style="color: #1f2937; font-size: 14px; font-weight: 600; padding: 8px 0;">
-                    ${formData.sousSol ? '✅ Oui' : '❌ Non'}
+                  <td style="padding: 10px 14px; ${formData.ville ? 'background-color: #F8F9FB;' : ''} border-radius: 0 0 8px 8px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="40%" style="color: #737373; font-size: 13px;">Sous-sol / Parking</td>
+                        <td style="color: #142641; font-size: 14px; font-weight: 600;">${formData.sousSol ? 'Oui — accès difficile' : 'Non'}</td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- Message -->
+          <!-- ═══ MESSAGE (if any) ═══ -->
           ${formData.message ? `
           <tr>
-            <td style="padding: 20px 30px;">
-              <h2 style="margin: 0 0 15px 0; color: #1f2937; font-size: 20px; font-weight: bold; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">
-                💬 Message Complémentaire
-              </h2>
-              <div style="background-color: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 8px;">
-                <p style="margin: 0; color: #92400e; font-size: 14px; line-height: 1.6;">
-                  ${formData.message}
-                </p>
+            <td style="padding: 28px 36px 0 36px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="padding-bottom: 14px; border-bottom: 2px solid #D4B372;">
+                    <p style="margin: 0; color: #142641; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                      Message
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              <div style="margin-top: 16px; background-color: #F8F9FB; border-left: 4px solid #D4B372; padding: 16px 20px; border-radius: 0 8px 8px 0;">
+                <p style="margin: 0; color: #142641; font-size: 14px; line-height: 1.7;">${formData.message}</p>
               </div>
             </td>
           </tr>
           ` : ''}
 
-          <!-- Quick Actions -->
+          <!-- ═══ ACTION BUTTONS ═══ -->
           <tr>
-            <td style="padding: 30px; background-color: #f9fafb;">
-              <h3 style="margin: 0 0 15px 0; color: #1f2937; font-size: 16px; font-weight: bold; text-align: center;">
-                Actions Rapides
-              </h3>
+            <td style="padding: 32px 36px;">
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td align="center" style="padding: 5px;">
-                    <a href="tel:${formData.phone}" style="display: inline-block; background-color: #DC2626; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px;">
-                      📞 Appeler le client
+                  <!-- Call Button -->
+                  <td width="48%" align="center">
+                    <a href="tel:${formData.phone}" style="display: block; background-color: #A92020; color: #ffffff; padding: 14px 20px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; text-align: center;">
+                      Appeler ${formData.prenom}
                     </a>
                   </td>
-                  <td align="center" style="padding: 5px;">
-                    <a href="mailto:${formData.email}" style="display: inline-block; background-color: #002654; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px;">
-                      ✉️ Envoyer un email
+                  <td width="4%"></td>
+                  <!-- WhatsApp Button -->
+                  <td width="48%" align="center">
+                    <a href="${whatsappLink}" target="_blank" style="display: block; background-color: #25D366; color: #ffffff; padding: 14px 20px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; text-align: center;">
+                      WhatsApp
                     </a>
+                  </td>
+                </tr>
+                ${formData.email ? `
+                <tr>
+                  <td colspan="3" align="center" style="padding-top: 12px;">
+                    <a href="mailto:${formData.email}" style="display: inline-block; color: #142641; padding: 12px 24px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 13px; border: 2px solid #e5e5e5;">
+                      Envoyer un email
+                    </a>
+                  </td>
+                </tr>
+                ` : ''}
+              </table>
+            </td>
+          </tr>
+
+          <!-- ═══ FOOTER ═══ -->
+          <tr>
+            <td style="background-color: #142641; padding: 24px 36px;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td>
+                    <p style="margin: 0 0 4px 0; font-size: 14px; font-weight: 700;">
+                      <span style="color: #ffffff;">LesEpavistes</span><span style="color: #A92020;">pro</span>
+                    </p>
+                    <p style="margin: 0; color: #737373; font-size: 12px; line-height: 1.6;">
+                      Service d'enlèvement d'épave et rachat de voiture<br>
+                      France entière &bull; 24h/24, 7j/7
+                    </p>
+                  </td>
+                  <td align="right" style="vertical-align: top;">
+                    <p style="margin: 0; color: #D4B372; font-size: 12px; font-weight: 600;">
+                      09 79 04 94 86
+                    </p>
+                    <p style="margin: 4px 0 0 0;">
+                      <a href="https://www.lesepavistespro.fr" style="color: #737373; font-size: 12px; text-decoration: none;">
+                        lesepavistespro.fr
+                      </a>
+                    </p>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- Footer -->
+        </table>
+
+        <!-- Sub-footer -->
+        <table width="600" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td style="background-color: #1f2937; padding: 20px 30px; text-align: center;">
-              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                Les Épavistes Pro - Service d'enlèvement d'épave 24h/24, 7j/7<br>
-                France entière • 09 79 04 94 86 • lesepavistespro@gmail.com
+            <td align="center" style="padding: 16px 0;">
+              <p style="margin: 0; color: #a3a3a3; font-size: 11px;">
+                Cet email a été généré automatiquement suite à une demande sur lesepavistespro.fr
               </p>
             </td>
           </tr>
-
         </table>
+
       </td>
     </tr>
   </table>
@@ -251,7 +368,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
           from: 'onboarding@resend.dev',
           to: ['lesepavistespro@gmail.com'],
           replyTo: formData.email,
-          subject: `${formData.vehicleType === 'moto' ? '🏍️' : '🚗'} Nouvelle demande: ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} - ${formData.prenom} (${formData.phone})`,
+          subject: `Nouvelle demande ${formData.service === 'epaviste' ? 'Épaviste' : 'Rachat'} — ${formData.prenom} | ${formData.marque} ${formData.modele} | ${formData.phone}`,
           html: emailHTML,
           text: emailText,
         });
