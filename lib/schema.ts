@@ -21,10 +21,20 @@ export function getOrganizationSchema() {
       height: 512,
     },
     image: `${baseUrl}/icon.png`,
-    description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés.',
+    description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés. Partenaire avec centre VHU agréé N° PR9500003D.',
     telephone: '+33979049486',
     email: 'lesepavistespro@gmail.com',
     foundingDate: '2023',
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Agrément VHU Préfectoral',
+      recognizedBy: {
+        '@type': 'GovernmentOrganization',
+        name: 'Préfecture',
+      },
+      identifier: 'PR9500003D',
+      name: 'Agrément Centre VHU',
+    },
     numberOfEmployees: {
       '@type': 'QuantitativeValue',
       minValue: 10,

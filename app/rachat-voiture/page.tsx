@@ -124,6 +124,21 @@ export default function RachatVoiturePage() {
                 <span className="font-semibold text-neutral-700">Rapide 24h</span>
               </div>
             </div>
+
+            {/* VHU Agrément Badge */}
+            <div className="mt-10 flex items-center justify-center gap-4 p-4 rounded-2xl bg-brand-navy/[0.03] border border-neutral-200">
+              <Image
+                src="/images/centre-vhu-agree.jpeg"
+                alt="Centre VHU Agréé - N° PR9500003D"
+                width={100}
+                height={65}
+                className="rounded-lg"
+              />
+              <div>
+                <p className="text-brand-navy font-bold text-sm">Partenaire centre VHU agréé</p>
+                <p className="text-brand-gold font-semibold text-sm">N° d&apos;agrément : PR9500003D</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

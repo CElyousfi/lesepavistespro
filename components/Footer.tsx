@@ -2,6 +2,7 @@
 
 import { Phone, EnvelopeSimple, MapPin } from '@phosphor-icons/react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -20,9 +21,22 @@ const Footer = () => {
                   LesEpavistes<span className="text-brand-gold">pro</span>
                 </span>
               </Link>
-              <p className="text-neutral-400 text-sm leading-relaxed">
+              <p className="text-neutral-400 text-sm leading-relaxed mb-5">
                 Service professionnel agréé VHU. Enlèvement d&apos;épave gratuit et rachat de véhicules partout en France.
               </p>
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.05] border border-white/[0.08]">
+                <Image
+                  src="/images/centre-vhu-agree.jpeg"
+                  alt="Centre VHU Agréé - Partenaire Les Épavistes Pro"
+                  width={60}
+                  height={40}
+                  className="rounded"
+                />
+                <div>
+                  <p className="text-white text-xs font-semibold">Centre VHU Agréé</p>
+                  <p className="text-brand-gold text-xs font-medium">N° PR9500003D</p>
+                </div>
+              </div>
             </div>
 
             {/* Services Column */}

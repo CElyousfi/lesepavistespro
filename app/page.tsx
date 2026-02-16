@@ -103,6 +103,26 @@ export default function Home() {
             </div>
           </section>
 
+          {/* VHU Agrément Badge */}
+          <section className="py-12 bg-brand-navy/[0.03] border-t border-b border-neutral-100">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
+                <img
+                  src="/images/centre-vhu-agree.jpeg"
+                  alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
+                  width={140}
+                  height={90}
+                  className="rounded-xl"
+                />
+                <div className="text-center sm:text-left">
+                  <p className="text-brand-navy font-bold text-lg mb-1">Partenaire avec centre VHU agréé</p>
+                  <p className="text-brand-red font-semibold text-base">N° d&apos;agrément : PR9500003D</p>
+                  <p className="text-neutral-500 text-sm mt-1">Destruction légale et écologique garantie</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Stats */}
           <AnimatedStats />
 

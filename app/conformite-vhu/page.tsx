@@ -3,7 +3,8 @@ import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { ShieldCheck, FileText, Recycle } from '@phosphor-icons/react/dist/ssr';
+import Image from 'next/image';
+import { ShieldCheck, FileText, Recycle, Certificate } from '@phosphor-icons/react/dist/ssr';
 import { getBreadcrumbSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
@@ -93,6 +94,34 @@ export default function ConformiteVHUPage() {
                                     <p className="text-neutral-600 leading-relaxed text-sm">
                                         Notre processus garantit un taux de réutilisation et de recyclage d&apos;au moins 95% de la masse du véhicule, contribuant ainsi à l&apos;économie circulaire.
                                     </p>
+                                </div>
+                            </div>
+
+                            <div className="bg-gradient-to-br from-brand-navy to-brand-navy/95 rounded-2xl p-8 md:p-10 border border-brand-navy/20 shadow-lg">
+                                <div className="flex flex-col md:flex-row gap-8 items-center">
+                                    <div className="shrink-0">
+                                        <Image
+                                            src="/images/centre-vhu-agree.jpeg"
+                                            alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
+                                            width={200}
+                                            height={130}
+                                            className="rounded-xl border-2 border-white/20"
+                                        />
+                                    </div>
+                                    <div>
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 bg-brand-gold/20 rounded-lg flex items-center justify-center">
+                                                <Certificate size={22} weight="fill" className="text-brand-gold" />
+                                            </div>
+                                            <h2 className="text-xl font-bold text-white">Notre Agrément VHU Officiel</h2>
+                                        </div>
+                                        <p className="text-neutral-300 leading-relaxed text-sm mb-4">
+                                            <strong className="text-white">Les Épavistes Pro</strong> est partenaire avec un centre VHU agréé par la préfecture. Chaque véhicule pris en charge est traité dans le strict respect de la réglementation environnementale.
+                                        </p>
+                                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-gold/10 border border-brand-gold/20">
+                                            <span className="text-brand-gold font-bold text-lg">N° d&apos;agrément : PR9500003D</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
