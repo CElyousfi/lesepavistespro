@@ -8,6 +8,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { regions, allDepartments } from '@/lib/locations-complete';
 import { generateZonesMeta } from '@/lib/seo';
 import { getBreadcrumbSchema } from '@/lib/schema';
+import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = generateZonesMeta();
 
@@ -181,6 +182,7 @@ export default function ZonesPage() {
         </div>
       </section>
 
+      <VHUCertification />
       <Footer />
       <FloatingWhatsApp />
     </>

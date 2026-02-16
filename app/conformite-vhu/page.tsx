@@ -6,6 +6,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import Image from 'next/image';
 import { ShieldCheck, FileText, Recycle, Certificate } from '@phosphor-icons/react/dist/ssr';
 import { getBreadcrumbSchema } from '@/lib/schema';
+import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
     title: 'Conformité VHU & Agrément Préfectoral | Les Épavistes Pro',
@@ -130,6 +131,7 @@ export default function ConformiteVHUPage() {
                 </section>
             </main>
 
+            <VHUCertification />
             <Footer />
             <FloatingWhatsApp />
         </>

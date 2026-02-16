@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { IdentificationCard, FileText, CheckCircle, DownloadSimple } from '@phosphor-icons/react/dist/ssr';
 import { getBreadcrumbSchema } from '@/lib/schema';
+import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
     title: 'Documents à Fournir pour Enlèvement Épave | Liste Complète',
@@ -163,6 +164,7 @@ export default function DocumentsPage() {
                 </section>
             </main>
 
+            <VHUCertification />
             <Footer />
             <FloatingWhatsApp />
         </>

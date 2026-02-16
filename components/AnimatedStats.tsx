@@ -54,6 +54,8 @@ export default function AnimatedStats() {
               </ScrollAnimation>
             ))}
           </div>
+
+          
         </div>
       </div>
     </section>

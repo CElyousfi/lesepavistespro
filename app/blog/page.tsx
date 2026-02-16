@@ -9,6 +9,7 @@ import { Clock, User, ArrowRight } from '@phosphor-icons/react/dist/ssr';
 import { blogPosts } from '@/lib/blog-data';
 import BlogAnimations from './BlogAnimations';
 import { getBreadcrumbSchema } from '@/lib/schema';
+import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
   title: "Blog Épaviste – Conseils & Actualités Enlèvement Épave France",
@@ -155,6 +156,7 @@ export default function BlogPage() {
         </section>
       </main>
 
+      <VHUCertification />
       <Footer />
       <FloatingWhatsApp />
     </>

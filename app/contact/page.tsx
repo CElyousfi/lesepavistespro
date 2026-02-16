@@ -6,6 +6,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
 import { Phone, EnvelopeSimple, MapPin, Clock, WhatsappLogo, MessengerLogo } from '@phosphor-icons/react/dist/ssr';
 import { getBreadcrumbSchema } from '@/lib/schema';
+import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
     title: 'Contactez Les Épavistes Pro | Enlèvement Épave Gratuit',
@@ -172,6 +173,7 @@ export default function ContactPage() {
                 </section>
             </main>
 
+            <VHUCertification />
             <Footer />
             <FloatingWhatsApp />
         </>

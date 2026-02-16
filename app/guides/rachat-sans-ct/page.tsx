@@ -6,6 +6,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import CTASection from '@/components/CTASection';
 import { CheckCircle, Warning, FileText, CurrencyEur } from '@phosphor-icons/react/dist/ssr';
 import { getBlogArticleData, renderJSONLD, getBreadcrumbData } from '@/lib/structured-data';
+import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
   title: "Rachat sans CT en France : Démarches & Légalité",
@@ -269,6 +270,7 @@ export default function RachatSansCTPage() {
         <CTASection />
       </main>
 
+      <VHUCertification />
       <Footer />
       <FloatingWhatsApp />
     </>

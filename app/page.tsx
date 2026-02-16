@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
 import ScrollAnimation from '@/components/ScrollAnimation';
+import VHUCertification from '@/components/VHUCertification';
 import { getHomeStructuredData } from '@/lib/structured-data';
 import { generateHomeMeta } from '@/lib/seo';
 import { getEpaveRemovalHowToSchema, getDefaultReviewsSchema, getSpeakableSchema } from '@/lib/schema';
@@ -103,28 +104,11 @@ export default function Home() {
             </div>
           </section>
 
-          {/* VHU Agrément Badge */}
-          <section className="py-12 bg-brand-navy/[0.03] border-t border-b border-neutral-100">
-            <div className="container mx-auto px-4">
-              <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
-                <img
-                  src="/images/centre-vhu-agree.jpeg"
-                  alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
-                  width={140}
-                  height={90}
-                  className="rounded-xl"
-                />
-                <div className="text-center sm:text-left">
-                  <p className="text-brand-navy font-bold text-lg mb-1">Partenaire avec centre VHU agréé</p>
-                  <p className="text-brand-red font-semibold text-base">N° d&apos;agrément : PR9500003D</p>
-                  <p className="text-neutral-500 text-sm mt-1">Destruction légale et écologique garantie</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* Stats */}
           <AnimatedStats />
+
+          {/* VHU Certification */}
+          <VHUCertification />
 
           {/* Coverage */}
           <Coverage />

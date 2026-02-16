@@ -6,6 +6,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import FAQ from '@/components/FAQ';
 import { Question } from '@phosphor-icons/react/dist/ssr';
 import { getBreadcrumbSchema } from '@/lib/schema';
+import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
     title: 'Questions Fréquentes (FAQ) | Enlèvement Épave',
@@ -76,6 +77,7 @@ export default function FAQPage() {
                 </section>
             </main>
 
+            <VHUCertification />
             <Footer />
             <FloatingWhatsApp />
         </>

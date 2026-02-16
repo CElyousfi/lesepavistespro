@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { blogPosts } from '@/lib/blog-data';
 import { getBlogArticleData, renderJSONLD, getBreadcrumbData } from '@/lib/structured-data';
 import { getSpeakableSchema } from '@/lib/schema';
+import VHUCertification from '@/components/VHUCertification';
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -237,6 +238,7 @@ export default async function BlogPost({ params }: Props) {
         </article>
       </main>
 
+      <VHUCertification />
       <Footer />
       <FloatingWhatsApp />
     </>
