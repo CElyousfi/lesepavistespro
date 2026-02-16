@@ -42,7 +42,7 @@ function generateEmailHTML(formData: any) {
 
   <!-- Hidden preheader -->
   <div style="display:none;font-size:1px;color:#F8F9FB;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
-    ${formData.prenom} — ${formData.phone} — ${formData.marque} ${formData.modele} ${formData.annee} — ${formData.ville || formData.codePostal}
+    ${formData.prenom} — ${formData.phone} — ${formData.marque} ${formData.modele} ${formData.immatriculation} — ${formData.ville || formData.codePostal}
   </div>
 
   <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F8F9FB;">
@@ -152,7 +152,7 @@ function generateEmailHTML(formData: any) {
                 ${dataRow('Type', isMoto ? 'Moto' : 'Auto', false)}
                 ${dataRow('Marque', formData.marque, true)}
                 ${dataRow('Modèle', formData.modele, false)}
-                ${dataRow('Année', formData.annee, true)}
+                ${dataRow('Immatriculation', formData.immatriculation, true)}
                 <tr>
                   <td style="padding: 12px 16px;">
                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -333,7 +333,7 @@ VÉHICULE
 Type: ${formData.vehicleType === 'moto' ? 'Moto' : 'Auto'}
 Marque: ${formData.marque}
 Modèle: ${formData.modele}
-Année: ${formData.annee}
+Immatriculation: ${formData.immatriculation}
 État: ${formData.etat === 'roulante' ? 'Roulante' : formData.etat === 'non-roulante' ? 'Non roulante' : 'Accidentée'}
 
 CONTACT
@@ -395,7 +395,7 @@ Date: ${new Date().toLocaleString('fr-FR')}
             vehicleType: formData.vehicleType === 'moto' ? 'Moto' : 'Auto',
             marque: formData.marque,
             modele: formData.modele,
-            annee: formData.annee,
+            immatriculation: formData.immatriculation,
             etat: formData.etat === 'roulante' ? 'Roulante' : formData.etat === 'non-roulante' ? 'Non roulante' : 'Accidentée',
             prenom: formData.prenom,
             phone: formData.phone,

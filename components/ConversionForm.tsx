@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Phone, WhatsappLogo, CheckCircle, X, ArrowRight, ArrowLeft, MapPin, Car, Motorcycle } from '@phosphor-icons/react';
 import { trackFormSubmit } from '@/lib/analytics';
-import { getMarqueNames, getModelsForMarque, getYearOptions } from '@/lib/vehicle-data';
+import { getMarqueNames, getModelsForMarque } from '@/lib/vehicle-data';
 import SearchableSelect from '@/components/SearchableSelect';
 import PostalCodeSelect from '@/components/PostalCodeSelect';
 
@@ -14,7 +14,7 @@ interface FormData {
   vehicleType: 'auto' | 'moto';
   marque: string;
   modele: string;
-  annee: string;
+  immatriculation: string;
   etat: 'roulante' | 'non-roulante' | 'accidentee' | '';
   // Step 2: Location
   codePostal: string;
@@ -61,7 +61,7 @@ export default function ConversionFormNew({
     vehicleType: 'auto',
     marque: '',
     modele: '',
-    annee: '',
+    immatriculation: '',
     etat: '',
     codePostal: '',
     ville: cityName || '',
@@ -78,7 +78,6 @@ export default function ConversionFormNew({
   // Memoized vehicle data
   const marqueNames = useMemo(() => getMarqueNames(formData.vehicleType), [formData.vehicleType]);
   const modelNames = useMemo(() => getModelsForMarque(formData.marque, formData.vehicleType), [formData.marque, formData.vehicleType]);
-  const yearOptions = useMemo(() => getYearOptions(), []);
 
   // Reset model when marque changes
   useEffect(() => {
@@ -128,7 +127,7 @@ export default function ConversionFormNew({
     if (currentStep === 2) {
       if (!formData.marque) newErrors.marque = 'Indiquez la marque';
       if (!formData.modele) newErrors.modele = 'Indiquez le modèle';
-      if (!formData.annee) newErrors.annee = 'Indiquez l\'année';
+      if (!formData.immatriculation) newErrors.immatriculation = 'Indiquez l\'immatriculation';
       if (!formData.etat) newErrors.etat = 'Précisez l\'état';
     }
 
@@ -141,6 +140,10 @@ export default function ConversionFormNew({
 
     if (currentStep === 4) {
       if (!formData.prenom) newErrors.prenom = 'Votre prénom pour vous rappeler';
+      if (!formData.email) newErrors.email = 'Email requis';
+      if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+        newErrors.email = 'Email invalide';
+      }
       if (!formData.phone) newErrors.phone = 'Numéro requis pour vous rappeler';
       if (formData.phone && !/^0[1-9]\d{8}$/.test(formData.phone.replace(/\s/g, ''))) {
         newErrors.phone = 'Numéro invalide (ex: 06 12 34 56 78)';
@@ -183,7 +186,7 @@ export default function ConversionFormNew({
         vehicleType: 'auto',
         marque: '',
         modele: '',
-        annee: '',
+        immatriculation: '',
         etat: '',
         codePostal: '',
         ville: cityName || '',
@@ -398,14 +401,17 @@ export default function ConversionFormNew({
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <SearchableSelect
-                    label="Année"
-                    options={yearOptions}
-                    value={formData.annee}
-                    onChange={(val) => updateField('annee', val)}
-                    placeholder="Année..."
-                    error={errors.annee}
-                  />
+                  <div className="space-y-2">
+                    <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Immatriculation</label>
+                    <input
+                      type="text"
+                      value={formData.immatriculation}
+                      onChange={(e) => updateField('immatriculation', e.target.value.toUpperCase())}
+                      placeholder="AA-123-BB"
+                      className="w-full h-12 px-4 rounded-xl border border-neutral-200 bg-white text-brand-navy focus:border-brand-red/40 focus:ring-2 focus:ring-brand-red/10 outline-none transition-all placeholder:text-neutral-400 uppercase"
+                    />
+                    {errors.immatriculation && <p className="text-xs text-brand-red font-semibold">{errors.immatriculation}</p>}
+                  </div>
                   <SearchableSelect
                     label="État"
                     options={['Roulante', 'Non roulante', 'Accidentée']}
@@ -477,6 +483,19 @@ export default function ConversionFormNew({
                     className="w-full h-12 px-4 rounded-xl border border-neutral-200 bg-white text-brand-navy focus:border-brand-red/40 focus:ring-2 focus:ring-brand-red/10 outline-none transition-all placeholder:text-neutral-400"
                   />
                   {errors.prenom && <p className="text-xs text-brand-red font-semibold">{errors.prenom}</p>}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Email</label>
+                  <input
+                    type="email"
+                    inputMode="email"
+                    value={formData.email}
+                    onChange={(e) => updateField('email', e.target.value)}
+                    placeholder="votre@email.com"
+                    className="w-full h-12 px-4 rounded-xl border border-neutral-200 bg-white text-brand-navy focus:border-brand-red/40 focus:ring-2 focus:ring-brand-red/10 outline-none transition-all placeholder:text-neutral-400"
+                  />
+                  {errors.email && <p className="text-xs text-brand-red font-semibold">{errors.email}</p>}
                 </div>
 
                 <div className="space-y-2">
