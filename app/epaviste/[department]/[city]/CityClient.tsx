@@ -88,9 +88,9 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
-          Épaviste agréé VHU à {city.name} dans le {department.name} ({department.code}). 
-          Enlèvement d'épave 100% gratuit, intervention rapide sous 24h, 
-          certificat de destruction fourni immédiatement.
+          Épaviste agréé VHU à {city.name}. Enlèvement d'épave 100% GRATUIT 24h/24,
+          certificat de destruction fourni. Intervention rapide sous 2h.
+          09 79 04 94 86.
         </p>
 
         {/* CTA Buttons */}

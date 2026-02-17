@@ -86,9 +86,10 @@ export default function RachatRegionClientPage({ regionSlug }: { regionSlug: str
         </h1>
 
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
-          Rachat de voiture dans toute la région {region.name}.
-          Nous achetons tous véhicules dans les {region.departments.length} départements :
-          HS, accidentés, en panne, sans CT. Paiement cash immédiat.
+          Nous rachetons tous types de véhicules en {region.name} :
+          voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique.
+          Paiement cash immédiat dans tous les départements.
+          09 79 04 94 86.
         </p>
 
         {/* CTA Buttons */}

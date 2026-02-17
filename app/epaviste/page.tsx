@@ -85,8 +85,9 @@ export default function EpavistePage() {
             </h1>
 
             <p className="text-lg md:text-xl text-neutral-600 mb-12 leading-relaxed max-w-2xl mx-auto">
-              Enlèvement d&apos;épave 100% gratuit, intervention rapide sous 24-48h.
-              Certificat de destruction fourni immédiatement. Agréé Préfecture.
+              Service d&apos;enlèvement d&apos;épave 100% gratuit partout en France.
+              Épaviste agréé VHU, intervention 24h/24, certificat de destruction fourni.
+              18 régions couvertes. 09 79 04 94 86.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">

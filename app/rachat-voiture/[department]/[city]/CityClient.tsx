@@ -88,9 +88,10 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
-          Rachat de voiture à {city.name} dans le {department.name} ({department.code}). 
-          Nous achetons tous véhicules : HS, accidentés, en panne, sans CT. 
-          Estimation gratuite et paiement cash immédiat.
+          Nous rachetons tous types de véhicules à {city.name} :
+          voitures d'occasion en bon état, véhicules accidentés, voitures en panne,
+          épaves, véhicules sans contrôle technique. Paiement cash immédiat.
+          09 79 04 94 86.
         </p>
 
         {/* CTA Buttons */}

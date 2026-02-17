@@ -86,9 +86,10 @@ export default function RegionClientPage({ regionSlug }: { regionSlug: string })
         </h1>
 
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
-          Épaviste agréé VHU dans toute la région {region.name}.
-          Enlèvement d'épave 100% gratuit dans les {region.departments.length} départements,
-          intervention rapide sous 24-48h, certificat de destruction fourni.
+          Épaviste agréé VHU en {region.name}.
+          Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni.
+          Intervention rapide dans tous les départements de la région.
+          09 79 04 94 86.
         </p>
 
         {/* CTA Buttons */}

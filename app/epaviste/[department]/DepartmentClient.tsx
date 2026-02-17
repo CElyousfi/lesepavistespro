@@ -69,15 +69,9 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Épaviste agréé VHU dans tout le département {dept.name} ({dept.code}). 
-          Enlèvement d'épave 100% gratuit, intervention rapide sous 24-48h, 
-          certificat de destruction fourni.
-        </p>
-
-        <p className="text-sm text-brand-red/90 font-semibold mb-2">
-          🚨 Intervention urgente aujourd'hui ? Appelez maintenant
-        </p>
-        <p className="text-sm text-neutral-500 mb-8">
-          💬 Demande non urgente ? WhatsApp ou formulaire ci-dessous
+          Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni.
+          Intervention rapide sous 24-48h.
+          09 79 04 94 86.
         </p>
 
         {/* CTA Buttons */}

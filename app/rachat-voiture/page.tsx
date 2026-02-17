@@ -77,8 +77,9 @@ export default function RachatVoiturePage() {
             </h1>
 
             <p className="text-lg md:text-xl text-neutral-600 mb-12 leading-relaxed max-w-2xl mx-auto">
-              Nous rachetons tous types de véhicules : voitures HS, accidentées, en panne, sans CT.
-              Estimation gratuite et paiement cash immédiat lors de l&apos;enlèvement.
+              Rachat de voiture partout en France sans CT. Paiement cash immédiat,
+              tous véhicules acceptés : HS, accidentés, en panne.
+              Estimation gratuite. 09 79 04 94 86.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">

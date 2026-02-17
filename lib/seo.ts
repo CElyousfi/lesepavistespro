@@ -116,8 +116,8 @@ export function generateEpavisteDepartmentMeta(deptName: string, deptSlug: strin
   const deptCodeDisplay = deptCode ? ` (${deptCode})` : '';
 
   return generateMeta({
-    title: `Épaviste ${deptName}${deptCodeDisplay} – Gratuit 24/7`,
-    description: `Épaviste agréé VHU dans le ${deptName} ${deptCode}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide partout dans le département. 09 79 04 94 86`,
+    title: `Épaviste ${deptName}${deptCodeDisplay} Enlèvement Gratuit 24h`,
+    description: `Épaviste agréé VHU dans tout le département ${deptName}${deptCodeDisplay}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 24-48h. 09 79 04 94 86.`,
     path: `/epaviste/${deptSlug}`,
   });
 }
@@ -131,8 +131,8 @@ export function generateRachatDepartmentMeta(deptName: string, deptSlug: string)
   const deptCodeDisplay = deptCode ? ` (${deptCode})` : '';
 
   return generateMeta({
-    title: `Rachat ${deptName}${deptCodeDisplay} – Cash immédiat`,
-    description: `Rachat de voiture dans le ${deptName} ${deptCode}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés (HS, accidentés, en panne). Estimation gratuite en 15 min. 09 79 04 94 86`,
+    title: `Rachat voiture ${deptName}${deptCodeDisplay} – Sans CT, Cash immédiat`,
+    description: `Nous rachetons tous types de véhicules dans le ${deptName}${deptCodeDisplay} : voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique. Paiement cash immédiat. Estimation gratuite. 09 79 04 94 86.`,
     path: `/rachat-voiture/${deptSlug}`,
   });
 }
@@ -151,8 +151,8 @@ export function generateEpavisteCityMeta(
   const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
 
   return generateMeta({
-    title: `Épaviste ${cityName}${postalDisplay} – Gratuit 24/7`,
-    description: `Épaviste agréé VHU à ${cityName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 2h. 09 79 04 94 86`,
+    title: `Épaviste ${cityName}${postalDisplay} – Enlèvement gratuit 24h`,
+    description: `Épaviste agréé VHU à ${cityName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 2h. 09 79 04 94 86.`,
     path: `/epaviste/${deptSlug}/${citySlug}`,
   });
 }
@@ -171,8 +171,8 @@ export function generateRachatCityMeta(
   const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
 
   return generateMeta({
-    title: `Rachat ${cityName}${postalDisplay} – Cash immédiat`,
-    description: `Rachat de voiture à ${cityName}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés (HS, accidentés, en panne). Estimation gratuite. 09 79 04 94 86`,
+    title: `Rachat voiture ${cityName}${postalDisplay} – Sans CT, Cash immédiat`,
+    description: `Nous rachetons tous types de véhicules à ${cityName} : voitures d'occasion en bon état, véhicules accidentés, voitures en panne, épaves, véhicules sans contrôle technique. Paiement cash immédiat. 09 79 04 94 86.`,
     path: `/rachat-voiture/${deptSlug}/${citySlug}`,
   });
 }
@@ -205,8 +205,8 @@ export function generateBlogPostMeta(title: string, description: string, slug: s
  */
 export function generateEpavisteRegionMeta(regionName: string, regionSlug: string): Metadata {
   return generateMeta({
-    title: `Épaviste ${regionName} – Gratuit 24/7`,
-    description: `Épaviste agréé VHU en ${regionName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide dans tous les départements de la région. 09 79 04 94 86`,
+    title: `Épaviste ${regionName} Enlèvement Gratuit 24h`,
+    description: `Épaviste agréé VHU en ${regionName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide dans tous les départements de la région. 09 79 04 94 86.`,
     path: `/epaviste/${regionSlug}`,
   });
 }
@@ -216,8 +216,8 @@ export function generateEpavisteRegionMeta(regionName: string, regionSlug: strin
  */
 export function generateRachatRegionMeta(regionName: string, regionSlug: string): Metadata {
   return generateMeta({
-    title: `Rachat ${regionName} – Cash immédiat`,
-    description: `Rachat de voiture en ${regionName}. SANS contrôle technique, paiement cash immédiat, tous véhicules acceptés. Intervention dans tous les départements. 09 79 04 94 86`,
+    title: `Rachat voiture ${regionName} – Sans CT, Cash immédiat`,
+    description: `Nous rachetons tous types de véhicules en ${regionName} : voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique. Paiement cash immédiat dans tous les départements. 09 79 04 94 86.`,
     path: `/rachat-voiture/${regionSlug}`,
   });
 }

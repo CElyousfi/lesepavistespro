@@ -68,9 +68,10 @@ export default function RachatDepartmentContent({ departmentSlug }: { department
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
-          Rachat de voiture dans tout le département {dept.name} ({dept.code}). 
-          Nous achetons tous véhicules : HS, accidentés, en panne, sans CT. 
-          Paiement cash immédiat au meilleur prix.
+          Nous rachetons tous types de véhicules dans le {dept.name} ({dept.code}) :
+          voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique.
+          Paiement cash immédiat. Estimation gratuite.
+          09 79 04 94 86.
         </p>
 
         {/* CTA Buttons */}

@@ -80,6 +80,7 @@ const Footer = () => {
               width={56}
               height={36}
               className="rounded"
+              style={{ width: 56, height: 'auto' }}
             />
             <p className="text-neutral-400 text-sm">
               Partenaire centre VHU agréé · <span className="text-brand-gold font-semibold">N° PR9500003D</span>
