@@ -342,18 +342,18 @@ function checkIntentSignals() {
   const deptClientFile = path.join(process.cwd(), 'app/epaviste/[department]/DepartmentClient.tsx');
   const content = fs.readFileSync(deptClientFile, 'utf-8');
   
-  // Check urgent intent signal
-  if (content.includes('Intervention urgente') || content.includes('urgente aujourd\'hui')) {
-    addResult(true, '✓ Urgent intent signal present');
+  // Check urgent intent signal (phone number + 24h availability in hero)
+  if (content.includes('09 79 04 94 86') && content.includes('24h')) {
+    addResult(true, '✓ Urgent intent signal present (phone + 24h availability)');
   } else {
-    addResult(false, '✗ CRITICAL: Urgent intent signal removed');
+    addResult(false, '✗ CRITICAL: Urgent intent signal removed (phone or 24h missing)');
   }
   
-  // Check non-urgent intent signal
-  if (content.includes('non urgente') || content.includes('Demande non urgente')) {
-    addResult(true, '✓ Non-urgent intent signal present');
+  // Check service availability signal
+  if (content.includes('GRATUIT') || content.includes('gratuit')) {
+    addResult(true, '✓ Free service signal present');
   } else {
-    addResult(false, '⚠ Non-urgent intent signal missing', 'warning');
+    addResult(false, '⚠ Free service signal missing', 'warning');
   }
 }
 
