@@ -35,7 +35,6 @@ const VHUCertification = () => {
                   width={180}
                   height={117}
                   className="rounded-xl shrink-0"
-                  style={{ width: 180, height: 'auto' }}
                 />
                 <div className="text-center sm:text-left">
                   <h3 className="text-xl md:text-2xl font-bold text-brand-navy mb-2">Partenaire avec centre VHU agréé</h3>
