@@ -74,13 +74,14 @@ const Footer = () => {
 
           {/* VHU Agrément bar */}
           <div className="pt-8 pb-6 border-t border-white/10 flex items-center justify-center gap-4">
-            <Image
-              src="/images/centre-vhu-agree.jpeg"
-              alt="Centre VHU Agréé"
-              width={56}
-              height={36}
-              className="rounded"
-            />
+            <div className="relative w-14 h-8 shrink-0">
+              <Image
+                src="/images/centre-vhu-agree.jpeg"
+                alt="Centre VHU Agréé"
+                fill
+                className="rounded object-cover"
+              />
+            </div>
             <p className="text-neutral-400 text-sm">
               Partenaire centre VHU agréé · <span className="text-brand-gold font-semibold">N° PR9500003D</span>
             </p>

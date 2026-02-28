@@ -14,6 +14,12 @@ import ConversionForm from '@/components/ConversionForm';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getDepartmentLocalBusiness, getBreadcrumbData, renderJSONLD } from '@/lib/structured-data';
+import { isIdfDepartment } from '@/lib/idf';
+import { getIdfDeptContent } from '@/data/idf-extra-content';
+import { idfEpavisteFaq } from '@/data/idf-faq';
+import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
+import IdfExtraContent from '@/components/IdfExtraContent';
+import IdfInternalLinks from '@/components/IdfInternalLinks';
 
 export default function DepartmentClientPage({ departmentSlug }: { departmentSlug: string }) {
   const dept = getDepartmentBySlug(departmentSlug);
@@ -23,6 +29,9 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
   }
 
   const parentRegion = getRegionForDepartment(departmentSlug);
+  const isIdf = isIdfDepartment(departmentSlug);
+  const idfContent = isIdf ? getIdfDeptContent(dept.code) : null;
+  const idfTestimonials = isIdf ? getIdfTestimonialsByDept(dept.code) : [];
 
   const localBusinessData = getDepartmentLocalBusiness(
     dept.code,
@@ -331,6 +340,22 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
           </div>
         </div>
       </section>
+
+      {/* IDF Extra Content (conditionally rendered for IDF departments only) */}
+      {isIdf && idfContent && (
+        <IdfExtraContent
+          deptContent={idfContent}
+          faqItems={idfEpavisteFaq}
+          testimonials={idfTestimonials}
+          service="epaviste"
+          locationName={dept.name}
+        />
+      )}
+
+      {/* IDF Internal Links */}
+      {isIdf && (
+        <IdfInternalLinks service="epaviste" currentDeptSlug={dept.slug} />
+      )}
 
       {/* CTA Section */}
       <CTASection />

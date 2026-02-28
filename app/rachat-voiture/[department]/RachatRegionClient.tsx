@@ -14,6 +14,12 @@ import ConversionForm from '@/components/ConversionForm';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getBreadcrumbData } from '@/lib/structured-data';
+import { isIdfRegion } from '@/lib/idf';
+import { idfRachatFaq } from '@/data/idf-faq';
+import { getAllIdfTestimonials } from '@/data/idf-testimonials';
+import { idfDeptContents } from '@/data/idf-extra-content';
+import IdfExtraContent from '@/components/IdfExtraContent';
+import IdfInternalLinks from '@/components/IdfInternalLinks';
 
 export default function RachatRegionClientPage({ regionSlug }: { regionSlug: string }) {
   const region = getRegionBySlug(regionSlug);
@@ -23,6 +29,9 @@ export default function RachatRegionClientPage({ regionSlug }: { regionSlug: str
   }
 
   const totalCities = region.departments.reduce((sum, dept) => sum + dept.cities.length, 0);
+  const isIdf = isIdfRegion(regionSlug);
+  const idfRegionContent = isIdf ? idfDeptContents[0] : null;
+  const idfTestimonials = isIdf ? getAllIdfTestimonials().filter(t => t.service === 'rachat') : [];
 
   const breadcrumbData = getBreadcrumbData([
     { name: 'Accueil', url: 'https://www.lesepavistespro.fr/' },
@@ -330,6 +339,22 @@ export default function RachatRegionClientPage({ regionSlug }: { regionSlug: str
           </div>
         </div>
       </section>
+
+      {/* IDF Extra Content */}
+      {isIdf && idfRegionContent && (
+        <IdfExtraContent
+          deptContent={{ ...idfRegionContent, deptName: 'Île-de-France', whyChoose: `L'Île-de-France concentre le plus grand marché automobile de France. Nous rachetons tous types de véhicules dans les 8 départements franciliens : voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique. Paiement cash immédiat lors de l'enlèvement. Estimation gratuite en 15 minutes par téléphone ou WhatsApp. Intervention sous 24h partout en IDF.`, regulations: `Avec la ZFE-m du Grand Paris, de nombreux véhicules anciens ne peuvent plus circuler. Plutôt que de laisser votre voiture se déprécier, vendez-la au meilleur prix ! Nous rachetons tous les véhicules concernés par les restrictions Crit'Air en Île-de-France, avec paiement cash immédiat et prise en charge de toutes les démarches administratives.` }}
+          faqItems={idfRachatFaq}
+          testimonials={idfTestimonials}
+          service="rachat"
+          locationName="Île-de-France"
+        />
+      )}
+
+      {/* IDF Internal Links */}
+      {isIdf && (
+        <IdfInternalLinks service="rachat-voiture" />
+      )}
 
       {/* CTA Section */}
       <CTASection />

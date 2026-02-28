@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSiteUrl } from '@/lib/site';
 import { regions } from '@/lib/locations-complete';
+import { isIdfRegion } from '@/lib/idf';
 
 /**
  * Épaviste region pages sitemap
@@ -13,8 +14,8 @@ export async function GET() {
   const urls = regions.map(region => ({
     loc: `${base}/epaviste/${region.slug}`,
     lastmod: buildTime,
-    changefreq: 'monthly',
-    priority: 0.85,
+    changefreq: isIdfRegion(region.slug) ? 'weekly' : 'monthly',
+    priority: isIdfRegion(region.slug) ? 1.0 : 0.85,
   }));
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

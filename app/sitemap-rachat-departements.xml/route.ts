@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSiteUrl } from '@/lib/site';
 import { allDepartments } from '@/lib/locations-complete';
+import { isIdfDepartment } from '@/lib/idf';
 
 /**
  * Rachat voiture department pages sitemap
@@ -13,8 +14,8 @@ export async function GET() {
   const urls = allDepartments.map(dept => ({
     loc: `${base}/rachat-voiture/${dept.slug}`,
     lastmod: buildTime,
-    changefreq: 'monthly',
-    priority: 0.8,
+    changefreq: isIdfDepartment(dept.slug) ? 'weekly' : 'monthly',
+    priority: isIdfDepartment(dept.slug) ? 0.95 : 0.8,
   }));
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

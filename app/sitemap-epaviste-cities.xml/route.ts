@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSiteUrl } from '@/lib/site';
 import { allDepartments } from '@/lib/locations-complete';
+import { isIdfDepartment } from '@/lib/idf';
 
 /**
  * Épaviste city pages sitemap
@@ -13,12 +14,13 @@ export async function GET() {
   const urls: { loc: string; lastmod: string; changefreq: string; priority: number }[] = [];
 
   for (const dept of allDepartments) {
+    const isIdf = isIdfDepartment(dept.slug);
     for (const city of dept.cities) {
       urls.push({
         loc: `${base}/epaviste/${dept.slug}/${city.slug}`,
         lastmod: buildTime,
-        changefreq: 'monthly',
-        priority: 0.7,
+        changefreq: isIdf ? 'weekly' : 'monthly',
+        priority: isIdf ? 0.9 : 0.7,
       });
     }
   }

@@ -18,6 +18,8 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getBreadcrumbData, getCityFAQData, renderJSONLD } from '@/lib/structured-data';
 import { getCityLocalData } from '@/lib/city-local-data';
+import { isIdfDepartment } from '@/lib/idf';
+import IdfInternalLinks from '@/components/IdfInternalLinks';
 
 export default function CityRachatClient({ citySlug }: { citySlug: string }) {
   const result = getCityBySlug(citySlug);
@@ -287,6 +289,11 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
           </div>
         </div>
       </section>
+
+      {/* IDF Internal Links */}
+      {isIdfDepartment(department.slug) && (
+        <IdfInternalLinks service="rachat-voiture" currentDeptSlug={department.slug} currentCitySlug={city.slug} />
+      )}
 
       {/* FAQ */}
       <FAQ />

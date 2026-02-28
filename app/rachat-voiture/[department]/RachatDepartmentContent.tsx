@@ -14,6 +14,12 @@ import ConversionForm from '@/components/ConversionForm';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getDepartmentLocalBusiness, getBreadcrumbData } from '@/lib/structured-data';
+import { isIdfDepartment } from '@/lib/idf';
+import { getIdfDeptContent } from '@/data/idf-extra-content';
+import { idfRachatFaq } from '@/data/idf-faq';
+import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
+import IdfExtraContent from '@/components/IdfExtraContent';
+import IdfInternalLinks from '@/components/IdfInternalLinks';
 
 export default function RachatDepartmentContent({ departmentSlug }: { departmentSlug: string }) {
   const dept = getDepartmentBySlug(departmentSlug);
@@ -23,6 +29,9 @@ export default function RachatDepartmentContent({ departmentSlug }: { department
   }
 
   const parentRegion = getRegionForDepartment(departmentSlug);
+  const isIdf = isIdfDepartment(departmentSlug);
+  const idfContent = isIdf ? getIdfDeptContent(dept.code) : null;
+  const idfTestimonials = isIdf ? getIdfTestimonialsByDept(dept.code).filter(t => t.service === 'rachat') : [];
 
   const localBusinessData = getDepartmentLocalBusiness(
     dept.code,
@@ -395,6 +404,22 @@ export default function RachatDepartmentContent({ departmentSlug }: { department
           </div>
         </div>
       </section>
+
+      {/* IDF Extra Content */}
+      {isIdf && idfContent && (
+        <IdfExtraContent
+          deptContent={idfContent}
+          faqItems={idfRachatFaq}
+          testimonials={idfTestimonials}
+          service="rachat"
+          locationName={dept.name}
+        />
+      )}
+
+      {/* IDF Internal Links */}
+      {isIdf && (
+        <IdfInternalLinks service="rachat-voiture" currentDeptSlug={dept.slug} />
+      )}
 
       {/* CTA Section */}
       <CTASection />

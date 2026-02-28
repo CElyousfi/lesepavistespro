@@ -29,13 +29,14 @@ const VHUCertification = () => {
           <ScrollAnimation>
             <div className="bg-white rounded-2xl p-8 md:p-10 border border-neutral-200 shadow-sm mb-8">
               <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 justify-center">
-                <Image
-                  src="/images/centre-vhu-agree.jpeg"
-                  alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
-                  width={180}
-                  height={117}
-                  className="rounded-xl shrink-0"
-                />
+                <div className="relative w-[180px] h-[100px] shrink-0">
+                  <Image
+                    src="/images/centre-vhu-agree.jpeg"
+                    alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
+                    fill
+                    className="rounded-xl object-cover"
+                  />
+                </div>
                 <div className="text-center sm:text-left">
                   <h3 className="text-xl md:text-2xl font-bold text-brand-navy mb-2">Partenaire avec centre VHU agréé</h3>
                   <p className="text-neutral-600 text-sm mb-4 leading-relaxed max-w-md">

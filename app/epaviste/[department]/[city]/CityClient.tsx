@@ -18,6 +18,8 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { getBreadcrumbData, getCityFAQData, renderJSONLD } from '@/lib/structured-data';
 import { getCityLocalData } from '@/lib/city-local-data';
+import { isIdfDepartment } from '@/lib/idf';
+import IdfInternalLinks from '@/components/IdfInternalLinks';
 
 export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
   const result = getCityBySlug(citySlug);
@@ -388,6 +390,11 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
           </div>
         </div>
       </section>
+
+      {/* IDF Internal Links */}
+      {isIdfDepartment(department.slug) && (
+        <IdfInternalLinks service="epaviste" currentDeptSlug={department.slug} currentCitySlug={city.slug} />
+      )}
 
       {/* FAQ */}
       <FAQ />

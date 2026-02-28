@@ -101,13 +101,14 @@ export default function ConformiteVHUPage() {
                             <div className="bg-gradient-to-br from-brand-navy to-brand-navy/95 rounded-2xl p-8 md:p-10 border border-brand-navy/20 shadow-lg">
                                 <div className="flex flex-col md:flex-row gap-8 items-center">
                                     <div className="shrink-0">
-                                        <Image
+                                        <div className="relative w-[200px] h-[110px]">
+                                          <Image
                                             src="/images/centre-vhu-agree.jpeg"
                                             alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
-                                            width={200}
-                                            height={130}
-                                            className="rounded-xl border-2 border-white/20"
-                                        />
+                                            fill
+                                            className="rounded-xl border-2 border-white/20 object-cover"
+                                          />
+                                        </div>
                                     </div>
                                     <div>
                                         <div className="flex items-center gap-3 mb-3">
