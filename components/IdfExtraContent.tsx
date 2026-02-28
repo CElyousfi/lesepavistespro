@@ -6,6 +6,7 @@ import { type IdfDeptContent } from '@/data/idf-extra-content';
 import { type IdfFaqItem } from '@/data/idf-faq';
 import { type IdfTestimonial } from '@/data/idf-testimonials';
 import { IDF_STATS } from '@/lib/idf';
+import ScrollAnimation from '@/components/ScrollAnimation';
 
 interface IdfExtraContentProps {
   deptContent: IdfDeptContent;
@@ -28,35 +29,27 @@ export default function IdfExtraContent({
 
   return (
     <>
-      {/* IDF Stats Bar */}
-      <section className="py-10 sm:py-14 bg-brand-navy text-white">
+      {/* IDF Stats Bar — matches AnimatedStats style */}
+      <section className="py-20 md:py-24 bg-brand-navy">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
-              <div>
-                <p className={`text-2xl sm:text-3xl font-bold text-${accentColor}`}>{IDF_STATS.vehiclesProcessed}</p>
-                <p className="text-sm text-neutral-300 mt-1">Véhicules traités IDF</p>
-              </div>
-              <div>
-                <p className={`text-2xl sm:text-3xl font-bold text-${accentColor}`}>{IDF_STATS.satisfactionRate}</p>
-                <p className="text-sm text-neutral-300 mt-1">Satisfaction client</p>
-              </div>
-              <div>
-                <p className={`text-2xl sm:text-3xl font-bold text-${accentColor}`}>{IDF_STATS.averageResponseTime}</p>
-                <p className="text-sm text-neutral-300 mt-1">Délai moyen IDF</p>
-              </div>
-              <div>
-                <p className={`text-2xl sm:text-3xl font-bold text-${accentColor}`}>{IDF_STATS.departments}</p>
-                <p className="text-sm text-neutral-300 mt-1">Départements couverts</p>
-              </div>
-              <div>
-                <p className={`text-2xl sm:text-3xl font-bold text-${accentColor}`}>{IDF_STATS.citiesCovered}</p>
-                <p className="text-sm text-neutral-300 mt-1">Communes en IDF</p>
-              </div>
-              <div>
-                <p className={`text-2xl sm:text-3xl font-bold text-${accentColor}`}>{IDF_STATS.yearsExperience} ans</p>
-                <p className="text-sm text-neutral-300 mt-1">D&apos;expérience</p>
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-12">
+              {IDF_STATS.map((stat, index) => (
+                <ScrollAnimation key={index} delay={index * 0.1}>
+                  <div className="text-center group">
+                    <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-white tracking-tight">
+                      {stat.number}
+                    </div>
+                    <div className="h-px w-8 bg-brand-gold/60 mx-auto mb-3 group-hover:w-16 transition-all duration-500"></div>
+                    <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-300 mb-2">
+                      {stat.label}
+                    </h3>
+                    <p className="text-xs text-neutral-400 max-w-[160px] mx-auto leading-relaxed hidden md:block">
+                      {stat.description}
+                    </p>
+                  </div>
+                </ScrollAnimation>
+              ))}
             </div>
           </div>
         </div>
