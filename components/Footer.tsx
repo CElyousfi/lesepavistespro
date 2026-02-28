@@ -79,6 +79,7 @@ const Footer = () => {
                 src="/images/centre-vhu-agree.jpeg"
                 alt="Centre VHU Agréé"
                 fill
+                sizes="56px"
                 className="rounded object-cover"
               />
             </div>

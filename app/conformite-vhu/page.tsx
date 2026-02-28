@@ -106,6 +106,7 @@ export default function ConformiteVHUPage() {
                                             src="/images/centre-vhu-agree.jpeg"
                                             alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
                                             fill
+                                            sizes="200px"
                                             className="rounded-xl border-2 border-white/20 object-cover"
                                           />
                                         </div>

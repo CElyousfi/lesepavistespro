@@ -34,6 +34,7 @@ const VHUCertification = () => {
                     src="/images/centre-vhu-agree.jpeg"
                     alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
                     fill
+                    sizes="180px"
                     className="rounded-xl object-cover"
                   />
                 </div>
