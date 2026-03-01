@@ -37,7 +37,7 @@ export default function IdfExtraContent({
               {IDF_STATS.map((stat, index) => (
                 <ScrollAnimation key={index} delay={index * 0.1}>
                   <div className="text-center group">
-                    <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-white tracking-tight">
+                    <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-white tracking-tight whitespace-nowrap">
                       {stat.number}
                     </div>
                     <div className="h-px w-8 bg-brand-gold/60 mx-auto mb-3 group-hover:w-16 transition-all duration-500"></div>
