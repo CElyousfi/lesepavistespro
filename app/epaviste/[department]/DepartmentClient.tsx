@@ -20,6 +20,7 @@ import { idfEpavisteFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
 import IdfExtraContent from '@/components/IdfExtraContent';
 import IdfInternalLinks from '@/components/IdfInternalLinks';
+import IdfFaq from '@/components/IdfFaq';
 
 export default function DepartmentClientPage({ departmentSlug }: { departmentSlug: string }) {
   const dept = getDepartmentBySlug(departmentSlug);
@@ -345,7 +346,6 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
       {isIdf && idfContent && (
         <IdfExtraContent
           deptContent={idfContent}
-          faqItems={idfEpavisteFaq}
           testimonials={idfTestimonials}
           service="epaviste"
           locationName={dept.name}
@@ -360,8 +360,8 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
       {/* CTA Section */}
       <CTASection />
 
-      {/* FAQ — hidden on IDF pages (IdfExtraContent has its own FAQ) */}
-      {!isIdf && <FAQ />}
+      {/* FAQ */}
+      {isIdf ? <IdfFaq faqItems={idfEpavisteFaq} service="epaviste" /> : <FAQ />}
 
       {/* Footer */}
       <Footer />

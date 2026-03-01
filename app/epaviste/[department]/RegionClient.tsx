@@ -20,6 +20,7 @@ import { getAllIdfTestimonials } from '@/data/idf-testimonials';
 import { idfDeptContents } from '@/data/idf-extra-content';
 import IdfExtraContent from '@/components/IdfExtraContent';
 import IdfInternalLinks from '@/components/IdfInternalLinks';
+import IdfFaq from '@/components/IdfFaq';
 
 export default function RegionClientPage({ regionSlug }: { regionSlug: string }) {
   const region = getRegionBySlug(regionSlug);
@@ -346,7 +347,6 @@ export default function RegionClientPage({ regionSlug }: { regionSlug: string })
       {isIdf && idfRegionContent && (
         <IdfExtraContent
           deptContent={{ ...idfRegionContent, deptName: 'Île-de-France', whyChoose: `L'Île-de-France est la région la plus peuplée de France avec plus de 12 millions d'habitants et le plus grand parc automobile du pays. Les 8 départements franciliens (75, 77, 78, 91, 92, 93, 94, 95) concentrent des centaines de milliers de véhicules en fin de vie chaque année. Notre service d'épaviste agréé VHU couvre l'intégralité de la région, des arrondissements parisiens aux communes rurales de Seine-et-Marne, en passant par la petite et la grande couronne. Intervention rapide sous 2h en zone dense, sous 24h partout en IDF. Enlèvement 100% gratuit, certificat de destruction immédiat.`, regulations: `La Zone à Faibles Émissions métropolitaine (ZFE-m) du Grand Paris, la plus grande de France, impose des restrictions croissantes aux véhicules polluants. Depuis 2025, les véhicules Crit'Air 3 et plus sont interdits dans le périmètre de la Métropole du Grand Paris (Paris + 131 communes). La prime à la conversion en Île-de-France peut atteindre 6 000€ pour l'achat d'un véhicule propre. Notre service d'enlèvement gratuit vous fournit le certificat de destruction nécessaire pour bénéficier de ces aides.` }}
-          faqItems={idfEpavisteFaq}
           testimonials={idfTestimonials}
           service="epaviste"
           locationName="Île-de-France"
@@ -361,8 +361,8 @@ export default function RegionClientPage({ regionSlug }: { regionSlug: string })
       {/* CTA Section */}
       <CTASection />
 
-      {/* FAQ — hidden on IDF pages (IdfExtraContent has its own FAQ) */}
-      {!isIdf && <FAQ />}
+      {/* FAQ */}
+      {isIdf ? <IdfFaq faqItems={idfEpavisteFaq} service="epaviste" /> : <FAQ />}
 
       {/* Footer */}
       <Footer />

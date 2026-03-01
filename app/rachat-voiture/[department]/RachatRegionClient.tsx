@@ -20,6 +20,7 @@ import { getAllIdfTestimonials } from '@/data/idf-testimonials';
 import { idfDeptContents } from '@/data/idf-extra-content';
 import IdfExtraContent from '@/components/IdfExtraContent';
 import IdfInternalLinks from '@/components/IdfInternalLinks';
+import IdfFaq from '@/components/IdfFaq';
 
 export default function RachatRegionClientPage({ regionSlug }: { regionSlug: string }) {
   const region = getRegionBySlug(regionSlug);
@@ -344,7 +345,6 @@ export default function RachatRegionClientPage({ regionSlug }: { regionSlug: str
       {isIdf && idfRegionContent && (
         <IdfExtraContent
           deptContent={{ ...idfRegionContent, deptName: 'Île-de-France', whyChoose: `L'Île-de-France concentre le plus grand marché automobile de France. Nous rachetons tous types de véhicules dans les 8 départements franciliens : voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique. Paiement cash immédiat lors de l'enlèvement. Estimation gratuite en 15 minutes par téléphone ou WhatsApp. Intervention sous 24h partout en IDF.`, regulations: `Avec la ZFE-m du Grand Paris, de nombreux véhicules anciens ne peuvent plus circuler. Plutôt que de laisser votre voiture se déprécier, vendez-la au meilleur prix ! Nous rachetons tous les véhicules concernés par les restrictions Crit'Air en Île-de-France, avec paiement cash immédiat et prise en charge de toutes les démarches administratives.` }}
-          faqItems={idfRachatFaq}
           testimonials={idfTestimonials}
           service="rachat"
           locationName="Île-de-France"
@@ -359,8 +359,8 @@ export default function RachatRegionClientPage({ regionSlug }: { regionSlug: str
       {/* CTA Section */}
       <CTASection />
 
-      {/* FAQ — hidden on IDF pages (IdfExtraContent has its own FAQ) */}
-      {!isIdf && <FAQ />}
+      {/* FAQ */}
+      {isIdf ? <IdfFaq faqItems={idfRachatFaq} service="rachat" /> : <FAQ />}
 
       {/* Footer */}
       <Footer />

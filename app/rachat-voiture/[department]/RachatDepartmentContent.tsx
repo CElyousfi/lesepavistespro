@@ -20,6 +20,7 @@ import { idfRachatFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
 import IdfExtraContent from '@/components/IdfExtraContent';
 import IdfInternalLinks from '@/components/IdfInternalLinks';
+import IdfFaq from '@/components/IdfFaq';
 
 export default function RachatDepartmentContent({ departmentSlug }: { departmentSlug: string }) {
   const dept = getDepartmentBySlug(departmentSlug);
@@ -409,7 +410,6 @@ export default function RachatDepartmentContent({ departmentSlug }: { department
       {isIdf && idfContent && (
         <IdfExtraContent
           deptContent={idfContent}
-          faqItems={idfRachatFaq}
           testimonials={idfTestimonials}
           service="rachat"
           locationName={dept.name}
@@ -424,8 +424,8 @@ export default function RachatDepartmentContent({ departmentSlug }: { department
       {/* CTA Section */}
       <CTASection />
 
-      {/* FAQ — hidden on IDF pages (IdfExtraContent has its own FAQ) */}
-      {!isIdf && <FAQ />}
+      {/* FAQ */}
+      {isIdf ? <IdfFaq faqItems={idfRachatFaq} service="rachat" /> : <FAQ />}
 
       {/* Footer */}
       <Footer />
