@@ -360,8 +360,8 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
       {/* CTA Section */}
       <CTASection />
 
-      {/* FAQ */}
-      <FAQ />
+      {/* FAQ — hidden on IDF pages (IdfExtraContent has its own FAQ) */}
+      {!isIdf && <FAQ />}
 
       {/* Footer */}
       <Footer />
