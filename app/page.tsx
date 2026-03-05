@@ -3,7 +3,7 @@ import HeroNew from '@/components/HeroNew';
 import ServiceSelector from '@/components/ServiceSelector';
 import ProcessNew from '@/components/ProcessNew';
 import Coverage from '@/components/Coverage';
-import AnimatedStats from '@/components/AnimatedStats';
+import type { CoverageRegion, CoverageCity } from '@/components/Coverage';
 import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
 import DualServiceCTA from '@/components/DualServiceCTA';
@@ -15,6 +15,7 @@ import VHUCertification from '@/components/VHUCertification';
 import { getHomeStructuredData } from '@/lib/structured-data';
 import { generateHomeMeta } from '@/lib/seo';
 import { getEpaveRemovalHowToSchema, getDefaultReviewsSchema, getSpeakableSchema } from '@/lib/schema';
+import { regions as allRegions } from '@/lib/locations-complete';
 
 export const metadata = generateHomeMeta();
 
@@ -23,6 +24,25 @@ export default function Home() {
   const howToSchema = getEpaveRemovalHowToSchema();
   const reviewsSchema = getDefaultReviewsSchema();
   const speakableSchema = getSpeakableSchema('https://www.lesepavistespro.fr/');
+
+  // Pre-compute Coverage data server-side to avoid shipping locations-national to client
+  const overseasSlugs = ['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'];
+  const coverageRegions: CoverageRegion[] = allRegions
+    .filter(r => !overseasSlugs.includes(r.slug))
+    .map(r => ({
+      name: r.name,
+      slug: r.slug,
+      deptCount: r.departments.length,
+      cityCount: r.departments.reduce((sum, d) => sum + d.cities.length, 0),
+    }));
+  const keyDepts = allRegions.flatMap(r => r.departments).slice(0, 16);
+  const coverageCities: CoverageCity[] = keyDepts.flatMap(dept =>
+    dept.cities.slice(0, 1).map(city => ({
+      name: city.name,
+      slug: city.slug,
+      deptSlug: dept.slug,
+    }))
+  );
 
   return (
     <>
@@ -104,14 +124,11 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Stats */}
-          <AnimatedStats />
-
           {/* VHU Certification */}
           <VHUCertification />
 
           {/* Coverage */}
-          <Coverage />
+          <Coverage regions={coverageRegions} topCities={coverageCities} />
 
           {/* Testimonials */}
           <Testimonials />

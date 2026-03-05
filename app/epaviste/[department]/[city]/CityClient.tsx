@@ -1,8 +1,6 @@
 'use client';
 
-import Script from 'next/script';
-import { notFound } from 'next/navigation';
-import { getCityBySlug } from '@/lib/locations-complete';
+import dynamic from 'next/dynamic';
 import { CheckCircle, Clock, Shield, MapPin, CaretRight, Car, CurrencyEur } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
@@ -11,37 +9,24 @@ import Breadcrumb from '@/components/Breadcrumb';
 import QuickContact from '@/components/QuickContact';
 import TrustBadges from '@/components/TrustBadges';
 import ServiceCard from '@/components/ServiceCard';
-import FAQ from '@/components/FAQ';
-import CTASection from '@/components/CTASection';
-import ConversionForm from '@/components/ConversionForm';
-import Footer from '@/components/Footer';
-import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { getBreadcrumbData, getCityFAQData, renderJSONLD } from '@/lib/structured-data';
-import { getCityLocalData } from '@/lib/city-local-data';
-import { isIdfDepartment } from '@/lib/idf';
-import IdfInternalLinks from '@/components/IdfInternalLinks';
+import type { CityData, DepartmentData } from '@/lib/page-data';
+import type { CityLocalData } from '@/lib/city-local-data';
 
-export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
-  const result = getCityBySlug(citySlug);
+const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
+const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
+const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
+const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
+const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 
-  if (!result) {
-    notFound();
-  }
+interface CityEpavisteClientProps {
+  city: CityData;
+  department: DepartmentData;
+  localData: CityLocalData | null;
+  isIdf: boolean;
+}
 
-  const { city, department } = result;
-
-  // Get local data (fourrière, parking, etc.)
-  const localData = getCityLocalData(city.slug);
-
-  // Structured Data
-  const breadcrumbData = getBreadcrumbData([
-    { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
-    { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}` },
-    { name: city.name, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}/${city.slug}` }
-  ]);
-
-  const cityFAQData = getCityFAQData(city.name, department.name, city.slug);
-
+export default function CityEpavisteClient({ city, department, localData, isIdf }: CityEpavisteClientProps) {
   // Get nearby cities (first 6 from same department, excluding current)
   const nearbyCities = department.cities
     .filter(c => c.slug !== city.slug)
@@ -49,20 +34,6 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
 
   return (
     <>
-      {/* Structured Data for SEO */}
-      <Script
-        id={`breadcrumb-${city.slug}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
-      />
-      <Script
-        id={`faq-${city.slug}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(cityFAQData) }}
-      />
-      
       <Header />
       {/* Hero Section */}
       <LocationHero>
@@ -91,7 +62,7 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Épaviste agréé VHU à {city.name}. Enlèvement d'épave 100% GRATUIT 24h/24,
-          certificat de destruction fourni. Intervention rapide sous 2h.
+          certificat de destruction fourni. Intervention rapide sous {isIdf ? '2h' : '24-48h'}.
           09 79 04 94 86.
         </p>
 
@@ -105,7 +76,7 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
         />
 
         {/* Trust Indicators */}
-        <TrustBadges service="epaviste" />
+        <TrustBadges service="epaviste" isIdf={isIdf} />
       </LocationHero>
 
       {/* Service Description */}
@@ -124,7 +95,7 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
               
               <h3 className="text-xl font-bold text-brand-navy mb-3 mt-6">Délai d'intervention</h3>
               <p className="mb-3">
-                Intervention rapide sous 24-48h à {city.name} et dans tout le {department.name}. 
+                Intervention rapide sous {isIdf ? '2-4h' : '24-48h'} à {city.name} et dans tout le {department.name}. 
                 En urgence, nous pouvons intervenir le jour même.
               </p>
               
@@ -392,7 +363,7 @@ export default function CityEpavisteClient({ citySlug }: { citySlug: string }) {
       </section>
 
       {/* IDF Internal Links */}
-      {isIdfDepartment(department.slug) && (
+      {isIdf && (
         <IdfInternalLinks service="epaviste" currentDeptSlug={department.slug} currentCitySlug={city.slug} />
       )}
 

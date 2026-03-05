@@ -3,7 +3,7 @@ import { Users, TrendingUp, Euro, Leaf } from 'lucide-react';
 const stats = [
   {
     icon: Users,
-    value: '+250',
+    value: '500+',
     label: 'Clients satisfaits',
     description: 'Nous font déjà confiance',
   },

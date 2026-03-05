@@ -74,10 +74,10 @@ const HeroNew = () => {
         {/* Scrolling stats marquee */}
         <div className="mt-20 lg:mt-28 overflow-hidden border-t border-b border-neutral-200 py-6">
           <div className="marquee-track">
-            {[...Array(4)].map((_, setIndex) => (
+            {[...Array(2)].map((_, setIndex) => (
               <div key={setIndex} className="flex items-center gap-12 px-6">
                 <div className="flex items-center gap-4 whitespace-nowrap">
-                  <span className="text-4xl md:text-5xl font-bold text-brand-navy tracking-tight">+250</span>
+                  <span className="text-4xl md:text-5xl font-bold text-brand-navy tracking-tight">500+</span>
                   <span className="text-sm text-neutral-500 font-medium">Clients<br/>satisfaits</span>
                 </div>
                 <span className="text-neutral-300 text-2xl">+</span>

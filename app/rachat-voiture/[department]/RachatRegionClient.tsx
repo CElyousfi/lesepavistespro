@@ -1,73 +1,38 @@
 'use client';
 
-import Script from 'next/script';
-import { notFound } from 'next/navigation';
-import { getRegionBySlug, type Region } from '@/lib/locations-complete';
+import dynamic from 'next/dynamic';
 import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin, CurrencyEur } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
-import FAQ from '@/components/FAQ';
-import CTASection from '@/components/CTASection';
-import ConversionForm from '@/components/ConversionForm';
-import Footer from '@/components/Footer';
-import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { getBreadcrumbData } from '@/lib/structured-data';
-import { isIdfRegion } from '@/lib/idf';
-import { idfRachatFaq } from '@/data/idf-faq';
-import { getAllIdfTestimonials } from '@/data/idf-testimonials';
-import { idfDeptContents } from '@/data/idf-extra-content';
-import IdfExtraContent from '@/components/IdfExtraContent';
-import IdfInternalLinks from '@/components/IdfInternalLinks';
-import IdfFaq from '@/components/IdfFaq';
+import type { RegionData } from '@/lib/page-data';
+import type { IdfDeptContent } from '@/data/idf-extra-content';
+import type { IdfFaqItem } from '@/data/idf-faq';
+import type { IdfTestimonial } from '@/data/idf-testimonials';
 
-export default function RachatRegionClientPage({ regionSlug }: { regionSlug: string }) {
-  const region = getRegionBySlug(regionSlug);
+const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
+const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
+const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
+const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
+const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
+const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
+const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
 
-  if (!region) {
-    notFound();
-  }
+interface RachatRegionClientProps {
+  region: RegionData;
+  isIdf: boolean;
+  idfRegionContent: IdfDeptContent | null;
+  idfTestimonials: IdfTestimonial[];
+  idfFaqItems: IdfFaqItem[];
+}
 
+export default function RachatRegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, idfFaqItems }: RachatRegionClientProps) {
   const totalCities = region.departments.reduce((sum, dept) => sum + dept.cities.length, 0);
-  const isIdf = isIdfRegion(regionSlug);
-  const idfRegionContent = isIdf ? idfDeptContents[0] : null;
-  const idfTestimonials = isIdf ? getAllIdfTestimonials().filter(t => t.service === 'rachat') : [];
-
-  const breadcrumbData = getBreadcrumbData([
-    { name: 'Accueil', url: 'https://www.lesepavistespro.fr/' },
-    { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
-    { name: region.name, url: `https://www.lesepavistespro.fr/rachat-voiture/${region.slug}` },
-  ]);
-
-  const localBusinessData = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': 'https://www.lesepavistespro.fr/#business',
-    name: 'Les Épavistes Pro',
-    url: `https://www.lesepavistespro.fr/rachat-voiture/${region.slug}`,
-    telephone: '+33979049486',
-    openingHours: 'Mo-Su 00:00-23:59',
-    areaServed: [
-      { '@type': 'AdministrativeArea', name: region.name },
-      ...region.departments.map(dept => ({
-        '@type': 'AdministrativeArea',
-        name: `${dept.name} (${dept.code})`,
-      })),
-    ],
-  };
-
-  const structuredData = [localBusinessData, breadcrumbData];
 
   return (
     <>
-      {/* Structured Data for SEO */}
-      <Script
-        id={`rachat-region-${region.slug}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
       <Header />
 
       {/* Hero Section */}
@@ -360,7 +325,7 @@ export default function RachatRegionClientPage({ regionSlug }: { regionSlug: str
       <CTASection />
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfRachatFaq} service="rachat" /> : <FAQ />}
+      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="rachat" /> : <FAQ />}
 
       {/* Footer */}
       <Footer />

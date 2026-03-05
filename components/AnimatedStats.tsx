@@ -10,7 +10,7 @@ interface Stat {
 
 const stats: Stat[] = [
   {
-    number: '+250',
+    number: '500+',
     label: 'Clients satisfaits',
     description: 'Service rapide et professionnel garanti partout en France.'
   },

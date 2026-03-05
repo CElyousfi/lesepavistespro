@@ -1,5 +1,14 @@
-import { regions } from './locations-national';
 import { getSiteUrl } from './site';
+
+/** Static region names for structured data (avoids importing 2.5MB locations-national into client bundle) */
+const REGION_NAMES = [
+  'Auvergne-Rhône-Alpes', 'Bourgogne-Franche-Comté', 'Bretagne',
+  'Centre-Val de Loire', 'Corse', 'Grand Est',
+  'Hauts-de-France', 'Île-de-France', 'Normandie',
+  'Nouvelle-Aquitaine', 'Occitanie', 'Pays de la Loire',
+  'Provence-Alpes-Côte d\'Azur', 'Guadeloupe', 'Martinique',
+  'Guyane', 'La Réunion', 'Mayotte',
+];
 
 /**
  * Organization schema for brand SERP ownership
@@ -151,9 +160,9 @@ export function getLocalBusinessSchema() {
       latitude: 48.8566,
       longitude: 2.3522,
     },
-    areaServed: regions.map(region => ({
+    areaServed: REGION_NAMES.map(name => ({
       '@type': 'AdministrativeArea',
-      name: region.name,
+      name,
     })),
     openingHoursSpecification: [
       {
@@ -174,7 +183,7 @@ export function getLocalBusinessSchema() {
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '250',
+      reviewCount: '500',
       bestRating: '5',
       worstRating: '1',
     },
@@ -378,7 +387,7 @@ export function getReviewSchema(reviews: Array<{
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '250',
+      reviewCount: '500',
       bestRating: '5',
       worstRating: '1',
     },

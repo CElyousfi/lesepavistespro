@@ -2,19 +2,27 @@
 
 import Link from 'next/link';
 import { MapPin, ArrowRight } from '@phosphor-icons/react';
-import { regions } from '@/lib/locations-complete';
 import ScrollAnimation from './ScrollAnimation';
 
-const Coverage = () => {
-  const keyDepts = regions.flatMap(r => r.departments).slice(0, 16);
-  const topCities = keyDepts.flatMap(dept => 
-    dept.cities.slice(0, 1).map(city => ({
-      name: city.name,
-      slug: city.slug,
-      deptSlug: dept.slug,
-      postalCode: city.postalCode
-    }))
-  );
+export interface CoverageRegion {
+  name: string;
+  slug: string;
+  deptCount: number;
+  cityCount: number;
+}
+
+export interface CoverageCity {
+  name: string;
+  slug: string;
+  deptSlug: string;
+}
+
+interface CoverageProps {
+  regions: CoverageRegion[];
+  topCities: CoverageCity[];
+}
+
+const Coverage = ({ regions, topCities }: CoverageProps) => {
 
   return (
     <section id="couverture" className="py-24 md:py-32 bg-white relative">
@@ -35,7 +43,7 @@ const Coverage = () => {
 
           {/* Regions Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
-            {regions.filter(r => !['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug)).map((region, index) => (
+            {regions.map((region, index) => (
               <ScrollAnimation key={region.slug} delay={index * 0.03}>
                 <Link
                   href={`/epaviste/${region.slug}`}
@@ -50,7 +58,7 @@ const Coverage = () => {
                         {region.name}
                       </h3>
                       <p className="text-xs text-neutral-500">
-                        {region.departments.length} dép. &middot; {region.departments.reduce((sum, d) => sum + d.cities.length, 0)} communes
+                        {region.deptCount} dép. &middot; {region.cityCount} communes
                       </p>
                     </div>
                   </div>

@@ -1,53 +1,35 @@
 'use client';
 
 import { useState } from 'react';
-import Script from 'next/script';
-import { notFound } from 'next/navigation';
-import { getDepartmentBySlug, getRegionForDepartment } from '@/lib/locations-complete';
+import dynamic from 'next/dynamic';
 import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin, Clock, CaretDown } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
-import FAQ from '@/components/FAQ';
-import CTASection from '@/components/CTASection';
-import ConversionForm from '@/components/ConversionForm';
-import Footer from '@/components/Footer';
-import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { getDepartmentLocalBusiness, getBreadcrumbData } from '@/lib/structured-data';
-import { isIdfDepartment } from '@/lib/idf';
-import { getIdfDeptContent } from '@/data/idf-extra-content';
-import { idfRachatFaq } from '@/data/idf-faq';
-import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
-import IdfExtraContent from '@/components/IdfExtraContent';
-import IdfInternalLinks from '@/components/IdfInternalLinks';
-import IdfFaq from '@/components/IdfFaq';
+import type { DepartmentData, ParentRegionData } from '@/lib/page-data';
+import type { IdfDeptContent } from '@/data/idf-extra-content';
+import type { IdfFaqItem } from '@/data/idf-faq';
+import type { IdfTestimonial } from '@/data/idf-testimonials';
 
-export default function RachatDepartmentContent({ departmentSlug }: { departmentSlug: string }) {
-  const dept = getDepartmentBySlug(departmentSlug);
+const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
+const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
+const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
+const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
+const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
+const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
+const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
 
-  if (!dept) {
-    notFound();
-  }
+interface RachatDepartmentProps {
+  dept: DepartmentData;
+  parentRegion: ParentRegionData | null;
+  isIdf: boolean;
+  idfContent: IdfDeptContent | null;
+  idfTestimonials: IdfTestimonial[];
+  idfFaqItems: IdfFaqItem[];
+}
 
-  const parentRegion = getRegionForDepartment(departmentSlug);
-  const isIdf = isIdfDepartment(departmentSlug);
-  const idfContent = isIdf ? getIdfDeptContent(dept.code) : null;
-  const idfTestimonials = isIdf ? getIdfTestimonialsByDept(dept.code).filter(t => t.service === 'rachat') : [];
-
-  const localBusinessData = getDepartmentLocalBusiness(
-    dept.code,
-    `${dept.name} (${dept.code})`,
-    `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}`
-  );
-
-  const breadcrumbData = getBreadcrumbData([
-    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
-    { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
-    { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}` },
-  ]);
-
-  const structuredData = [localBusinessData, breadcrumbData];
-
+export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idfContent, idfTestimonials, idfFaqItems }: RachatDepartmentProps) {
   const CITIES_PER_PAGE = 20;
   const [visibleCities, setVisibleCities] = useState(CITIES_PER_PAGE);
   const hasMoreCities = dept.cities.length > visibleCities;
@@ -55,13 +37,6 @@ export default function RachatDepartmentContent({ departmentSlug }: { department
 
   return (
     <>
-      {/* Structured Data for SEO */}
-      <Script
-        id={`department-rachat-${dept.slug}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
       <Header />
       {/* Hero Section */}
       <LocationHero accentColor="gold">
@@ -425,7 +400,7 @@ export default function RachatDepartmentContent({ departmentSlug }: { department
       <CTASection />
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfRachatFaq} service="rachat" /> : <FAQ />}
+      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="rachat" /> : <FAQ />}
 
       {/* Footer */}
       <Footer />

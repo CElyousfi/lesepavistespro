@@ -1,10 +1,8 @@
 'use client';
 
-import { CheckCircle, Shield, Clock, Star, MapPin, Certificate, Leaf } from '@phosphor-icons/react';
+import { CheckCircle, Shield, Clock, Star, MapPin, Leaf } from '@phosphor-icons/react';
 import { type IdfDeptContent } from '@/data/idf-extra-content';
 import { type IdfTestimonial } from '@/data/idf-testimonials';
-import { IDF_STATS } from '@/lib/idf';
-import ScrollAnimation from '@/components/ScrollAnimation';
 
 interface IdfExtraContentProps {
   deptContent: IdfDeptContent;
@@ -24,32 +22,6 @@ export default function IdfExtraContent({
 
   return (
     <>
-      {/* IDF Stats Bar — matches AnimatedStats style */}
-      <section className="py-20 md:py-24 bg-brand-navy">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 md:gap-12">
-              {IDF_STATS.map((stat, index) => (
-                <ScrollAnimation key={index} delay={index * 0.1}>
-                  <div className="text-center group">
-                    <div className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-white tracking-tight whitespace-nowrap">
-                      {stat.number}
-                    </div>
-                    <div className="h-px w-8 bg-brand-gold/60 mx-auto mb-3 group-hover:w-16 transition-all duration-500"></div>
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-300 mb-2">
-                      {stat.label}
-                    </h3>
-                    <p className="text-xs text-neutral-400 max-w-[160px] mx-auto leading-relaxed hidden md:block">
-                      {stat.description}
-                    </p>
-                  </div>
-                </ScrollAnimation>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Why Choose Us in IDF */}
       <section className="py-16 sm:py-24 bg-brand-surface">
         <div className="container mx-auto px-4">

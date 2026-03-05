@@ -18,7 +18,7 @@ export default function MobileServiceMenu({ isOpen, onClose }: MobileServiceMenu
         onClick={onClose}
       />
 
-      <div className="fixed inset-y-0 right-0 w-full max-w-sm bg-white z-50 lg:hidden overflow-y-auto border-l border-neutral-200 shadow-xl">
+      <div data-nosnippet className="fixed inset-y-0 right-0 w-full max-w-sm bg-white z-50 lg:hidden overflow-y-auto border-l border-neutral-200 shadow-xl">
         {/* Header */}
         <div className="sticky top-0 bg-white/95 backdrop-blur-md border-b border-neutral-200 p-6 flex items-center justify-between z-10">
           <span className="font-bold text-lg text-brand-navy">Menu</span>

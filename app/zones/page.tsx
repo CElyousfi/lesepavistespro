@@ -13,9 +13,20 @@ import VHUCertification from '@/components/VHUCertification';
 export const metadata: Metadata = generateZonesMeta();
 
 export default function ZonesPage() {
-  // Calculate total cities
+  // Pre-compute minimal data to avoid serializing full location tree to client
   const totalCities = allDepartments.reduce((sum, dept) => sum + dept.cities.length, 0);
   const totalDepartments = allDepartments.length;
+  const totalRegions = regions.length;
+
+  const zonesRegions = regions.map(r => ({
+    name: r.name,
+    slug: r.slug,
+    deptCount: r.departments.length,
+    cityCount: r.departments.reduce((sum, d) => sum + d.cities.length, 0),
+    departments: r.departments
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map(d => ({ name: d.name, code: d.code, slug: d.slug, cityCount: d.cities.length })),
+  }));
 
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
@@ -48,7 +59,7 @@ export default function ZonesPage() {
             </h1>
             
             <p className="text-lg text-neutral-600 mb-12 leading-relaxed max-w-2xl mx-auto">
-              Nous intervenons dans <strong className="text-brand-navy">{totalCities.toLocaleString('fr-FR')} communes</strong> réparties sur <strong className="text-brand-navy">{totalDepartments} départements</strong> et <strong className="text-brand-navy">{regions.length} régions</strong> pour l&apos;enlèvement d&apos;épave gratuit et le rachat de voiture.
+              Nous intervenons dans <strong className="text-brand-navy">{totalCities.toLocaleString('fr-FR')} communes</strong> réparties sur <strong className="text-brand-navy">{totalDepartments} départements</strong> et <strong className="text-brand-navy">{totalRegions} régions</strong> pour l&apos;enlèvement d&apos;épave gratuit et le rachat de voiture.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -79,7 +90,7 @@ export default function ZonesPage() {
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
               <div className="text-center p-6 bg-white rounded-2xl border border-neutral-200">
-                <div className="text-4xl font-bold mb-1 text-brand-navy">{regions.length}</div>
+                <div className="text-4xl font-bold mb-1 text-brand-navy">{totalRegions}</div>
                 <div className="text-sm text-neutral-500">Régions</div>
               </div>
               <div className="text-center p-6 bg-white rounded-2xl border border-neutral-200">
@@ -98,7 +109,7 @@ export default function ZonesPage() {
 
             {/* Regions & Departments List */}
             <div className="space-y-8">
-              {regions.map((region) => (
+              {zonesRegions.map((region) => (
                 <div key={region.slug} className="bg-white rounded-2xl p-8 border border-neutral-200">
                   {/* Region Header */}
                   <div className="mb-6">
@@ -109,15 +120,13 @@ export default function ZonesPage() {
                       </h2>
                     </div>
                     <p className="text-neutral-500 text-sm">
-                      {region.departments.length} départements • {region.departments.reduce((sum, d) => sum + d.cities.length, 0).toLocaleString('fr-FR')} communes couvertes
+                      {region.deptCount} départements • {region.cityCount.toLocaleString('fr-FR')} communes couvertes
                     </p>
                   </div>
 
                   {/* Departments Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                    {region.departments
-                      .sort((a, b) => a.name.localeCompare(b.name))
-                      .map((dept) => (
+                    {region.departments.map((dept) => (
                         <Link
                           key={dept.slug}
                           href={`/epaviste/${dept.slug}`}
@@ -129,7 +138,7 @@ export default function ZonesPage() {
                                 {dept.name} ({dept.code})
                               </div>
                               <div className="text-xs text-neutral-500">
-                                {dept.cities.length} communes
+                                {dept.cityCount} communes
                               </div>
                             </div>
                             <div className="text-neutral-400 group-hover:text-brand-red transition-colors">

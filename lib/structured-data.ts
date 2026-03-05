@@ -55,7 +55,7 @@ export function getHomeStructuredData() {
       aggregateRating: {
         '@type': 'AggregateRating',
         ratingValue: '4.9',
-        reviewCount: '250'
+        reviewCount: '500'
       },
       areaServed: getAllAreaServed()
     },
@@ -368,7 +368,7 @@ export function getIdfDepartmentStructuredData(deptCode: string, deptName: strin
         ratingValue: '4.9',
         bestRating: '5',
         worstRating: '1',
-        reviewCount: String(150 + deptTestimonials.length * 10)
+        reviewCount: '500'
       },
       sameAs: [FACEBOOK_URL, INSTAGRAM_URL]
     },
@@ -449,7 +449,7 @@ export function getIdfRegionStructuredData(service: 'epaviste' | 'rachat') {
         ratingValue: '4.9',
         bestRating: '5',
         worstRating: '1',
-        reviewCount: '350'
+        reviewCount: '500'
       },
       sameAs: [FACEBOOK_URL, INSTAGRAM_URL]
     },

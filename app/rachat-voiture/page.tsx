@@ -26,8 +26,11 @@ export default function RachatVoiturePage() {
   ]);
   const speakableSchema = getSpeakableSchema('https://www.lesepavistespro.fr/rachat-voiture');
 
-  const metroRegions = regions.filter(r => !['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
-  const outremerRegions = regions.filter(r => ['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'].includes(r.slug));
+  // Pre-compute minimal region data to avoid serializing full location tree to client
+  const overseasSlugs = ['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'];
+  const minimalRegions = regions.map(r => ({ name: r.name, slug: r.slug, deptCount: r.departments.length }));
+  const metroRegions = minimalRegions.filter(r => !overseasSlugs.includes(r.slug));
+  const outremerRegions = minimalRegions.filter(r => overseasSlugs.includes(r.slug));
 
   return (
     <>
@@ -260,7 +263,7 @@ export default function RachatVoiturePage() {
                       <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-gold transition-colors">
                         {region.name}
                       </div>
-                      <div className="text-xs text-neutral-500">{region.departments.length} dép.</div>
+                      <div className="text-xs text-neutral-500">{region.deptCount} dép.</div>
                     </div>
                   </Link>
                 ))}
@@ -283,7 +286,7 @@ export default function RachatVoiturePage() {
                       <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-gold transition-colors">
                         {region.name}
                       </div>
-                      <div className="text-xs text-neutral-500">{region.departments.length} dép.</div>
+                      <div className="text-xs text-neutral-500">{region.deptCount} dép.</div>
                     </div>
                   </Link>
                 ))}

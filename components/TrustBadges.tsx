@@ -5,15 +5,16 @@ import { CheckCircle, Clock, Shield, Star, Users, MapPin } from '@phosphor-icons
 interface TrustBadgesProps {
   variant?: 'horizontal' | 'grid';
   service?: 'epaviste' | 'rachat';
+  isIdf?: boolean;
   className?: string;
 }
 
-export default function TrustBadges({ variant = 'horizontal', service = 'epaviste', className = '' }: TrustBadgesProps) {
+export default function TrustBadges({ variant = 'horizontal', service = 'epaviste', isIdf = false, className = '' }: TrustBadgesProps) {
 
 
   const badges = service === 'epaviste' ? [
     { icon: CheckCircle, text: '100% Gratuit', colorClass: 'text-brand-red' },
-    { icon: Clock, text: 'Intervention 24-48h', colorClass: 'text-brand-red' },
+    { icon: Clock, text: isIdf ? 'Intervention 2h' : 'Intervention 24-48h', colorClass: 'text-brand-red' },
     { icon: Shield, text: 'Agréé VHU', colorClass: 'text-brand-red' },
     { icon: Star, text: '500+ clients satisfaits', colorClass: 'text-brand-red' },
   ] : [

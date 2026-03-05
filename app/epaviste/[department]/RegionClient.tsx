@@ -1,73 +1,39 @@
 'use client';
 
-import Script from 'next/script';
-import { notFound } from 'next/navigation';
-import { getRegionBySlug, type Region } from '@/lib/locations-complete';
+import dynamic from 'next/dynamic';
 import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
-import FAQ from '@/components/FAQ';
-import CTASection from '@/components/CTASection';
-import ConversionForm from '@/components/ConversionForm';
-import Footer from '@/components/Footer';
-import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { getBreadcrumbData } from '@/lib/structured-data';
-import { isIdfRegion } from '@/lib/idf';
-import { idfEpavisteFaq } from '@/data/idf-faq';
-import { getAllIdfTestimonials } from '@/data/idf-testimonials';
-import { idfDeptContents } from '@/data/idf-extra-content';
-import IdfExtraContent from '@/components/IdfExtraContent';
-import IdfInternalLinks from '@/components/IdfInternalLinks';
-import IdfFaq from '@/components/IdfFaq';
+import type { RegionData } from '@/lib/page-data';
+import type { IdfDeptContent } from '@/data/idf-extra-content';
+import type { IdfFaqItem } from '@/data/idf-faq';
+import type { IdfTestimonial } from '@/data/idf-testimonials';
 
-export default function RegionClientPage({ regionSlug }: { regionSlug: string }) {
-  const region = getRegionBySlug(regionSlug);
+// Dynamic imports for below-fold heavy components
+const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
+const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
+const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
+const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
+const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
+const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
+const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
 
-  if (!region) {
-    notFound();
-  }
+interface RegionClientProps {
+  region: RegionData;
+  isIdf: boolean;
+  idfRegionContent: IdfDeptContent | null;
+  idfTestimonials: IdfTestimonial[];
+  idfFaqItems: IdfFaqItem[];
+}
 
+export default function RegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, idfFaqItems }: RegionClientProps) {
   const totalCities = region.departments.reduce((sum, dept) => sum + dept.cities.length, 0);
-  const isIdf = isIdfRegion(regionSlug);
-  const idfRegionContent = isIdf ? idfDeptContents[0] : null; // Use Paris content as region-level
-  const idfTestimonials = isIdf ? getAllIdfTestimonials().filter(t => t.service === 'epaviste') : [];
-
-  const breadcrumbData = getBreadcrumbData([
-    { name: 'Accueil', url: 'https://www.lesepavistespro.fr/' },
-    { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
-    { name: region.name, url: `https://www.lesepavistespro.fr/epaviste/${region.slug}` },
-  ]);
-
-  const localBusinessData = {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': 'https://www.lesepavistespro.fr/#business',
-    name: 'Les Épavistes Pro',
-    url: `https://www.lesepavistespro.fr/epaviste/${region.slug}`,
-    telephone: '+33979049486',
-    openingHours: 'Mo-Su 00:00-23:59',
-    areaServed: [
-      { '@type': 'AdministrativeArea', name: region.name },
-      ...region.departments.map(dept => ({
-        '@type': 'AdministrativeArea',
-        name: `${dept.name} (${dept.code})`,
-      })),
-    ],
-  };
-
-  const structuredData = [localBusinessData, breadcrumbData];
 
   return (
     <>
-      {/* Structured Data for SEO */}
-      <Script
-        id={`region-${region.slug}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
       <Header />
 
       {/* Hero Section */}
@@ -134,7 +100,7 @@ export default function RegionClientPage({ regionSlug }: { regionSlug: string })
           </div>
           <div className="flex flex-col items-center gap-2">
             <Clock size={22} weight="fill" className="text-brand-red" />
-            <span className="font-semibold text-neutral-700">Intervention 24-48h</span>
+            <span className="font-semibold text-neutral-700">Intervention {isIdf ? '2-4h' : '24-48h'}</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             <Shield size={22} weight="fill" className="text-brand-red" />
@@ -209,7 +175,8 @@ export default function RegionClientPage({ regionSlug }: { regionSlug: string })
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Why Choose Us — only on non-IDF (IdfExtraContent has detailed IDF version) */}
+      {!isIdf && (
       <section className="py-16 sm:py-24 bg-brand-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -243,7 +210,7 @@ export default function RegionClientPage({ regionSlug }: { regionSlug: string })
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Intervention rapide</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Prise en charge sous 24-48h dans toute la région {region.name}. Service d'urgence disponible.
+                      Prise en charge sous {isIdf ? '2-4h' : '24-48h'} dans toute la région {region.name}. Service d'urgence disponible.
                     </p>
                   </div>
                 </div>
@@ -280,6 +247,7 @@ export default function RegionClientPage({ regionSlug }: { regionSlug: string })
           </div>
         </div>
       </section>
+      )}
 
       {/* Related Services - Internal Linking */}
       <section className="py-16 sm:py-24 bg-white border-t border-neutral-200">
@@ -362,7 +330,7 @@ export default function RegionClientPage({ regionSlug }: { regionSlug: string })
       <CTASection />
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfEpavisteFaq} service="epaviste" /> : <FAQ />}
+      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="epaviste" /> : <FAQ />}
 
       {/* Footer */}
       <Footer />

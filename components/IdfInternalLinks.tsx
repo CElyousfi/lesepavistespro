@@ -104,7 +104,7 @@ export default function IdfInternalLinks({ service, currentDeptSlug, currentCity
               {service === 'epaviste' ? 'Épaviste' : 'Rachat voiture'} dans tous les départements IDF
             </h2>
             <p className="text-neutral-600 mt-4 max-w-2xl mx-auto">
-              Nous intervenons dans les 8 départements d&apos;Île-de-France, soit plus de 1 200 communes couvertes.
+              Nous intervenons dans les 8 départements d&apos;Île-de-France, soit 1 286 communes couvertes.
               Intervention rapide 24h/24. 09 79 04 94 86.
             </p>
           </div>

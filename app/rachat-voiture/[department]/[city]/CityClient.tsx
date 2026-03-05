@@ -1,8 +1,6 @@
 'use client';
 
-import Script from 'next/script';
-import { notFound } from 'next/navigation';
-import { getCityBySlug } from '@/lib/locations-complete';
+import dynamic from 'next/dynamic';
 import { CheckCircle, CurrencyEur, Shield, MapPin, Clock, CaretRight, Car } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
@@ -11,37 +9,24 @@ import Breadcrumb from '@/components/Breadcrumb';
 import QuickContact from '@/components/QuickContact';
 import TrustBadges from '@/components/TrustBadges';
 import ServiceCard from '@/components/ServiceCard';
-import FAQ from '@/components/FAQ';
-import CTASection from '@/components/CTASection';
-import ConversionForm from '@/components/ConversionForm';
-import Footer from '@/components/Footer';
-import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { getBreadcrumbData, getCityFAQData, renderJSONLD } from '@/lib/structured-data';
-import { getCityLocalData } from '@/lib/city-local-data';
-import { isIdfDepartment } from '@/lib/idf';
-import IdfInternalLinks from '@/components/IdfInternalLinks';
+import type { CityData, DepartmentData } from '@/lib/page-data';
+import type { CityLocalData } from '@/lib/city-local-data';
 
-export default function CityRachatClient({ citySlug }: { citySlug: string }) {
-  const result = getCityBySlug(citySlug);
+const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
+const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
+const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
+const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
+const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 
-  if (!result) {
-    notFound();
-  }
+interface CityRachatClientProps {
+  city: CityData;
+  department: DepartmentData;
+  localData: CityLocalData | null;
+  isIdf: boolean;
+}
 
-  const { city, department } = result;
-
-  // Get local data (fourrière, parking, etc.)
-  const localData = getCityLocalData(city.slug);
-
-  // Structured Data
-  const breadcrumbData = getBreadcrumbData([
-    { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
-    { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}` },
-    { name: city.name, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/${city.slug}` }
-  ]);
-
-  const cityFAQData = getCityFAQData(city.name, department.name, city.slug);
-
+export default function CityRachatClient({ city, department, localData, isIdf }: CityRachatClientProps) {
   // Get nearby cities (first 6 from same department, excluding current)
   const nearbyCities = department.cities
     .filter(c => c.slug !== city.slug)
@@ -49,20 +34,6 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
 
   return (
     <>
-      {/* Structured Data for SEO */}
-      <Script
-        id={`breadcrumb-rachat-${city.slug}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
-      />
-      <Script
-        id={`faq-rachat-${city.slug}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(cityFAQData) }}
-      />
-      
       <Header />
       {/* Hero Section */}
       <LocationHero accentColor="gold">
@@ -291,7 +262,7 @@ export default function CityRachatClient({ citySlug }: { citySlug: string }) {
       </section>
 
       {/* IDF Internal Links */}
-      {isIdfDepartment(department.slug) && (
+      {isIdf && (
         <IdfInternalLinks service="rachat-voiture" currentDeptSlug={department.slug} currentCitySlug={city.slug} />
       )}
 

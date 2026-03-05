@@ -165,7 +165,7 @@ export function generateEpavisteCityMeta(
       : `Épaviste ${cityName}${postalDisplay} – Enlèvement gratuit 24h`,
     description: isIdf
       ? `Épaviste agréé VHU à ${cityName}${postalDisplay}, Île-de-France. Enlèvement d'épave 100% GRATUIT, intervention sous 2h, certificat de destruction immédiat. Parking souterrain OK. ☎ 09 79 04 94 86.`
-      : `Épaviste agréé VHU à ${cityName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 2h. 09 79 04 94 86.`,
+      : `Épaviste agréé VHU à ${cityName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 24-48h. 09 79 04 94 86.`,
     path: `/epaviste/${deptSlug}/${citySlug}`,
   });
 }
@@ -228,7 +228,7 @@ export function generateEpavisteRegionMeta(regionName: string, regionSlug: strin
       ? `Épaviste Île-de-France – Enlèvement Gratuit 24/7 | 8 Départements IDF`
       : `Épaviste ${regionName} Enlèvement Gratuit 24h`,
     description: isIdf
-      ? `Épaviste agréé VHU en Île-de-France : Paris 75, 77, 78, 91, 92, 93, 94, 95. Enlèvement d'épave 100% GRATUIT 24h/24, intervention sous 2h, 1 200+ communes couvertes. Certificat de destruction immédiat. ☎ 09 79 04 94 86.`
+      ? `Épaviste agréé VHU en Île-de-France : Paris 75, 77, 78, 91, 92, 93, 94, 95. Enlèvement d'épave 100% GRATUIT 24h/24, intervention sous 2h, 1 286 communes couvertes. Certificat de destruction immédiat. ☎ 09 79 04 94 86.`
       : `Épaviste agréé VHU en ${regionName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide dans tous les départements de la région. 09 79 04 94 86.`,
     path: `/epaviste/${regionSlug}`,
   });
@@ -245,7 +245,7 @@ export function generateRachatRegionMeta(regionName: string, regionSlug: string)
       ? `Rachat voiture Île-de-France – Cash immédiat | 8 Départements IDF`
       : `Rachat voiture ${regionName} – Sans CT, Cash immédiat`,
     description: isIdf
-      ? `Rachat de voiture au meilleur prix en Île-de-France : Paris, 77, 78, 91, 92, 93, 94, 95. Sans CT, paiement cash immédiat, tous véhicules. 1 200+ communes. Estimation gratuite. ☎ 09 79 04 94 86.`
+      ? `Rachat de voiture au meilleur prix en Île-de-France : Paris, 77, 78, 91, 92, 93, 94, 95. Sans CT, paiement cash immédiat, tous véhicules. 1 286 communes. Estimation gratuite. ☎ 09 79 04 94 86.`
       : `Nous rachetons tous types de véhicules en ${regionName} : voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique. Paiement cash immédiat dans tous les départements. 09 79 04 94 86.`,
     path: `/rachat-voiture/${regionSlug}`,
   });

@@ -1,53 +1,36 @@
 'use client';
 
 import { useState } from 'react';
-import Script from 'next/script';
-import { notFound } from 'next/navigation';
-import { getDepartmentBySlug, getRegionForDepartment, type Department } from '@/lib/locations-complete';
+import dynamic from 'next/dynamic';
 import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin, CaretDown } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
-import FAQ from '@/components/FAQ';
-import CTASection from '@/components/CTASection';
-import ConversionForm from '@/components/ConversionForm';
-import Footer from '@/components/Footer';
-import FloatingWhatsApp from '@/components/FloatingWhatsApp';
-import { getDepartmentLocalBusiness, getBreadcrumbData, renderJSONLD } from '@/lib/structured-data';
-import { isIdfDepartment } from '@/lib/idf';
-import { getIdfDeptContent } from '@/data/idf-extra-content';
-import { idfEpavisteFaq } from '@/data/idf-faq';
-import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
-import IdfExtraContent from '@/components/IdfExtraContent';
-import IdfInternalLinks from '@/components/IdfInternalLinks';
-import IdfFaq from '@/components/IdfFaq';
+import type { DepartmentData, ParentRegionData } from '@/lib/page-data';
+import type { IdfDeptContent } from '@/data/idf-extra-content';
+import type { IdfFaqItem } from '@/data/idf-faq';
+import type { IdfTestimonial } from '@/data/idf-testimonials';
 
-export default function DepartmentClientPage({ departmentSlug }: { departmentSlug: string }) {
-  const dept = getDepartmentBySlug(departmentSlug);
+// Dynamic imports for below-fold heavy components
+const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
+const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
+const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
+const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
+const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
+const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
+const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
 
-  if (!dept) {
-    notFound();
-  }
+interface DepartmentClientProps {
+  dept: DepartmentData;
+  parentRegion: ParentRegionData | null;
+  isIdf: boolean;
+  idfContent: IdfDeptContent | null;
+  idfTestimonials: IdfTestimonial[];
+  idfFaqItems: IdfFaqItem[];
+}
 
-  const parentRegion = getRegionForDepartment(departmentSlug);
-  const isIdf = isIdfDepartment(departmentSlug);
-  const idfContent = isIdf ? getIdfDeptContent(dept.code) : null;
-  const idfTestimonials = isIdf ? getIdfTestimonialsByDept(dept.code) : [];
-
-  const localBusinessData = getDepartmentLocalBusiness(
-    dept.code,
-    `${dept.name} (${dept.code})`,
-    `https://www.lesepavistespro.fr/epaviste/${dept.slug}`
-  );
-
-  const breadcrumbData = getBreadcrumbData([
-    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
-    { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
-    { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/epaviste/${dept.slug}` },
-  ]);
-
-  const structuredData = [localBusinessData, breadcrumbData];
-
+export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfContent, idfTestimonials, idfFaqItems }: DepartmentClientProps) {
   const CITIES_PER_PAGE = 20;
   const [visibleCities, setVisibleCities] = useState(CITIES_PER_PAGE);
   const hasMoreCities = dept.cities.length > visibleCities;
@@ -55,13 +38,6 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
 
   return (
     <>
-      {/* Structured Data for SEO */}
-      <Script
-        id={`department-${dept.slug}`}
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
       <Header />
       {/* Hero Section */}
       <LocationHero>
@@ -80,7 +56,7 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Épaviste agréé VHU dans tout le département {dept.name} ({dept.code}). 
           Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni.
-          Intervention rapide sous 24-48h.
+          Intervention rapide sous {isIdf ? '2h' : '24-48h'}.
           09 79 04 94 86.
         </p>
 
@@ -117,7 +93,7 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
           </div>
           <div className="flex flex-col items-center gap-2">
             <Clock size={22} weight="fill" className="text-brand-red" />
-            <span className="font-semibold text-neutral-700">Intervention 24-48h</span>
+            <span className="font-semibold text-neutral-700">Intervention {isIdf ? '2h' : '24-48h'}</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             <Shield size={22} weight="fill" className="text-brand-red" />
@@ -208,7 +184,8 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Why Choose Us — only on non-IDF pages (IdfExtraContent has a detailed IDF version) */}
+      {!isIdf && (
       <section className="py-16 sm:py-24 bg-brand-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -279,6 +256,7 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
           </div>
         </div>
       </section>
+      )}
 
       {/* Related Services - Internal Linking */}
       <section className="py-16 sm:py-24 bg-white border-t border-neutral-200">
@@ -361,7 +339,7 @@ export default function DepartmentClientPage({ departmentSlug }: { departmentSlu
       <CTASection />
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfEpavisteFaq} service="epaviste" /> : <FAQ />}
+      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="epaviste" /> : <FAQ />}
 
       {/* Footer */}
       <Footer />

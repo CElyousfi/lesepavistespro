@@ -26,7 +26,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-4">
+      <header data-nosnippet className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-4">
         <div className="container mx-auto px-4">
           <div className={`
             relative mx-auto max-w-6xl rounded-full transition-all duration-500 px-6
@@ -96,7 +96,7 @@ const Header = () => {
       <MobileServiceMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
       {/* Sticky Mobile CTAs */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 p-3 z-50 shadow-lg">
+      <div data-nosnippet className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 p-3 z-50 shadow-lg">
         <div className="grid grid-cols-3 gap-2 max-w-lg mx-auto">
           <a
             href="tel:0979049486"

@@ -97,7 +97,7 @@ export const blogPosts: BlogPost[] = [
       <h3>Étape 4 : Prenez rendez-vous (intervention rapide garantie)</h3>
       <p>Chez Les Épavistes Pro, nous nous adaptons à VOTRE emploi du temps :</p>
       <ul>
-        <li>⏰ <strong>Intervention sous 24-48h</strong> partout en Île-de-France</li>
+        <li>⏰ <strong>Intervention sous 2-4h</strong> partout en Île-de-France</li>
         <li>📅 <strong>Disponible 7j/7</strong> (y compris week-ends et jours fériés)</li>
         <li>🕐 <strong>Créneaux flexibles</strong> : matin, après-midi ou soir</li>
         <li>📞 <strong>Confirmation par SMS</strong> la veille du rendez-vous</li>
@@ -240,7 +240,7 @@ export const blogPosts: BlogPost[] = [
         <li>✅ <strong>Intervention 24-48h</strong> - Service rapide</li>
         <li>✅ <strong>Disponible 7j/7</strong> - Même le dimanche</li>
         <li>✅ <strong>Toute l'Île-de-France</strong> - 8 départements couverts</li>
-        <li>✅ <strong>+250 clients satisfaits</strong> - Avis vérifiés</li>
+        <li>✅ <strong>500+ clients satisfaits</strong> - Avis vérifiés</li>
         <li>✅ <strong>Équipe professionnelle</strong> - Matériel adapté</li>
         <li>✅ <strong>Démarches simplifiées</strong> - On s'occupe de tout</li>
       </ul>
@@ -252,7 +252,7 @@ export const blogPosts: BlogPost[] = [
       <p>💬 <strong>WhatsApp disponible</strong> pour devis rapide</p>
       <p>⏰ <strong>Réponse immédiate</strong> - Service client réactif</p>
       
-      <p><strong>Intervention garantie sous 24-48h partout en Île-de-France !</strong></p>
+      <p><strong>Intervention garantie sous 2-4h partout en Île-de-France !</strong></p>
     `
   },
   {
@@ -542,9 +542,9 @@ export const blogPosts: BlogPost[] = [
         <li>✅ <strong>Agréé VHU officiel</strong> - Certificat 100% valide</li>
         <li>✅ <strong>Service gratuit</strong> - Aucun frais</li>
         <li>✅ <strong>Certificat sous 15 jours</strong> - Délai garanti</li>
-        <li>✅ <strong>Enlèvement rapide</strong> - 24-48h partout en Île-de-France</li>
+        <li>✅ <strong>Enlèvement rapide</strong> - 2-4h partout en Île-de-France</li>
         <li>✅ <strong>Démarches simplifiées</strong> - On s'occupe de tout</li>
-        <li>✅ <strong>+250 clients satisfaits</strong> - Avis vérifiés</li>
+        <li>✅ <strong>500+ clients satisfaits</strong> - Avis vérifiés</li>
       </ul>
 
       <h2>Contactez-nous pour votre certificat de destruction</h2>
@@ -901,9 +901,9 @@ export const blogPosts: BlogPost[] = [
       <ul>
         <li>💰 <strong>Meilleur prix garanti</strong> - Estimation juste et transparente</li>
         <li>⚡ <strong>Paiement immédiat</strong> - Cash ou virement le jour même</li>
-        <li>🚛 <strong>Enlèvement gratuit</strong> - Partout en Île-de-France sous 24-48h</li>
+        <li>🚛 <strong>Enlèvement gratuit</strong> - Partout en Île-de-France sous 2-4h</li>
         <li>📝 <strong>Démarches simplifiées</strong> - On gère toute la paperasse</li>
-        <li>🏆 <strong>+250 clients satisfaits</strong> - Avis vérifiés 5 étoiles</li>
+        <li>🏆 <strong>500+ clients satisfaits</strong> - Avis vérifiés 5 étoiles</li>
         <li>✅ <strong>Service professionnel</strong> - Équipe expérimentée et équipée</li>
         <li>🔒 <strong>Transaction sécurisée</strong> - Tous les documents en règle</li>
         <li>📞 <strong>Disponible 7j/7</strong> - Même le week-end</li>
@@ -1222,7 +1222,7 @@ export const blogPosts: BlogPost[] = [
         <li>🏢 Centre de traitement VHU certifié</li>
       </ul>
 
-      <h3>✅ +250 clients satisfaits</h3>
+      <h3>✅ 500+ clients satisfaits</h3>
       <p>Nos avis clients parlent pour nous : <strong>service rapide, professionnel et transparent</strong>.</p>
 
       <h3>✅ Couverture complète Île-de-France</h3>
@@ -1243,10 +1243,10 @@ export const blogPosts: BlogPost[] = [
       
       <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong> pour questions rapides</p>
-      <p><strong>Intervention 24-48h</strong> partout en Île-de-France</p>
+      <p><strong>Intervention 2-4h</strong> partout en Île-de-France</p>
       <p>📄 <strong>Certificat VHU garanti</strong> sous 15 jours</p>
       
-      <p><strong>Agrément VHU officiel • Service 100% gratuit • +250 clients satisfaits !</strong></p>
+      <p><strong>Agrément VHU officiel • Service 100% gratuit • 500+ clients satisfaits !</strong></p>
     `
   },
   {
@@ -1597,7 +1597,7 @@ export const blogPosts: BlogPost[] = [
         <li>🚛 <strong>Enlèvement gratuit</strong> à domicile</li>
         <li>💰 <strong>Rachat possible</strong> si état correct (200-5000€)</li>
         <li>📝 <strong>Démarches administratives</strong> gérées pour vous</li>
-        <li><strong>Intervention 24-48h</strong> partout en Île-de-France</li>
+        <li><strong>Intervention 2-4h</strong> partout en Île-de-France</li>
       </ul>
 
       <h3>✅ Processus ultra-simplifié</h3>
@@ -1622,10 +1622,10 @@ export const blogPosts: BlogPost[] = [
       
       <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
       <p><strong>WhatsApp disponible</strong> pour estimation rapide</p>
-      <p><strong>Intervention 24-48h</strong> partout en Île-de-France</p>
+      <p><strong>Intervention 2-4h</strong> partout en Île-de-France</p>
       <p>💰 <strong>Paiement immédiat</strong> si rachat</p>
       
-      <p><strong>Service gratuit • Démarches simplifiées • +250 clients satisfaits !</strong></p>
+      <p><strong>Service gratuit • Démarches simplifiées • 500+ clients satisfaits !</strong></p>
     `
   },
   {
@@ -1906,8 +1906,8 @@ export const blogPosts: BlogPost[] = [
       <h3>Nos garanties</h3>
       <ul>
         <li>✅ <strong>Agrément VHU officiel</strong> - Vérifiable en préfecture</li>
-        <li><strong>Intervention 24-48h</strong> - Toute l'Île-de-France</li>
-        <li>✅ <strong>+250 clients satisfaits</strong> - Avis vérifiés</li>
+        <li><strong>Intervention 2-4h</strong> - Toute l'Île-de-France</li>
+        <li>✅ <strong>500+ clients satisfaits</strong> - Avis vérifiés</li>
         <li>✅ <strong>Disponible 7j/7</strong> - Même week-ends et jours fériés</li>
       </ul>
 
@@ -1916,10 +1916,10 @@ export const blogPosts: BlogPost[] = [
       
       <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
       <p><strong>WhatsApp disponible</strong> pour confirmation gratuite</p>
-      <p><strong>Intervention 24-48h</strong> partout en Île-de-France</p>
+      <p><strong>Intervention 2-4h</strong> partout en Île-de-France</p>
       <p>💵 <strong>0€ garanti</strong> - Aucun frais caché</p>
       
-      <p><strong>Service 100% gratuit • Agrément VHU officiel • +250 clients satisfaits !</strong></p>
+      <p><strong>Service 100% gratuit • Agrément VHU officiel • 500+ clients satisfaits !</strong></p>
     `
   },
   {

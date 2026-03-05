@@ -2,7 +2,12 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { MapPin, MagnifyingGlass, Check } from '@phosphor-icons/react';
-import { searchPostalCodes, type PostalCodeEntry } from '@/lib/postal-codes';
+
+interface PostalCodeEntry {
+  code: string;
+  city: string;
+  department: string;
+}
 
 interface PostalCodeSelectProps {
   value: string;
@@ -25,20 +30,28 @@ export default function PostalCodeSelect({
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // Debounced search
+  // Debounced search via API route
   useEffect(() => {
     if (!search || search.length < 2) {
       setResults([]);
       return;
     }
 
+    const controller = new AbortController();
     const timer = setTimeout(() => {
-      const found = searchPostalCodes(search, 40);
-      setResults(found);
-      setHighlightedIndex(-1);
-    }, 150);
+      fetch(`/api/postal-codes?q=${encodeURIComponent(search)}&limit=40`, { signal: controller.signal })
+        .then(res => res.json())
+        .then((found: PostalCodeEntry[]) => {
+          setResults(found);
+          setHighlightedIndex(-1);
+        })
+        .catch(() => {});
+    }, 200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
   }, [search]);
 
   const handleSelect = useCallback((entry: PostalCodeEntry) => {
