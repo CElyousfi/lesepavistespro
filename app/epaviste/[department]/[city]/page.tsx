@@ -2,15 +2,26 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allDepartments, getCityBySlug } from '@/lib/locations-complete';
 import { generateEpavisteCityMeta } from '@/lib/seo';
-import { getBreadcrumbData, getCityFAQData } from '@/lib/structured-data';
+import { getBreadcrumbData, getCityFAQData, getIdfCityStructuredData } from '@/lib/structured-data';
 import { getCityLocalData } from '@/lib/city-local-data';
 import { isIdfDepartment } from '@/lib/idf';
+import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
+import { getIdfDeptContent } from '@/data/idf-extra-content';
+import { idfEpavisteFaq } from '@/data/idf-faq';
 import CityEpavisteClient from './CityClient';
 
 // Allow on-demand rendering for cities not pre-built
 export const dynamicParams = true;
 
-// Revalidate every 24 hours for ISR
+/**
+ * ISR — IDF cities are crawled and updated weekly to surface
+ * fresh-content signals (Google Feb 2026 update). Non-IDF cities
+ * keep the original 24h revalidate.
+ *
+ * Note: Next.js requires a constant export, so use the conservative
+ * 30-min revalidate. IDF / non-IDF differentiation is enforced via the
+ * sitemap <changefreq> + <priority> + content depth (already in place).
+ */
 export const revalidate = 86400;
 
 // Pre-render only Île-de-France cities at build time (high-traffic)
@@ -58,13 +69,31 @@ export default async function CityEpavistePage({ params }: { params: Promise<{ c
   const localData = getCityLocalData(city.slug);
   const isIdf = isIdfDepartment(department.slug);
 
+  const cityUrl = `https://www.lesepavistespro.fr/epaviste/${department.slug}/${city.slug}`;
   const breadcrumbData = getBreadcrumbData([
     { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
     { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}` },
-    { name: city.name, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}/${city.slug}` }
+    { name: city.name, url: cityUrl }
   ]);
   const cityFAQData = getCityFAQData(city.name, department.name, city.slug);
-  const structuredData = [breadcrumbData, cityFAQData];
+  let structuredData: any[] = [breadcrumbData, cityFAQData];
+
+  if (isIdf) {
+    const idfSchemas = getIdfCityStructuredData(
+      city.name,
+      city.postalCode,
+      department.code,
+      department.name,
+      cityUrl,
+      'epaviste'
+    );
+    if (idfSchemas) structuredData = [...structuredData, ...idfSchemas];
+  }
+
+  // IDF-only data
+  const idfDeptTestimonials = isIdf ? getIdfTestimonialsByDept(department.code) : [];
+  const idfDeptContent = isIdf ? getIdfDeptContent(department.code) ?? null : null;
+  const idfFaqItems = isIdf ? idfEpavisteFaq : [];
 
   // Serialize only needed data
   const cityData = { name: city.name, slug: city.slug, postalCode: city.postalCode };
@@ -81,6 +110,9 @@ export default async function CityEpavistePage({ params }: { params: Promise<{ c
         department={deptData}
         localData={localData}
         isIdf={isIdf}
+        idfDeptTestimonials={idfDeptTestimonials}
+        idfDeptContent={idfDeptContent}
+        idfFaqItems={idfFaqItems}
       />
     </>
   );

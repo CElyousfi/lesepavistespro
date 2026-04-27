@@ -12,7 +12,10 @@ interface IdfFaqProps {
 
 export default function IdfFaq({ faqItems, service }: IdfFaqProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const accentColor = service === 'rachat' ? 'brand-gold' : 'brand-red';
+  // Static class maps so Tailwind JIT picks them up
+  const cls = service === 'rachat'
+    ? { text: 'text-brand-gold', bg: 'bg-brand-gold', bg10: 'bg-brand-gold/10', bg20Hover: 'group-hover:bg-brand-gold/20', border20: 'border-brand-gold/20' }
+    : { text: 'text-brand-red',  bg: 'bg-brand-red',  bg10: 'bg-brand-red/10',  bg20Hover: 'group-hover:bg-brand-red/20',  border20: 'border-brand-red/20'  };
 
   if (faqItems.length === 0) return null;
 
@@ -24,7 +27,7 @@ export default function IdfFaq({ faqItems, service }: IdfFaqProps) {
             {/* Left Column - Title & CTA */}
             <div className="lg:col-span-5 lg:sticky lg:top-24">
               <ScrollAnimation>
-                <span className={`inline-block text-${accentColor} text-sm font-semibold tracking-wider uppercase mb-4`}>
+                <span className={`inline-block ${cls.text} text-sm font-semibold tracking-wider uppercase mb-4`}>
                   FAQ Île-de-France
                 </span>
                 <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
@@ -40,8 +43,8 @@ export default function IdfFaq({ faqItems, service }: IdfFaqProps) {
                     href="tel:0979049486"
                     className="flex items-center gap-4 px-6 py-4 bg-white hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300 text-brand-navy rounded-2xl font-medium transition-all group shadow-sm"
                   >
-                    <div className={`w-10 h-10 bg-${accentColor}/10 rounded-xl flex items-center justify-center group-hover:bg-${accentColor}/20 transition-colors`}>
-                      <Phone size={20} weight="bold" className={`text-${accentColor}`} />
+                    <div className={`w-10 h-10 ${cls.bg10} rounded-xl flex items-center justify-center ${cls.bg20Hover} transition-colors`}>
+                      <Phone size={20} weight="bold" className={cls.text} />
                     </div>
                     <div>
                       <span className="block text-xs text-neutral-500">Une question ?</span>
@@ -71,7 +74,7 @@ export default function IdfFaq({ faqItems, service }: IdfFaqProps) {
                   <div
                     className={`group rounded-2xl overflow-hidden transition-all duration-500 border ${
                       openIndex === i
-                        ? `border-${accentColor}/20 bg-white shadow-sm`
+                        ? `${cls.border20} bg-white shadow-sm`
                         : 'border-neutral-200 bg-white hover:border-neutral-300 hover:shadow-sm'
                     }`}
                   >
@@ -86,7 +89,7 @@ export default function IdfFaq({ faqItems, service }: IdfFaqProps) {
                       </h3>
                       <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                         openIndex === i
-                          ? `bg-${accentColor} text-white rotate-180`
+                          ? `${cls.bg} text-white rotate-180`
                           : 'bg-neutral-100 text-neutral-400 group-hover:bg-neutral-200'
                       }`}>
                         <CaretDown size={14} weight="bold" />

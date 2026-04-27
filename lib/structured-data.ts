@@ -417,6 +417,89 @@ export function getIdfDepartmentStructuredData(deptCode: string, deptName: strin
   return schemas;
 }
 
+/** Get IDF city-level structured data: enhanced LocalBusiness + Reviews + FAQPage */
+export function getIdfCityStructuredData(
+  cityName: string,
+  postalCode: string,
+  deptCode: string,
+  deptName: string,
+  url: string,
+  service: 'epaviste' | 'rachat'
+) {
+  if (!isIdfDeptCode(deptCode)) return null;
+
+  const deptTestimonials = idfTestimonials
+    .filter(t => t.deptCode === deptCode)
+    .slice(0, 4);
+  const faqItems = service === 'epaviste' ? idfEpavisteFaq : idfRachatFaq;
+
+  const schemas: any[] = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      '@id': BUSINESS_ID,
+      name: `Les Épavistes Pro ${cityName}`,
+      url,
+      telephone: PHONE,
+      email: EMAIL,
+      image: LOGO_URL,
+      priceRange: '€',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: cityName,
+        postalCode,
+        addressRegion: 'Île-de-France',
+        addressCountry: 'FR'
+      },
+      openingHoursSpecification: [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '00:00',
+        closes: '23:59'
+      }],
+      areaServed: [
+        { '@type': 'City', name: cityName },
+        { '@type': 'AdministrativeArea', name: `${deptName} (${deptCode})` },
+        { '@type': 'AdministrativeArea', name: 'Île-de-France' },
+      ],
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.9',
+        bestRating: '5',
+        worstRating: '1',
+        reviewCount: '500'
+      },
+      sameAs: [FACEBOOK_URL, INSTAGRAM_URL]
+    },
+  ];
+
+  // Reviews from real IDF testimonials in this department
+  deptTestimonials.forEach(t => {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'Review',
+      itemReviewed: { '@type': 'LocalBusiness', '@id': BUSINESS_ID, name: 'Les Épavistes Pro' },
+      reviewRating: { '@type': 'Rating', ratingValue: String(t.rating), bestRating: '5' },
+      author: { '@type': 'Person', name: t.name },
+      datePublished: t.date,
+      reviewBody: t.text
+    });
+  });
+
+  // 8 most relevant local Q&A
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.slice(0, 8).map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer }
+    }))
+  });
+
+  return schemas;
+}
+
 /** Get IDF region-level structured data */
 export function getIdfRegionStructuredData(service: 'epaviste' | 'rachat') {
   const faqItems = service === 'epaviste' ? idfEpavisteFaq : idfRachatFaq;

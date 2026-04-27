@@ -49,12 +49,20 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
           />
         </div>
 
-        <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-brand-navy/[0.05] border border-brand-navy/[0.08] mb-8 sm:mb-10">
+        <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-brand-navy/[0.05] border border-brand-navy/[0.08] mb-4 sm:mb-5">
           <span className="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span>
           <span className="text-xs sm:text-sm font-medium text-brand-navy/70">
             Service disponible 24h/24, 7j/7 en {region.name}
           </span>
         </div>
+
+        {isIdf && (
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-8 sm:mb-10 ml-2">
+            <span className="text-xs sm:text-sm font-semibold text-brand-gold/90">
+              Prime à la conversion 2026 — jusqu&apos;à 6 000€
+            </span>
+          </div>
+        )}
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
           Épaviste {region.name}

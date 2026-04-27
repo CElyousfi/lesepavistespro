@@ -160,33 +160,6 @@ export default function RootLayout({
         {/* Bing Webmaster Tools Verification */}
         <meta name="msvalidate.01" content="028D2D1281F99EFDDA399E3F98954FBB" />
 
-        {/* Schema.org JSON-LD for Organization (Brand SERP) */}
-        <Script
-          id="schema-organization"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
-
-        {/* Schema.org JSON-LD for WebSite (Sitelinks Searchbox) */}
-        <Script
-          id="schema-website"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(webSiteSchema),
-          }}
-        />
-
-        {/* Schema.org JSON-LD for LocalBusiness */}
-        <Script
-          id="schema-local-business"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessSchema),
-          }}
-        />
-
         {/* Google Analytics 4 */}
         <Script
           strategy="afterInteractive"
@@ -209,6 +182,25 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans pb-20 lg:pb-0 bg-white text-brand-navy`}>
+        {/*
+          JSON-LD schemas — must live in <body>. Next.js App Router strips
+          arbitrary <script> tags placed in <head> and streams them via React,
+          which means they are not present in the raw server-rendered HTML
+          that crawlers like Googlebot read first. Rendering them inside <body>
+          guarantees they appear in the static HTML response.
+        */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
         {children}
         <Analytics />
       </body>

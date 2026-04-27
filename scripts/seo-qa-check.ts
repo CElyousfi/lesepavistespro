@@ -375,10 +375,16 @@ function checkBrandSchema() {
   const layoutFile = path.join(process.cwd(), 'app/layout.tsx');
   const layoutContent = fs.readFileSync(layoutFile, 'utf-8');
   
-  if (layoutContent.includes('schema-organization') && layoutContent.includes('schema-website')) {
-    addResult(true, '✓ Brand schemas injected in layout');
+  // Verify all 3 brand schemas are server-rendered inline (NOT via next/script
+  // which would inject client-side and be invisible to crawlers).
+  const hasOrg = /JSON\.stringify\(organizationSchema\)/.test(layoutContent);
+  const hasWeb = /JSON\.stringify\(webSiteSchema\)/.test(layoutContent);
+  const hasLB = /JSON\.stringify\(localBusinessSchema\)/.test(layoutContent);
+  const usesInlineScript = /<script[\s\S]*?type="application\/ld\+json"/.test(layoutContent);
+  if (hasOrg && hasWeb && hasLB && usesInlineScript) {
+    addResult(true, '✓ Brand schemas server-rendered inline in layout');
   } else {
-    addResult(false, '✗ CRITICAL: Brand schemas not injected in layout');
+    addResult(false, '✗ CRITICAL: Brand schemas not properly injected in layout');
   }
 }
 

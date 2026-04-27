@@ -11,6 +11,9 @@ import TrustBadges from '@/components/TrustBadges';
 import ServiceCard from '@/components/ServiceCard';
 import type { CityData, DepartmentData } from '@/lib/page-data';
 import type { CityLocalData } from '@/lib/city-local-data';
+import type { IdfTestimonial } from '@/data/idf-testimonials';
+import type { IdfDeptContent } from '@/data/idf-extra-content';
+import type { IdfFaqItem } from '@/data/idf-faq';
 
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
@@ -18,15 +21,28 @@ const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ss
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
+const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
+const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
 
 interface CityRachatClientProps {
   city: CityData;
   department: DepartmentData;
   localData: CityLocalData | null;
   isIdf: boolean;
+  idfDeptTestimonials?: IdfTestimonial[];
+  idfDeptContent?: IdfDeptContent | null;
+  idfFaqItems?: IdfFaqItem[];
 }
 
-export default function CityRachatClient({ city, department, localData, isIdf }: CityRachatClientProps) {
+export default function CityRachatClient({
+  city,
+  department,
+  localData,
+  isIdf,
+  idfDeptTestimonials = [],
+  idfDeptContent = null,
+  idfFaqItems = [],
+}: CityRachatClientProps) {
   // Get nearby cities (first 6 from same department, excluding current)
   const nearbyCities = department.cities
     .filter(c => c.slug !== city.slug)
@@ -48,12 +64,20 @@ export default function CityRachatClient({ city, department, localData, isIdf }:
           />
         </div>
 
-        <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-brand-navy/[0.05] border border-brand-navy/[0.08] mb-8 sm:mb-10">
+        <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-brand-navy/[0.05] border border-brand-navy/[0.08] mb-4 sm:mb-5">
           <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
           <span className="text-xs sm:text-sm font-medium text-brand-navy/70">
             Rachat cash à {city.name}
           </span>
         </div>
+
+        {isIdf && (
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-8 sm:mb-10 ml-2">
+            <span className="text-xs sm:text-sm font-semibold text-brand-gold/90">
+              Prime à la conversion 2026 — jusqu&apos;à 6 000€
+            </span>
+          </div>
+        )}
         
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
           Rachat Voiture {city.name}
@@ -261,13 +285,27 @@ export default function CityRachatClient({ city, department, localData, isIdf }:
         </div>
       </section>
 
+      {/* IDF: extra hyper-local content (Pourquoi nous + Étude de cas + ZFE-m + Avis IDF) */}
+      {isIdf && idfDeptContent && (
+        <IdfExtraContent
+          deptContent={idfDeptContent}
+          testimonials={idfDeptTestimonials}
+          service="rachat"
+          locationName={`${city.name} (${department.name})`}
+        />
+      )}
+
       {/* IDF Internal Links */}
       {isIdf && (
         <IdfInternalLinks service="rachat-voiture" currentDeptSlug={department.slug} currentCitySlug={city.slug} />
       )}
 
-      {/* FAQ */}
-      <FAQ />
+      {/* FAQ — IDF cities get hyper-local IdfFaq, others get the generic FAQ */}
+      {isIdf && idfFaqItems.length > 0 ? (
+        <IdfFaq faqItems={idfFaqItems} service="rachat" />
+      ) : (
+        <FAQ />
+      )}
 
       {/* Footer */}
       <Footer />

@@ -18,7 +18,10 @@ export default function IdfExtraContent({
   locationName,
 }: IdfExtraContentProps) {
   const isGold = service === 'rachat';
-  const accentColor = isGold ? 'brand-gold' : 'brand-red';
+  // Static class maps (Tailwind JIT cannot resolve interpolated names)
+  const cls = isGold
+    ? { text: 'text-brand-gold', bg10: 'bg-brand-gold/10', bg20: 'bg-brand-gold/20', border20: 'border-brand-gold/20' }
+    : { text: 'text-brand-red',  bg10: 'bg-brand-red/10',  bg20: 'bg-brand-red/20',  border20: 'border-brand-red/20'  };
 
   return (
     <>
@@ -26,7 +29,7 @@ export default function IdfExtraContent({
       <section className="py-16 sm:py-24 bg-brand-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <span className={`text-${accentColor} font-semibold tracking-wider uppercase text-sm mb-4 block`}>
+            <span className={`${cls.text} font-semibold tracking-wider uppercase text-sm mb-4 block`}>
               Expertise locale
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
@@ -39,8 +42,8 @@ export default function IdfExtraContent({
             {/* Trust Features */}
             <div className="grid sm:grid-cols-2 gap-4 mt-10">
               <div className="flex items-start gap-4 p-5 bg-white rounded-xl border border-neutral-200">
-                <div className={`w-10 h-10 rounded-lg bg-${accentColor}/10 flex items-center justify-center shrink-0`}>
-                  <Clock size={20} weight="fill" className={`text-${accentColor}`} />
+                <div className={`w-10 h-10 rounded-lg ${cls.bg10} flex items-center justify-center shrink-0`}>
+                  <Clock size={20} weight="fill" className={cls.text} />
                 </div>
                 <div>
                   <h3 className="font-bold text-brand-navy mb-1">Intervention rapide IDF</h3>
@@ -48,8 +51,8 @@ export default function IdfExtraContent({
                 </div>
               </div>
               <div className="flex items-start gap-4 p-5 bg-white rounded-xl border border-neutral-200">
-                <div className={`w-10 h-10 rounded-lg bg-${accentColor}/10 flex items-center justify-center shrink-0`}>
-                  <Shield size={20} weight="fill" className={`text-${accentColor}`} />
+                <div className={`w-10 h-10 rounded-lg ${cls.bg10} flex items-center justify-center shrink-0`}>
+                  <Shield size={20} weight="fill" className={cls.text} />
                 </div>
                 <div>
                   <h3 className="font-bold text-brand-navy mb-1">Centre VHU agréé</h3>
@@ -57,8 +60,8 @@ export default function IdfExtraContent({
                 </div>
               </div>
               <div className="flex items-start gap-4 p-5 bg-white rounded-xl border border-neutral-200">
-                <div className={`w-10 h-10 rounded-lg bg-${accentColor}/10 flex items-center justify-center shrink-0`}>
-                  <Leaf size={20} weight="fill" className={`text-${accentColor}`} />
+                <div className={`w-10 h-10 rounded-lg ${cls.bg10} flex items-center justify-center shrink-0`}>
+                  <Leaf size={20} weight="fill" className={cls.text} />
                 </div>
                 <div>
                   <h3 className="font-bold text-brand-navy mb-1">Éco-responsable</h3>
@@ -66,8 +69,8 @@ export default function IdfExtraContent({
                 </div>
               </div>
               <div className="flex items-start gap-4 p-5 bg-white rounded-xl border border-neutral-200">
-                <div className={`w-10 h-10 rounded-lg bg-${accentColor}/10 flex items-center justify-center shrink-0`}>
-                  <CheckCircle size={20} weight="fill" className={`text-${accentColor}`} />
+                <div className={`w-10 h-10 rounded-lg ${cls.bg10} flex items-center justify-center shrink-0`}>
+                  <CheckCircle size={20} weight="fill" className={cls.text} />
                 </div>
                 <div>
                   <h3 className="font-bold text-brand-navy mb-1">100% gratuit</h3>
@@ -83,7 +86,7 @@ export default function IdfExtraContent({
       <section className="py-16 sm:py-24 bg-white border-y border-neutral-200">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <span className={`text-${accentColor} font-semibold tracking-wider uppercase text-sm mb-4 block`}>
+            <span className={`${cls.text} font-semibold tracking-wider uppercase text-sm mb-4 block`}>
               Témoignage terrain
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
@@ -102,7 +105,7 @@ export default function IdfExtraContent({
       <section className="py-16 sm:py-24 bg-brand-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <span className={`text-${accentColor} font-semibold tracking-wider uppercase text-sm mb-4 block`}>
+            <span className={`${cls.text} font-semibold tracking-wider uppercase text-sm mb-4 block`}>
               Réglementations 2026
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
@@ -122,7 +125,7 @@ export default function IdfExtraContent({
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-10 sm:mb-14">
-                <span className={`text-${accentColor} font-semibold tracking-wider uppercase text-sm mb-4 block`}>
+                <span className={`${cls.text} font-semibold tracking-wider uppercase text-sm mb-4 block`}>
                   Avis clients IDF
                 </span>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy tracking-tight">
@@ -134,7 +137,7 @@ export default function IdfExtraContent({
                   <div key={i} className="bg-brand-surface rounded-2xl p-5 sm:p-6 border border-neutral-200">
                     <div className="flex items-center gap-1 mb-3">
                       {Array.from({ length: t.rating }).map((_, j) => (
-                        <Star key={j} size={16} weight="fill" className={`text-${accentColor}`} />
+                        <Star key={j} size={16} weight="fill" className={cls.text} />
                       ))}
                     </div>
                     <p className="text-neutral-600 text-sm leading-relaxed mb-4">&ldquo;{t.text}&rdquo;</p>

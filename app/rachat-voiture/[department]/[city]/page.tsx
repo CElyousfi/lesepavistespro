@@ -2,9 +2,12 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allDepartments, getCityBySlug } from '@/lib/locations-complete';
 import { generateRachatCityMeta } from '@/lib/seo';
-import { getBreadcrumbData, getCityFAQData } from '@/lib/structured-data';
+import { getBreadcrumbData, getCityFAQData, getIdfCityStructuredData } from '@/lib/structured-data';
 import { getCityLocalData } from '@/lib/city-local-data';
 import { isIdfDepartment } from '@/lib/idf';
+import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
+import { getIdfDeptContent } from '@/data/idf-extra-content';
+import { idfRachatFaq } from '@/data/idf-faq';
 import CityRachatClient from './CityClient';
 
 // Allow on-demand rendering for cities not pre-built
@@ -58,13 +61,31 @@ export default async function CityRachatPage({ params }: { params: Promise<{ cit
   const localData = getCityLocalData(city.slug);
   const isIdf = isIdfDepartment(department.slug);
 
+  const cityUrl = `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/${city.slug}`;
   const breadcrumbData = getBreadcrumbData([
     { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
     { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}` },
-    { name: city.name, url: `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/${city.slug}` }
+    { name: city.name, url: cityUrl }
   ]);
   const cityFAQData = getCityFAQData(city.name, department.name, city.slug);
-  const structuredData = [breadcrumbData, cityFAQData];
+  let structuredData: any[] = [breadcrumbData, cityFAQData];
+
+  if (isIdf) {
+    const idfSchemas = getIdfCityStructuredData(
+      city.name,
+      city.postalCode,
+      department.code,
+      department.name,
+      cityUrl,
+      'rachat'
+    );
+    if (idfSchemas) structuredData = [...structuredData, ...idfSchemas];
+  }
+
+  // IDF-only data
+  const idfDeptTestimonials = isIdf ? getIdfTestimonialsByDept(department.code) : [];
+  const idfDeptContent = isIdf ? getIdfDeptContent(department.code) ?? null : null;
+  const idfFaqItems = isIdf ? idfRachatFaq : [];
 
   const cityData = { name: city.name, slug: city.slug, postalCode: city.postalCode };
   const deptData = {
@@ -80,6 +101,9 @@ export default async function CityRachatPage({ params }: { params: Promise<{ cit
         department={deptData}
         localData={localData}
         isIdf={isIdf}
+        idfDeptTestimonials={idfDeptTestimonials}
+        idfDeptContent={idfDeptContent}
+        idfFaqItems={idfFaqItems}
       />
     </>
   );
