@@ -23,6 +23,7 @@ const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), 
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
+const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr: true });
 
 interface CityRachatClientProps {
   city: CityData;
@@ -285,19 +286,28 @@ export default function CityRachatClient({
         </div>
       </section>
 
-      {/* IDF: extra hyper-local content (Pourquoi nous + Étude de cas + ZFE-m + Avis IDF) */}
+      {/* IDF: extra hyper-local content */}
       {isIdf && idfDeptContent && (
         <IdfExtraContent
           deptContent={idfDeptContent}
           testimonials={idfDeptTestimonials}
           service="rachat"
           locationName={`${city.name} (${department.name})`}
+          pageSlug={city.slug}
         />
       )}
 
       {/* IDF Internal Links */}
       {isIdf && (
         <IdfInternalLinks service="rachat-voiture" currentDeptSlug={department.slug} currentCitySlug={city.slug} />
+      )}
+
+      {/* AEO — questions extractibles par les IA */}
+      {isIdf && (
+        <IdfAeoSection
+          clusters={['eligibilite', 'cas-particuliers']}
+          service="rachat"
+        />
       )}
 
       {/* FAQ — IDF cities get hyper-local IdfFaq, others get the generic FAQ */}

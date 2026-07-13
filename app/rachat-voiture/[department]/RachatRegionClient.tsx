@@ -7,7 +7,7 @@ import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
 import type { RegionData } from '@/lib/page-data';
-import type { IdfDeptContent } from '@/data/idf-extra-content';
+import type { IdfRegionContent } from '@/data/idf-extra-content';
 import type { IdfFaqItem } from '@/data/idf-faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 
@@ -19,11 +19,12 @@ const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), 
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
+const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr: true });
 
 interface RachatRegionClientProps {
   region: RegionData;
   isIdf: boolean;
-  idfRegionContent: IdfDeptContent | null;
+  idfRegionContent: IdfRegionContent | null;
   idfTestimonials: IdfTestimonial[];
   idfFaqItems: IdfFaqItem[];
 }
@@ -317,7 +318,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
       {/* IDF Extra Content */}
       {isIdf && idfRegionContent && (
         <IdfExtraContent
-          deptContent={{ ...idfRegionContent, deptName: 'Île-de-France', whyChoose: `L'Île-de-France concentre le plus grand marché automobile de France. Nous rachetons tous types de véhicules dans les 8 départements franciliens : voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique. Paiement cash immédiat lors de l'enlèvement. Estimation gratuite en 15 minutes par téléphone ou WhatsApp. Intervention sous 24h partout en IDF.`, regulations: `Avec la ZFE-m du Grand Paris, de nombreux véhicules anciens ne peuvent plus circuler. Plutôt que de laisser votre voiture se déprécier, vendez-la au meilleur prix ! Nous rachetons tous les véhicules concernés par les restrictions Crit'Air en Île-de-France, avec paiement cash immédiat et prise en charge de toutes les démarches administratives.` }}
+          deptContent={idfRegionContent}
           testimonials={idfTestimonials}
           service="rachat"
           locationName="Île-de-France"
@@ -331,6 +332,14 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
 
       {/* CTA Section */}
       <CTASection />
+
+      {/* AEO — cas particuliers extractibles par les IA */}
+      {isIdf && (
+        <IdfAeoSection
+          clusters={['eligibilite', 'cas-particuliers', 'comparaison']}
+          service="rachat"
+        />
+      )}
 
       {/* FAQ */}
       {isIdf ? <IdfFaq faqItems={idfFaqItems} service="rachat" /> : <FAQ />}

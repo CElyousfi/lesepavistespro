@@ -23,6 +23,7 @@ const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), 
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
+const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr: true });
 
 interface CityEpavisteClientProps {
   city: CityData;
@@ -394,12 +395,21 @@ export default function CityEpavisteClient({
           testimonials={idfDeptTestimonials}
           service="epaviste"
           locationName={`${city.name} (${department.name})`}
+          pageSlug={city.slug}
         />
       )}
 
       {/* IDF Internal Links */}
       {isIdf && (
         <IdfInternalLinks service="epaviste" currentDeptSlug={department.slug} currentCitySlug={city.slug} />
+      )}
+
+      {/* AEO — questions extractibles par les IA, affichées sur les pages city IDF */}
+      {isIdf && (
+        <IdfAeoSection
+          clusters={['eligibilite', 'cas-particuliers']}
+          service="epaviste"
+        />
       )}
 
       {/* FAQ — IDF cities get hyper-local IdfFaq, others get the generic FAQ */}

@@ -98,3 +98,54 @@ export const idfDeptContents: IdfDeptContent[] = [
 export function getIdfDeptContent(deptCode: string): IdfDeptContent | undefined {
   return idfDeptContents.find(c => c.deptCode === deptCode);
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CONTENU RÉGION IDF — distinct du département Paris (75) pour éviter le
+// near-duplicate content entre /epaviste/ile-de-france et /epaviste/paris-75
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface IdfRegionContent {
+  whyChoose: string;
+  caseStudy: string;
+  regulations: string;
+  localContext: string;
+}
+
+export const idfRegionContent: IdfRegionContent = {
+  whyChoose: `L'Île-de-France est la région la plus dense et la plus connectée de France, avec plus de 12 millions d'habitants répartis dans 8 départements aux profils très distincts : la capitale (75), la grande banlieue résidentielle pavillonnaire (77, 78, 91), la petite couronne hyper-urbanisée (92, 93, 94) et le nord industriel et aéroportuaire (95). Notre service d'épaviste agréé VHU n° PR9500003D couvre l'intégralité de ce territoire, avec une organisation logistique adaptée à chaque secteur. En petite couronne, nos équipes interviennent sous 2h. En grande couronne (Seine-et-Marne, Yvelines sud, Essonne, Val-d'Oise nord), nous garantissons l'intervention sous 24h. Nous maîtrisons les spécificités de chaque territoire : parkings souterrains haute sécurité à La Défense, cours d'immeubles haussmanniens à Paris, zones d'activités autour de Roissy et Orly, zones pavillonnaires de la grande couronne, et zones interdites aux poids lourds en ZFE.`,
+  caseStudy: `Notre action en Île-de-France couvre des cas d'usage très variés, inimaginables ailleurs en France. À Paris, nous intervenons régulièrement dans des parkings souterrains de 4 à 6 niveaux avec rampes à forte pente, nécessitant un équipement de plateau bas spécialisé. En Seine-Saint-Denis, nous traitons souvent des véhicules abandonnés sur la voie publique signalés par les mairies ou les gardiens de résidence — un service qui complète l'action des fourrières municipales souvent saturées. Dans les Yvelines et l'Essonne, nos équipes interviennent dans des propriétés rurales pour des enlèvements de 2 à 5 véhicules d'un seul déplacement. À Roissy et Orly, nous avons établi des protocoles spéciaux avec les sociétés de location de voitures pour le traitement des flottes en fin de vie.`,
+  regulations: `La Zone à Faibles Émissions métropolitaine du Grand Paris (ZFE-m) est la plus étendue de France : elle couvre Paris et 131 communes de la Métropole du Grand Paris, avec des extensions progressives vers la grande couronne. Depuis 2025, les véhicules Crit'Air 3 et au-delà sont interdits de circulation dans le périmètre métropolitain aux heures de pointe. Les amendes (68€ par infraction) peuvent s'accumuler rapidement pour les propriétaires de véhicules anciens encore immatriculés. La prime à la conversion en Île-de-France peut atteindre 6 000€ pour l'achat d'un véhicule 100% électrique, à condition de fournir un certificat de destruction VHU conforme à la directive européenne 2000/53/CE — document que nous remettons systématiquement le jour de l'enlèvement. L'agrément préfectoral n° PR9500003D garantit la conformité de notre procédure.`,
+  localContext: `L'Île-de-France génère chaque année plus de 250 000 véhicules hors d'usage, soit le volume le plus élevé de toutes les régions françaises. Les fourrières municipales parisiennes et de petite couronne sont régulièrement saturées, avec des délais d'enlèvement par les services préfectoraux pouvant dépasser 3 semaines. Notre service privé agréé offre une alternative rapide et gratuite : intervention sous 2h en zone dense, certificat de destruction immédiat, et gestion complète des démarches ANTS (radiation du véhicule). En 2026, le renforcement des contrôles ZFE et la montée en puissance des restrictions Crit'Air rendent l'enlèvement d'épave encore plus urgent pour les propriétaires de véhicules ne pouvant plus circuler légalement.`,
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BANQUE DE VARIANTES "POURQUOI NOUS CHOISIR" (10 formulations)
+// Utilisée dans IdfExtraContent pour éviter le bloc identique sur toutes les
+// pages. La variante est sélectionnée par hachage du slug de la page.
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const whyChooseVariants: string[] = [
+  `Notre service d'épaviste agréé VHU n° PR9500003D se distingue par une disponibilité 24h/24, 7j/7, y compris les jours fériés. Contrairement aux casses traditionnelles qui n'opèrent qu'en horaires de bureau, nous intervenons à toute heure pour les enlèvements urgents. Notre équipement moderne — plateaux bas, chariots de manutention, véhicules de petit gabarit — nous permet de traiter les cas les plus complexes : sous-sol étroit, rampe à forte pente, accès restreint. Le certificat de destruction est remis sur place, le jour même.`,
+  `Choisir un épaviste agréé VHU n'est pas qu'une obligation légale — c'est aussi la garantie que votre véhicule sera traité de façon écologique et conforme. Notre agrément préfectoral n° PR9500003D atteste que nous travaillons avec des centres VHU certifiés, où chaque véhicule est dépollué (vidange huiles, récupération liquides de refroidissement et de frein, retrait des catalyseurs) avant d'être démantelé. 95% des matériaux sont réutilisés ou recyclés. Vous êtes libéré de toute responsabilité légale dès la remise du certificat.`,
+  `La gratuité de notre service n'est pas un argument marketing — c'est un modèle économique. Nous sommes rémunérés par la valeur des matières recyclables (ferraille, métaux non-ferreux, pièces d'occasion). C'est pourquoi notre service est 100% gratuit pour vous, même pour les véhicules en très mauvais état. Seuls les cas où le véhicule n'a plus aucune valeur marchande (brûlé intégralement, immergé, sans aucune pièce récupérable) peuvent faire l'objet d'une tarification exceptionnelle — que nous vous communiquons avant toute intervention.`,
+  `Notre implantation dans les 8 départements de l'Île-de-France nous permet d'affecter l'équipe la plus proche de votre adresse, réduisant ainsi les délais d'intervention. Nous ne sommes pas un centre national qui sous-traite à des prestataires locaux — nous gérons nos propres équipes sur le terrain, avec une coordination centralisée et des engagements de délai tenus. En petite couronne, notre temps de réponse moyen est inférieur à 2 heures. En grande couronne, nous intervenons sous 24 heures.`,
+  `Propriétaire d'un véhicule sans carte grise, gagé, ou issu d'une succession ? Ces situations, souvent perçues comme des obstacles, font partie de notre quotidien. Nous vous guidons pas à pas dans les démarches administratives : déclaration de perte de carte grise, levée de gage, or attestation notariale en cas de décès du propriétaire. Notre service est là pour simplifier, pas pour compliquer. Appelez-nous et nous vous dirons précisément ce qu'il vous faut pour que l'enlèvement puisse avoir lieu.`,
+  `Un épaviste privé agréé, c'est différent d'une fourrière municipale. La fourrière intervient sur réquisition d'un officier de police ou d'un agent assermenté, pour des véhicules stationnés illégalement sur la voie publique. Nous, nous intervenons à votre demande, sur votre propriété ou sur la voie publique avec votre accord, pour les véhicules dont vous êtes propriétaire. Résultat : pas de frais de gardiennage, pas de délai administratif, pas de procédure. Juste un enlèvement gratuit et un certificat de destruction immédiat.`,
+  `Notre agrément VHU (Véhicule Hors d'Usage) n° PR9500003D est délivré par la préfecture et renouvelé chaque année. Il garantit que nous respectons les normes strictes de dépollution et de recyclage imposées par la directive européenne 2000/53/CE. Seul un centre VHU agréé peut émettre le certificat de destruction qui vous libère de votre responsabilité légale de propriétaire. Ce document est indispensable pour résilier votre assurance, radier le véhicule auprès de l'ANTS, et bénéficier de la prime à la conversion.`,
+  `Votre véhicule est dans un parking en sous-sol ? C'est notre spécialité en Île-de-France, où la densité urbaine concentre des milliers de parkings souterrains dans les résidences, les centres commerciaux et les immeubles de bureaux. Nous disposons d'équipements spécifiques pour les rampes étroites, les hauteurs limitées et les véhicules non roulants dans ces espaces. Pas besoin de faire remonter le véhicule vous-même — nos équipes s'en chargent intégralement. Mentionnez simplement lors de votre demande que le véhicule est en sous-sol.`,
+  `Administrateur d'une copropriété, gardien d'immeuble ou syndic confronté à une épave dans votre parking souterrain ? Nous travaillons régulièrement avec des professionnels de la gestion immobilière en Île-de-France. Nous pouvons intervenir sur présentation d'un mandat du copropriétaire ou, dans les cas d'abandon avéré (plus de 7 jours sans identification du propriétaire), en coordination avec la police municipale. N'hésitez pas à nous appeler pour discuter de votre situation spécifique.`,
+  `En Île-de-France, les réglementations évoluent vite : ZFE-m, restrictions Crit'Air, obligation de destruction des VHU… Il n'est pas toujours facile de savoir ce qu'on peut et ne peut pas faire. Notre équipe connaît parfaitement le cadre juridique et réglementaire applicable à votre situation. Lors de notre intervention, nous vous expliquons clairement vos droits et obligations, et nous nous assurons que toutes les démarches sont réalisées dans les règles. Vous repartez avec un certificat de destruction valide et l'esprit tranquille.`,
+];
+
+/**
+ * Sélectionne une variante "whyChoose" de façon déterministe selon le slug.
+ * Même slug → même variante à chaque render (pas de rotation aléatoire qui
+ * changerait entre SSG et hydratation).
+ */
+export function getWhyChooseVariant(slug: string): string {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash * 31 + slug.charCodeAt(i)) & 0xffffffff;
+  }
+  return whyChooseVariants[Math.abs(hash) % whyChooseVariants.length];
+}

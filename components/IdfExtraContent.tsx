@@ -1,14 +1,24 @@
 'use client';
 
 import { CheckCircle, Shield, Clock, Star, MapPin, Leaf } from '@phosphor-icons/react';
-import { type IdfDeptContent } from '@/data/idf-extra-content';
+import { type IdfDeptContent, type IdfRegionContent, getWhyChooseVariant } from '@/data/idf-extra-content';
 import { type IdfTestimonial } from '@/data/idf-testimonials';
 
+// Contenu normalisé : IdfDeptContent ou IdfRegionContent, les deux ont les mêmes champs texte
+type AnyIdfContent = IdfDeptContent | IdfRegionContent;
+
 interface IdfExtraContentProps {
-  deptContent: IdfDeptContent;
+  deptContent: AnyIdfContent;
   testimonials: IdfTestimonial[];
   service: 'epaviste' | 'rachat';
   locationName: string;
+  /**
+   * Slug de la page courante (ex: 'boulogne-billancourt', 'paris-15e').
+   * Lorsque fourni, le bloc "Pourquoi nous choisir" utilise une variante
+   * déterministe au lieu du texte générique — élimine le near-duplicate content
+   * entre les pages villes IDF.
+   */
+  pageSlug?: string;
 }
 
 export default function IdfExtraContent({
@@ -16,7 +26,12 @@ export default function IdfExtraContent({
   testimonials,
   service,
   locationName,
+  pageSlug,
 }: IdfExtraContentProps) {
+  // deptName n'existe que sur IdfDeptContent — fallback vers locationName
+  const displayName = ('deptName' in deptContent && deptContent.deptName) ? deptContent.deptName : locationName;
+  // Variante déterministe si pageSlug fourni, sinon texte du contenu département
+  const whyChooseText = pageSlug ? getWhyChooseVariant(pageSlug) : deptContent.whyChoose;
   const isGold = service === 'rachat';
   // Static class maps (Tailwind JIT cannot resolve interpolated names)
   const cls = isGold
@@ -33,10 +48,10 @@ export default function IdfExtraContent({
               Expertise locale
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
-              Pourquoi choisir Les Épavistes Pro {service === 'epaviste' ? 'pour votre épave' : 'pour vendre votre véhicule'} dans le {deptContent.deptName} ?
+              Pourquoi choisir Les Épavistes Pro {service === 'epaviste' ? 'pour votre épave' : 'pour vendre votre véhicule'} en {displayName} ?
             </h2>
             <div className="space-y-6 text-neutral-600 text-base sm:text-lg leading-relaxed">
-              <p>{deptContent.whyChoose}</p>
+              <p>{whyChooseText}</p>
             </div>
 
             {/* Trust Features */}
@@ -90,7 +105,7 @@ export default function IdfExtraContent({
               Témoignage terrain
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
-              Étude de cas : intervention dans le {deptContent.deptName}
+              Étude de cas : intervention en {displayName}
             </h2>
             <div className="bg-brand-surface rounded-2xl p-6 sm:p-8 border border-neutral-200">
               <p className="text-neutral-600 text-base sm:text-lg leading-relaxed italic">
@@ -109,7 +124,7 @@ export default function IdfExtraContent({
               Réglementations 2026
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
-              Réglementations et ZFE-m dans le {deptContent.deptName}
+              Réglementations et ZFE-m en {displayName}
             </h2>
             <div className="space-y-6 text-neutral-600 text-base sm:text-lg leading-relaxed">
               <p>{deptContent.regulations}</p>

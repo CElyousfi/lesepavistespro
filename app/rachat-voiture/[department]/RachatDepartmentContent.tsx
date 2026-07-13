@@ -19,6 +19,7 @@ const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), 
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
+const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr: true });
 
 interface RachatDepartmentProps {
   dept: DepartmentData;
@@ -406,6 +407,14 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
 
       {/* CTA Section */}
       <CTASection />
+
+      {/* AEO — cas particuliers extractibles par les IA */}
+      {isIdf && (
+        <IdfAeoSection
+          clusters={['eligibilite', 'cas-particuliers', 'comparaison']}
+          service="rachat"
+        />
+      )}
 
       {/* FAQ */}
       {isIdf ? <IdfFaq faqItems={idfFaqItems} service="rachat" /> : <FAQ />}

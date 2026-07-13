@@ -27,22 +27,41 @@ export default function Home() {
 
   // Pre-compute Coverage data server-side to avoid shipping locations-national to client
   const overseasSlugs = ['guadeloupe', 'martinique', 'guyane', 'la-reunion', 'mayotte'];
-  const coverageRegions: CoverageRegion[] = allRegions
-    .filter(r => !overseasSlugs.includes(r.slug))
-    .map(r => ({
-      name: r.name,
-      slug: r.slug,
-      deptCount: r.departments.length,
-      cityCount: r.departments.reduce((sum, d) => sum + d.cities.length, 0),
-    }));
-  const keyDepts = allRegions.flatMap(r => r.departments).slice(0, 16);
-  const coverageCities: CoverageCity[] = keyDepts.flatMap(dept =>
-    dept.cities.slice(0, 1).map(city => ({
-      name: city.name,
-      slug: city.slug,
-      deptSlug: dept.slug,
-    }))
-  );
+  const IDF_REGION_SLUG_LOCAL = 'ile-de-france';
+  const rawRegions = allRegions.filter(r => !overseasSlugs.includes(r.slug));
+  // IDF toujours en 1ère position — signal de lien interne prioritaire
+  const coverageRegions: CoverageRegion[] = [
+    ...rawRegions.filter(r => r.slug === IDF_REGION_SLUG_LOCAL),
+    ...rawRegions.filter(r => r.slug !== IDF_REGION_SLUG_LOCAL),
+  ].map(r => ({
+    name: r.name,
+    slug: r.slug,
+    deptCount: r.departments.length,
+    cityCount: r.departments.reduce((sum, d) => sum + d.cities.length, 0),
+  }));
+
+  // Villes IDF prioritaires (au moins 5) + complétion nationale
+  const IDF_PRIORITY_CITIES: CoverageCity[] = [
+    { name: 'Paris 15e', slug: 'paris-15e', deptSlug: 'paris-75' },
+    { name: 'Boulogne-Billancourt', slug: 'boulogne-billancourt', deptSlug: 'hauts-de-seine-92' },
+    { name: 'Saint-Denis', slug: 'saint-denis', deptSlug: 'seine-saint-denis-93' },
+    { name: 'Créteil', slug: 'creteil', deptSlug: 'val-de-marne-94' },
+    { name: 'Argenteuil', slug: 'argenteuil', deptSlug: 'val-d-oise-95' },
+  ];
+  const keyDepts = allRegions
+    .filter(r => r.slug !== IDF_REGION_SLUG_LOCAL && !overseasSlugs.includes(r.slug))
+    .flatMap(r => r.departments)
+    .slice(0, 11);
+  const coverageCities: CoverageCity[] = [
+    ...IDF_PRIORITY_CITIES,
+    ...keyDepts.flatMap(dept =>
+      dept.cities.slice(0, 1).map(city => ({
+        name: city.name,
+        slug: city.slug,
+        deptSlug: dept.slug,
+      }))
+    ),
+  ];
 
   return (
     <>

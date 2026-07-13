@@ -4,6 +4,31 @@ import { Resend } from 'resend';
 // Initialize Resend only if API key is available
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
+// ── Déduplication côté serveur ──────────────────────────────────────────────
+// Évite les doublons (11% du CSV analysé) causés par le double-clic ou le
+// rechargement de page après soumission. Même téléphone → bloqué 5 min.
+const DEDUP_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+const recentSubmissions = new Map<string, number>(); // phone → timestamp
+
+function isDuplicate(phone: string): boolean {
+  const normalizedPhone = phone.replace(/\s/g, '');
+  const lastSubmit = recentSubmissions.get(normalizedPhone);
+  const now = Date.now();
+  if (lastSubmit && now - lastSubmit < DEDUP_WINDOW_MS) {
+    return true;
+  }
+  recentSubmissions.set(normalizedPhone, now);
+  // Nettoyage périodique — évite une fuite mémoire sur longue durée
+  if (recentSubmissions.size > 500) {
+    for (const [key, ts] of recentSubmissions.entries()) {
+      if (now - ts > DEDUP_WINDOW_MS) recentSubmissions.delete(key);
+    }
+  }
+  return false;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
+
 // HTML Email Template — mirrors website design system exactly
 function generateEmailHTML(formData: any) {
   const isEpaviste = formData.service === 'epaviste';
@@ -318,8 +343,20 @@ export async function POST(request: Request) {
   try {
     const formData = await request.json();
 
+    // ── Déduplication — même téléphone dans les 5 min → silently ACK ──────
+    if (formData.phone && isDuplicate(formData.phone)) {
+      console.warn(`⚠️  Doublon détecté (${formData.phone}) — soumission ignorée`);
+      return NextResponse.json({
+        success: true,
+        message: 'Demande envoyée avec succès',
+        deduplicated: true,
+      });
+    }
+    // ─────────────────────────────────────────────────────────────────────
+
     // Generate HTML email
     const emailHTML = generateEmailHTML(formData);
+
 
     // Plain text version for email clients that don't support HTML
     const emailText = `
@@ -404,6 +441,8 @@ Date: ${new Date().toLocaleString('fr-FR')}
             ville: formData.ville || '',
             sousSol: formData.sousSol ? 'Oui' : 'Non',
             source: formData.pageType || 'home',
+            // Segment géographique — alimenté par GA4 event côté front
+            leadRegion: formData.leadRegionTag || 'lead_autre_region',
           }),
         });
         console.log('✅ Google Sheets: data sent');

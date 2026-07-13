@@ -20,6 +20,7 @@ const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), 
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
+const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr: true });
 
 interface DepartmentClientProps {
   dept: DepartmentData;
@@ -346,8 +347,17 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
       {/* CTA Section */}
       <CTASection />
 
+      {/* AEO — cas particuliers extractibles par les IA */}
+      {isIdf && (
+        <IdfAeoSection
+          clusters={['cas-particuliers', 'comparaison', 'responsabilite', 'eligibilite']}
+          service="epaviste"
+        />
+      )}
+
       {/* FAQ */}
       {isIdf ? <IdfFaq faqItems={idfFaqItems} service="epaviste" /> : <FAQ />}
+
 
       {/* Footer */}
       <Footer />

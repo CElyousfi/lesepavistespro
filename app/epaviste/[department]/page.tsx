@@ -4,7 +4,7 @@ import { allDepartments, getDepartmentBySlug, getRegionForDepartment, regions, g
 import { generateEpavisteDepartmentMeta, generateEpavisteRegionMeta } from '@/lib/seo';
 import { getDepartmentLocalBusiness, getBreadcrumbData, getIdfDepartmentStructuredData, getIdfRegionStructuredData } from '@/lib/structured-data';
 import { isIdfDepartment, isIdfRegion } from '@/lib/idf';
-import { getIdfDeptContent, idfDeptContents } from '@/data/idf-extra-content';
+import { getIdfDeptContent, idfRegionContent } from '@/data/idf-extra-content';
 import { idfEpavisteFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept, getAllIdfTestimonials } from '@/data/idf-testimonials';
 import DepartmentClientPage from './DepartmentClient';
@@ -47,7 +47,8 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
   const region = getRegionBySlug(slug);
   if (region) {
     const isIdf = isIdfRegion(slug);
-    const idfRegionContent = isIdf ? idfDeptContents[0] : null;
+    // Contenu région IDF dédié — distinct du département Paris (75)
+    const idfRegionContentData = isIdf ? idfRegionContent : null;
     const idfTestimonials = isIdf ? getAllIdfTestimonials().filter(t => t.service === 'epaviste') : [];
 
     const breadcrumbData = getBreadcrumbData([
@@ -91,7 +92,7 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
         <RegionClientPage
           region={regionData}
           isIdf={isIdf}
-          idfRegionContent={idfRegionContent}
+          idfRegionContent={idfRegionContentData}
           idfTestimonials={idfTestimonials}
           idfFaqItems={isIdf ? idfEpavisteFaq : []}
         />

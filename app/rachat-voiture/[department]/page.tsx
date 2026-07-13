@@ -4,7 +4,7 @@ import { allDepartments, getDepartmentBySlug, getRegionForDepartment, regions, g
 import { generateRachatDepartmentMeta, generateRachatRegionMeta } from '@/lib/seo';
 import { getDepartmentLocalBusiness, getBreadcrumbData, getIdfDepartmentStructuredData, getIdfRegionStructuredData } from '@/lib/structured-data';
 import { isIdfDepartment, isIdfRegion } from '@/lib/idf';
-import { getIdfDeptContent, idfDeptContents } from '@/data/idf-extra-content';
+import { getIdfDeptContent, idfRegionContent } from '@/data/idf-extra-content';
 import { idfRachatFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept, getAllIdfTestimonials } from '@/data/idf-testimonials';
 import RachatDepartmentContent from './RachatDepartmentContent';
@@ -45,7 +45,8 @@ export default async function DepartmentOrRegionRachatPage({ params }: { params:
   const region = getRegionBySlug(slug);
   if (region) {
     const isIdf = isIdfRegion(slug);
-    const idfRegionContent = isIdf ? idfDeptContents[0] : null;
+    // Contenu région IDF dédié — distinct du département Paris (75)
+    const idfRegionContentData = isIdf ? idfRegionContent : null;
     const idfTestimonials = isIdf ? getAllIdfTestimonials().filter(t => t.service === 'rachat') : [];
 
     const breadcrumbData = getBreadcrumbData([
@@ -83,7 +84,7 @@ export default async function DepartmentOrRegionRachatPage({ params }: { params:
         <RachatRegionClientPage
           region={regionData}
           isIdf={isIdf}
-          idfRegionContent={idfRegionContent}
+          idfRegionContent={idfRegionContentData}
           idfTestimonials={idfTestimonials}
           idfFaqItems={isIdf ? idfRachatFaq : []}
         />

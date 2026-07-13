@@ -7,7 +7,7 @@ import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
 import type { RegionData } from '@/lib/page-data';
-import type { IdfDeptContent } from '@/data/idf-extra-content';
+import type { IdfRegionContent } from '@/data/idf-extra-content';
 import type { IdfFaqItem } from '@/data/idf-faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 
@@ -20,11 +20,12 @@ const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), 
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfFaq = dynamic(() => import('@/components/IdfFaq'), { ssr: true });
+const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr: true });
 
 interface RegionClientProps {
   region: RegionData;
   isIdf: boolean;
-  idfRegionContent: IdfDeptContent | null;
+  idfRegionContent: IdfRegionContent | null;
   idfTestimonials: IdfTestimonial[];
   idfFaqItems: IdfFaqItem[];
 }
@@ -322,7 +323,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
       {/* IDF Extra Content */}
       {isIdf && idfRegionContent && (
         <IdfExtraContent
-          deptContent={{ ...idfRegionContent, deptName: 'Île-de-France', whyChoose: `L'Île-de-France est la région la plus peuplée de France avec plus de 12 millions d'habitants et le plus grand parc automobile du pays. Les 8 départements franciliens (75, 77, 78, 91, 92, 93, 94, 95) concentrent des centaines de milliers de véhicules en fin de vie chaque année. Notre service d'épaviste agréé VHU couvre l'intégralité de la région, des arrondissements parisiens aux communes rurales de Seine-et-Marne, en passant par la petite et la grande couronne. Intervention rapide sous 2h en zone dense, sous 24h partout en IDF. Enlèvement 100% gratuit, certificat de destruction immédiat.`, regulations: `La Zone à Faibles Émissions métropolitaine (ZFE-m) du Grand Paris, la plus grande de France, impose des restrictions croissantes aux véhicules polluants. Depuis 2025, les véhicules Crit'Air 3 et plus sont interdits dans le périmètre de la Métropole du Grand Paris (Paris + 131 communes). La prime à la conversion en Île-de-France peut atteindre 6 000€ pour l'achat d'un véhicule propre. Notre service d'enlèvement gratuit vous fournit le certificat de destruction nécessaire pour bénéficier de ces aides.` }}
+          deptContent={idfRegionContent}
           testimonials={idfTestimonials}
           service="epaviste"
           locationName="Île-de-France"
@@ -337,8 +338,17 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
       {/* CTA Section */}
       <CTASection />
 
+      {/* AEO — cas particuliers extractibles par les IA */}
+      {isIdf && (
+        <IdfAeoSection
+          clusters={['cas-particuliers', 'eligibilite', 'comparaison', 'responsabilite']}
+          service="epaviste"
+        />
+      )}
+
       {/* FAQ */}
       {isIdf ? <IdfFaq faqItems={idfFaqItems} service="epaviste" /> : <FAQ />}
+
 
       {/* Footer */}
       <Footer />

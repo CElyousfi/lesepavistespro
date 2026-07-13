@@ -154,6 +154,15 @@ export default function ConversionFormNew({
     return Object.keys(newErrors).length === 0;
   };
 
+  // Détermine la catégorie de lead selon le code postal
+  const getLeadRegionTag = (codePostal: string): 'lead_idf' | 'lead_domtom' | 'lead_autre_region' => {
+    const cp = codePostal.replace(/\s/g, '');
+    const IDF_PREFIXES = ['75', '77', '78', '91', '92', '93', '94', '95'];
+    if (cp.startsWith('97') || cp.startsWith('98')) return 'lead_domtom';
+    if (IDF_PREFIXES.some(p => cp.startsWith(p))) return 'lead_idf';
+    return 'lead_autre_region';
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -162,20 +171,34 @@ export default function ConversionFormNew({
     setIsSubmitting(true);
     trackFormSubmit(formData.service || 'unknown');
 
+    // ── Tracking GA4 régional ─────────────────────────────────────────────
+    const leadRegionTag = getLeadRegionTag(formData.codePostal || '');
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', leadRegionTag, {
+        service: formData.service,
+        code_postal: formData.codePostal,
+        ville: formData.ville,
+        page_type: formData.pageType,
+        department: formData.department,
+      });
+    }
+    // ─────────────────────────────────────────────────────────────────────
+
     try {
       await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, leadRegionTag }),
       });
-      console.log('Form submitted:', formData);
+      console.log('Form submitted:', formData, '| Region tag:', leadRegionTag);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
 
     setIsSubmitting(false);
+
     setShowSuccess(true);
 
     // Auto-close after 8 seconds
@@ -201,12 +224,14 @@ export default function ConversionFormNew({
   };
 
   const handleNext = () => {
+    if (isSubmitting) return; // Guard anti-double-clic
     if (validateStep(step)) {
       setStep(prev => Math.min(prev + 1, totalSteps));
     }
   };
 
   const handleBack = () => {
+    if (isSubmitting) return; // Guard pendant envoi
     setStep(prev => Math.max(prev - 1, 1));
   };
 
@@ -538,10 +563,13 @@ export default function ConversionFormNew({
               type={step === totalSteps ? 'submit' : 'button'}
               onClick={step === totalSteps ? undefined : handleNext}
               disabled={isSubmitting}
-              className={`flex-1 px-6 py-3.5 rounded-full font-semibold transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 ${isSubmitting ? 'bg-neutral-200 text-neutral-400 cursor-not-allowed' : 'bg-brand-red text-white hover:bg-brand-red/90 shadow-lg'
+              aria-busy={isSubmitting}
+              className={`flex-1 px-6 py-3.5 rounded-full font-semibold transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 ${isSubmitting ? 'bg-neutral-200 text-neutral-400 cursor-not-allowed pointer-events-none' : 'bg-brand-red text-white hover:bg-brand-red/90 shadow-lg'
                 }`}
             >
-              {isSubmitting ? 'Envoi...' : step === totalSteps ? 'Valider ma demande' : 'Continuer'}
+              {isSubmitting ? (
+                <><span className="animate-spin inline-block w-4 h-4 border-2 border-neutral-400 border-t-transparent rounded-full" />{'Envoi en cours…'}</>
+              ) : step === totalSteps ? 'Valider ma demande' : 'Continuer'}
               {!isSubmitting && <ArrowRight size={18} weight="bold" />}
             </button>
           </div>
