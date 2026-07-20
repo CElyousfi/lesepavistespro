@@ -133,27 +133,70 @@ function checkTitleLengths() {
   const seoFile = path.join(process.cwd(), 'lib/seo.ts');
   const content = fs.readFileSync(seoFile, 'utf-8');
   
-  // Extract title strings and check lengths
-  const titleMatches = content.match(/title:\s*`([^`]+)`/g);
+  // Match titles in backticks, single quotes, and double quotes
+  const titleMatches = content.match(/title:\s*(?:`([^`]+)`|'([^']+)'|"([^"]+)")/g);
   let longTitles = 0;
+  const SUFFIX_LENGTH = 21; // ' | Les Épavistes Pro' from layout.tsx template
+  const MAX_TOTAL = 65;
+  const VAR_BUFFER = 15; // estimated average length of interpolated variables
   
   if (titleMatches) {
     titleMatches.forEach(match => {
-      const title = match.replace(/title:\s*`/, '').replace(/`$/, '');
-      // Remove template variables for length estimation
-      // Add 15 chars buffer for variables + 21 chars for ' | Les Épavistes Pro' suffix from layout template
-      const estimatedLength = title.replace(/\$\{[^}]+\}/g, '').length + 15 + 21;
+      // Strip the title: prefix and surrounding quotes/backticks
+      const title = match
+        .replace(/title:\s*/, '')
+        .replace(/^[`'"]/,'')
+        .replace(/[`'"]$/,'');
+      // Remove template variables for length estimation, add buffer for them
+      const staticLength = title.replace(/\$\{[^}]+\}/g, '').length;
+      const hasVars = /\$\{/.test(title);
+      const estimatedLength = staticLength + (hasVars ? VAR_BUFFER : 0) + SUFFIX_LENGTH;
       
-      if (estimatedLength > 65) {
+      if (estimatedLength > MAX_TOTAL) {
         longTitles++;
       }
     });
   }
   
   if (longTitles === 0) {
-    addResult(true, '✓ All titles within 65 character limit', 'warning');
+    addResult(true, '✓ All titles within 65 character limit (incl. suffix)');
   } else {
-    addResult(false, `⚠ ${longTitles} titles may exceed 65 characters`, 'warning');
+    addResult(false, `✗ ${longTitles} title(s) exceed 65 characters (incl. suffix) — shorten them`);
+  }
+}
+
+function checkDescriptionLengths() {
+  log('\n📏 Checking description lengths...', colors.blue);
+  
+  const seoFile = path.join(process.cwd(), 'lib/seo.ts');
+  const content = fs.readFileSync(seoFile, 'utf-8');
+  
+  // Match descriptions in backticks, single quotes, and double quotes
+  const descMatches = content.match(/description:\s*(?:isIdf\s*\?\s*)?(?:`([^`]+)`|'([^']+)'|"([^"]+)")/g);
+  let longDescs = 0;
+  const MAX_DESC = 160;
+  const VAR_BUFFER = 20;
+  
+  if (descMatches) {
+    descMatches.forEach(match => {
+      const desc = match
+        .replace(/description:\s*(?:isIdf\s*\?\s*)?/, '')
+        .replace(/^[`'"]/,'')
+        .replace(/[`'"]$/,'');
+      const staticLength = desc.replace(/\$\{[^}]+\}/g, '').length;
+      const hasVars = /\$\{/.test(desc);
+      const estimatedLength = staticLength + (hasVars ? VAR_BUFFER : 0);
+      
+      if (estimatedLength > MAX_DESC) {
+        longDescs++;
+      }
+    });
+  }
+  
+  if (longDescs === 0) {
+    addResult(true, '✓ All descriptions within 160 character limit');
+  } else {
+    addResult(false, `✗ ${longDescs} description(s) exceed 160 characters — shorten them`);
   }
 }
 
@@ -507,6 +550,7 @@ function runAllChecks() {
     checkCanonicals();
     checkAnalyticsTracking();
     checkTitleLengths();
+    checkDescriptionLengths();
     checkInternalLinking();
     checkGeographicScope();
     checkSemanticContent();
