@@ -2,6 +2,28 @@ import { Metadata } from 'next';
 import { getSiteUrl } from './site';
 import { isIdfDeptCode, IDF_REGION_SLUG } from './idf';
 
+const TITLE_SUFFIX_LEN = 21; // ' | Les Épavistes Pro' from layout.tsx template
+const MAX_TITLE_TOTAL = 65;
+
+/**
+ * Build a title that fits within the Google SERP pixel limit.
+ * Strategy: include postal/code display if it fits, drop it if not,
+ * truncate the name with '…' as a last resort.
+ */
+function safeTitleFit(prefix: string, name: string, codeDisplay: string, tag: string): string {
+  const budget = MAX_TITLE_TOTAL - TITLE_SUFFIX_LEN;
+  // Try with code display
+  const full = `${prefix}${name}${codeDisplay}${tag}`;
+  if (full.length <= budget) return full;
+  // Drop code display
+  const noCode = `${prefix}${name}${tag}`;
+  if (noCode.length <= budget) return noCode;
+  // Truncate name
+  const fixedLen = prefix.length + tag.length;
+  const maxName = budget - fixedLen - 1; // -1 for '…'
+  return `${prefix}${name.substring(0, maxName)}…${tag}`;
+}
+
 interface SEOParams {
   title: string;
   description: string;
@@ -117,7 +139,7 @@ export function generateEpavisteDepartmentMeta(deptName: string, deptSlug: strin
   const isIdf = isIdfDeptCode(deptCode);
 
   return generateMeta({
-    title: `Épaviste ${deptName}${deptCodeDisplay} – Gratuit 24h`,
+    title: safeTitleFit('Épaviste ', deptName, deptCodeDisplay, ' – Gratuit 24h'),
     description: isIdf
       ? `Épaviste agréé VHU ${deptName}${deptCodeDisplay}. Enlèvement d'épave GRATUIT 24h/24, intervention sous 2h. ☎ 09 79 04 94 86`
       : `Épaviste agréé VHU ${deptName}${deptCodeDisplay}. Enlèvement d'épave GRATUIT 24h/24, certificat de destruction. ☎ 09 79 04 94 86`,
@@ -134,7 +156,7 @@ export function generateRachatDepartmentMeta(deptName: string, deptSlug: string)
   const isIdf = isIdfDeptCode(deptCode);
 
   return generateMeta({
-    title: `Rachat voiture ${deptName}${deptCodeDisplay} – Cash`,
+    title: safeTitleFit('Rachat voiture ', deptName, deptCodeDisplay, ' – Cash'),
     description: isIdf
       ? `Rachat voiture ${deptName}${deptCodeDisplay}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 09 79 04 94 86`
       : `Rachat voiture ${deptName}${deptCodeDisplay}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 09 79 04 94 86`,
@@ -157,7 +179,7 @@ export function generateEpavisteCityMeta(
   const isIdf = isIdfDeptCode(deptCode);
 
   return generateMeta({
-    title: `Épaviste ${cityName}${postalDisplay} – Gratuit 24h`,
+    title: safeTitleFit('Épaviste ', cityName, postalDisplay, ' – Gratuit'),
     description: isIdf
       ? `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT, intervention sous 2h. ☎ 09 79 04 94 86`
       : `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 09 79 04 94 86`,
@@ -181,7 +203,7 @@ export function generateRachatCityMeta(
   const isIdf = isIdfDeptCode(deptCode);
 
   return generateMeta({
-    title: `Rachat voiture ${cityName}${postalDisplay} – Cash`,
+    title: safeTitleFit('Rachat ', cityName, postalDisplay, ' – Cash'),
     description: isIdf
       ? `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 09 79 04 94 86`
       : `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 09 79 04 94 86`,
@@ -221,8 +243,8 @@ export function generateEpavisteRegionMeta(regionName: string, regionSlug: strin
 
   return generateMeta({
     title: isIdf
-      ? `Épaviste Île-de-France – Gratuit 24/7`
-      : `Épaviste ${regionName} – Gratuit 24h`,
+      ? safeTitleFit('Épaviste ', 'Île-de-France', '', ' – Gratuit 24/7')
+      : safeTitleFit('Épaviste ', regionName, '', ' – Gratuit 24h'),
     description: isIdf
       ? `Épaviste agréé VHU en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Enlèvement GRATUIT 24h/24, intervention sous 2h. ☎ 09 79 04 94 86`
       : `Épaviste agréé VHU en ${regionName}. Enlèvement d'épave GRATUIT 24h/24, certificat de destruction. ☎ 09 79 04 94 86`,
@@ -238,8 +260,8 @@ export function generateRachatRegionMeta(regionName: string, regionSlug: string)
 
   return generateMeta({
     title: isIdf
-      ? `Rachat voiture Île-de-France – Cash immédiat`
-      : `Rachat voiture ${regionName} – Cash immédiat`,
+      ? safeTitleFit('Rachat voiture ', 'Île-de-France', '', ' – Cash immédiat')
+      : safeTitleFit('Rachat voiture ', regionName, '', ' – Cash immédiat'),
     description: isIdf
       ? `Rachat voiture en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Cash immédiat, sans CT, tous véhicules. ☎ 09 79 04 94 86`
       : `Rachat voiture en ${regionName}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 09 79 04 94 86`,
