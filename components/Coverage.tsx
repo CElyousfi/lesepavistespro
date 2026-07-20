@@ -41,6 +41,19 @@ const Coverage = ({ regions, topCities }: CoverageProps) => {
             </div>
           </ScrollAnimation>
 
+          {/* IDF priority signal */}
+          <ScrollAnimation>
+            <div className="flex justify-center mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/5 border border-brand-red/20 rounded-full text-sm">
+                <MapPin size={16} weight="bold" className="text-brand-red" />
+                <span className="font-semibold text-brand-navy">Zone la plus demandée :</span>
+                <Link href="/epaviste/ile-de-france" className="text-brand-red font-bold hover:underline">
+                  Île-de-France
+                </Link>
+              </div>
+            </div>
+          </ScrollAnimation>
+
           {/* Regions Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
             {regions.map((region, index) => (

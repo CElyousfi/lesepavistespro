@@ -2,10 +2,12 @@ import { NextResponse } from 'next/server';
 import { getSiteUrl } from '@/lib/site';
 import { allDepartments } from '@/lib/locations-complete';
 import { isIdfDepartment } from '@/lib/idf';
+import { shouldIncludeInSitemap } from '@/lib/geo-targeting';
 
 /**
  * Rachat voiture city pages sitemap
- * ~35,000 cities across 101 departments
+ * PRUNED: Only IDF + limitrophe regions + cities with real local content.
+ * See SEO-PRUNING-DECISION.md for rationale.
  */
 export async function GET() {
   const base = getSiteUrl();
@@ -16,11 +18,12 @@ export async function GET() {
   for (const dept of allDepartments) {
     const isIdf = isIdfDepartment(dept.slug);
     for (const city of dept.cities) {
+      if (!shouldIncludeInSitemap(dept.slug, city.slug)) continue;
       urls.push({
         loc: `${base}/rachat-voiture/${dept.slug}/${city.slug}`,
         lastmod: buildTime,
         changefreq: isIdf ? 'weekly' : 'monthly',
-        priority: isIdf ? 0.9 : 0.7,
+        priority: isIdf ? 0.9 : 0.6,
       });
     }
   }

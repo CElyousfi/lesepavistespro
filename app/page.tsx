@@ -14,7 +14,7 @@ import ScrollAnimation from '@/components/ScrollAnimation';
 import VHUCertification from '@/components/VHUCertification';
 import { getHomeStructuredData } from '@/lib/structured-data';
 import { generateHomeMeta } from '@/lib/seo';
-import { getEpaveRemovalHowToSchema, getDefaultReviewsSchema, getSpeakableSchema } from '@/lib/schema';
+import { getEpaveRemovalHowToSchema, getSpeakableSchema } from '@/lib/schema';
 import { regions as allRegions } from '@/lib/locations-complete';
 
 export const metadata = generateHomeMeta();
@@ -22,7 +22,6 @@ export const metadata = generateHomeMeta();
 export default function Home() {
   const structuredData = getHomeStructuredData();
   const howToSchema = getEpaveRemovalHowToSchema();
-  const reviewsSchema = getDefaultReviewsSchema();
   const speakableSchema = getSpeakableSchema('https://www.lesepavistespro.fr/');
 
   // Pre-compute Coverage data server-side to avoid shipping locations-national to client
@@ -40,13 +39,22 @@ export default function Home() {
     cityCount: r.departments.reduce((sum, d) => sum + d.cities.length, 0),
   }));
 
-  // Villes IDF prioritaires (au moins 5) + complétion nationale
+  // Villes IDF prioritaires (toutes les 8 départements couverts) + complétion nationale
   const IDF_PRIORITY_CITIES: CoverageCity[] = [
     { name: 'Paris 15e', slug: 'paris-15e', deptSlug: 'paris-75' },
+    { name: 'Paris 18e', slug: 'paris-18e', deptSlug: 'paris-75' },
     { name: 'Boulogne-Billancourt', slug: 'boulogne-billancourt', deptSlug: 'hauts-de-seine-92' },
+    { name: 'Nanterre', slug: 'nanterre', deptSlug: 'hauts-de-seine-92' },
     { name: 'Saint-Denis', slug: 'saint-denis', deptSlug: 'seine-saint-denis-93' },
+    { name: 'Montreuil', slug: 'montreuil', deptSlug: 'seine-saint-denis-93' },
     { name: 'Créteil', slug: 'creteil', deptSlug: 'val-de-marne-94' },
+    { name: 'Vitry-sur-Seine', slug: 'vitry-sur-seine', deptSlug: 'val-de-marne-94' },
     { name: 'Argenteuil', slug: 'argenteuil', deptSlug: 'val-d-oise-95' },
+    { name: 'Cergy', slug: 'cergy', deptSlug: 'val-d-oise-95' },
+    { name: 'Meaux', slug: 'meaux', deptSlug: 'seine-et-marne-77' },
+    { name: 'Versailles', slug: 'versailles', deptSlug: 'yvelines-78' },
+    { name: 'Évry-Courcouronnes', slug: 'evry-courcouronnes', deptSlug: 'essonne-91' },
+    { name: 'Massy', slug: 'massy', deptSlug: 'essonne-91' },
   ];
   const keyDepts = allRegions
     .filter(r => r.slug !== IDF_REGION_SLUG_LOCAL && !overseasSlugs.includes(r.slug))
@@ -79,12 +87,6 @@ export default function Home() {
         type="application/ld+json"
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <Script
-        id="structured-data-reviews"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsSchema) }}
       />
       <Script
         id="structured-data-speakable"

@@ -28,12 +28,10 @@ export function isIdfDeptCode(code: string): boolean {
   return IDF_DEPT_CODES.includes(code);
 }
 
-/** IDF-specific stats for trust signals */
+/** IDF-specific stats for trust signals — only verifiable facts */
 export const IDF_STATS = [
-  { number: '8\u00a0500+', label: 'Véhicules traités', description: 'Épaves enlevées et véhicules rachetés en Île-de-France.' },
-  { number: '98%', label: 'Satisfaction', description: 'Clients satisfaits de notre service en IDF.' },
-  { number: '2h', label: 'Délai moyen', description: 'Intervention rapide en petite couronne IDF.' },
   { number: '8', label: 'Départements', description: 'Tous les départements d\'Île-de-France couverts.' },
   { number: '1\u00a0286', label: 'Communes', description: 'Communes desservies en Île-de-France.' },
-  { number: '12\u00a0ans', label: 'Expérience', description: 'Au service des Franciliens depuis 2013.' },
+  { number: '24h/24', label: 'Disponibilité', description: 'Service disponible 7j/7 en Île-de-France.' },
+  { number: '100%', label: 'Gratuit', description: 'Enlèvement d\'épave sans frais en IDF.' },
 ];

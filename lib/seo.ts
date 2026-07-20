@@ -153,7 +153,8 @@ export function generateEpavisteCityMeta(
   cityName: string,
   deptSlug: string,
   citySlug: string,
-  postalCode?: string
+  postalCode?: string,
+  noIndex?: boolean
 ): Metadata {
   const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
   const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
@@ -167,6 +168,7 @@ export function generateEpavisteCityMeta(
       ? `Épaviste agréé VHU à ${cityName}${postalDisplay}, Île-de-France. Enlèvement d'épave 100% GRATUIT, intervention sous 2h, certificat de destruction immédiat. Parking souterrain OK. ☎ 09 79 04 94 86.`
       : `Épaviste agréé VHU à ${cityName}. Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni. Intervention rapide sous 24-48h. 09 79 04 94 86.`,
     path: `/epaviste/${deptSlug}/${citySlug}`,
+    noIndex,
   });
 }
 
@@ -177,7 +179,8 @@ export function generateRachatCityMeta(
   cityName: string,
   deptSlug: string,
   citySlug: string,
-  postalCode?: string
+  postalCode?: string,
+  noIndex?: boolean
 ): Metadata {
   const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
   const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
@@ -191,6 +194,7 @@ export function generateRachatCityMeta(
       ? `Rachat de voiture au meilleur prix à ${cityName}${postalDisplay}, Île-de-France. Sans CT, paiement cash immédiat, tous véhicules acceptés. Estimation gratuite en 15 min. ☎ 09 79 04 94 86.`
       : `Nous rachetons tous types de véhicules à ${cityName} : voitures d'occasion en bon état, véhicules accidentés, voitures en panne, épaves, véhicules sans contrôle technique. Paiement cash immédiat. 09 79 04 94 86.`,
     path: `/rachat-voiture/${deptSlug}/${citySlug}`,
+    noIndex,
   });
 }
 

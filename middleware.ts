@@ -16,6 +16,13 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  // Domain consolidation: .com → .fr (301 permanent)
+  if (hostname.includes('lesepavistespro.com')) {
+    url.protocol = 'https:';
+    url.hostname = 'www.lesepavistespro.fr';
+    return NextResponse.redirect(url, 301);
+  }
+
   // Force https + www in production
   const isHttp = url.protocol === 'http:';
   const isNonWww = !hostname.startsWith('www.');

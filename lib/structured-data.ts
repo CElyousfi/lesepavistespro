@@ -3,7 +3,6 @@
 
 import { regions, allDepartments } from './locations-national';
 import { isIdfDeptCode, IDF_DEPT_CODES } from './idf';
-import { idfTestimonials } from '@/data/idf-testimonials';
 import { idfEpavisteFaq, idfRachatFaq } from '@/data/idf-faq';
 
 const BUSINESS_ID = 'https://www.lesepavistespro.fr/#business';
@@ -52,11 +51,6 @@ export function getHomeStructuredData() {
         closes: '23:59'
       }],
       sameAs: [FACEBOOK_URL, INSTAGRAM_URL],
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: '500'
-      },
       areaServed: getAllAreaServed()
     },
     {
@@ -333,7 +327,6 @@ export function getIdfDepartmentStructuredData(deptCode: string, deptName: strin
 
   const dept = allDepartments.find(d => d.code === deptCode);
   const cityNames = dept ? dept.cities.slice(0, 30).map(c => c.name) : [];
-  const deptTestimonials = idfTestimonials.filter(t => t.deptCode === deptCode);
   const faqItems = service === 'epaviste' ? idfEpavisteFaq : idfRachatFaq;
 
   // IDF departments to list as areaServed
@@ -363,42 +356,9 @@ export function getIdfDepartmentStructuredData(deptCode: string, deptName: strin
         ...idfDepts.map(d => ({ '@type': 'AdministrativeArea', name: `${d.name} (${d.code})` })),
         ...cityNames.map(city => ({ '@type': 'City', name: city }))
       ],
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        bestRating: '5',
-        worstRating: '1',
-        reviewCount: '500'
-      },
       sameAs: [FACEBOOK_URL, INSTAGRAM_URL]
     },
   ];
-
-  // Add individual Review schema for dept testimonials
-  if (deptTestimonials.length > 0) {
-    deptTestimonials.forEach(t => {
-      schemas.push({
-        '@context': 'https://schema.org',
-        '@type': 'Review',
-        itemReviewed: {
-          '@type': 'LocalBusiness',
-          '@id': BUSINESS_ID,
-          name: 'Les Épavistes Pro'
-        },
-        reviewRating: {
-          '@type': 'Rating',
-          ratingValue: String(t.rating),
-          bestRating: '5'
-        },
-        author: {
-          '@type': 'Person',
-          name: t.name
-        },
-        datePublished: t.date,
-        reviewBody: t.text
-      });
-    });
-  }
 
   // Add FAQPage schema with IDF-specific questions
   schemas.push({
@@ -428,9 +388,6 @@ export function getIdfCityStructuredData(
 ) {
   if (!isIdfDeptCode(deptCode)) return null;
 
-  const deptTestimonials = idfTestimonials
-    .filter(t => t.deptCode === deptCode)
-    .slice(0, 4);
   const faqItems = service === 'epaviste' ? idfEpavisteFaq : idfRachatFaq;
 
   const schemas: any[] = [
@@ -462,29 +419,9 @@ export function getIdfCityStructuredData(
         { '@type': 'AdministrativeArea', name: `${deptName} (${deptCode})` },
         { '@type': 'AdministrativeArea', name: 'Île-de-France' },
       ],
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        bestRating: '5',
-        worstRating: '1',
-        reviewCount: '500'
-      },
       sameAs: [FACEBOOK_URL, INSTAGRAM_URL]
     },
   ];
-
-  // Reviews from real IDF testimonials in this department
-  deptTestimonials.forEach(t => {
-    schemas.push({
-      '@context': 'https://schema.org',
-      '@type': 'Review',
-      itemReviewed: { '@type': 'LocalBusiness', '@id': BUSINESS_ID, name: 'Les Épavistes Pro' },
-      reviewRating: { '@type': 'Rating', ratingValue: String(t.rating), bestRating: '5' },
-      author: { '@type': 'Person', name: t.name },
-      datePublished: t.date,
-      reviewBody: t.text
-    });
-  });
 
   // 8 most relevant local Q&A
   schemas.push({
@@ -503,7 +440,6 @@ export function getIdfCityStructuredData(
 /** Get IDF region-level structured data */
 export function getIdfRegionStructuredData(service: 'epaviste' | 'rachat') {
   const faqItems = service === 'epaviste' ? idfEpavisteFaq : idfRachatFaq;
-  const allTestimonials = idfTestimonials.filter(t => t.service === service);
   const idfDepts = allDepartments.filter(d => IDF_DEPT_CODES.includes(d.code));
 
   return [
@@ -527,13 +463,6 @@ export function getIdfRegionStructuredData(service: 'epaviste' | 'rachat') {
         { '@type': 'AdministrativeArea', name: 'Île-de-France' },
         ...idfDepts.map(d => ({ '@type': 'AdministrativeArea', name: `${d.name} (${d.code})` })),
       ],
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        bestRating: '5',
-        worstRating: '1',
-        reviewCount: '500'
-      },
       sameAs: [FACEBOOK_URL, INSTAGRAM_URL]
     },
     {
@@ -548,23 +477,6 @@ export function getIdfRegionStructuredData(service: 'epaviste' | 'rachat') {
         }
       }))
     },
-    ...allTestimonials.slice(0, 5).map(t => ({
-      '@context': 'https://schema.org',
-      '@type': 'Review',
-      itemReviewed: {
-        '@type': 'LocalBusiness',
-        '@id': BUSINESS_ID,
-        name: 'Les Épavistes Pro'
-      },
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: String(t.rating),
-        bestRating: '5'
-      },
-      author: { '@type': 'Person', name: t.name },
-      datePublished: t.date,
-      reviewBody: t.text
-    }))
   ];
 }
 

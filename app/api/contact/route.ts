@@ -339,9 +339,36 @@ function generateEmailHTML(formData: any) {
   `;
 }
 
+// ── Validation helpers ───────────────────────────────────────────────────────
+const FRENCH_PHONE_REGEX = /^(?:(?:\+33|0033|0)[1-9])(?:\d{8})$/;
+
+function isValidFrenchPhone(phone: string): boolean {
+  const cleaned = phone.replace(/[\s.\-()]/g, '');
+  return FRENCH_PHONE_REGEX.test(cleaned);
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export async function POST(request: Request) {
   try {
     const formData = await request.json();
+
+    // ── Honeypot anti-bot check ───────────────────────────────────────────
+    // If the hidden field "website" is filled, it's a bot
+    if (formData.website) {
+      console.warn('🤖 Bot détecté (honeypot rempli) — rejet silencieux');
+      // Return success to not alert the bot
+      return NextResponse.json({ success: true, message: 'Demande envoyée avec succès' });
+    }
+    // ─────────────────────────────────────────────────────────────────────
+
+    // ── Server-side phone validation ─────────────────────────────────────
+    if (!formData.phone || !isValidFrenchPhone(formData.phone)) {
+      return NextResponse.json(
+        { success: false, message: 'Numéro de téléphone invalide. Format attendu : 06 12 34 56 78' },
+        { status: 400 }
+      );
+    }
+    // ─────────────────────────────────────────────────────────────────────
 
     // ── Déduplication — même téléphone dans les 5 min → silently ACK ──────
     if (formData.phone && isDuplicate(formData.phone)) {
@@ -356,7 +383,6 @@ export async function POST(request: Request) {
 
     // Generate HTML email
     const emailHTML = generateEmailHTML(formData);
-
 
     // Plain text version for email clients that don't support HTML
     const emailText = `
@@ -390,6 +416,9 @@ Date: ${new Date().toLocaleString('fr-FR')}
 
     console.log('Form submission received:', formData);
 
+    let emailSent = false;
+    let sheetSent = false;
+
     // Send email using Resend (only if API key is configured)
     if (resend) {
       try {
@@ -404,26 +433,22 @@ Date: ${new Date().toLocaleString('fr-FR')}
 
         if (error) {
           console.error('❌ Resend error:', JSON.stringify(error, null, 2));
-          console.error('Error details:', error);
         } else {
-          console.log('✅ Email sent successfully!');
-          console.log('Email ID:', data?.id);
-          console.log('Sent to:', 'lesepavistespro@gmail.com');
+          emailSent = true;
+          console.log('✅ Email sent successfully! ID:', data?.id);
         }
       } catch (emailError) {
-        console.error('❌ Email sending failed:', emailError);
-        console.error('Error type:', typeof emailError);
-        console.error('Error message:', emailError instanceof Error ? emailError.message : 'Unknown error');
+        console.error('❌ Email sending failed:', emailError instanceof Error ? emailError.message : emailError);
       }
     } else {
-      console.warn('⚠️ Resend not configured - email not sent. Add RESEND_API_KEY to environment variables.');
+      console.warn('⚠️ Resend not configured - email not sent.');
     }
 
-    // Send to Google Sheets (non-blocking)
+    // Send to Google Sheets
     const sheetsUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
     if (sheetsUrl) {
       try {
-        await fetch(sheetsUrl, {
+        const sheetRes = await fetch(sheetsUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -441,17 +466,41 @@ Date: ${new Date().toLocaleString('fr-FR')}
             ville: formData.ville || '',
             sousSol: formData.sousSol ? 'Oui' : 'Non',
             source: formData.pageType || 'home',
-            // Segment géographique — alimenté par GA4 event côté front
             leadRegion: formData.leadRegionTag || 'lead_autre_region',
           }),
         });
-        console.log('✅ Google Sheets: data sent');
+        if (sheetRes.ok) {
+          sheetSent = true;
+          console.log('✅ Google Sheets: data sent');
+        } else {
+          console.error('❌ Google Sheets HTTP error:', sheetRes.status);
+        }
       } catch (sheetError) {
         console.error('❌ Google Sheets error:', sheetError);
       }
     } else {
       console.warn('⚠️ GOOGLE_SHEETS_WEBHOOK_URL not set - skipping Sheets');
     }
+
+    // ── Fallback durable storage if BOTH failed ──────────────────────────
+    if (!emailSent && !sheetSent) {
+      console.error('🚨 CRITICAL: Both Resend and Sheets failed! Logging to console as fallback.');
+      console.error('FALLBACK_LEAD:', JSON.stringify({
+        timestamp: new Date().toISOString(),
+        prenom: formData.prenom,
+        phone: formData.phone,
+        email: formData.email,
+        service: formData.service,
+        marque: formData.marque,
+        modele: formData.modele,
+        codePostal: formData.codePostal,
+        ville: formData.ville,
+        leadRegion: formData.leadRegionTag,
+      }));
+      // Still return success to user — the lead is logged in server logs
+      // which are persisted by Vercel. Manual recovery possible.
+    }
+    // ─────────────────────────────────────────────────────────────────────
 
     return NextResponse.json({ 
       success: true, 

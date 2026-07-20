@@ -5,6 +5,7 @@ import { generateEpavisteCityMeta } from '@/lib/seo';
 import { getBreadcrumbData, getCityFAQData, getIdfCityStructuredData } from '@/lib/structured-data';
 import { getCityLocalData } from '@/lib/city-local-data';
 import { isIdfDepartment } from '@/lib/idf';
+import { shouldNoIndex } from '@/lib/geo-targeting';
 import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
 import { getIdfDeptContent } from '@/data/idf-extra-content';
 import { idfEpavisteFaq } from '@/data/idf-faq';
@@ -56,8 +57,9 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   }
 
   const { city, department } = result;
+  const noIndex = shouldNoIndex(department.slug, city.slug);
 
-  return generateEpavisteCityMeta(city.name, department.slug, city.slug, city.postalCode);
+  return generateEpavisteCityMeta(city.name, department.slug, city.slug, city.postalCode, noIndex);
 }
 
 export default async function CityEpavistePage({ params }: { params: Promise<{ city: string }> }) {

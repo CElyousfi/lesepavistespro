@@ -1,4 +1,5 @@
 import { getSiteUrl } from './site';
+import { getDeptGeo } from './geo-coordinates';
 
 /** Static region names for structured data (avoids importing 2.5MB locations-national into client bundle) */
 const REGION_NAMES = [
@@ -137,8 +138,9 @@ export function getWebSiteSchema() {
   };
 }
 
-export function getLocalBusinessSchema() {
+export function getLocalBusinessSchema(deptCode?: string) {
   const baseUrl = getSiteUrl();
+  const geo = getDeptGeo(deptCode || '75');
   
   return {
     '@context': 'https://schema.org',
@@ -157,8 +159,8 @@ export function getLocalBusinessSchema() {
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 48.8566,
-      longitude: 2.3522,
+      latitude: geo.lat,
+      longitude: geo.lng,
     },
     areaServed: REGION_NAMES.map(name => ({
       '@type': 'AdministrativeArea',
@@ -180,13 +182,6 @@ export function getLocalBusinessSchema() {
         closes: '23:59',
       },
     ],
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '500',
-      bestRating: '5',
-      worstRating: '1',
-    },
     sameAs: [
       'https://web.facebook.com/profile.php?id=61552439650150',
       'https://www.instagram.com/lesepavistespro',
@@ -353,84 +348,6 @@ export function getEpaveRemovalHowToSchema() {
   );
 }
 
-/**
- * Review schema for customer testimonials
- */
-export function getReviewSchema(reviews: Array<{
-  author: string;
-  rating: number;
-  body: string;
-  date: string;
-}>) {
-  const baseUrl = getSiteUrl();
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': `${baseUrl}/#business`,
-    name: 'Les Épavistes Pro',
-    review: reviews.map(review => ({
-      '@type': 'Review',
-      author: {
-        '@type': 'Person',
-        name: review.author,
-      },
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: review.rating.toString(),
-        bestRating: '5',
-        worstRating: '1',
-      },
-      reviewBody: review.body,
-      datePublished: review.date,
-    })),
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '500',
-      bestRating: '5',
-      worstRating: '1',
-    },
-  };
-}
-
-/**
- * Default customer reviews for rich snippets
- */
-export function getDefaultReviewsSchema() {
-  return getReviewSchema([
-    {
-      author: 'Marie L.',
-      rating: 5,
-      body: 'Service impeccable ! Enlèvement de mon épave en 24h, totalement gratuit. Le certificat de destruction a été envoyé rapidement. Je recommande vivement.',
-      date: '2024-10-15',
-    },
-    {
-      author: 'Thomas D.',
-      rating: 5,
-      body: 'Très professionnel. Ils sont venus chercher ma voiture accidentée dans un parking souterrain, ce qui n\'était pas simple. Aucun frais, service au top.',
-      date: '2024-09-22',
-    },
-    {
-      author: 'Sophie M.',
-      rating: 5,
-      body: 'Rachat de ma voiture sans CT à un bon prix. Paiement rapide et enlèvement le lendemain. Équipe sympathique et ponctuelle.',
-      date: '2024-11-03',
-    },
-    {
-      author: 'Ahmed B.',
-      rating: 4,
-      body: 'Bon service d\'enlèvement d\'épave. Intervention sous 48h comme promis. Certificat reçu en une semaine.',
-      date: '2024-08-18',
-    },
-    {
-      author: 'Isabelle R.',
-      rating: 5,
-      body: 'Excellente expérience. Mon véhicule hors d\'usage a été enlevé gratuitement. Les démarches administratives ont été gérées par eux. Parfait !',
-      date: '2024-10-30',
-    },
-  ]);
-}
 
 /**
  * Video schema for embedded videos

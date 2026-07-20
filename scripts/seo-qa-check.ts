@@ -389,6 +389,111 @@ function checkBrandSchema() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 14: No fabricated ratings/reviews in codebase
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkNoFabricatedRatings() {
+  log('\n🚫 Checking no fabricated ratings/reviews...', colors.blue);
+
+  const filesToCheck = ['lib/schema.ts', 'lib/structured-data.ts', 'app/page.tsx'];
+  let foundRating = false;
+  for (const file of filesToCheck) {
+    const filePath = path.join(process.cwd(), file);
+    if (!fs.existsSync(filePath)) continue;
+    const content = fs.readFileSync(filePath, 'utf-8');
+    if (content.includes('ratingValue') || content.includes('reviewCount')) {
+      foundRating = true;
+      break;
+    }
+  }
+
+  if (!foundRating) {
+    addResult(true, '✓ No hardcoded ratingValue/reviewCount in critical files');
+  } else {
+    addResult(false, '✗ Found hardcoded ratingValue or reviewCount — remove fabricated ratings');
+  }
+
+  const testimonialsFile = path.join(process.cwd(), 'data/idf-testimonials.ts');
+  if (fs.existsSync(testimonialsFile)) {
+    const content = fs.readFileSync(testimonialsFile, 'utf-8');
+    const hasEmptyArray = content.includes('IdfTestimonial[] = []');
+    const hasComment = content.includes('verified') || content.includes('CONTENT-INTEGRITY');
+    if (hasEmptyArray || hasComment) {
+      addResult(true, '✓ IDF testimonials empty or marked as verified');
+    } else {
+      addResult(false, '✗ IDF testimonials may contain unverified data', 'warning');
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 15: Homepage IDF cities priority
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkHomepageIdfPriority() {
+  log('\n🏠 Checking homepage IDF prioritization...', colors.blue);
+
+  const pageFile = path.join(process.cwd(), 'app/page.tsx');
+  const content = fs.readFileSync(pageFile, 'utf-8');
+
+  const hasIdfFirst = content.includes('IDF_REGION_SLUG_LOCAL') && content.includes('rawRegions.filter(r => r.slug === IDF_REGION_SLUG_LOCAL)');
+  if (hasIdfFirst) {
+    addResult(true, '✓ IDF region in first position on homepage');
+  } else {
+    addResult(false, '✗ IDF region not prioritized on homepage');
+  }
+
+  const hasIdfCities = content.includes('IDF_PRIORITY_CITIES');
+  if (hasIdfCities) {
+    addResult(true, '✓ IDF priority cities defined on homepage');
+  } else {
+    addResult(false, '✗ No IDF priority cities on homepage');
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 16: Sitemap pruning implemented
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkSitemapPruning() {
+  log('\n🗺️  Checking sitemap pruning...', colors.blue);
+
+  const sitemapFile = path.join(process.cwd(), 'app/sitemap-epaviste-cities.xml/route.ts');
+  if (fs.existsSync(sitemapFile)) {
+    const content = fs.readFileSync(sitemapFile, 'utf-8');
+    if (content.includes('shouldIncludeInSitemap')) {
+      addResult(true, '✓ Sitemap pruning active (shouldIncludeInSitemap)');
+    } else {
+      addResult(false, '✗ Sitemap not pruned — all 35k cities still indexed', 'warning');
+    }
+  }
+
+  const geoFile = path.join(process.cwd(), 'lib/geo-targeting.ts');
+  if (fs.existsSync(geoFile)) {
+    addResult(true, '✓ Geo-targeting config exists (lib/geo-targeting.ts)');
+  } else {
+    addResult(false, '✗ Missing lib/geo-targeting.ts', 'warning');
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 17: Domain redirect .com → .fr
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkDomainRedirect() {
+  log('\n🔀 Checking domain redirect...', colors.blue);
+
+  const middlewareFile = path.join(process.cwd(), 'middleware.ts');
+  if (fs.existsSync(middlewareFile)) {
+    const content = fs.readFileSync(middlewareFile, 'utf-8');
+    const hasComRedirect = content.includes('lesepavistespro.com') && content.includes('lesepavistespro.fr');
+    if (hasComRedirect) {
+      addResult(true, '✓ Domain redirect .com → .fr configured in middleware');
+    } else {
+      addResult(false, '✗ Domain redirect .com → .fr not found in middleware');
+    }
+  } else {
+    addResult(false, '✗ middleware.ts not found');
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // RUN ALL CHECKS
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function runAllChecks() {
@@ -410,6 +515,10 @@ function runAllChecks() {
     checkCTAIntegrity();
     checkIntentSignals();
     checkBrandSchema();
+    checkNoFabricatedRatings();
+    checkHomepageIdfPriority();
+    checkSitemapPruning();
+    checkDomainRedirect();
   } catch (error) {
     log(`\n❌ Error running checks: ${error}`, colors.red);
     process.exit(1);

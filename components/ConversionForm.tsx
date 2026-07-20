@@ -28,6 +28,8 @@ interface FormData {
   department?: string;
   city?: string;
   pageType?: string;
+  // Honeypot anti-bot
+  website?: string;
 }
 
 interface ConversionFormProps {
@@ -163,12 +165,15 @@ export default function ConversionFormNew({
     return 'lead_autre_region';
   };
 
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateStep(4)) return;
 
     setIsSubmitting(true);
+    setSubmitError(null);
     trackFormSubmit(formData.service || 'unknown');
 
     // ── Tracking GA4 régional ─────────────────────────────────────────────
@@ -184,43 +189,54 @@ export default function ConversionFormNew({
     }
     // ─────────────────────────────────────────────────────────────────────
 
+    let success = false;
     try {
-      await fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ ...formData, leadRegionTag }),
       });
-      console.log('Form submitted:', formData, '| Region tag:', leadRegionTag);
+      if (res.ok) {
+        success = true;
+      } else {
+        const data = await res.json().catch(() => ({}));
+        console.error('API error:', res.status, data);
+      }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Network error submitting form:', error);
     }
 
     setIsSubmitting(false);
 
-    setShowSuccess(true);
-
-    // Auto-close after 8 seconds
-    setTimeout(() => {
-      setShowSuccess(false);
-      setFormData({
-        service: defaultService || '',
-        vehicleType: 'auto',
-        marque: '',
-        modele: '',
-        immatriculation: '',
-        etat: '',
-        codePostal: '',
-        ville: cityName || '',
-        sousSol: false,
-        prenom: '',
-        phone: '',
-        email: '',
-      });
-      setStep(defaultService ? 2 : 1);
-      if (trigger === 'button') setIsOpen(false);
-    }, 8000);
+    if (success) {
+      setShowSuccess(true);
+      // Auto-close after 8 seconds
+      setTimeout(() => {
+        setShowSuccess(false);
+        setFormData({
+          service: defaultService || '',
+          vehicleType: 'auto',
+          marque: '',
+          modele: '',
+          immatriculation: '',
+          etat: '',
+          codePostal: '',
+          ville: cityName || '',
+          sousSol: false,
+          prenom: '',
+          phone: '',
+          email: '',
+        });
+        setStep(defaultService ? 2 : 1);
+        if (trigger === 'button') setIsOpen(false);
+      }, 8000);
+    } else {
+      setSubmitError(
+        'Une erreur est survenue. Veuillez réessayer ou nous appeler directement au 09 79 04 94 86.'
+      );
+    }
   };
 
   const handleNext = () => {
@@ -317,6 +333,19 @@ export default function ConversionFormNew({
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-5 sm:p-6 md:p-8">
+          {/* Honeypot anti-bot field — hidden from real users */}
+          <div className="absolute -left-[9999px] opacity-0 h-0 w-0 overflow-hidden" aria-hidden="true">
+            <label htmlFor="website">Website</label>
+            <input
+              type="text"
+              id="website"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={formData.website || ''}
+              onChange={(e) => updateField('website' as keyof FormData, e.target.value)}
+            />
+          </div>
           <div className="min-h-[260px] sm:min-h-[300px]">
             {/* Step 1: Service Selection */}
             {step === 1 && (
@@ -546,6 +575,16 @@ export default function ConversionFormNew({
             )}
 
           </div>
+
+          {submitError && (
+            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">
+              <p className="font-semibold mb-1">Erreur d&apos;envoi</p>
+              <p>{submitError}</p>
+              <a href="tel:0979049486" className="inline-block mt-2 font-bold text-brand-red hover:underline">
+                Appeler le 09 79 04 94 86
+              </a>
+            </div>
+          )}
 
           <div className="flex gap-3 mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-neutral-200 pb-[env(safe-area-inset-bottom)]">
             {step > 1 && (
