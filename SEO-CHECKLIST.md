@@ -25,7 +25,7 @@
 
 ### 3. **Local SEO** ✅
 - [x] LocalBusiness schema with all departments
-- [x] Phone number: 09 79 04 94 86
+- [x] Phone number: 06 02 42 73 45
 - [x] Email: lesepavistespro@gmail.com
 - [x] Service area: All Île-de-France (75, 77, 78, 91, 92, 93, 94, 95)
 - [x] Opening hours: 7j/7, 8h-21h
@@ -255,7 +255,7 @@ verification: {
 ---
 
 ## 📞 Contact Information (Verified)
-- **Phone**: 09 79 04 94 86
+- **Phone**: 06 02 42 73 45
 - **WhatsApp**: +33 6 02 42 73 45
 - **Email**: lesepavistespro@gmail.com
 - **Service Area**: Île-de-France (75, 77, 78, 91, 92, 93, 94, 95)

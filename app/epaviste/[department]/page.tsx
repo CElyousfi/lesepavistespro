@@ -62,7 +62,7 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
       '@id': 'https://www.lesepavistespro.fr/#business',
       name: 'Les Épavistes Pro',
       url: `https://www.lesepavistespro.fr/epaviste/${region.slug}`,
-      telephone: '+33979049486',
+      telephone: '+33602427345',
       openingHours: 'Mo-Su 00:00-23:59',
     };
     let structuredData: any[] = [localBusinessData, breadcrumbData];

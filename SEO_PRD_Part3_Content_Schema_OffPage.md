@@ -600,7 +600,7 @@ Les pièces réutilisables sont **revendues sur le marché de l'occasion** (éco
 L'enlèvement d'épave gratuit est un **droit garanti par la loi** en France. En choisissant un centre VHU agréé (comme [Les Épavistes Pro](https://www.lesepavistespro.fr)), vous bénéficiez d'un service **rapide, légal et écologique**. **Ne payez jamais** pour un enlèvement d'épave : c'est 100% gratuit.
 
 **Besoin d'un enlèvement d'épave gratuit ?**  
-☎️ Appelez-nous au **09 79 04 94 86**  
+☎️ Appelez-nous au **06 02 42 73 45**  
 📧 Ou [demandez un devis en ligne](/contact)
 
 Intervention dans toute la France sous 24h. Service VHU agréé préfecture.
@@ -687,7 +687,7 @@ export const OrganizationSchema = {
   description:
     'Service professionnel d\'enlèvement d\'épave et rachat VHU dans toute la France. Centre agréé préfecture, intervention rapide 24/7.',
   email: 'contact@lesepavistespro.fr',
-  telephone: '+33979049486',
+  telephone: '+33602427345',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '12 Rue de la République',

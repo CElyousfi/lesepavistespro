@@ -9,7 +9,7 @@ const steps = [
     icon: Phone,
     number: '01',
     title: 'Prise de contact',
-    description: 'Contactez-nous par téléphone au 09 79 04 94 86 ou via notre formulaire. Nous vous proposons un rendez-vous selon vos disponibilités. Devis gratuit et sans engagement.',
+    description: 'Contactez-nous par téléphone au 06 02 42 73 45 ou via notre formulaire. Nous vous proposons un rendez-vous selon vos disponibilités. Devis gratuit et sans engagement.',
   },
   {
     icon: Truck,

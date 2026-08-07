@@ -89,7 +89,7 @@ export default function EpavistePage() {
             <p className="text-lg md:text-xl text-neutral-600 mb-12 leading-relaxed max-w-2xl mx-auto">
               Service d&apos;enlèvement d&apos;épave 100% gratuit partout en France.
               Épaviste agréé VHU, intervention 24h/24, certificat de destruction fourni.
-              18 régions couvertes. 09 79 04 94 86.
+              18 régions couvertes. 06 02 42 73 45.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
@@ -101,11 +101,11 @@ export default function EpavistePage() {
                 className="w-full sm:w-auto min-w-[280px]"
               />
               <a
-                href="tel:0979049486"
+                href="tel:+33602427345"
                 className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all"
               >
                 <Phone size={20} weight="bold" />
-                09 79 04 94 86
+                06 02 42 73 45
               </a>
               <a
                 href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20un%20devis"

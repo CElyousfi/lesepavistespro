@@ -101,7 +101,7 @@ export default function MobileServiceMenu({ isOpen, onClose }: MobileServiceMenu
         {/* Quick Actions */}
         <div className="p-6 border-t border-neutral-200 space-y-3">
           <a
-            href="tel:0979049486"
+            href="tel:+33602427345"
             className="flex items-center gap-3 p-4 bg-neutral-50 rounded-xl border border-neutral-200 hover:bg-neutral-100 active:scale-[0.98] transition-all"
           >
             <div className="w-10 h-10 rounded-xl bg-brand-red/10 flex items-center justify-center">
@@ -109,7 +109,7 @@ export default function MobileServiceMenu({ isOpen, onClose }: MobileServiceMenu
             </div>
             <div>
               <div className="text-xs text-neutral-500">Appelez-nous</div>
-              <div className="font-bold text-brand-navy text-sm">09 79 04 94 86</div>
+              <div className="font-bold text-brand-navy text-sm">06 02 42 73 45</div>
             </div>
           </a>
 

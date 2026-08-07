@@ -32,7 +32,7 @@ export function getOrganizationSchema() {
     },
     image: `${baseUrl}/icon.png`,
     description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés. Partenaire avec centre VHU agréé N° PR9500003D.',
-    telephone: '+33979049486',
+    telephone: '+33602427345',
     email: 'lesepavistespro@gmail.com',
     foundingDate: '2023',
     hasCredential: {
@@ -96,7 +96,7 @@ export function getOrganizationSchema() {
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        telephone: '+33979049486',
+        telephone: '+33602427345',
         contactType: 'customer service',
         availableLanguage: 'French',
         areaServed: 'FR',
@@ -149,7 +149,7 @@ export function getLocalBusinessSchema(deptCode?: string) {
     name: 'Les Épavistes Pro',
     description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés ou hors d\'usage.',
     url: baseUrl,
-    telephone: '+33979049486',
+    telephone: '+33602427345',
     email: 'lesepavistespro@gmail.com',
     priceRange: 'Gratuit',
     image: `${baseUrl}/icon.png`,
@@ -198,7 +198,7 @@ export function getServiceSchema(serviceName: string, serviceDescription: string
     provider: {
       '@type': 'LocalBusiness',
       name: 'Les Épavistes Pro',
-      telephone: '+33979049486',
+      telephone: '+33602427345',
     },
     areaServed: {
       '@type': 'Country',
@@ -325,7 +325,7 @@ export function getEpaveRemovalHowToSchema() {
     [
       {
         name: 'Contactez un épaviste agréé VHU',
-        text: 'Appelez le 09 79 04 94 86 ou remplissez le formulaire en ligne. Précisez la marque, le modèle, l\'état du véhicule et votre adresse.',
+        text: 'Appelez le 06 02 42 73 45 ou remplissez le formulaire en ligne. Précisez la marque, le modèle, l\'état du véhicule et votre adresse.',
       },
       {
         name: 'Préparez les documents obligatoires',

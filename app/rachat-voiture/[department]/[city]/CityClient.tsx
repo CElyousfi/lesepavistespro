@@ -89,7 +89,7 @@ export default function CityRachatClient({
           Nous rachetons tous types de véhicules à {city.name} :
           voitures d'occasion en bon état, véhicules accidentés, voitures en panne,
           épaves, véhicules sans contrôle technique. Paiement cash immédiat.
-          09 79 04 94 86.
+          06 02 42 73 45.
         </p>
 
         {/* CTA Buttons */}

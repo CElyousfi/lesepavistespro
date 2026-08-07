@@ -313,7 +313,7 @@ function generateEmailHTML(formData: any) {
                   </td>
                   <td align="right" style="vertical-align: top;">
                     <p style="margin: 0 0 4px 0;">
-                      <a href="tel:0979049486" style="color: #D4B372; font-size: 14px; font-weight: 700; text-decoration: none;">09 79 04 94 86</a>
+                      <a href="tel:+33602427345" style="color: #D4B372; font-size: 14px; font-weight: 700; text-decoration: none;">06 02 42 73 45</a>
                     </p>
                     <p style="margin: 0;">
                       <a href="https://www.lesepavistespro.fr" style="color: #525252; font-size: 12px; text-decoration: none;">www.lesepavistespro.fr</a>

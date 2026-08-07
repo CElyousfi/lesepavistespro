@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     default: "Épaviste France | Enlèvement d'épave gratuit & Rachat voiture 24h",
     template: '%s | Les Épavistes Pro',
   },
-  description: "Épaviste agréé VHU partout en France. Enlèvement d'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. 18 régions, 101 départements. 09 79 04 94 86.",
+  description: "Épaviste agréé VHU partout en France. Enlèvement d'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. 18 régions, 101 départements. 06 02 42 73 45.",
   applicationName: 'Les Épavistes Pro',
   formatDetection: {
     telephone: true,
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
   category: 'Automobile',
   openGraph: {
     title: "Épaviste France | Enlèvement d'épave gratuit 24h",
-    description: "Service d'enlèvement d'épave 100% gratuit 24h/24, 7j/7 partout en France. Épaviste agréé VHU et rachat de véhicules au meilleur prix. Appelez le 09 79 04 94 86",
+    description: "Service d'enlèvement d'épave 100% gratuit 24h/24, 7j/7 partout en France. Épaviste agréé VHU et rachat de véhicules au meilleur prix. Appelez le 06 02 42 73 45",
     type: "website",
     locale: "fr_FR",
     url: "https://www.lesepavistespro.fr",

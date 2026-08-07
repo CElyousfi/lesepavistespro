@@ -40,7 +40,7 @@ export default function IdfFaq({ faqItems, service }: IdfFaqProps) {
                 {/* CTA Buttons */}
                 <div className="space-y-3">
                   <a
-                    href="tel:0979049486"
+                    href="tel:+33602427345"
                     className="flex items-center gap-4 px-6 py-4 bg-white hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300 text-brand-navy rounded-2xl font-medium transition-all group shadow-sm"
                   >
                     <div className={`w-10 h-10 ${cls.bg10} rounded-xl flex items-center justify-center ${cls.bg20Hover} transition-colors`}>
@@ -48,7 +48,7 @@ export default function IdfFaq({ faqItems, service }: IdfFaqProps) {
                     </div>
                     <div>
                       <span className="block text-xs text-neutral-500">Une question ?</span>
-                      <span className="font-bold text-brand-navy">09 79 04 94 86</span>
+                      <span className="font-bold text-brand-navy">06 02 42 73 45</span>
                     </div>
                   </a>
 

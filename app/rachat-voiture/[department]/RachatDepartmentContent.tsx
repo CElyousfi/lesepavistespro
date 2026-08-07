@@ -65,7 +65,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
           Nous rachetons tous types de véhicules dans le {dept.name} ({dept.code}) :
           voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique.
           Paiement cash immédiat. Estimation gratuite.
-          09 79 04 94 86.
+          06 02 42 73 45.
         </p>
 
         {/* CTA Buttons */}
@@ -78,9 +78,9 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
             departmentName={dept.name}
             className="w-full sm:w-auto sm:min-w-[280px]"
           />
-          <a href="tel:0979049486" className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all">
+          <a href="tel:+33602427345" className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all">
             <Phone size={20} weight="bold" />
-            09 79 04 94 86
+            06 02 42 73 45
           </a>
           <a 
             href={`https://wa.me/33602427345?text=Bonjour, je souhaite vendre ma voiture dans le ${dept.name}`}
@@ -286,7 +286,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Contactez-nous</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Appelez-nous au 09 79 04 94 86 ou envoyez-nous un message WhatsApp avec les informations de votre véhicule.
+                      Appelez-nous au 06 02 42 73 45 ou envoyez-nous un message WhatsApp avec les informations de votre véhicule.
                     </p>
                   </div>
                 </div>

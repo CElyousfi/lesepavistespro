@@ -7,7 +7,7 @@ import { idfEpavisteFaq, idfRachatFaq } from '@/data/idf-faq';
 
 const BUSINESS_ID = 'https://www.lesepavistespro.fr/#business';
 const WEBSITE_ID = 'https://www.lesepavistespro.fr/#website';
-const PHONE = '+33979049486';
+const PHONE = '+33602427345';
 const EMAIL = 'lesepavistespro@gmail.com';
 const LOGO_URL = 'https://www.lesepavistespro.fr/logo.png';
 const FACEBOOK_URL = 'https://web.facebook.com/profile.php?id=61552439650150';
@@ -233,7 +233,7 @@ export function getCityFAQData(cityName: string, deptName: string, citySlug?: st
       name: `Délai d'intervention à ${cityName} ?`,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: `Généralement sous 24–48h à ${cityName}. Pour une urgence, contactez-nous par téléphone (09 79 04 94 86) ou WhatsApp.`
+        text: `Généralement sous 24–48h à ${cityName}. Pour une urgence, contactez-nous par téléphone (06 02 42 73 45) ou WhatsApp.`
       }
     }
   ];

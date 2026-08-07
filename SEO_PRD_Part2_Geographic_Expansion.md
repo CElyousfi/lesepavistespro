@@ -640,7 +640,7 @@ export async function generateMetadata({
   }
 
   const title = `Épaviste Gratuit ${dept.name} | Enlèvement Épave 24h & Rachat VHU`;
-  const description = `Service épaviste 100% gratuit à ${dept.name}. Intervention rapide 7j/7, VHU agréé préfecture de ${dept.prefecture}, rachat immédiat. Devis gratuit ☎ 09 79 04 94 86.`;
+  const description = `Service épaviste 100% gratuit à ${dept.name}. Intervention rapide 7j/7, VHU agréé préfecture de ${dept.prefecture}, rachat immédiat. Devis gratuit ☎ 06 02 42 73 45.`;
 
   return {
     title,
@@ -696,7 +696,7 @@ export default function EpavisteDepartmentPage({
   const faqs = [
     {
       question: `Comment fonctionne l'enlèvement d'épave à ${dept.name} ?`,
-      answer: `Notre service d'enlèvement d'épave à ${dept.name} est 100% gratuit. Contactez-nous au 09 79 04 94 86, nous intervenons sous 24h avec un camion grue professionnel. Nous vous délivrons un certificat de destruction VHU agréé préfecture de ${dept.prefecture}.`,
+      answer: `Notre service d'enlèvement d'épave à ${dept.name} est 100% gratuit. Contactez-nous au 06 02 42 73 45, nous intervenons sous 24h avec un camion grue professionnel. Nous vous délivrons un certificat de destruction VHU agréé préfecture de ${dept.prefecture}.`,
     },
     {
       question: `Quels documents pour détruire une voiture à ${dept.name} ?`,
@@ -729,7 +729,7 @@ export default function EpavisteDepartmentPage({
               name: `Les Épavistes Pro - ${dept.name}`,
               description: `Service épaviste VHU agréé à ${dept.name}`,
               url: `https://www.lesepavistespro.fr/epaviste/${params.slug}`,
-              telephone: '+33979049486',
+              telephone: '+33602427345',
               location: dept,
             })
           ),
@@ -754,7 +754,7 @@ export default function EpavisteDepartmentPage({
         subtitle="Enlèvement Gratuit & Rachat VHU 24/7"
         description={`Service professionnel d'enlèvement d'épave à ${dept.name}. Intervention rapide dans tout le département, VHU agréé préfecture de ${dept.prefecture}, rachat immédiat au meilleur prix.`}
         ctaText="Devis Gratuit Immédiat"
-        ctaPhone="09 79 04 94 86"
+        ctaPhone="06 02 42 73 45"
         backgroundImage={`/images/hero-${params.slug}.webp`}
         breadcrumbs={breadcrumbs}
       />
@@ -825,7 +825,7 @@ export default function EpavisteDepartmentPage({
           {
             number: 1,
             title: 'Contactez-nous',
-            description: `Appelez le 09 79 04 94 86 ou remplissez le formulaire. Décrivez votre véhicule (marque, état, localisation à ${dept.name}).`,
+            description: `Appelez le 06 02 42 73 45 ou remplissez le formulaire. Décrivez votre véhicule (marque, état, localisation à ${dept.name}).`,
           },
           {
             number: 2,
@@ -934,7 +934,7 @@ export default function EpavisteDepartmentPage({
         description="Intervention rapide 24/7. Devis gratuit par téléphone."
         primaryCTA={{
           text: 'Appeler Maintenant',
-          href: 'tel:+33979049486',
+          href: 'tel:+33602427345',
           icon: 'phone',
         }}
         secondaryCTA={{

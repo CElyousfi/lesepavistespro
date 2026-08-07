@@ -452,7 +452,7 @@ export const metadata: Metadata = {
     template: '%s | Les Épavistes Pro',  // "Épaviste Paris | Les Épavistes Pro"
   },
   
-  description: 'Service épaviste 100% gratuit dans toute la France. Intervention rapide 7j/7, VHU certifié préfecture, rachat immédiat. Devis gratuit ☎ 09 79 04 94 86.',
+  description: 'Service épaviste 100% gratuit dans toute la France. Intervention rapide 7j/7, VHU certifié préfecture, rachat immédiat. Devis gratuit ☎ 06 02 42 73 45.',
   
   // Keywords (not used by Google but still useful for Bing/Yandex)
   keywords: [
@@ -504,7 +504,7 @@ export const metadata: Metadata = {
     site: '@lesepavistespro',
     creator: '@lesepavistespro',
     title: 'Épaviste Gratuit France | Enlèvement Épave 24/7',
-    description: 'Service VHU agréé. Intervention rapide, enlèvement gratuit, rachat immédiat. ☎ 09 79 04 94 86',
+    description: 'Service VHU agréé. Intervention rapide, enlèvement gratuit, rachat immédiat. ☎ 06 02 42 73 45',
     images: ['/twitter-card-main.jpg'],  // 1200x630px
   },
   

@@ -89,7 +89,7 @@ export default function CityEpavisteClient({
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Épaviste agréé VHU à {city.name}. Enlèvement d'épave 100% GRATUIT 24h/24,
           certificat de destruction fourni. Intervention rapide sous {isIdf ? '2h' : '24-48h'}.
-          09 79 04 94 86.
+          06 02 42 73 45.
         </p>
 
         {/* CTA Buttons */}
@@ -127,7 +127,7 @@ export default function CityEpavisteClient({
               
               <h3 className="text-xl font-bold text-brand-navy mb-3 mt-6">Comment nous contacter</h3>
               <p className="mb-4">
-                ☎️ Appelez le 09 79 04 94 86 pour une intervention urgente<br/>
+                ☎️ Appelez le 06 02 42 73 45 pour une intervention urgente<br/>
                 💬 WhatsApp ou formulaire pour une demande de devis
               </p>
               

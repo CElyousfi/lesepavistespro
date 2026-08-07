@@ -101,7 +101,7 @@ export function generateHomeMeta(): Metadata {
   return generateMeta({
     title: 'Épaviste agréé VHU – Enlèvement gratuit 24/7',
     description:
-      'Enlèvement d\'épave 100% GRATUIT 24h/24 partout en France. Rachat voiture sans CT, paiement cash. Agréé VHU. ☎ 09 79 04 94 86',
+      'Enlèvement d\'épave 100% GRATUIT 24h/24 partout en France. Rachat voiture sans CT, paiement cash. Agréé VHU. ☎ 06 02 42 73 45',
     path: '/',
   });
 }
@@ -113,7 +113,7 @@ export function generateEpavistePillarMeta(): Metadata {
   return generateMeta({
     title: 'Épaviste agréé – Enlèvement d\'épave gratuit',
     description:
-      'Enlèvement d\'épave 100% gratuit en France. Agréé VHU, intervention 24h/24, certificat de destruction fourni. ☎ 09 79 04 94 86',
+      'Enlèvement d\'épave 100% gratuit en France. Agréé VHU, intervention 24h/24, certificat de destruction fourni. ☎ 06 02 42 73 45',
     path: '/epaviste',
   });
 }
@@ -125,7 +125,7 @@ export function generateRachatPillarMeta(): Metadata {
   return generateMeta({
     title: 'Rachat voiture – Paiement cash immédiat',
     description:
-      'Rachat de voiture sans CT partout en France. Cash immédiat, tous véhicules : HS, accidentés, en panne. ☎ 09 79 04 94 86',
+      'Rachat de voiture sans CT partout en France. Cash immédiat, tous véhicules : HS, accidentés, en panne. ☎ 06 02 42 73 45',
     path: '/rachat-voiture',
   });
 }
@@ -141,8 +141,8 @@ export function generateEpavisteDepartmentMeta(deptName: string, deptSlug: strin
   return generateMeta({
     title: safeTitleFit('Épaviste ', deptName, deptCodeDisplay, ' – Gratuit 24h'),
     description: isIdf
-      ? `Épaviste agréé VHU ${deptName}${deptCodeDisplay}. Enlèvement d'épave GRATUIT 24h/24, intervention sous 2h. ☎ 09 79 04 94 86`
-      : `Épaviste agréé VHU ${deptName}${deptCodeDisplay}. Enlèvement d'épave GRATUIT 24h/24, certificat de destruction. ☎ 09 79 04 94 86`,
+      ? `Épaviste agréé VHU ${deptName}${deptCodeDisplay}. Enlèvement d'épave GRATUIT 24h/24, intervention sous 2h. ☎ 06 02 42 73 45`
+      : `Épaviste agréé VHU ${deptName}${deptCodeDisplay}. Enlèvement d'épave GRATUIT 24h/24, certificat de destruction. ☎ 06 02 42 73 45`,
     path: `/epaviste/${deptSlug}`,
   });
 }
@@ -158,8 +158,8 @@ export function generateRachatDepartmentMeta(deptName: string, deptSlug: string)
   return generateMeta({
     title: safeTitleFit('Rachat voiture ', deptName, deptCodeDisplay, ' – Cash'),
     description: isIdf
-      ? `Rachat voiture ${deptName}${deptCodeDisplay}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 09 79 04 94 86`
-      : `Rachat voiture ${deptName}${deptCodeDisplay}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 09 79 04 94 86`,
+      ? `Rachat voiture ${deptName}${deptCodeDisplay}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 06 02 42 73 45`
+      : `Rachat voiture ${deptName}${deptCodeDisplay}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 06 02 42 73 45`,
     path: `/rachat-voiture/${deptSlug}`,
   });
 }
@@ -181,8 +181,8 @@ export function generateEpavisteCityMeta(
   return generateMeta({
     title: safeTitleFit('Épaviste ', cityName, postalDisplay, ' – Gratuit'),
     description: isIdf
-      ? `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT, intervention sous 2h. ☎ 09 79 04 94 86`
-      : `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 09 79 04 94 86`,
+      ? `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT, intervention sous 2h. ☎ 06 02 42 73 45`
+      : `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45`,
     path: `/epaviste/${deptSlug}/${citySlug}`,
     noIndex,
   });
@@ -205,8 +205,8 @@ export function generateRachatCityMeta(
   return generateMeta({
     title: safeTitleFit('Rachat ', cityName, postalDisplay, ' – Cash'),
     description: isIdf
-      ? `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 09 79 04 94 86`
-      : `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 09 79 04 94 86`,
+      ? `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45`
+      : `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45`,
     path: `/rachat-voiture/${deptSlug}/${citySlug}`,
     noIndex,
   });
@@ -219,7 +219,7 @@ export function generateZonesMeta(): Metadata {
   return generateMeta({
     title: 'Zones d\'intervention – Épaviste & Rachat',
     description:
-      'Nos zones d\'intervention : 18 régions, 101 départements. Épaviste et rachat voiture partout en France. ☎ 09 79 04 94 86',
+      'Nos zones d\'intervention : 18 régions, 101 départements. Épaviste et rachat voiture partout en France. ☎ 06 02 42 73 45',
     path: '/zones',
   });
 }
@@ -246,8 +246,8 @@ export function generateEpavisteRegionMeta(regionName: string, regionSlug: strin
       ? safeTitleFit('Épaviste ', 'Île-de-France', '', ' – Gratuit 24/7')
       : safeTitleFit('Épaviste ', regionName, '', ' – Gratuit 24h'),
     description: isIdf
-      ? `Épaviste agréé VHU en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Enlèvement GRATUIT 24h/24, intervention sous 2h. ☎ 09 79 04 94 86`
-      : `Épaviste agréé VHU en ${regionName}. Enlèvement d'épave GRATUIT 24h/24, certificat de destruction. ☎ 09 79 04 94 86`,
+      ? `Épaviste agréé VHU en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Enlèvement GRATUIT 24h/24, intervention sous 2h. ☎ 06 02 42 73 45`
+      : `Épaviste agréé VHU en ${regionName}. Enlèvement d'épave GRATUIT 24h/24, certificat de destruction. ☎ 06 02 42 73 45`,
     path: `/epaviste/${regionSlug}`,
   });
 }
@@ -263,8 +263,8 @@ export function generateRachatRegionMeta(regionName: string, regionSlug: string)
       ? safeTitleFit('Rachat voiture ', 'Île-de-France', '', ' – Cash immédiat')
       : safeTitleFit('Rachat voiture ', regionName, '', ' – Cash immédiat'),
     description: isIdf
-      ? `Rachat voiture en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Cash immédiat, sans CT, tous véhicules. ☎ 09 79 04 94 86`
-      : `Rachat voiture en ${regionName}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 09 79 04 94 86`,
+      ? `Rachat voiture en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Cash immédiat, sans CT, tous véhicules. ☎ 06 02 42 73 45`
+      : `Rachat voiture en ${regionName}. Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 06 02 42 73 45`,
     path: `/rachat-voiture/${regionSlug}`,
   });
 }

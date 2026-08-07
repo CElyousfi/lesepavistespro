@@ -66,7 +66,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
           Épaviste agréé VHU dans tout le département {dept.name} ({dept.code}). 
           Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni.
           Intervention rapide sous {isIdf ? '2h' : '24-48h'}.
-          09 79 04 94 86.
+          06 02 42 73 45.
         </p>
 
         {/* CTA Buttons */}
@@ -79,9 +79,9 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
             departmentName={dept.name}
             className="w-full sm:w-auto sm:min-w-[280px]"
           />
-          <a href="tel:0979049486" className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all">
+          <a href="tel:+33602427345" className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all">
             <Phone size={20} weight="bold" />
-            09 79 04 94 86
+            06 02 42 73 45
           </a>
           <a 
             href={`https://wa.me/33602427345?text=Bonjour, je souhaite un devis pour l'enlèvement d'une épave dans le ${dept.name}`}

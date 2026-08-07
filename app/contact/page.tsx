@@ -74,8 +74,8 @@ export default function ContactPage() {
                                         <div>
                                             <h3 className="font-bold text-brand-navy mb-0.5">Téléphone</h3>
                                             <p className="text-neutral-500 text-xs mb-2">Réponse immédiate</p>
-                                            <a href="tel:0979049486" className="text-xl font-bold text-brand-navy hover:text-brand-red transition-colors block">
-                                                09 79 04 94 86
+                                            <a href="tel:+33602427345" className="text-xl font-bold text-brand-navy hover:text-brand-red transition-colors block">
+                                                06 02 42 73 45
                                             </a>
                                         </div>
                                     </div>

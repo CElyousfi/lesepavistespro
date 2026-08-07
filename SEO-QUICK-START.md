@@ -5,7 +5,7 @@
 ### 1. Google Business Profile
 - Go to: https://business.google.com
 - Create listing for Les Épavistes Pro
-- Add phone: 09 79 04 94 86
+- Add phone: 06 02 42 73 45
 - Add service areas: All Île-de-France
 
 ### 2. Google Analytics 4

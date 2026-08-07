@@ -337,7 +337,7 @@ Your website is now a **SEO POWERHOUSE** optimized to dominate search results fo
 
 ### Contact
 - **Website:** https://lesepavistespro.fr
-- **Phone:** 09 79 04 94 86
+- **Phone:** 06 02 42 73 45
 - **WhatsApp:** +33602427345
 - **Email:** contact@lesepavistespro.fr
 

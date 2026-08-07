@@ -63,7 +63,7 @@ export default function PolitiqueConfidentialitePage() {
                   <ul className="list-none space-y-2 ml-0">
                     <li><strong>Raison sociale :</strong> Les Épavistes Pro</li>
                     <li><strong>Adresse :</strong> Île-de-France, France</li>
-                    <li><strong>Téléphone :</strong> <a href="tel:0979049486" className="text-brand-red hover:underline">09 79 04 94 86</a></li>
+                    <li><strong>Téléphone :</strong> <a href="tel:+33602427345" className="text-brand-red hover:underline">06 02 42 73 45</a></li>
                     <li><strong>Email :</strong> <a href="mailto:lesepavistespro@gmail.com" className="text-brand-red hover:underline">lesepavistespro@gmail.com</a></li>
                   </ul>
                 </div>
@@ -212,7 +212,7 @@ export default function PolitiqueConfidentialitePage() {
                   </p>
                   <ul className="list-disc ml-6 space-y-2">
                     <li>Par email : <a href="mailto:lesepavistespro@gmail.com" className="text-brand-red hover:underline">lesepavistespro@gmail.com</a></li>
-                    <li>Par téléphone : <a href="tel:0979049486" className="text-brand-red hover:underline">09 79 04 94 86</a></li>
+                    <li>Par téléphone : <a href="tel:+33602427345" className="text-brand-red hover:underline">06 02 42 73 45</a></li>
                     <li>Par courrier : Les Épavistes Pro, Île-de-France, France</li>
                   </ul>
                   <p className="mt-4">
@@ -347,7 +347,7 @@ export default function PolitiqueConfidentialitePage() {
                     <ul className="space-y-3">
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">📞 Téléphone :</span>
-                        <a href="tel:0979049486" className="hover:text-brand-gold transition-colors">09 79 04 94 86</a>
+                        <a href="tel:+33602427345" className="hover:text-brand-gold transition-colors">06 02 42 73 45</a>
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">📧 Email :</span>

@@ -45,10 +45,10 @@ export default function NotFound() {
         <div className="pt-4 border-t border-neutral-200">
           <p className="text-sm text-neutral-400 mb-2">Besoin d&apos;aide immédiate&nbsp;?</p>
           <a
-            href="tel:0979049486"
+            href="tel:+33602427345"
             className="text-lg font-bold text-brand-navy hover:text-brand-red transition-colors"
           >
-            ☎ 09 79 04 94 86
+            ☎ 06 02 42 73 45
           </a>
           <p className="text-xs text-neutral-400 mt-1">Disponible 24h/24, 7j/7</p>
         </div>

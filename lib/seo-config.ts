@@ -8,10 +8,10 @@ export const seoConfig = {
   siteName: 'Les Épavistes Pro',
   siteUrl: 'https://www.lesepavistespro.fr',
   defaultTitle: 'Épaviste France | Enlèvement d\'épave gratuit & Rachat voiture 24h',
-  defaultDescription: '⭐ Épaviste agréé VHU partout en France. Enlèvement d\'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. ☎️ 09 79 04 94 86',
+  defaultDescription: '⭐ Épaviste agréé VHU partout en France. Enlèvement d\'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. ☎️ 06 02 42 73 45',
   
   // Contact information
-  phone: '09 79 04 94 86',
+  phone: '06 02 42 73 45',
   whatsapp: '+33602427345',
   email: 'lesepavistespro@gmail.com',
   

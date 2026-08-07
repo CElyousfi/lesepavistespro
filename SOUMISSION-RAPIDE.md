@@ -62,7 +62,7 @@
 ```
 Nom : Les Épavistes Pro
 Catégorie : Service d'enlèvement d'épaves
-Téléphone : 09 79 04 94 86
+Téléphone : 06 02 42 73 45
 Site web : https://www.lesepavistespro.fr
 Zone de service : Île-de-France (75, 77, 78, 91, 92, 93, 94, 95)
 Horaires : 24h/24, 7j/7
@@ -74,7 +74,7 @@ Horaires : 24h/24, 7j/7
 Rachat de véhicules accidentés, en panne ou hors d'usage au meilleur prix. 
 Intervention rapide sous 24-48h. Certificat de destruction fourni. 
 Service professionnel dans tout Paris et Île-de-France (75, 77, 78, 91, 92, 93, 94, 95).
-Appelez le 09 79 04 94 86 pour un devis gratuit.
+Appelez le 06 02 42 73 45 pour un devis gratuit.
 ```
 
 ---
@@ -114,7 +114,7 @@ https://www.lesepavistespro.fr/blog/
 🚗 Notre nouveau site est en ligne !
 Enlèvement d'épave GRATUIT 24h/24 en Île-de-France
 👉 https://www.lesepavistespro.fr
-☎️ 09 79 04 94 86
+☎️ 06 02 42 73 45
 ```
 
 **Instagram Story :**

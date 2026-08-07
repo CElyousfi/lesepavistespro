@@ -97,10 +97,10 @@ export default function IdfAeoSection({
               <p className="text-sm text-neutral-600">Appelez-nous — nous traitons tous les cas, même les plus complexes.</p>
             </div>
             <a
-              href="tel:0979049486"
+              href="tel:+33602427345"
               className={`shrink-0 px-6 py-3 rounded-full font-bold text-white transition-all hover:scale-[1.02] ${isGold ? 'bg-brand-gold hover:bg-brand-gold/90' : 'bg-brand-red hover:bg-brand-red/90'}`}
             >
-              09 79 04 94 86
+              06 02 42 73 45
             </a>
           </div>
         </div>

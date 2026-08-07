@@ -248,7 +248,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Contactez-nous maintenant pour un enlèvement gratuit</h2>
       <p>Ne laissez plus votre épave vous coûter de l'argent en assurance et en stationnement. Faites-la enlever <strong>gratuitement</strong> dès aujourd'hui !</p>
       
-      <p><strong>Appelez le 09 79 04 94 86</strong></p>
+      <p><strong>Appelez le 06 02 42 73 45</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong> pour devis rapide</p>
       <p>⏰ <strong>Réponse immédiate</strong> - Service client réactif</p>
       
@@ -550,7 +550,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Contactez-nous pour votre certificat de destruction</h2>
       <p>Ne prenez aucun risque avec votre épave. Confiez-la à un professionnel agréé et obtenez votre certificat de destruction en toute sécurité.</p>
       
-      <p><strong>Appelez le 09 79 04 94 86</strong></p>
+      <p><strong>Appelez le 06 02 42 73 45</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong> pour questions rapides</p>
       <p>⏰ <strong>Service client réactif</strong> - Réponse immédiate</p>
       
@@ -811,7 +811,7 @@ export const blogPosts: BlogPost[] = [
       <h3>Étape 1 : Estimation gratuite et immédiate</h3>
       <p><strong>3 façons d'obtenir votre estimation :</strong></p>
       <ul>
-        <li>📞 <strong>Par téléphone</strong> : 09 79 04 94 86 (réponse en 5 min)</li>
+        <li>📞 <strong>Par téléphone</strong> : 06 02 42 73 45 (réponse en 5 min)</li>
         <li>💬 <strong>Par WhatsApp</strong> : Envoyez photos + infos (réponse en 15 min)</li>
         <li>📧 <strong>Par email</strong> : Description détaillée (réponse en 2h)</li>
       </ul>
@@ -912,7 +912,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Obtenez votre estimation gratuite maintenant</h2>
       <p>Ne laissez pas votre voiture accidentée perdre de la valeur. Obtenez une estimation gratuite et vendez au meilleur prix dès aujourd'hui !</p>
       
-      <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
+      <p>📞 <strong>Appelez le 06 02 42 73 45</strong></p>
       <p>💬 <strong>WhatsApp</strong> : Envoyez vos photos pour estimation rapide</p>
       <p>⏰ <strong>Réponse en moins de 30 minutes</strong></p>
       <p>💰 <strong>Paiement le jour même</strong></p>
@@ -1241,7 +1241,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Contactez un épaviste agréé VHU maintenant</h2>
       <p>Ne prenez aucun risque avec votre épave. Choisissez un professionnel agréé et obtenez votre certificat de destruction en toute sécurité.</p>
       
-      <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
+      <p>📞 <strong>Appelez le 06 02 42 73 45</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong> pour questions rapides</p>
       <p><strong>Intervention 2-4h</strong> partout en Île-de-France</p>
       <p>📄 <strong>Certificat VHU garanti</strong> sous 15 jours</p>
@@ -1602,7 +1602,7 @@ export const blogPosts: BlogPost[] = [
 
       <h3>✅ Processus ultra-simplifié</h3>
       <ul>
-        <li>1. Vous nous appelez : <strong>09 79 04 94 86</strong></li>
+        <li>1. Vous nous appelez : <strong>06 02 42 73 45</strong></li>
         <li>2️⃣ Nous estimons votre véhicule (gratuit)</li>
         <li>3. Nous venons l'enlever (gratuit)</li>
         <li>4. Nous vous payons (si rachat)</li>
@@ -1620,7 +1620,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Vendez votre voiture HS en toute simplicité</h2>
       <p>Ne vous compliquez pas la vie avec les démarches administratives. Les Épavistes Pro s'occupe de TOUT pour vous !</p>
       
-      <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
+      <p>📞 <strong>Appelez le 06 02 42 73 45</strong></p>
       <p><strong>WhatsApp disponible</strong> pour estimation rapide</p>
       <p><strong>Intervention 2-4h</strong> partout en Île-de-France</p>
       <p>💰 <strong>Paiement immédiat</strong> si rachat</p>
@@ -1914,7 +1914,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Obtenez votre enlèvement gratuit maintenant</h2>
       <p>Ne payez JAMAIS pour un enlèvement d'épave ! Avec Les Épavistes Pro, le service est <strong>100% gratuit, garanti par écrit</strong>.</p>
       
-      <p>📞 <strong>Appelez le 09 79 04 94 86</strong></p>
+      <p>📞 <strong>Appelez le 06 02 42 73 45</strong></p>
       <p><strong>WhatsApp disponible</strong> pour confirmation gratuite</p>
       <p><strong>Intervention 2-4h</strong> partout en Île-de-France</p>
       <p>💵 <strong>0€ garanti</strong> - Aucun frais caché</p>
@@ -1987,7 +1987,7 @@ export const blogPosts: BlogPost[] = [
       <p><strong>C'est 100% GRATUIT !</strong> Même en sous-sol, l'enlèvement d'une épave par un épaviste agréé VHU ne vous coûte rien. Le surcoût lié à l'équipement spécialisé est entièrement pris en charge par notre centre de recyclage.</p>
 
       <h2>Contactez-nous pour un enlèvement en sous-sol</h2>
-      <p><strong>Appelez le 09 79 04 94 86</strong> et précisez que votre véhicule se trouve en sous-sol. Nous adapterons notre intervention en conséquence.</p>
+      <p><strong>Appelez le 06 02 42 73 45</strong> et précisez que votre véhicule se trouve en sous-sol. Nous adapterons notre intervention en conséquence.</p>
       <p>💬 <strong>WhatsApp disponible</strong> - Envoyez-nous des photos de l'accès pour une évaluation rapide</p>
       <p>⏰ <strong>Intervention sous 24-48h</strong> partout en France</p>
     `
@@ -2080,7 +2080,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Contactez-nous pour la destruction de votre ancien véhicule</h2>
       <p>Vous souhaitez bénéficier de la prime à la conversion ? Commencez par faire enlever gratuitement votre ancien véhicule.</p>
-      <p><strong>Appelez le 09 79 04 94 86</strong></p>
+      <p><strong>Appelez le 06 02 42 73 45</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong></p>
       <p>⏰ <strong>Certificat de destruction garanti sous 15 jours</strong></p>
     `
@@ -2164,7 +2164,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Contactez-nous pour l'enlèvement de votre moto ou scooter</h2>
       <p>Service gratuit, rapide et professionnel pour tous les deux-roues.</p>
-      <p><strong>Appelez le 09 79 04 94 86</strong></p>
+      <p><strong>Appelez le 06 02 42 73 45</strong></p>
       <p>💬 <strong>WhatsApp disponible</strong> - Envoyez des photos pour une estimation rapide</p>
       <p>⏰ <strong>Intervention sous 24-48h</strong> partout en France</p>
     `

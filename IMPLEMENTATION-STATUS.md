@@ -16,7 +16,7 @@
 - [x] All CTAs working
 
 ### **Contact Information** ✅
-- [x] Phone: 09 79 04 94 86
+- [x] Phone: 06 02 42 73 45
 - [x] WhatsApp: +33 6 02 42 73 45
 - [x] Email: lesepavistespro@gmail.com
 - [x] Updated everywhere (schema, components, footer)
@@ -190,7 +190,7 @@ export async function generateMetadata({ params }: { params: { department: strin
   
   return {
     title: `Épaviste ${dept.name} (${dept.code}) | Enlèvement Gratuit 24h`,
-    description: `Épaviste agréé VHU dans le ${dept.name} (${dept.code}). Enlèvement d'épave 100% gratuit 7j/7. ☎️ 09 79 04 94 86`,
+    description: `Épaviste agréé VHU dans le ${dept.name} (${dept.code}). Enlèvement d'épave 100% gratuit 7j/7. ☎️ 06 02 42 73 45`,
   };
 }
 
@@ -246,7 +246,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
   
   return {
     title: `Épaviste ${city.name} (${city.postalCode}) | Enlèvement Gratuit`,
-    description: `Épaviste agréé à ${city.name} dans le ${department.name}. Enlèvement d'épave gratuit sous 24h. ☎️ 09 79 04 94 86`,
+    description: `Épaviste agréé à ${city.name} dans le ${department.name}. Enlèvement d'épave gratuit sous 24h. ☎️ 06 02 42 73 45`,
   };
 }
 

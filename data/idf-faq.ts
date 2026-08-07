@@ -11,7 +11,7 @@ export interface IdfFaqItem {
 export const idfEpavisteFaq: IdfFaqItem[] = [
   {
     question: "Combien coûte l'enlèvement d'une épave en Île-de-France ?",
-    answer: "L'enlèvement d'épave est 100% GRATUIT en Île-de-France, quel que soit l'état de votre véhicule. Nous prenons en charge le remorquage, la dépollution et la destruction dans un centre VHU agréé. Vous n'avez absolument rien à payer. Appelez le 09 79 04 94 86 pour une intervention rapide.",
+    answer: "L'enlèvement d'épave est 100% GRATUIT en Île-de-France, quel que soit l'état de votre véhicule. Nous prenons en charge le remorquage, la dépollution et la destruction dans un centre VHU agréé. Vous n'avez absolument rien à payer. Appelez le 06 02 42 73 45 pour une intervention rapide.",
   },
   {
     question: "Quel est le délai d'intervention pour un enlèvement d'épave en IDF ?",
@@ -31,7 +31,7 @@ export const idfEpavisteFaq: IdfFaqItem[] = [
   },
   {
     question: "Intervenez-vous le week-end et les jours fériés en Île-de-France ?",
-    answer: "Oui, notre service d'épaviste en Île-de-France est disponible 24h/24, 7j/7, y compris les week-ends et jours fériés. Les demandes urgentes en IDF sont traitées en priorité. Contactez-nous au 09 79 04 94 86 ou par WhatsApp pour une intervention rapide.",
+    answer: "Oui, notre service d'épaviste en Île-de-France est disponible 24h/24, 7j/7, y compris les week-ends et jours fériés. Les demandes urgentes en IDF sont traitées en priorité. Contactez-nous au 06 02 42 73 45 ou par WhatsApp pour une intervention rapide.",
   },
   {
     question: "Récupérez-vous tous types de véhicules en Île-de-France ?",
@@ -47,7 +47,7 @@ export const idfEpavisteFaq: IdfFaqItem[] = [
   },
   {
     question: "Comment se déroule l'enlèvement d'une épave en Île-de-France ?",
-    answer: "Le processus est simple : 1) Contactez-nous par téléphone (09 79 04 94 86), WhatsApp ou formulaire. 2) Nous convenons d'un créneau (souvent le jour même en IDF). 3) Notre dépanneur arrive avec un plateau et procède à l'enlèvement. 4) Vous recevez immédiatement votre certificat de destruction. 5) Nous nous chargeons de la radiation auprès de l'ANTS. Tout est gratuit et sans engagement.",
+    answer: "Le processus est simple : 1) Contactez-nous par téléphone (06 02 42 73 45), WhatsApp ou formulaire. 2) Nous convenons d'un créneau (souvent le jour même en IDF). 3) Notre dépanneur arrive avec un plateau et procède à l'enlèvement. 4) Vous recevez immédiatement votre certificat de destruction. 5) Nous nous chargeons de la radiation auprès de l'ANTS. Tout est gratuit et sans engagement.",
   },
   {
     question: "Y a-t-il des frais cachés pour l'enlèvement d'épave en Île-de-France ?",
@@ -62,7 +62,7 @@ export const idfEpavisteFaq: IdfFaqItem[] = [
 export const idfRachatFaq: IdfFaqItem[] = [
   {
     question: "Combien puis-je obtenir pour ma voiture en Île-de-France ?",
-    answer: "Le prix de rachat dépend de l'état, la marque, le modèle et l'année de votre véhicule. En Île-de-France, nous proposons des prix compétitifs allant de 100€ à 8 000€ pour les véhicules en bon état. Demandez une estimation gratuite au 09 79 04 94 86 ou par WhatsApp pour connaître la valeur de votre véhicule.",
+    answer: "Le prix de rachat dépend de l'état, la marque, le modèle et l'année de votre véhicule. En Île-de-France, nous proposons des prix compétitifs allant de 100€ à 8 000€ pour les véhicules en bon état. Demandez une estimation gratuite au 06 02 42 73 45 ou par WhatsApp pour connaître la valeur de votre véhicule.",
   },
   {
     question: "Rachetez-vous les voitures sans contrôle technique en IDF ?",

@@ -61,7 +61,7 @@
 ### **5. CRO 100% COMPATIBLE** ✅
 
 #### **Header Sticky with 3 CTAs**
-- ✅ **Phone CTA** - 09 79 04 94 86 (with tracking)
+- ✅ **Phone CTA** - 06 02 42 73 45 (with tracking)
 - ✅ **WhatsApp CTA** - Pre-filled message (with tracking)
 - ✅ **Form CTA** - Scroll to form
 

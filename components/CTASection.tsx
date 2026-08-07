@@ -19,11 +19,11 @@ const CTASection = () => {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
           <a
-            href="tel:0979049486"
+            href="tel:+33602427345"
             className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red text-white rounded-full font-semibold text-base hover:bg-brand-red/90 hover:scale-[1.02] transition-all shadow-lg min-w-[220px]"
           >
             <Phone size={20} weight="bold" />
-            09 79 04 94 86
+            06 02 42 73 45
           </a>
 
           <a

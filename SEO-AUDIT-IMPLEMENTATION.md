@@ -162,7 +162,7 @@
 
 ## 📞 CONTACT INFO (Verified)
 
-- **Phone:** +33979049486
+- **Phone:** +33602427345
 - **Email:** lesepavistespro@gmail.com
 - **Facebook:** https://web.facebook.com/profile.php?id=61552439650150
 - **Instagram:** https://www.instagram.com/lesepavistespro

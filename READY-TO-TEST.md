@@ -80,7 +80,7 @@ npm run dev
   "@type": "LocalBusiness",
   "@id": "https://www.lesepavistespro.fr/#business",
   "name": "Les Épavistes Pro",
-  "telephone": "+33979049486",
+  "telephone": "+33602427345",
   "email": "lesepavistespro@gmail.com",
   ...
   "areaServed": [

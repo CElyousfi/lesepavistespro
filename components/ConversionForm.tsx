@@ -234,7 +234,7 @@ export default function ConversionFormNew({
       }, 8000);
     } else {
       setSubmitError(
-        'Une erreur est survenue. Veuillez réessayer ou nous appeler directement au 09 79 04 94 86.'
+        'Une erreur est survenue. Veuillez réessayer ou nous appeler directement au 06 02 42 73 45.'
       );
     }
   };
@@ -580,8 +580,8 @@ export default function ConversionFormNew({
             <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">
               <p className="font-semibold mb-1">Erreur d&apos;envoi</p>
               <p>{submitError}</p>
-              <a href="tel:0979049486" className="inline-block mt-2 font-bold text-brand-red hover:underline">
-                Appeler le 09 79 04 94 86
+              <a href="tel:+33602427345" className="inline-block mt-2 font-bold text-brand-red hover:underline">
+                Appeler le 06 02 42 73 45
               </a>
             </div>
           )}

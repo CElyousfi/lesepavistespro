@@ -363,7 +363,7 @@ npm run build
 - `scripts/seo-qa-check.ts` - Automated validation
 
 ### **Key Contacts**
-- **Phone**: 09 79 04 94 86
+- **Phone**: 06 02 42 73 45
 - **WhatsApp**: +33 6 02 42 73 45
 - **Email**: contact@lesepavistespro.fr
 

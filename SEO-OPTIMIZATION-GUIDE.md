@@ -120,7 +120,7 @@ Examples:
   - Business name: Les Épavistes Pro
   - Category: Auto Repair Shop, Towing Service
   - Service areas: All 8 Île-de-France departments
-  - Phone: 09 79 04 94 86
+  - Phone: 06 02 42 73 45
   - Website: https://lesepavistespro.fr
   - Hours: 7j/7, 8h-21h
   - Photos: Add service photos
@@ -418,7 +418,7 @@ Examples:
 
 For SEO questions or optimization support:
 - Website: https://lesepavistespro.fr
-- Phone: 09 79 04 94 86
+- Phone: 06 02 42 73 45
 - Email: contact@lesepavistespro.fr
 
 ---

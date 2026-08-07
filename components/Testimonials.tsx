@@ -26,10 +26,10 @@ const Testimonials = () => {
                                 Vous avez fait appel à nos services ? Partagez votre expérience en nous contactant directement.
                             </p>
                             <a
-                                href="tel:0979049486"
+                                href="tel:+33602427345"
                                 className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-brand-red text-white rounded-full font-semibold text-sm hover:bg-brand-red/90 transition-all"
                             >
-                                Laissez votre avis : 09 79 04 94 86
+                                Laissez votre avis : 06 02 42 73 45
                             </a>
                         </div>
                     </div>

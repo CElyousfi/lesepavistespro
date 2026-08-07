@@ -167,7 +167,7 @@ Each with:
   "@type": "LocalBusiness",
   "@id": "https://www.lesepavistespro.fr/#business",
   "name": "Les Épavistes Pro",
-  "telephone": "+33979049486",
+  "telephone": "+33602427345",
   "email": "lesepavistespro@gmail.com",
   "openingHoursSpecification": [{
     "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
@@ -280,7 +280,7 @@ Each with:
 
 ## 📞 **CONTACT INFO (Verified)**
 
-- **Phone:** +33979049486
+- **Phone:** +33602427345
 - **Email:** lesepavistespro@gmail.com
 - **Facebook:** https://web.facebook.com/profile.php?id=61552439650150
 - **Instagram:** https://www.instagram.com/lesepavistespro

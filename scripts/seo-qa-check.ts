@@ -388,7 +388,7 @@ function checkCTAIntegrity() {
   const content = fs.readFileSync(quickContactFile, 'utf-8');
   
   // Check phone number present
-  if (content.includes('09 79 04 94 86')) {
+  if (content.includes('06 02 42 73 45')) {
     addResult(true, '✓ Phone number CTA intact');
   } else {
     addResult(false, '✗ CRITICAL: Phone number CTA removed or changed');
@@ -419,7 +419,7 @@ function checkIntentSignals() {
   const content = fs.readFileSync(deptClientFile, 'utf-8');
   
   // Check urgent intent signal (phone number + 24h availability in hero)
-  if (content.includes('09 79 04 94 86') && content.includes('24h')) {
+  if (content.includes('06 02 42 73 45') && content.includes('24h')) {
     addResult(true, '✓ Urgent intent signal present (phone + 24h availability)');
   } else {
     addResult(false, '✗ CRITICAL: Urgent intent signal removed (phone or 24h missing)');

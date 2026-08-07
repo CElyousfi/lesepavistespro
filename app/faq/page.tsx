@@ -66,10 +66,10 @@ export default function FAQPage() {
                                     Notre équipe est disponible 7j/7 pour répondre à toutes vos interrogations par téléphone ou message.
                                 </p>
                                 <a
-                                    href="tel:0979049486"
+                                    href="tel:+33602427345"
                                     className="inline-flex items-center justify-center bg-brand-red text-white font-semibold py-3 px-8 rounded-full hover:bg-brand-red/90 transition-all hover:scale-[1.02]"
                                 >
-                                    Contactez-nous au 09 79 04 94 86
+                                    Contactez-nous au 06 02 42 73 45
                                 </a>
                             </div>
                         </div>

@@ -234,7 +234,7 @@ site:lesepavistespro.fr/epaviste/
    - Catégorie : "Service d'enlèvement d'épaves"
    - Adresse : Votre adresse professionnelle
    - Zone de service : Île-de-France (75, 77, 78, 91, 92, 93, 94, 95)
-   - Téléphone : 09 79 04 94 86
+   - Téléphone : 06 02 42 73 45
    - Site web : https://www.lesepavistespro.fr
 
 3. **Vérification :**

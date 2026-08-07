@@ -34,7 +34,7 @@
 - ✅ **Footer**: Complete with links, newsletter, contact
 
 ### **4. Contact Methods** ✅
-- ✅ Phone: 09 79 04 94 86 (multiple CTAs)
+- ✅ Phone: 06 02 42 73 45 (multiple CTAs)
 - ✅ WhatsApp: +33 6 02 42 73 45 (floating + inline)
 - ✅ Email: lesepavistespro@gmail.com
 - ✅ All buttons functional with analytics tracking
@@ -115,7 +115,7 @@ Neutral Scale: 50-900 (Modern grays)
 ## 📞 **Contact Information**
 
 ### **Verified & Updated Everywhere**
-- **Phone**: 09 79 04 94 86
+- **Phone**: 06 02 42 73 45
 - **WhatsApp**: +33 6 02 42 73 45
 - **Email**: lesepavistespro@gmail.com
 - **Hours**: 7j/7, 8h-21h

@@ -48,10 +48,10 @@ const HeroNew = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-200">
-              <a href="tel:0979049486" onClick={handleCallClick}>
+              <a href="tel:+33602427345" onClick={handleCallClick}>
                 <Button size="lg" className="h-14 min-w-[220px] text-base gap-2">
                   <Phone size={20} weight="bold" />
-                  09 79 04 94 86
+                  06 02 42 73 45
                 </Button>
               </a>
               <Button

@@ -18,7 +18,7 @@ NEXT_PUBLIC_FB_PIXEL_ID=XXXXXXXXXX
 NEXT_PUBLIC_SITE_URL=https://lesepavistespro.fr
 
 # Contact Information
-NEXT_PUBLIC_PHONE=0979049486
+NEXT_PUBLIC_PHONE=+33602427345
 NEXT_PUBLIC_WHATSAPP=+33602427345
 NEXT_PUBLIC_EMAIL=lesepavistespro@gmail.com
 ```
@@ -231,7 +231,7 @@ sudo certbot renew --dry-run
 2. Add:
    - Business name: Les Épavistes Pro
    - Category: Auto Wrecker, Towing Service
-   - Phone: 09 79 04 94 86
+   - Phone: 06 02 42 73 45
    - Website: https://lesepavistespro.fr
    - Hours: Mon-Sun 8:00-21:00
    - Service area: Île-de-France

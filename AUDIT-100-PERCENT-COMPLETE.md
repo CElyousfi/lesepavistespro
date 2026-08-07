@@ -64,7 +64,7 @@ All tasks from your comprehensive SEO audit have been completed successfully.
 
 ### **5. CRO Enhancements** ✅
 - ✅ Sticky header with 3 CTAs
-  - Phone: 09 79 04 94 86
+  - Phone: 06 02 42 73 45
   - WhatsApp: Pre-filled message
   - Form: Scroll to devis
 - ✅ Micro-copy & conversion messages

@@ -73,7 +73,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
           Nous rachetons tous types de véhicules en {region.name} :
           voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique.
           Paiement cash immédiat dans tous les départements.
-          09 79 04 94 86.
+          06 02 42 73 45.
         </p>
 
         {/* CTA Buttons */}
@@ -85,9 +85,9 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
             pageType="department"
             className="w-full sm:w-auto sm:min-w-[280px]"
           />
-          <a href="tel:0979049486" className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all">
+          <a href="tel:+33602427345" className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all">
             <Phone size={20} weight="bold" />
-            09 79 04 94 86
+            06 02 42 73 45
           </a>
           <a
             href={`https://wa.me/33602427345?text=Bonjour, je souhaite vendre ma voiture en ${region.name}`}

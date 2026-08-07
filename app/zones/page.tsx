@@ -64,10 +64,10 @@ export default function ZonesPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="tel:0979049486"
+                href="tel:+33602427345"
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red text-white rounded-full font-semibold hover:bg-brand-red/90 hover:scale-[1.02] transition-all shadow-lg"
               >
-                09 79 04 94 86
+                06 02 42 73 45
               </a>
               <a
                 href="https://wa.me/33602427345"
@@ -172,10 +172,10 @@ export default function ZonesPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="tel:0979049486"
+                  href="tel:+33602427345"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-red text-white rounded-full font-semibold hover:bg-brand-red/90 hover:scale-[1.02] transition-all shadow-lg"
                 >
-                  09 79 04 94 86
+                  06 02 42 73 45
                 </a>
                 <a
                   href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis"

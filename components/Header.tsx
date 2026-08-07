@@ -62,8 +62,8 @@ const Header = () => {
 
             {/* CTA Buttons */}
             <div className="hidden lg:flex items-center gap-3">
-              <a href="tel:0979049486" className="text-sm font-medium text-neutral-600 hover:text-brand-red transition-colors">
-                09 79 04 94 86
+              <a href="tel:+33602427345" className="text-sm font-medium text-neutral-600 hover:text-brand-red transition-colors">
+                06 02 42 73 45
               </a>
               <Button
                 variant="primary"
@@ -99,7 +99,7 @@ const Header = () => {
       <div data-nosnippet className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-neutral-200 p-3 z-50 shadow-lg">
         <div className="grid grid-cols-3 gap-2 max-w-lg mx-auto">
           <a
-            href="tel:0979049486"
+            href="tel:+33602427345"
             onClick={handleCallClick}
             className="flex flex-col items-center justify-center bg-brand-red text-white py-3 px-2 rounded-xl font-semibold hover:bg-brand-red/90 transition-colors active:scale-95"
           >

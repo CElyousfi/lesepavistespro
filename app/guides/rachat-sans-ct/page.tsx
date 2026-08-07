@@ -175,7 +175,7 @@ export default function RachatSansCTPage() {
                   <div>
                     <h3 className="font-bold text-brand-navy mb-2">Contactez-nous</h3>
                     <p className="text-neutral-700">
-                      Appelez le <strong>09 79 04 94 86</strong> ou envoyez un message WhatsApp avec les informations de votre véhicule 
+                      Appelez le <strong>06 02 42 73 45</strong> ou envoyez un message WhatsApp avec les informations de votre véhicule 
                       (marque, modèle, année, état, photos si possible).
                     </p>
                   </div>

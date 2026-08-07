@@ -105,7 +105,7 @@ export default function IdfInternalLinks({ service, currentDeptSlug, currentCity
             </h2>
             <p className="text-neutral-600 mt-4 max-w-2xl mx-auto">
               Nous intervenons dans les 8 départements d&apos;Île-de-France, soit 1 286 communes couvertes.
-              Intervention rapide 24h/24. 09 79 04 94 86.
+              Intervention rapide 24h/24. 06 02 42 73 45.
             </p>
           </div>
 

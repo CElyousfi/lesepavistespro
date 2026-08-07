@@ -82,7 +82,7 @@ export default function RachatVoiturePage() {
             <p className="text-lg md:text-xl text-neutral-600 mb-12 leading-relaxed max-w-2xl mx-auto">
               Rachat de voiture partout en France sans CT. Paiement cash immédiat,
               tous véhicules acceptés : HS, accidentés, en panne.
-              Estimation gratuite. 09 79 04 94 86.
+              Estimation gratuite. 06 02 42 73 45.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
@@ -94,11 +94,11 @@ export default function RachatVoiturePage() {
                 className="w-full sm:w-auto min-w-[280px]"
               />
               <a
-                href="tel:0979049486"
+                href="tel:+33602427345"
                 className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all"
               >
                 <Phone size={20} weight="bold" />
-                09 79 04 94 86
+                06 02 42 73 45
               </a>
               <a
                 href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20vendre%20ma%20voiture"

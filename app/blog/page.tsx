@@ -139,10 +139,10 @@ export default function BlogPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
-                  href="tel:0979049486"
+                  href="tel:+33602427345"
                   className="inline-flex items-center justify-center gap-3 bg-brand-red text-white px-8 py-4 rounded-full font-semibold text-base hover:bg-brand-red/90 hover:scale-[1.02] transition-all shadow-lg w-full sm:w-auto"
                 >
-                  <span>09 79 04 94 86</span>
+                  <span>06 02 42 73 45</span>
                 </a>
                 <Link
                   href="/epaviste"

@@ -61,12 +61,12 @@ export default function QuickContact({ service = 'epaviste', location, className
           className="w-full sm:w-auto sm:min-w-[280px]"
         />
         <a 
-          href="tel:0979049486"
+          href="tel:+33602427345"
           onClick={handleCallClick}
           className={`inline-flex items-center justify-center gap-3 px-6 py-4 bg-brand-navy/5 hover:bg-brand-navy/10 border border-neutral-200 text-brand-navy rounded-full font-semibold transition-all ${isFromAds ? 'ring-2 ring-offset-2 ring-brand-red' : ''}`}
         >
           <Phone size={20} weight="bold" />
-          <span>09 79 04 94 86</span>
+          <span>06 02 42 73 45</span>
         </a>
         <a 
           href={`https://wa.me/33602427345?text=${encodeURIComponent(whatsappMessage)}`}
