@@ -10,6 +10,7 @@ import {
 } from '@/lib/structured-data';
 import { buildFaqPage, genericFaqItems, type FaqItem } from '@/lib/faq';
 import { isIdfDepartment, isIdfRegion } from '@/lib/idf';
+import { isIndexedDepartment } from '@/lib/geo-targeting';
 import { getIdfDeptContent, idfRegionContent } from '@/data/idf-extra-content';
 import { idfRachatFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept, getAllIdfTestimonials } from '@/data/idf-testimonials';
@@ -83,9 +84,13 @@ export default async function DepartmentOrRegionRachatPage({ params }: { params:
     const regionData = {
       name: region.name,
       slug: region.slug,
+      // Region pages render only the commune COUNT per department; serialising
+      // every city here made them the heaviest pages on the site (485 KB).
       departments: region.departments.map(d => ({
-        name: d.name, code: d.code, slug: d.slug,
-        cities: d.cities.map(c => ({ name: c.name, slug: c.slug, postalCode: c.postalCode })),
+        name: d.name,
+        code: d.code,
+        slug: d.slug,
+        cityCount: d.cities.length,
       })),
     };
 
@@ -150,6 +155,9 @@ export default async function DepartmentOrRegionRachatPage({ params }: { params:
         idfContent={idfContent ?? null}
         idfTestimonials={idfTestimonials}
         faqItems={deptFaqItems}
+        // Every city page in an indexed department must be linked from here,
+        // otherwise it is orphaned (reachable only from the sitemap).
+        linkAllCities={isIndexedDepartment(dept.slug)}
       />
     </>
   );

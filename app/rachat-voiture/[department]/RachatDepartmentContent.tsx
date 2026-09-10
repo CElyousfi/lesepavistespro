@@ -28,13 +28,23 @@ interface RachatDepartmentProps {
   idfContent: IdfDeptContent | null;
   idfTestimonials: IdfTestimonial[];
   faqItems?: FaqItem[];
+  /**
+   * True when this department's city pages are indexable. Their links are
+   * then ALL rendered into the HTML (collapsed with CSS, not withheld), so
+   * crawlers can reach every city page instead of only the first 20.
+   */
+  linkAllCities?: boolean;
 }
 
-export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idfContent, idfTestimonials, faqItems }: RachatDepartmentProps) {
+export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idfContent, idfTestimonials, faqItems, linkAllCities = false }: RachatDepartmentProps) {
   const CITIES_PER_PAGE = 20;
   const [visibleCities, setVisibleCities] = useState(CITIES_PER_PAGE);
   const hasMoreCities = dept.cities.length > visibleCities;
   const displayedCities = dept.cities.slice(0, visibleCities);
+  // Rich cards are capped, but when the department's city pages are indexable
+  // every commune also appears in a compact index below, so no city page is
+  // orphaned behind a "Voir plus" button the crawler never clicks.
+  const indexCities = linkAllCities ? dept.cities : [];
 
   return (
     <>
@@ -258,6 +268,32 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                 <p className="text-sm text-neutral-500">
                   {dept.cities.length} communes affichées
                 </p>
+              </div>
+            )}
+
+            {/*
+              Compact index of every commune in the department. Always in the
+              HTML: the card grid above is capped at 20 and the "Voir plus"
+              button only reveals more client-side, which left the remaining
+              city pages reachable from the sitemap alone.
+            */}
+            {indexCities.length > CITIES_PER_PAGE && (
+              <div className="mt-14 pt-10 border-t border-neutral-200">
+                <h3 className="text-lg font-bold text-brand-navy mb-5">
+                  Toutes les communes du {dept.name} ({dept.code})
+                </h3>
+                <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm leading-relaxed">
+                  {indexCities.map((city) => (
+                    <li key={city.slug}>
+                      <Link
+                        href={`/rachat-voiture/${dept.slug}/${city.slug}`}
+                        className="text-neutral-600 hover:text-brand-gold transition-colors"
+                      >
+                        {city.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>

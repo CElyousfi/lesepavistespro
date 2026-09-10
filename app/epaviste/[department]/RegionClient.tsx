@@ -31,7 +31,7 @@ interface RegionClientProps {
 }
 
 export default function RegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, faqItems }: RegionClientProps) {
-  const totalCities = region.departments.reduce((sum, dept) => sum + dept.cities.length, 0);
+  const totalCities = region.departments.reduce((sum, dept) => sum + dept.cityCount, 0);
 
   return (
     <>
@@ -175,7 +175,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
                     <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-red transition-colors">
                       {dept.name} ({dept.code})
                     </div>
-                    <div className="text-xs text-neutral-500">{dept.cities.length} communes</div>
+                    <div className="text-xs text-neutral-500">{dept.cityCount} communes</div>
                   </div>
                 </Link>
               ))}

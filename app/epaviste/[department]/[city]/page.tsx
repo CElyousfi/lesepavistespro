@@ -128,9 +128,18 @@ export default async function CityEpavistePage({
 
   // Serialize only needed data
   const cityData = { name: city.name, slug: city.slug, postalCode: city.postalCode };
+  // The city page renders at most 6 nearby links plus an 8-item neighbours
+  // grid, so send only those — not every commune in the department.
+  const NEARBY_LIMIT = 8;
   const deptData = {
-    name: department.name, code: department.code, slug: department.slug,
-    cities: department.cities.map(c => ({ name: c.name, slug: c.slug, postalCode: c.postalCode })),
+    name: department.name,
+    code: department.code,
+    slug: department.slug,
+    cityCount: department.cities.length,
+    nearbyCities: department.cities
+      .filter(c => c.slug !== city.slug)
+      .slice(0, NEARBY_LIMIT)
+      .map(c => ({ name: c.name, slug: c.slug, postalCode: c.postalCode })),
   };
 
   return (

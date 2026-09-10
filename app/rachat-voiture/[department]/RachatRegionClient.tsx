@@ -30,7 +30,7 @@ interface RachatRegionClientProps {
 }
 
 export default function RachatRegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, faqItems }: RachatRegionClientProps) {
-  const totalCities = region.departments.reduce((sum, dept) => sum + dept.cities.length, 0);
+  const totalCities = region.departments.reduce((sum, dept) => sum + dept.cityCount, 0);
 
   return (
     <>
@@ -172,7 +172,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
                     <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-gold transition-colors">
                       {dept.name} ({dept.code})
                     </div>
-                    <div className="text-xs text-neutral-500">{dept.cities.length} communes</div>
+                    <div className="text-xs text-neutral-500">{dept.cityCount} communes</div>
                   </div>
                 </Link>
               ))}

@@ -9,7 +9,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import QuickContact from '@/components/QuickContact';
 import TrustBadges from '@/components/TrustBadges';
 import ServiceCard from '@/components/ServiceCard';
-import type { CityData, DepartmentData } from '@/lib/page-data';
+import type { CityData, CityPageDepartment } from '@/lib/page-data';
 import type { CityLocalData } from '@/lib/city-local-data';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
@@ -27,7 +27,7 @@ const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr:
 
 interface CityRachatClientProps {
   city: CityData;
-  department: DepartmentData;
+  department: CityPageDepartment;
   localData: CityLocalData | null;
   isIdf: boolean;
   idfDeptTestimonials?: IdfTestimonial[];
@@ -44,10 +44,8 @@ export default function CityRachatClient({
   idfDeptContent = null,
   faqItems = [],
 }: CityRachatClientProps) {
-  // Get nearby cities (first 6 from same department, excluding current)
-  const nearbyCities = department.cities
-    .filter(c => c.slug !== city.slug)
-    .slice(0, 6);
+  // Neighbours are pre-selected server-side (current city already excluded).
+  const nearbyCities = department.nearbyCities.slice(0, 6);
 
   return (
     <>
@@ -256,16 +254,13 @@ export default function CityRachatClient({
             </div>
 
             {/* Neighboring Cities */}
-            {department.cities.length > 1 && (
+            {department.nearbyCities.length > 0 && (
               <div>
                 <h3 className="text-lg font-bold text-brand-navy mb-6">
                   Rachat voiture dans les villes voisines
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {department.cities
-                    .filter(c => c.slug !== city.slug)
-                    .slice(0, 8)
-                    .map((neighborCity) => (
+                  {department.nearbyCities.map((neighborCity) => (
                       <Link
                         key={neighborCity.slug}
                         href={`/rachat-voiture/${department.slug}/${neighborCity.slug}`}
