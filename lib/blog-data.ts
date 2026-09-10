@@ -50,7 +50,7 @@ export const blogPosts: BlogPost[] = [
         <li><strong>Les éco-contributions</strong> : système de financement de la filière VHU</li>
       </ul>
 
-      <p>Grâce à ce système, <strong>vous ne payez absolument rien</strong> : ni déplacement, ni remorquage, ni dépollution, ni certificat de destruction.</p>
+      <p>Grâce à ce système, <strong>vous ne payez absolument rien</strong> : ni déplacement, ni remorquage, ni dépollution, ni <a href="/conformite-vhu" title="Certificat de destruction et conformité VHU">certificat de destruction</a>.</p>
 
       <h2>Guide complet : Les 7 étapes pour faire enlever votre épave gratuitement</h2>
       
@@ -62,12 +62,12 @@ export const blogPosts: BlogPost[] = [
         <li>✅ Motos et scooters</li>
         <li>✅ Véhicules accidentés (même épave totale)</li>
         <li>✅ Voitures en panne irréparable</li>
-        <li>✅ Véhicules sans contrôle technique</li>
+        <li>✅ Véhicules sans <a href="/guides/rachat-sans-ct" title="Rachat de voiture sans contrôle technique">contrôle technique</a></li>
         <li>✅ Voitures immobilisées depuis des années</li>
         <li>✅ Véhicules sans roues ou incomplets</li>
       </ul>
 
-      <h3>Étape 2 : Contactez un épaviste agréé VHU (CRUCIAL !)</h3>
+      <h3>Étape 2 : Contactez un <a href="/epaviste" title="Épaviste agréé VHU — enlèvement d'épave gratuit">épaviste agréé VHU</a> (CRUCIAL !)</h3>
       <p><strong>⚠️ ATTENTION :</strong> Seul un épaviste agréé VHU peut vous délivrer un certificat de destruction valide. Sans ce document officiel, vous restez légalement propriétaire du véhicule !</p>
       
       <p><strong>Comment vérifier l'agrément ?</strong></p>
@@ -162,7 +162,7 @@ export const blogPosts: BlogPost[] = [
       <p><strong>Ce document officiel vous permet de :</strong></p>
       <ul>
         <li>✅ Résilier votre assurance auto</li>
-        <li>✅ Arrêter les frais de carte grise</li>
+        <li>✅ Arrêter les frais de <a href="/documents" title="Documents à fournir : carte grise, non-gage, identité">carte grise</a></li>
         <li>✅ Vous dégager de toute responsabilité légale</li>
         <li>✅ Prouver la destruction en cas de contrôle</li>
         <li>✅ Éviter les amendes pour stationnement gênant</li>
@@ -284,7 +284,7 @@ export const blogPosts: BlogPost[] = [
     image: "/blog/blog2.webp",
     keywords: ["certificat destruction VHU", "certificat de cession", "réglementation épave", "document obligatoire"],
     content: `
-      <h2>Qu'est-ce que le certificat de destruction VHU ?</h2>
+      <h2>Qu'est-ce que le <a href="/conformite-vhu" title="Certificat de destruction et conformité VHU">certificat de destruction</a> VHU ?</h2>
       <p>Le <strong>certificat de destruction VHU</strong> (Véhicule Hors d'Usage) est un document officiel et obligatoire délivré par un centre agréé qui atteste que votre véhicule a été détruit dans le respect des <strong>normes environnementales</strong> et de la réglementation française.</p>
       
       <p>Ce document porte plusieurs noms :</p>
@@ -378,7 +378,7 @@ export const blogPosts: BlogPost[] = [
         <li>Vérifiez que l'agrément est en cours de validité</li>
       </ul>
 
-      <p><strong>Les Épavistes Pro</strong> sont agréés VHU en Île-de-France. Notre numéro d'agrément est disponible sur simple demande.</p>
+      <p><strong>Les Épavistes Pro</strong> sont agréés VHU en <a href="/epaviste/ile-de-france" title="Épaviste en Île-de-France">Île-de-France</a>. Notre numéro d'agrément est disponible sur simple demande.</p>
 
       <h3>Étape 2 : Rassembler les documents nécessaires</h3>
       <p><strong>Documents obligatoires :</strong></p>
@@ -500,7 +500,7 @@ export const blogPosts: BlogPost[] = [
         <li>✅ Le certificat de destruction</li>
       </ul>
 
-      <h3>Puis-je obtenir un certificat sans carte grise ?</h3>
+      <h3>Puis-je obtenir un certificat sans <a href="/documents" title="Documents à fournir : carte grise, non-gage, identité">carte grise</a> ?</h3>
       <p><strong>NON.</strong> La carte grise est <strong>obligatoire</strong>. Si vous l'avez perdue, vous devez d'abord demander un duplicata sur l'ANTS (coût : 13€).</p>
 
       <h3>Que faire si je ne reçois pas mon certificat ?</h3>
@@ -738,7 +738,7 @@ export const blogPosts: BlogPost[] = [
         <li>📄 <strong>Carte grise</strong> (obligatoire)</li>
         <li>📋 <strong>Carnet d'entretien</strong> (+10% de valeur)</li>
         <li>🧾 <strong>Factures de réparations</strong> (pièces neuves = +15%)</li>
-        <li>🔍 <strong>Dernier contrôle technique</strong> (même périmé)</li>
+        <li>🔍 <strong>Dernier <a href="/guides/rachat-sans-ct" title="Rachat de voiture sans contrôle technique">contrôle technique</a></strong> (même périmé)</li>
         <li>📜 <strong>Certificat de non-gage</strong> (rassure l'acheteur)</li>
         <li>🔑 <strong>Double des clés</strong> (+50-100€)</li>
       </ul>
@@ -867,7 +867,7 @@ export const blogPosts: BlogPost[] = [
 
       <p><strong>⚡ Rapidité garantie :</strong> Vous recevez votre argent le jour de l'enlèvement !</p>
 
-      <h3>Étape 4 : Enlèvement gratuit (partout en Île-de-France)</h3>
+      <h3>Étape 4 : Enlèvement gratuit (partout en <a href="/epaviste/ile-de-france" title="Épaviste en Île-de-France">Île-de-France</a>)</h3>
       <p><strong>Service d'enlèvement inclus :</strong></p>
       <ul>
         <li>🚛 <strong>Dépanneuse professionnelle</strong></li>
@@ -886,7 +886,7 @@ export const blogPosts: BlogPost[] = [
         <li>📄 Tous les documents officiels</li>
       </ul>
 
-      <h2>Questions fréquentes sur le rachat de voiture accidentée</h2>
+      <h2>Questions fréquentes sur le <a href="/rachat-voiture" title="Rachat de voiture — paiement cash">rachat de voiture</a> accidentée</h2>
 
       <h3>Puis-je vendre une voiture accidentée sans contrôle technique ?</h3>
       <p><strong>OUI, absolument !</strong> Pour une voiture destinée à la destruction ou au rachat pour pièces, le contrôle technique n'est PAS obligatoire.</p>
@@ -894,7 +894,7 @@ export const blogPosts: BlogPost[] = [
       <h3>Faut-il réparer avant de vendre ?</h3>
       <p><strong>NON, surtout pas !</strong> Les réparations coûtent souvent plus cher que le gain de valeur. Vendez en l'état et économisez temps et argent.</p>
 
-      <h3>Puis-je vendre sans carte grise ?</h3>
+      <h3>Puis-je vendre sans <a href="/documents" title="Documents à fournir : carte grise, non-gage, identité">carte grise</a> ?</h3>
       <p><strong>NON.</strong> La carte grise est obligatoire pour toute transaction. Si perdue, demandez un duplicata sur l'ANTS (coût : 13€).</p>
 
       <h3>Combien de temps prend la transaction ?</h3>
@@ -953,10 +953,10 @@ export const blogPosts: BlogPost[] = [
     image: "/blog/blog4.webp",
     keywords: ["épaviste agréé", "centre VHU", "choisir épaviste", "agrément préfecture"],
     content: `
-      <h2>Qu'est-ce qu'un épaviste agréé VHU et pourquoi est-ce crucial ?</h2>
+      <h2>Qu'est-ce qu'un <a href="/epaviste" title="Épaviste agréé VHU — enlèvement d'épave gratuit">épaviste agréé VHU</a> et pourquoi est-ce crucial ?</h2>
       <p>Un <strong>épaviste agréé VHU</strong> (Véhicule Hors d'Usage) est un professionnel <strong>autorisé officiellement par la préfecture</strong> à collecter, dépolluer, démanteler et recycler les véhicules en fin de vie selon les normes environnementales strictes.</p>
       
-      <p><strong>⚠️ ATTENTION CRITIQUE :</strong> Seul un épaviste agréé VHU peut vous délivrer un <strong>certificat de destruction valide</strong>. Sans ce document officiel, vous restez légalement propriétaire du véhicule avec toutes les responsabilités que cela implique !</p>
+      <p><strong>⚠️ ATTENTION CRITIQUE :</strong> Seul un épaviste agréé VHU peut vous délivrer un <strong><a href="/conformite-vhu" title="Certificat de destruction et conformité VHU">certificat de destruction</a> valide</strong>. Sans ce document officiel, vous restez légalement propriétaire du véhicule avec toutes les responsabilités que cela implique !</p>
 
       <h3>Les missions d'un épaviste agréé VHU</h3>
       <ul>
@@ -1062,7 +1062,7 @@ export const blogPosts: BlogPost[] = [
         <li>🚛 Rayon d'action</li>
       </ul>
 
-      <p><strong>Les Épavistes Pro</strong> couvrent toute l'Île-de-France : Paris (75), Seine-et-Marne (77), Yvelines (78), Essonne (91), Hauts-de-Seine (92), Seine-Saint-Denis (93), Val-de-Marne (94), Val-d'Oise (95).</p>
+      <p><strong>Les Épavistes Pro</strong> couvrent toute l'<a href="/epaviste/ile-de-france" title="Épaviste en Île-de-France">Île-de-France</a> : Paris (75), Seine-et-Marne (77), Yvelines (78), Essonne (91), Hauts-de-Seine (92), Seine-Saint-Denis (93), Val-de-Marne (94), Val-d'Oise (95).</p>
 
       <h3>4. La rapidité d'intervention</h3>
       <p><strong>Un bon épaviste doit pouvoir intervenir rapidement :</strong></p>
@@ -1290,7 +1290,7 @@ export const blogPosts: BlogPost[] = [
       <ul>
         <li>🔧 <strong>Pannes mécaniques graves</strong> : moteur HS, boîte cassée, problèmes électriques majeurs</li>
         <li>💥 <strong>Accident important</strong> : véhicule économiquement irréparable</li>
-        <li>⏰ <strong>Vétusté avancée</strong> : trop vieux pour passer le contrôle technique</li>
+        <li>⏰ <strong>Vétusté avancée</strong> : trop vieux pour passer le <a href="/guides/rachat-sans-ct" title="Rachat de voiture sans contrôle technique">contrôle technique</a></li>
         <li>💰 <strong>Coût de réparation > valeur</strong> : pas rentable de réparer</li>
         <li>📋 <strong>Contrôle technique impossible</strong> : trop de défauts critiques</li>
         <li>🚫 <strong>Immobilisé depuis longtemps</strong> : batterie HS, pneus dégonflés, rouille</li>
@@ -1306,7 +1306,7 @@ export const blogPosts: BlogPost[] = [
         <li>❌ <strong>Amende de 1 500€</strong> pour abandon de véhicule</li>
         <li>❌ <strong>Responsabilité civile</strong> si le véhicule cause un accident</li>
         <li>❌ <strong>Infractions à votre nom</strong> (stationnement, circulation...)</li>
-        <li>❌ <strong>Continuation des frais</strong> d'assurance et de carte grise</li>
+        <li>❌ <strong>Continuation des frais</strong> d'assurance et de <a href="/documents" title="Documents à fournir : carte grise, non-gage, identité">carte grise</a></li>
       </ul>
 
       <h3>2. Raisons financières</h3>
@@ -1622,7 +1622,7 @@ export const blogPosts: BlogPost[] = [
         <li>🚛 <strong>Enlèvement gratuit</strong> à domicile</li>
         <li>💰 <strong>Rachat possible</strong> si état correct (200-5000€)</li>
         <li>📝 <strong>Démarches administratives</strong> gérées pour vous</li>
-        <li><strong>Intervention 2-4h</strong> partout en Île-de-France</li>
+        <li><strong>Intervention 2-4h</strong> partout en <a href="/epaviste/ile-de-france" title="Épaviste en Île-de-France">Île-de-France</a></li>
       </ul>
 
       <h3>✅ Processus ultra-simplifié</h3>
@@ -1665,8 +1665,8 @@ export const blogPosts: BlogPost[] = [
     image: "/blog/blog6.webp",
     keywords: ["prix enlèvement épave", "tarif épaviste", "service gratuit", "coût destruction"],
     content: `
-      <h2>Prix enlèvement d'épave en Île-de-France : La vérité sur les tarifs</h2>
-      <p>Vous vous demandez <strong>combien coûte l'enlèvement d'une épave</strong> en Île-de-France ? La réponse peut vous surprendre : avec un épaviste agréé VHU, c'est <strong>100% GRATUIT</strong> ! Mais attention aux arnaques...</p>
+      <h2>Prix enlèvement d'épave en <a href="/epaviste/ile-de-france" title="Épaviste en Île-de-France">Île-de-France</a> : La vérité sur les tarifs</h2>
+      <p>Vous vous demandez <strong>combien coûte l'enlèvement d'une épave</strong> en Île-de-France ? La réponse peut vous surprendre : avec un <a href="/epaviste" title="Épaviste agréé VHU — enlèvement d'épave gratuit">épaviste agréé VHU</a>, c'est <strong>100% GRATUIT</strong> ! Mais attention aux arnaques...</p>
 
       <p>Dans cet article complet, vous découvrirez :</p>
       <ul>
@@ -1691,7 +1691,7 @@ export const blogPosts: BlogPost[] = [
         <li>🔧 <strong>Le remorquage</strong> : avec dépanneuse professionnelle</li>
         <li>🌍 <strong>La dépollution</strong> : vidange des fluides, retrait batterie, gaz clim</li>
         <li>♻️ <strong>Le recyclage</strong> : démantèlement et tri des matériaux</li>
-        <li><strong>Le certificat de destruction</strong> : document officiel VHU</li>
+        <li><strong>Le <a href="/conformite-vhu" title="Certificat de destruction et conformité VHU">certificat de destruction</a></strong> : document officiel VHU</li>
         <li>📝 <strong>Les démarches administratives</strong> : déclaration de cession</li>
       </ul>
 
@@ -1779,7 +1779,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Les seuls cas où vous pourriez avoir des frais</h2>
 
-      <h3>1. Duplicata de carte grise (si perdue)</h3>
+      <h3>1. Duplicata de <a href="/documents" title="Documents à fournir : carte grise, non-gage, identité">carte grise</a> (si perdue)</h3>
       <p><strong>Coût : environ 13€</strong></p>
       <p>Si vous avez perdu votre carte grise, vous devez demander un duplicata sur <strong>ants.gouv.fr</strong>. C'est la SEULE dépense possible.</p>
 
@@ -1983,7 +1983,7 @@ export const blogPosts: BlogPost[] = [
         <li>1️⃣ Identifier le propriétaire via la plaque d'immatriculation</li>
         <li>2️⃣ Envoyer une mise en demeure par courrier recommandé</li>
         <li>3️⃣ Attendre le délai légal de 30 jours</li>
-        <li>4️⃣ Contacter un épaviste agréé VHU pour l'enlèvement</li>
+        <li>4️⃣ Contacter un <a href="/epaviste" title="Épaviste agréé VHU — enlèvement d'épave gratuit">épaviste agréé VHU</a> pour l'enlèvement</li>
       </ul>
 
       <h3>3. Véhicule accidenté dans un garage privé</h3>
@@ -2086,7 +2086,7 @@ export const blogPosts: BlogPost[] = [
       <p>La prime peut être déduite directement par le concessionnaire ou demandée en ligne après l'achat.</p>
 
       <h3>Étape 3 : Faites détruire votre ancien véhicule</h3>
-      <p>Remettez votre ancien véhicule à un <strong>centre VHU agréé</strong> comme Les Épavistes Pro. Vous recevrez un <strong>certificat de destruction</strong> indispensable pour votre dossier.</p>
+      <p>Remettez votre ancien véhicule à un <strong>centre VHU agréé</strong> comme Les Épavistes Pro. Vous recevrez un <strong><a href="/conformite-vhu" title="Certificat de destruction et conformité VHU">certificat de destruction</a></strong> indispensable pour votre dossier.</p>
 
       <h3>Étape 4 : Constituez votre dossier</h3>
       <p>Documents nécessaires :</p>
@@ -2126,7 +2126,7 @@ export const blogPosts: BlogPost[] = [
     keywords: ["épaviste moto", "enlèvement scooter gratuit", "épave moto", "destruction deux-roues", "épaviste scooter"],
     content: `
       <h2>Enlèvement gratuit de moto et scooter : comment ça marche ?</h2>
-      <p>Vous avez une <strong>moto accidentée</strong>, un <strong>scooter en panne</strong> ou un <strong>deux-roues hors d'usage</strong> ? Comme pour les voitures, l'enlèvement d'une épave de moto ou scooter est <strong>100% gratuit</strong> lorsqu'il est effectué par un épaviste agréé VHU.</p>
+      <p>Vous avez une <strong>moto accidentée</strong>, un <strong>scooter en panne</strong> ou un <strong>deux-roues hors d'usage</strong> ? Comme pour les voitures, l'enlèvement d'une épave de moto ou scooter est <strong>100% gratuit</strong> lorsqu'il est effectué par un <a href="/epaviste" title="Épaviste agréé VHU — enlèvement d'épave gratuit">épaviste agréé VHU</a>.</p>
 
       <p><strong>Les Épavistes Pro</strong> prennent en charge tous les types de deux-roues :</p>
       <ul>
@@ -2141,7 +2141,7 @@ export const blogPosts: BlogPost[] = [
 
       <h3>Votre deux-roues est éligible si :</h3>
       <ul>
-        <li>✅ Il est <strong>immatriculé</strong> (carte grise à votre nom)</li>
+        <li>✅ Il est <strong>immatriculé</strong> (<a href="/documents" title="Documents à fournir : carte grise, non-gage, identité">carte grise</a> à votre nom)</li>
         <li>✅ Il est <strong>complet</strong> (cadre + moteur minimum)</li>
         <li>✅ Vous êtes le <strong>propriétaire</strong> ou avez une procuration</li>
       </ul>
@@ -2150,7 +2150,7 @@ export const blogPosts: BlogPost[] = [
       <ul>
         <li>✅ Moto <strong>accidentée</strong> (même épave totale)</li>
         <li>✅ Scooter <strong>sans batterie</strong></li>
-        <li>✅ Deux-roues <strong>sans contrôle technique</strong></li>
+        <li>✅ Deux-roues <strong>sans <a href="/guides/rachat-sans-ct" title="Rachat de voiture sans contrôle technique">contrôle technique</a></strong></li>
         <li>✅ Moto <strong>immobilisée depuis des années</strong></li>
         <li>✅ Scooter <strong>volé et retrouvé</strong> (avec dépôt de plainte)</li>
       </ul>
@@ -2187,7 +2187,7 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Que faire après la destruction de votre moto/scooter ?</h2>
       <ul>
-        <li>📧 <strong>Résiliez votre assurance</strong> avec le certificat de destruction</li>
+        <li>📧 <strong>Résiliez votre assurance</strong> avec le <a href="/conformite-vhu" title="Certificat de destruction et conformité VHU">certificat de destruction</a></li>
         <li>🏛️ <strong>Déclarez la cession</strong> sur le site de l'ANTS</li>
         <li>💰 <strong>Récupérez le trop-perçu</strong> d'assurance au prorata</li>
       </ul>

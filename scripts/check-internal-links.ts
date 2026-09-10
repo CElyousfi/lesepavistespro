@@ -24,6 +24,7 @@ const WATCHED_FILES = [
   'components/Coverage.tsx',
   'components/Footer.tsx',
   'lib/internal-linking.ts',
+  'app/contact/page.tsx',
 ];
 
 /** Static routes that exist in app/ (used to validate hardcoded hrefs). */
