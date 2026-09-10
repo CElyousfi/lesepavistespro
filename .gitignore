@@ -51,3 +51,4 @@ scripts/radar-report.json
 !public/**/*.png
 !public/**/*.jpg
 !public/**/*.jpeg
+seo-audit/

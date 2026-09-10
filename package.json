@@ -10,7 +10,9 @@
     "seo-check": "tsx scripts/seo-qa-check.ts",
     "radar": "tsx scripts/search-demand-radar.ts",
     "generate-locations": "tsx scripts/generate-full-locations.ts",
-    "prebuild": "npm run seo-check"
+    "prebuild": "npm run seo-check",
+    "seo-crawl": "tsx scripts/seo-crawl.ts",
+    "check-cities": "tsx scripts/check-city-resolution.ts"
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",
@@ -32,10 +34,12 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.0",
+    "cheerio": "^1.2.0",
     "csv-parse": "^6.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "postcss": "^8.4.0",
+    "sharp": "^0.35.4",
     "tailwindcss": "^3.4.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
