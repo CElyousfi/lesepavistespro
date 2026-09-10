@@ -13,7 +13,7 @@ import type { CityData, DepartmentData } from '@/lib/page-data';
 import type { CityLocalData } from '@/lib/city-local-data';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
@@ -32,7 +32,7 @@ interface CityRachatClientProps {
   isIdf: boolean;
   idfDeptTestimonials?: IdfTestimonial[];
   idfDeptContent?: IdfDeptContent | null;
-  idfFaqItems?: IdfFaqItem[];
+  faqItems?: FaqItem[];
 }
 
 export default function CityRachatClient({
@@ -42,7 +42,7 @@ export default function CityRachatClient({
   isIdf,
   idfDeptTestimonials = [],
   idfDeptContent = null,
-  idfFaqItems = [],
+  faqItems = [],
 }: CityRachatClientProps) {
   // Get nearby cities (first 6 from same department, excluding current)
   const nearbyCities = department.cities
@@ -81,8 +81,8 @@ export default function CityRachatClient({
         )}
         
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
-          Rachat Voiture {city.name}
-          <br /><span className="text-brand-gold">Paiement Immédiat ({city.postalCode})</span>
+          Rachat de voiture à {city.name} ({city.postalCode})
+          <br /><span className="text-brand-gold">Paiement cash immédiat</span>
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
@@ -310,11 +310,15 @@ export default function CityRachatClient({
         />
       )}
 
-      {/* FAQ — IDF cities get hyper-local IdfFaq, others get the generic FAQ */}
-      {isIdf && idfFaqItems.length > 0 ? (
-        <IdfFaq faqItems={idfFaqItems} service="rachat" />
+      {/*
+        FAQ — the item list is built server-side (local questions + IDF or
+        generic questions) and is the SAME list the page turns into its single
+        FAQPage node, so every schema question is visibly rendered.
+      */}
+      {isIdf && faqItems.length > 0 ? (
+        <IdfFaq faqItems={faqItems} service="rachat" />
       ) : (
-        <FAQ />
+        <FAQ items={faqItems} />
       )}
 
       {/* Footer */}

@@ -9,10 +9,11 @@
     "lint": "eslint",
     "seo-check": "tsx scripts/seo-qa-check.ts",
     "radar": "tsx scripts/search-demand-radar.ts",
-    "generate-locations": "tsx scripts/generate-full-locations.ts",
+    "generate-locations": "tsx scripts/generate-full-locations.ts && tsx scripts/fix-city-display-names.ts",
     "prebuild": "npm run seo-check",
     "seo-crawl": "tsx scripts/seo-crawl.ts",
-    "check-cities": "tsx scripts/check-city-resolution.ts"
+    "check-cities": "tsx scripts/check-city-resolution.ts",
+    "fix-city-names": "tsx scripts/fix-city-display-names.ts"
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",

@@ -13,7 +13,7 @@ import type { CityData, DepartmentData } from '@/lib/page-data';
 import type { CityLocalData } from '@/lib/city-local-data';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
@@ -33,7 +33,7 @@ interface CityEpavisteClientProps {
   // Optional IDF-only data (passed only when isIdf=true)
   idfDeptTestimonials?: IdfTestimonial[];
   idfDeptContent?: IdfDeptContent | null;
-  idfFaqItems?: IdfFaqItem[];
+  faqItems?: FaqItem[];
 }
 
 export default function CityEpavisteClient({
@@ -43,7 +43,7 @@ export default function CityEpavisteClient({
   isIdf,
   idfDeptTestimonials = [],
   idfDeptContent = null,
-  idfFaqItems = [],
+  faqItems = [],
 }: CityEpavisteClientProps) {
   // Get nearby cities (first 6 from same department, excluding current)
   const nearbyCities = department.cities
@@ -82,8 +82,8 @@ export default function CityEpavisteClient({
         )}
         
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
-          Épaviste {city.name}
-          <br /><span className="text-brand-red">Enlèvement Gratuit ({city.postalCode})</span>
+          Épaviste à {city.name} ({city.postalCode})
+          <br /><span className="text-brand-red">Enlèvement d&apos;épave gratuit</span>
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
@@ -412,11 +412,15 @@ export default function CityEpavisteClient({
         />
       )}
 
-      {/* FAQ — IDF cities get hyper-local IdfFaq, others get the generic FAQ */}
-      {isIdf && idfFaqItems.length > 0 ? (
-        <IdfFaq faqItems={idfFaqItems} service="epaviste" />
+      {/*
+        FAQ — the item list is built server-side (local questions + IDF or
+        generic questions) and is the SAME list the page turns into its single
+        FAQPage node, so every schema question is visibly rendered.
+      */}
+      {isIdf && faqItems.length > 0 ? (
+        <IdfFaq faqItems={faqItems} service="epaviste" />
       ) : (
-        <FAQ />
+        <FAQ items={faqItems} />
       )}
 
       {/* Footer */}

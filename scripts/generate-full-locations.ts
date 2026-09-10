@@ -6,6 +6,13 @@
  * Usage: npx tsx scripts/generate-full-locations.ts
  */
 
+/*
+ * NOTE: the La Poste source file spells commune names in flat ASCII with
+ * abbreviations ("Boissy St Leger", "Asnieres sur Seine"). After running this
+ * generator you MUST run scripts/fix-city-display-names.ts, which rewrites the
+ * display names from the official INSEE/geo.api.gouv.fr register without ever
+ * touching a slug. `npm run generate-locations` chains both.
+ */
 import * as fs from 'fs';
 import * as path from 'path';
 
