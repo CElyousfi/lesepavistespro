@@ -11,7 +11,6 @@
 //   - FAQPage nodes are built by lib/faq.ts, one per page, from the questions
 //     that page actually renders.
 
-import { regions } from './locations-national';
 import { isIdfDeptCode } from './idf';
 
 export const BUSINESS_ID = 'https://www.lesepavistespro.fr/#business';
@@ -282,11 +281,6 @@ export function getBlogArticleData(article: {
 // ────────────────────────────────────────────────────────────────────────────
 // HELPERS
 // ────────────────────────────────────────────────────────────────────────────
-
-/** All region names, for area-of-service listings. */
-export function getRegionNames(): string[] {
-  return regions.map((r) => r.name);
-}
 
 /** Render JSON-LD as dangerouslySetInnerHTML props. */
 export function renderJSONLD(data: unknown) {

@@ -52,3 +52,6 @@ scripts/radar-report.json
 !public/**/*.jpg
 !public/**/*.jpeg
 seo-audit/
+
+# Unrelated client exports occasionally dropped in the repo root
+/Audit de cotisations sociales*.html
