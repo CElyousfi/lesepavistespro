@@ -35,7 +35,7 @@ export const blogPosts: BlogPost[] = [
     category: "Guide Pratique",
     date: "2024-11-10",
     readTime: "12 min",
-    image: "/blog/blog1.png",
+    image: "/blog/blog1.webp",
     keywords: ["enlèvement épave gratuit", "épave Île-de-France", "certificat VHU", "destruction véhicule"],
     content: `
       <h2>Pourquoi l'enlèvement d'épave est-il 100% gratuit en Île-de-France ?</h2>
@@ -281,7 +281,7 @@ export const blogPosts: BlogPost[] = [
     category: "Réglementation",
     date: "2024-11-08",
     readTime: "8 min",
-    image: "/blog/blog2.png",
+    image: "/blog/blog2.webp",
     keywords: ["certificat destruction VHU", "certificat de cession", "réglementation épave", "document obligatoire"],
     content: `
       <h2>Qu'est-ce que le certificat de destruction VHU ?</h2>
@@ -585,7 +585,7 @@ export const blogPosts: BlogPost[] = [
     category: "Rachat Auto",
     date: "2024-11-05",
     readTime: "10 min",
-    image: "/blog/blog3.png",
+    image: "/blog/blog3.webp",
     keywords: ["rachat voiture accidentée", "vendre voiture HS", "estimation véhicule", "meilleur prix rachat"],
     content: `
       <h2>Votre voiture accidentée vaut de l'argent : Voici pourquoi</h2>
@@ -950,7 +950,7 @@ export const blogPosts: BlogPost[] = [
     category: "Guide Pratique",
     date: "2024-11-03",
     readTime: "9 min",
-    image: "/blog/blog4.png",
+    image: "/blog/blog4.webp",
     keywords: ["épaviste agréé", "centre VHU", "choisir épaviste", "agrément préfecture"],
     content: `
       <h2>Qu'est-ce qu'un épaviste agréé VHU et pourquoi est-ce crucial ?</h2>
@@ -1281,7 +1281,7 @@ export const blogPosts: BlogPost[] = [
     category: "Démarches",
     date: "2024-11-01",
     readTime: "11 min",
-    image: "/blog/blog5.png",
+    image: "/blog/blog5.webp",
     keywords: ["vendre voiture HS", "démarches administratives", "certificat de cession", "carte grise"],
     content: `
       <h2>Qu'est-ce qu'une voiture HS (Hors Service) ?</h2>
@@ -1662,7 +1662,7 @@ export const blogPosts: BlogPost[] = [
     category: "Tarifs",
     date: "2024-10-28",
     readTime: "10 min",
-    image: "/blog/blog6.png",
+    image: "/blog/blog6.webp",
     keywords: ["prix enlèvement épave", "tarif épaviste", "service gratuit", "coût destruction"],
     content: `
       <h2>Prix enlèvement d'épave en Île-de-France : La vérité sur les tarifs</h2>
@@ -1957,7 +1957,7 @@ export const blogPosts: BlogPost[] = [
     category: "Guide Pratique",
     date: "2024-12-01",
     readTime: "9 min",
-    image: "/blog/blog1.png",
+    image: "/blog/blog1.webp",
     keywords: ["enlèvement épave sous-sol", "épave parking souterrain", "épaviste sous-sol", "remorquage parking", "épave copropriété"],
     content: `
       <h2>Enlèvement d'épave en sous-sol : un défi technique maîtrisé</h2>
@@ -2028,7 +2028,7 @@ export const blogPosts: BlogPost[] = [
     category: "Réglementation",
     date: "2025-01-15",
     readTime: "11 min",
-    image: "/blog/blog2.png",
+    image: "/blog/blog2.webp",
     keywords: ["prime conversion 2025", "prime à la casse", "aide achat voiture", "bonus écologique", "prime conversion conditions"],
     content: `
       <h2>Qu'est-ce que la prime à la conversion en 2025 ?</h2>
@@ -2122,7 +2122,7 @@ export const blogPosts: BlogPost[] = [
     category: "Guide Pratique",
     date: "2025-02-01",
     readTime: "8 min",
-    image: "/blog/blog3.png",
+    image: "/blog/blog3.webp",
     keywords: ["épaviste moto", "enlèvement scooter gratuit", "épave moto", "destruction deux-roues", "épaviste scooter"],
     content: `
       <h2>Enlèvement gratuit de moto et scooter : comment ça marche ?</h2>

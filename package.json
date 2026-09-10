@@ -13,7 +13,8 @@
     "prebuild": "npm run seo-check",
     "seo-crawl": "tsx scripts/seo-crawl.ts",
     "check-cities": "tsx scripts/check-city-resolution.ts",
-    "fix-city-names": "tsx scripts/fix-city-display-names.ts"
+    "fix-city-names": "tsx scripts/fix-city-display-names.ts",
+    "optimize-images": "tsx scripts/optimize-images.ts"
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",
@@ -39,6 +40,7 @@
     "csv-parse": "^6.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
+    "lighthouse": "^13.4.1",
     "postcss": "^8.4.0",
     "sharp": "^0.35.4",
     "tailwindcss": "^3.4.0",

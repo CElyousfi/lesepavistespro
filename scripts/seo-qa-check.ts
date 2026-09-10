@@ -1075,8 +1075,8 @@ function runAllChecks() {
     checkNoNofollow();            // P2.3
     checkStructuredDataEntities();// P2.4
     checkRootLayoutHead();        // P2.5
+    checkPublicAssetWeight();     // P3.1
     // Enabled as each phase lands:
-    // checkPublicAssetWeight();    // P3.1
     // checkWhatsAppUrls();         // P4.3
   } catch (error) {
     log(`\n❌ Error running checks: ${error}`, colors.red);

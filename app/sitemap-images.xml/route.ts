@@ -3,71 +3,64 @@ import { getSiteUrl } from '@/lib/site';
 import { blogPosts } from '@/lib/blog-data';
 
 /**
- * Image Sitemap for Google Image Search
- * Helps Google discover and index all important images
+ * Image sitemap for Google Image search.
+ *
+ * An image sitemap may only list images that are actually ON the page it
+ * associates them with. The previous version listed hero/service artwork that
+ * no component renders, listed /hero/hero-tow-truck.jpg (a 29-byte broken
+ * file), and emitted two <url> blocks for the same page — all of which make
+ * the sitemap useless or invalid.
+ *
+ * Every entry below corresponds to an <Image> that really renders on that URL.
  */
 export async function GET() {
   const base = getSiteUrl();
 
-  const imageEntries: Array<{ pageUrl: string; images: Array<{ loc: string; title: string; caption?: string }> }> = [
-    // Homepage images
-    {
-      pageUrl: `${base}/`,
-      images: [
-        { loc: `${base}/logo_name.png`, title: 'Les Épavistes Pro - Logo' },
-        { loc: `${base}/icon.png`, title: 'Les Épavistes Pro - Icône' },
-        { loc: `${base}/images/hero-home.png`, title: 'Épaviste France - Enlèvement d\'épave gratuit' },
-      ],
-    },
-    // Épaviste pillar page
-    {
-      pageUrl: `${base}/epaviste`,
-      images: [
-        { loc: `${base}/images/hero-epaviste.png`, title: 'Service épaviste agréé VHU en France', caption: 'Enlèvement d\'épave gratuit partout en France - Intervention 24h/24' },
-      ],
-    },
-    // Rachat voiture pillar page
-    {
-      pageUrl: `${base}/rachat-voiture`,
-      images: [
-        { loc: `${base}/images/hero-rachat.png`, title: 'Rachat de voiture - Paiement cash immédiat', caption: 'Rachat de véhicules accidentés, HS ou en panne - Sans contrôle technique' },
-      ],
-    },
-    // Service images
-    {
-      pageUrl: `${base}/epaviste`,
-      images: [
-        { loc: `${base}/services/epaviste.png`, title: 'Épaviste professionnel agréé' },
-        { loc: `${base}/services/rachat.png`, title: 'Rachat de véhicules' },
-      ],
-    },
-    // Hero images
-    {
-      pageUrl: `${base}/`,
-      images: [
-        { loc: `${base}/hero/hero-tow-truck.jpg`, title: 'Dépanneuse épaviste - Remorquage gratuit' },
-        { loc: `${base}/hero/hero1.png`, title: 'Enlèvement épave voiture' },
-        { loc: `${base}/hero/hero2.jpg`, title: 'Service épaviste professionnel' },
-      ],
-    },
+  // The VHU certification photo renders inside <VHUCertification /> and the
+  // footer, which appear on every one of these routes.
+  const VHU_IMAGE = {
+    loc: `${base}/images/centre-vhu-agree.webp`,
+    title: 'Centre VHU agréé — Les Épavistes Pro',
+    caption: "Notre partenaire centre VHU agréé assure la dépollution et la destruction réglementaire des véhicules hors d'usage.",
+  };
+
+  const vhuPages = [
+    '/',
+    '/epaviste',
+    '/rachat-voiture',
+    '/zones',
+    '/blog',
+    '/contact',
+    '/faq',
+    '/conformite-vhu',
+    '/documents',
+    '/guides/rachat-sans-ct',
   ];
 
-  // Add blog post images
+  const imageEntries: Array<{
+    pageUrl: string;
+    images: Array<{ loc: string; title: string; caption?: string }>;
+  }> = vhuPages.map(path => ({
+    pageUrl: `${base}${path === '/' ? '/' : path}`,
+    images: [VHU_IMAGE],
+  }));
+
+  // Blog index renders every post card image; each post renders its own hero.
+  const blogIndex = imageEntries.find(e => e.pageUrl === `${base}/blog`);
   blogPosts.forEach(post => {
+    const image = {
+      loc: `${base}${post.image}`,
+      title: post.title,
+      caption: post.excerpt,
+    };
+    if (blogIndex) blogIndex.images.push(image);
     imageEntries.push({
       pageUrl: `${base}/blog/${post.slug}`,
-      images: [
-        {
-          loc: `${base}${post.image}`,
-          title: post.title,
-          caption: post.excerpt,
-        },
-      ],
+      images: [VHU_IMAGE, image],
     });
   });
 
-  // One <url> per page: several entries above describe the same page, and a
-  // repeated <loc> makes the image sitemap invalid.
+  // One <url> per page, one <image:image> per distinct image.
   const merged = new Map<string, Array<{ loc: string; title: string; caption?: string }>>();
   for (const entry of imageEntries) {
     const images = merged.get(entry.pageUrl) ?? [];

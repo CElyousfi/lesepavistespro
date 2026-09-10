@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     countryName: 'France',
     images: [
       {
-        // 1200×630 — /images/hero-home.png is 1024×1024 and was declared 1200×630.
+        // 1200×630 — /images/hero-home.webp is 1024×1024 and was declared 1200×630.
         url: '/images/og-default.jpg',
         width: 1200,
         height: 630,

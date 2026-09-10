@@ -76,7 +76,7 @@ const Footer = () => {
           <div className="pt-8 pb-6 border-t border-white/10 flex items-center justify-center gap-4">
             <div className="relative w-14 h-8 shrink-0">
               <Image
-                src="/images/centre-vhu-agree.jpeg"
+                src="/images/centre-vhu-agree.webp"
                 alt="Centre VHU Agréé"
                 fill
                 sizes="56px"

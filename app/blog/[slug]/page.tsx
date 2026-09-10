@@ -165,6 +165,7 @@ export default async function BlogPost({ params }: Props) {
                 src={post.image}
                 alt={post.title}
                 fill
+                sizes="(max-width: 1024px) 100vw, 900px"
                 className="object-cover"
                 priority
               />

@@ -100,7 +100,7 @@ export default function ConformiteVHUPage() {
                                     <div className="shrink-0">
                                         <div className="relative w-[200px] h-[110px]">
                                           <Image
-                                            src="/images/centre-vhu-agree.jpeg"
+                                            src="/images/centre-vhu-agree.webp"
                                             alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
                                             fill
                                             sizes="200px"
