@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import HeroNew from '@/components/HeroNew';
 import ServiceSelector from '@/components/ServiceSelector';
 import ProcessNew from '@/components/ProcessNew';
@@ -75,24 +74,18 @@ export default function Home() {
   return (
     <>
       {structuredData.map((data, index) => (
-        <Script
+        <script
           key={index}
-          id={`structured-data-home-${index}`}
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
         />
       ))}
-      <Script
-        id="structured-data-howto"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
-      <Script
-        id="structured-data-speakable"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
 

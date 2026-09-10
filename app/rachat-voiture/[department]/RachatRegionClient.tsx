@@ -8,7 +8,7 @@ import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
 import type { RegionData } from '@/lib/page-data';
 import type { IdfRegionContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
@@ -26,10 +26,10 @@ interface RachatRegionClientProps {
   isIdf: boolean;
   idfRegionContent: IdfRegionContent | null;
   idfTestimonials: IdfTestimonial[];
-  idfFaqItems: IdfFaqItem[];
+  faqItems?: FaqItem[];
 }
 
-export default function RachatRegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, idfFaqItems }: RachatRegionClientProps) {
+export default function RachatRegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, faqItems }: RachatRegionClientProps) {
   const totalCities = region.departments.reduce((sum, dept) => sum + dept.cities.length, 0);
 
   return (
@@ -342,7 +342,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
       )}
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="rachat" /> : <FAQ />}
+      {isIdf ? <IdfFaq faqItems={faqItems} service="rachat" /> : <FAQ items={faqItems} />}
 
       {/* Footer */}
       <Footer />

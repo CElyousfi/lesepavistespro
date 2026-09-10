@@ -1,5 +1,4 @@
 import { getSiteUrl } from './site';
-import { getDeptGeo } from './geo-coordinates';
 
 /** Static region names for structured data (avoids importing 2.5MB locations-national into client bundle) */
 const REGION_NAMES = [
@@ -138,29 +137,39 @@ export function getWebSiteSchema() {
   };
 }
 
-export function getLocalBusinessSchema(deptCode?: string) {
+/**
+ * THE single business entity for the whole site.
+ *
+ * Emitted exactly once, from app/layout.tsx, under @id …/#business. Every other
+ * schema node references that @id instead of redefining it — the same @id with
+ * different properties (a per-city name and address, for instance) makes the
+ * entity ambiguous and, with no premises in that city, reads as local-spam.
+ *
+ * AutomotiveBusiness is the precise type for a VHU/épaviste operator.
+ */
+export function getLocalBusinessSchema() {
   const baseUrl = getSiteUrl();
-  const geo = getDeptGeo(deptCode || '75');
-  
+
   return {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'AutomotiveBusiness',
     '@id': `${baseUrl}/#business`,
     name: 'Les Épavistes Pro',
-    description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés ou hors d\'usage.',
+    description:
+      'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés ou hors d\'usage.',
     url: baseUrl,
     telephone: '+33602427345',
     email: 'lesepavistespro@gmail.com',
     priceRange: 'Gratuit',
     image: `${baseUrl}/icon.png`,
+    logo: `${baseUrl}/logo.png`,
+    parentOrganization: { '@id': `${baseUrl}/#organization` },
     address: {
       '@type': 'PostalAddress',
+      // TODO(owner): provide the real registered address (streetAddress,
+      // postalCode, addressLocality). Until then only the country is asserted —
+      // inventing a street address would be fabricated local-business data.
       addressCountry: 'FR',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: geo.lat,
-      longitude: geo.lng,
     },
     areaServed: REGION_NAMES.map(name => ({
       '@type': 'AdministrativeArea',
@@ -195,11 +204,7 @@ export function getServiceSchema(serviceName: string, serviceDescription: string
     '@type': 'Service',
     serviceType: serviceName,
     description: serviceDescription,
-    provider: {
-      '@type': 'LocalBusiness',
-      name: 'Les Épavistes Pro',
-      telephone: '+33602427345',
-    },
+    provider: { '@id': `${getSiteUrl()}/#business` },
     areaServed: {
       '@type': 'Country',
       name: 'France',
@@ -214,20 +219,8 @@ export function getServiceSchema(serviceName: string, serviceDescription: string
   };
 }
 
-export function getFAQSchema(faqs: Array<{ question: string; answer: string }>) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map(faq => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  };
-}
+// FAQPage nodes are built by lib/faq.ts buildFaqPage(): one per page, from
+// questions that page actually renders.
 
 export function getBreadcrumbSchema(items: Array<{ name: string; url: string }>) {
   return {
@@ -428,11 +421,7 @@ export function getServiceAreaSchema(
     '@context': 'https://schema.org',
     '@type': 'Service',
     serviceType: 'Épaviste agréé VHU',
-    provider: {
-      '@type': 'LocalBusiness',
-      '@id': `${baseUrl}/#business`,
-      name: 'Les Épavistes Pro',
-    },
+    provider: { '@id': `${baseUrl}/#business` },
     areaServed: {
       '@type': 'GeoCircle',
       geoMidpoint: {

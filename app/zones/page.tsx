@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import Link from 'next/link';
 import { MapPin, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
 import Header from '@/components/Header';
@@ -35,10 +34,8 @@ export default function ZonesPage() {
 
   return (
     <>
-      <Script
-        id="structured-data-zones-breadcrumb"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Header />

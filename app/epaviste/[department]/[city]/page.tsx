@@ -2,7 +2,8 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allDepartments, getCityInDepartment, isHomonymCity } from '@/lib/locations-complete';
 import { generateEpavisteCityMeta } from '@/lib/seo';
-import { getBreadcrumbData, getCityFAQData, getIdfCityStructuredData } from '@/lib/structured-data';
+import { getBreadcrumbData, getCityServiceData, getWebPageData } from '@/lib/structured-data';
+import { buildFaqPage, getCityFaqItems, genericFaqItems, type FaqItem } from '@/lib/faq';
 import { getCityLocalData } from '@/lib/city-local-data';
 import { isIdfDepartment } from '@/lib/idf';
 import { shouldNoIndex } from '@/lib/geo-targeting';
@@ -96,25 +97,34 @@ export default async function CityEpavistePage({
     { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}` },
     { name: city.name, url: cityUrl }
   ]);
-  const cityFAQData = getCityFAQData(city.name, department.name, city.slug);
-  let structuredData: any[] = [breadcrumbData, cityFAQData];
 
-  if (isIdf) {
-    const idfSchemas = getIdfCityStructuredData(
+  // IDF-only data
+  const idfDeptTestimonials = isIdf ? getIdfTestimonialsByDept(department.code) : [];
+  const idfDeptContent = isIdf ? getIdfDeptContent(department.code) ?? null : null;
+
+  // ONE FAQ list: rendered by the client component AND turned into the page's
+  // single FAQPage node. A FAQPage may only contain visible questions.
+  const faqItems: FaqItem[] = [
+    ...getCityFaqItems(city.name, localData),
+    ...(isIdf ? idfEpavisteFaq : genericFaqItems),
+  ];
+  const faqPage = buildFaqPage(faqItems);
+
+  const structuredData = [
+    getWebPageData(cityUrl, `Épaviste ${city.name} (${city.postalCode})`),
+    breadcrumbData,
+    // A Service node, not a per-city LocalBusiness: we serve the city, we have
+    // no premises there. See lib/structured-data.ts.
+    getCityServiceData(
       city.name,
       city.postalCode,
       department.code,
       department.name,
       cityUrl,
       'epaviste'
-    );
-    if (idfSchemas) structuredData = [...structuredData, ...idfSchemas];
-  }
-
-  // IDF-only data
-  const idfDeptTestimonials = isIdf ? getIdfTestimonialsByDept(department.code) : [];
-  const idfDeptContent = isIdf ? getIdfDeptContent(department.code) ?? null : null;
-  const idfFaqItems = isIdf ? idfEpavisteFaq : [];
+    ),
+    ...(faqPage ? [faqPage] : []),
+  ];
 
   // Serialize only needed data
   const cityData = { name: city.name, slug: city.slug, postalCode: city.postalCode };
@@ -133,7 +143,7 @@ export default async function CityEpavistePage({
         isIdf={isIdf}
         idfDeptTestimonials={idfDeptTestimonials}
         idfDeptContent={idfDeptContent}
-        idfFaqItems={idfFaqItems}
+        faqItems={faqItems}
       />
     </>
   );

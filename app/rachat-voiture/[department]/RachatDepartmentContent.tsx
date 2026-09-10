@@ -8,7 +8,7 @@ import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
 import type { DepartmentData, ParentRegionData } from '@/lib/page-data';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
@@ -27,10 +27,10 @@ interface RachatDepartmentProps {
   isIdf: boolean;
   idfContent: IdfDeptContent | null;
   idfTestimonials: IdfTestimonial[];
-  idfFaqItems: IdfFaqItem[];
+  faqItems?: FaqItem[];
 }
 
-export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idfContent, idfTestimonials, idfFaqItems }: RachatDepartmentProps) {
+export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idfContent, idfTestimonials, faqItems }: RachatDepartmentProps) {
   const CITIES_PER_PAGE = 20;
   const [visibleCities, setVisibleCities] = useState(CITIES_PER_PAGE);
   const hasMoreCities = dept.cities.length > visibleCities;
@@ -417,7 +417,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
       )}
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="rachat" /> : <FAQ />}
+      {isIdf ? <IdfFaq faqItems={faqItems} service="rachat" /> : <FAQ items={faqItems} />}
 
       {/* Footer */}
       <Footer />

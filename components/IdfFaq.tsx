@@ -2,15 +2,15 @@
 
 import { useState } from 'react';
 import { CaretDown, Phone, WhatsappLogo } from '@phosphor-icons/react';
-import { type IdfFaqItem } from '@/data/idf-faq';
+import { type FaqItem } from '@/lib/faq';
 import ScrollAnimation from '@/components/ScrollAnimation';
 
 interface IdfFaqProps {
-  faqItems: IdfFaqItem[];
+  faqItems?: FaqItem[];
   service: 'epaviste' | 'rachat';
 }
 
-export default function IdfFaq({ faqItems, service }: IdfFaqProps) {
+export default function IdfFaq({ faqItems = [], service }: IdfFaqProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   // Static class maps so Tailwind JIT picks them up
   const cls = service === 'rachat'

@@ -2,7 +2,13 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allDepartments, getDepartmentBySlug, getRegionForDepartment, regions, getRegionBySlug } from '@/lib/locations-complete';
 import { generateRachatDepartmentMeta, generateRachatRegionMeta } from '@/lib/seo';
-import { getDepartmentLocalBusiness, getBreadcrumbData, getIdfDepartmentStructuredData, getIdfRegionStructuredData } from '@/lib/structured-data';
+import {
+  getBreadcrumbData,
+  getDepartmentServiceData,
+  getRegionServiceData,
+  getWebPageData,
+} from '@/lib/structured-data';
+import { buildFaqPage, genericFaqItems, type FaqItem } from '@/lib/faq';
 import { isIdfDepartment, isIdfRegion } from '@/lib/idf';
 import { getIdfDeptContent, idfRegionContent } from '@/data/idf-extra-content';
 import { idfRachatFaq } from '@/data/idf-faq';
@@ -54,20 +60,25 @@ export default async function DepartmentOrRegionRachatPage({ params }: { params:
       { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
       { name: region.name, url: `https://www.lesepavistespro.fr/rachat-voiture/${region.slug}` },
     ]);
-    const localBusinessData = {
-      '@context': 'https://schema.org',
-      '@type': 'LocalBusiness',
-      '@id': 'https://www.lesepavistespro.fr/#business',
-      name: 'Les Épavistes Pro',
-      url: `https://www.lesepavistespro.fr/rachat-voiture/${region.slug}`,
-      telephone: '+33602427345',
-      openingHours: 'Mo-Su 00:00-23:59',
-    };
-    let structuredData: any[] = [localBusinessData, breadcrumbData];
-    if (isIdf) {
-      const idfSchemas = getIdfRegionStructuredData('rachat');
-      structuredData = [...structuredData, ...idfSchemas];
-    }
+    const regionUrl = `https://www.lesepavistespro.fr/rachat-voiture/${region.slug}`;
+    // ONE FAQ list — rendered by the client component and turned into this
+    // page's single FAQPage node.
+    const regionFaqItems: FaqItem[] = isIdf ? idfRachatFaq : genericFaqItems;
+    const regionFaqPage = buildFaqPage(regionFaqItems);
+
+    const structuredData = [
+      getWebPageData(regionUrl, `Rachat voiture ${region.name}`),
+      breadcrumbData,
+      // A Service node referencing the one #business entity — never a second
+      // definition of #business with region-specific data.
+      getRegionServiceData(
+        region.name,
+        region.slug,
+        'rachat',
+        region.departments.map(d => `${d.name} (${d.code})`)
+      ),
+      ...(regionFaqPage ? [regionFaqPage] : []),
+    ];
 
     const regionData = {
       name: region.name,
@@ -86,7 +97,7 @@ export default async function DepartmentOrRegionRachatPage({ params }: { params:
           isIdf={isIdf}
           idfRegionContent={idfRegionContentData}
           idfTestimonials={idfTestimonials}
-          idfFaqItems={isIdf ? idfRachatFaq : []}
+          faqItems={regionFaqItems}
         />
       </>
     );
@@ -101,21 +112,27 @@ export default async function DepartmentOrRegionRachatPage({ params }: { params:
   const idfContent = isIdf ? getIdfDeptContent(dept.code) : null;
   const idfTestimonials = isIdf ? getIdfTestimonialsByDept(dept.code).filter(t => t.service === 'rachat') : [];
 
-  const localBusinessData = getDepartmentLocalBusiness(
-    dept.code,
-    `${dept.name} (${dept.code})`,
-    `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}`
-  );
+  const deptUrl = `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}`;
   const breadcrumbData = getBreadcrumbData([
     { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
     { name: 'Rachat Voiture', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
     { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}` },
   ]);
-  let structuredData: any[] = [localBusinessData, breadcrumbData];
-  if (isIdf) {
-    const idfSchemas = getIdfDepartmentStructuredData(dept.code, dept.name, `https://www.lesepavistespro.fr/rachat-voiture/${dept.slug}`, 'rachat');
-    if (idfSchemas) structuredData = [...structuredData, ...idfSchemas];
-  }
+  const deptFaqItems: FaqItem[] = isIdf ? idfRachatFaq : genericFaqItems;
+  const deptFaqPage = buildFaqPage(deptFaqItems);
+
+  const structuredData = [
+    getWebPageData(deptUrl, `Rachat voiture ${dept.name} (${dept.code})`),
+    breadcrumbData,
+    getDepartmentServiceData(
+      dept.code,
+      dept.name,
+      dept.slug,
+      'rachat',
+      dept.cities.map(c => c.name)
+    ),
+    ...(deptFaqPage ? [deptFaqPage] : []),
+  ];
 
   const deptData = {
     name: dept.name, code: dept.code, slug: dept.slug,
@@ -132,7 +149,7 @@ export default async function DepartmentOrRegionRachatPage({ params }: { params:
         isIdf={isIdf}
         idfContent={idfContent ?? null}
         idfTestimonials={idfTestimonials}
-        idfFaqItems={isIdf ? idfRachatFaq : []}
+        faqItems={deptFaqItems}
       />
     </>
   );

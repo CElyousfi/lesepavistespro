@@ -2,7 +2,13 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { allDepartments, getDepartmentBySlug, getRegionForDepartment, regions, getRegionBySlug } from '@/lib/locations-complete';
 import { generateEpavisteDepartmentMeta, generateEpavisteRegionMeta } from '@/lib/seo';
-import { getDepartmentLocalBusiness, getBreadcrumbData, getIdfDepartmentStructuredData, getIdfRegionStructuredData } from '@/lib/structured-data';
+import {
+  getBreadcrumbData,
+  getDepartmentServiceData,
+  getRegionServiceData,
+  getWebPageData,
+} from '@/lib/structured-data';
+import { buildFaqPage, genericFaqItems, type FaqItem } from '@/lib/faq';
 import { isIdfDepartment, isIdfRegion } from '@/lib/idf';
 import { getIdfDeptContent, idfRegionContent } from '@/data/idf-extra-content';
 import { idfEpavisteFaq } from '@/data/idf-faq';
@@ -56,20 +62,25 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
       { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
       { name: region.name, url: `https://www.lesepavistespro.fr/epaviste/${region.slug}` },
     ]);
-    const localBusinessData = {
-      '@context': 'https://schema.org',
-      '@type': 'LocalBusiness',
-      '@id': 'https://www.lesepavistespro.fr/#business',
-      name: 'Les Épavistes Pro',
-      url: `https://www.lesepavistespro.fr/epaviste/${region.slug}`,
-      telephone: '+33602427345',
-      openingHours: 'Mo-Su 00:00-23:59',
-    };
-    let structuredData: any[] = [localBusinessData, breadcrumbData];
-    if (isIdf) {
-      const idfSchemas = getIdfRegionStructuredData('epaviste');
-      structuredData = [...structuredData, ...idfSchemas];
-    }
+    const regionUrl = `https://www.lesepavistespro.fr/epaviste/${region.slug}`;
+    // ONE FAQ list — rendered by the client component and turned into this
+    // page's single FAQPage node.
+    const regionFaqItems: FaqItem[] = isIdf ? idfEpavisteFaq : genericFaqItems;
+    const regionFaqPage = buildFaqPage(regionFaqItems);
+
+    const structuredData = [
+      getWebPageData(regionUrl, `Épaviste ${region.name}`),
+      breadcrumbData,
+      // A Service node referencing the one #business entity — never a second
+      // definition of #business with region-specific data.
+      getRegionServiceData(
+        region.name,
+        region.slug,
+        'epaviste',
+        region.departments.map(d => `${d.name} (${d.code})`)
+      ),
+      ...(regionFaqPage ? [regionFaqPage] : []),
+    ];
 
     // Serialize region data (strip functions, keep only plain data)
     const regionData = {
@@ -94,7 +105,7 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
           isIdf={isIdf}
           idfRegionContent={idfRegionContentData}
           idfTestimonials={idfTestimonials}
-          idfFaqItems={isIdf ? idfEpavisteFaq : []}
+          faqItems={regionFaqItems}
         />
       </>
     );
@@ -109,21 +120,27 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
   const idfContent = isIdf ? getIdfDeptContent(dept.code) : null;
   const idfTestimonials = isIdf ? getIdfTestimonialsByDept(dept.code) : [];
 
-  const localBusinessData = getDepartmentLocalBusiness(
-    dept.code,
-    `${dept.name} (${dept.code})`,
-    `https://www.lesepavistespro.fr/epaviste/${dept.slug}`
-  );
+  const deptUrl = `https://www.lesepavistespro.fr/epaviste/${dept.slug}`;
   const breadcrumbData = getBreadcrumbData([
     { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
     { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
     { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/epaviste/${dept.slug}` },
   ]);
-  let structuredData: any[] = [localBusinessData, breadcrumbData];
-  if (isIdf) {
-    const idfSchemas = getIdfDepartmentStructuredData(dept.code, dept.name, `https://www.lesepavistespro.fr/epaviste/${dept.slug}`, 'epaviste');
-    if (idfSchemas) structuredData = [...structuredData, ...idfSchemas];
-  }
+  const deptFaqItems: FaqItem[] = isIdf ? idfEpavisteFaq : genericFaqItems;
+  const deptFaqPage = buildFaqPage(deptFaqItems);
+
+  const structuredData = [
+    getWebPageData(deptUrl, `Épaviste ${dept.name} (${dept.code})`),
+    breadcrumbData,
+    getDepartmentServiceData(
+      dept.code,
+      dept.name,
+      dept.slug,
+      'epaviste',
+      dept.cities.map(c => c.name)
+    ),
+    ...(deptFaqPage ? [deptFaqPage] : []),
+  ];
 
   // Serialize department data
   const deptData = {
@@ -146,7 +163,7 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
         isIdf={isIdf}
         idfContent={idfContent ?? null}
         idfTestimonials={idfTestimonials}
-        idfFaqItems={isIdf ? idfEpavisteFaq : []}
+        faqItems={deptFaqItems}
       />
     </>
   );

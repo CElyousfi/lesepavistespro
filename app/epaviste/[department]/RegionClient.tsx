@@ -8,7 +8,7 @@ import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
 import type { RegionData } from '@/lib/page-data';
 import type { IdfRegionContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 
 // Dynamic imports for below-fold heavy components
@@ -27,10 +27,10 @@ interface RegionClientProps {
   isIdf: boolean;
   idfRegionContent: IdfRegionContent | null;
   idfTestimonials: IdfTestimonial[];
-  idfFaqItems: IdfFaqItem[];
+  faqItems?: FaqItem[];
 }
 
-export default function RegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, idfFaqItems }: RegionClientProps) {
+export default function RegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, faqItems }: RegionClientProps) {
   const totalCities = region.departments.reduce((sum, dept) => sum + dept.cities.length, 0);
 
   return (
@@ -347,7 +347,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
       )}
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="epaviste" /> : <FAQ />}
+      {isIdf ? <IdfFaq faqItems={faqItems} service="epaviste" /> : <FAQ items={faqItems} />}
 
 
       {/* Footer */}
