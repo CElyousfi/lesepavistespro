@@ -66,10 +66,22 @@ export async function GET() {
     });
   });
 
+  // One <url> per page: several entries above describe the same page, and a
+  // repeated <loc> makes the image sitemap invalid.
+  const merged = new Map<string, Array<{ loc: string; title: string; caption?: string }>>();
+  for (const entry of imageEntries) {
+    const images = merged.get(entry.pageUrl) ?? [];
+    for (const img of entry.images) {
+      if (!images.some(existing => existing.loc === img.loc)) images.push(img);
+    }
+    merged.set(entry.pageUrl, images);
+  }
+  const uniqueEntries = Array.from(merged, ([pageUrl, images]) => ({ pageUrl, images }));
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${imageEntries.map(entry => `  <url>
+${uniqueEntries.map(entry => `  <url>
     <loc>${entry.pageUrl}</loc>
 ${entry.images.map(img => `    <image:image>
       <image:loc>${img.loc}</image:loc>

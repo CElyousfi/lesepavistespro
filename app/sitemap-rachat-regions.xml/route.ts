@@ -1,36 +1,29 @@
 import { NextResponse } from 'next/server';
-import { getSiteUrl } from '@/lib/site';
+import { getSiteUrl, lastmod } from '@/lib/site';
 import { regions } from '@/lib/locations-complete';
-import { isIdfRegion } from '@/lib/idf';
 
 /**
- * Rachat voiture region pages sitemap
- * 18 regions across France
+ * rachat-voiture region pages sitemap — 18 regions, all indexable and self-canonical.
  */
 export async function GET() {
   const base = getSiteUrl();
-  const buildTime = new Date().toISOString();
-
-  const urls = regions.map(region => ({
-    loc: `${base}/rachat-voiture/${region.slug}`,
-    lastmod: buildTime,
-    changefreq: isIdfRegion(region.slug) ? 'weekly' : 'monthly',
-    priority: isIdfRegion(region.slug) ? 1.0 : 0.85,
-  }));
+  const updated = lastmod('regions');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `  <url>
-    <loc>${u.loc}</loc>
-    <lastmod>${u.lastmod}</lastmod>
-    <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
-  </url>`).join('\n')}
+${regions
+  .map(
+    (region) => `  <url>
+    <loc>${base}/rachat-voiture/${region.slug}</loc>
+    <lastmod>${updated}</lastmod>
+  </url>`
+  )
+  .join('\n')}
 </urlset>`;
 
   return new NextResponse(xml, {
     headers: {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, s-maxage=3600',
     },
   });

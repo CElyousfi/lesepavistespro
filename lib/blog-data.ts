@@ -4,7 +4,15 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   category: string;
+  /** Publication date (ISO YYYY-MM-DD) — real, do not fabricate. */
   date: string;
+  /**
+   * Last substantive update (ISO YYYY-MM-DD). Optional: when absent, the
+   * publication date is used for both datePublished and dateModified.
+   * TODO(owner): set this whenever a post is genuinely revised — never bump it
+   * to fake freshness.
+   */
+  updatedAt?: string;
   readTime: string;
   image: string;
   keywords: string[];
