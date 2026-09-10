@@ -1,6 +1,6 @@
 # SEO Remediation Report — lesepavistespro.fr
 
-**Branch:** `seo/audit-remediation` (17 commits, branched from `main` @ `9ca6e71`)
+**Branch:** `seo/audit-remediation` (19 commits, branched from `main` @ `9ca6e71`)
 **Date:** 10 September 2026
 **Scope:** technical SEO remediation, Phases 0–6 of the audit brief.
 
@@ -21,8 +21,16 @@ nine child sitemaps, plus every internal link target verified.
 | | Before | After |
 |---|---:|---:|
 | **Errors** (instances) | **288** | **0** |
-| **Warnings** (instances) | **137** | **2** |
+| **Warnings** (instances) | **137** | **0** |
 | **Notices** (instances) | **1,938** | **123** |
+
+The 123 remaining notices are all one thing: department pages outside the
+indexed geography preview 20 of their (noindex) city pages. That is the
+geo-targeting strategy working as designed, and those links now carry
+`follow: true`, so equity flows through them.
+
+A second pass at 899 URLs (`--sample-per-sitemap=320`) reproduces the same
+result: **0 errors, 0 warnings.**
 
 ### Per-metric
 
@@ -47,8 +55,8 @@ nine child sitemaps, plus every internal link target verified.
 | Missing / multiple H1 | 0 / 0 | 0 / 0 | — |
 | Images without `alt` | 0 | 0 | — |
 | Redirect chains (2+ hops) | 0 | 0 | P2.6 |
-| Heaviest page (HTML) | **485 KB** `/epaviste/grand-est` | **309 KB** `/rachat-voiture/pas-de-calais-62` | P3.2 |
-| Pages over 300 KB | 14 | **2** | P3.2 |
+| Heaviest page (HTML) | **485 KB** `/epaviste/grand-est` | **253 KB** `/rachat-voiture/pas-de-calais-62` | P3.2 |
+| Pages over 300 KB | 14 | **0** | P3.2 |
 
 ### Page weight by page type (median / max KB of HTML)
 
@@ -56,7 +64,7 @@ nine child sitemaps, plus every internal link target verified.
 |---|---|---|
 | Homepage | 153 / 153 | 146 / 146 |
 | Static pages | 74 / 237 | 95 / 235 (¹) |
-| Region + department | 132 / **485** | 140 / **309** |
+| Region + department | 132 / **485** | 140 / **253** |
 | City | 139 / 181 | **111 / 160** |
 
 ¹ Static pages grew on purpose: `/contact`, `/documents` and `/conformite-vhu`
@@ -75,6 +83,9 @@ were thin and gained real content (P4.1).
 | Any `(dept, city)` combination returning 200 | yes (`/epaviste/paris-75/lyon`) | **404** |
 | City names without accents / hyphens | 17,915 | **0 changed → 369 unmatched** |
 | `public/` image weight | **22 MB** | **1.5 MB** |
+| `app/icon.png` (served every page load) | **1,383 KB** @1024² | **14 KB** @512² |
+| `app/apple-icon.png` | **1,383 KB** @1024² | **2 KB** @180² |
+| Unreachable duplicate images in repo root | 1.75 MB | **0** |
 | ESLint | **166 errors, 24 warnings** | **0 errors, 0 warnings** |
 
 Verified live on the production build:
@@ -131,7 +142,7 @@ Driven through `proxy.ts` by `npm run check-redirects`:
 noise.** That is expected and does not mean the performance work was wasted:
 
 - Over localhost there is no network, so a 22 MB → 1.5 MB image reduction and a
-  485 KB → 309 KB HTML reduction barely move a simulated-throttling score. They
+  485 KB → 253 KB HTML reduction barely move a simulated-throttling score. They
   will show on real connections, and the crawler's HTML-size column is the
   reliable local proxy for them.
 - On these pages the throttled LCP is dominated by **Google Analytics (171 KB)**
@@ -165,6 +176,9 @@ Reproduce with `npx tsx scripts/lighthouse-run.ts <baseUrl> --label=<name>`.
 | P4.2 | `bdd9841` | Measure templated-city-page similarity |
 | P5 | `c491845` | Clear all ESLint errors, correct the README |
 | P2.6 | `d4d37bf` | Build the canonical URL as a plain URL (redirect-loop fix) |
+| P7 | `e53e671` | This report |
+| P3.1 | *(follow-up)* | Shrink the served app icons; widen the weight guardrail |
+| P3.2 | *(follow-up)* | Style the commune index from the parent; last 2 pages under 300 KB |
 
 `npx tsc --noEmit` passes after every commit; `npm run build` (which runs
 `npm run seo-check` via `prebuild`) passes at every phase boundary.
@@ -327,12 +341,15 @@ work was not allowed to touch:
   Playfair, or subsetting it to the glyphs actually used in headings, is the
   cheapest remaining LCP win. That is a design decision.
 
-### 4.6 `/epaviste/pas-de-calais-62` is 301 KB
+### 4.6 Nothing is over the size threshold any more
 
-The only two pages still over the 300 KB warning threshold are the Pas-de-Calais
-department pages, which now link **all 887 of their communes** so none is orphaned.
-That trade — 301 KB of HTML for 887 crawlable links — seems right to me, but you
-can cap it if you disagree.
+The two Pas-de-Calais department pages were 301 KB and 309 KB — the last things
+over the 300 KB warning threshold — because they link **all 887 of their
+communes** so none is orphaned. Repeating a 52-character Tailwind class string on
+every one of those links cost ~46 KB of HTML, and again in the RSC payload. The
+styling moved onto the `<ul>` as descendant variants; the links are untouched.
+
+  245 KB / 253 KB, still all 887 links. Heaviest page on the site is now 253 KB.
 
 ---
 
@@ -437,7 +454,7 @@ these regress. 57 checks pass today.
 | 7 | No competing `#business` definition; location pages emit `Service`; city pages emit one merged `FAQPage`; no `aggregateRating`/`review` anywhere | P2.4 |
 | 8 | Root layout sets no `alternates.canonical`, no `languages`, one Bing tag, no `keywords`/`geo.*`/`ICBM`/`revisit-after` | P2.5 |
 | 9 | Seven URL variants canonicalise in **one** hop and land on the expected URL | P2.6 |
-| 10 | No `public/` asset over 300 KB | P3.1 |
+| 10 | No **served** image over 300 KB — everything under `public/` **plus the App Router icon conventions in `app/`** | P3.1 |
 | 11 | No `wa.me/+` URL and no hand-built `wa.me` URL outside `lib/whatsapp.ts` | P4.3 |
 
 Plus the 30 pre-existing checks (department codes, postal codes, canonicals,
