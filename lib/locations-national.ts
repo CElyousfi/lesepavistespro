@@ -3,7 +3,10 @@
 // Source: La Poste official postal codes CSV
 // Generated: 2026-02-11T00:19:13.249Z
 //
-// 18 regions, 101 departments, 34946 cities
+// 18 regions, 101 departments, 34923 cities
+// Note: within-department duplicate slugs (Lyon ×9, Marseille ×16 — one row per
+// arrondissement postal code, all sharing one slug) were collapsed to a single
+// canonical entry. See SEO-REMEDIATION-REPORT.md (P1.1).
 
 export interface City {
   name: string;
@@ -3453,14 +3456,6 @@ export const regions: Region[] = [
       { name: "Lozanne", slug: "lozanne", postalCode: "69380" },
       { name: "Lucenay", slug: "lucenay", postalCode: "69480" },
       { name: "Lyon", slug: "lyon", postalCode: "69001" },
-      { name: "Lyon", slug: "lyon", postalCode: "69002" },
-      { name: "Lyon", slug: "lyon", postalCode: "69003" },
-      { name: "Lyon", slug: "lyon", postalCode: "69004" },
-      { name: "Lyon", slug: "lyon", postalCode: "69005" },
-      { name: "Lyon", slug: "lyon", postalCode: "69006" },
-      { name: "Lyon", slug: "lyon", postalCode: "69007" },
-      { name: "Lyon", slug: "lyon", postalCode: "69008" },
-      { name: "Lyon", slug: "lyon", postalCode: "69009" },
       { name: "Lyon 1er", slug: "lyon-1er", postalCode: "69001" },
       { name: "Lyon 2e", slug: "lyon-2e", postalCode: "69002" },
       { name: "Lyon 3e", slug: "lyon-3e", postalCode: "69003" },
@@ -35281,21 +35276,6 @@ export const regions: Region[] = [
       { name: "Mallemort", slug: "mallemort", postalCode: "13370" },
       { name: "Marignane", slug: "marignane", postalCode: "13700" },
       { name: "Marseille", slug: "marseille", postalCode: "13001" },
-      { name: "Marseille", slug: "marseille", postalCode: "13002" },
-      { name: "Marseille", slug: "marseille", postalCode: "13003" },
-      { name: "Marseille", slug: "marseille", postalCode: "13004" },
-      { name: "Marseille", slug: "marseille", postalCode: "13005" },
-      { name: "Marseille", slug: "marseille", postalCode: "13006" },
-      { name: "Marseille", slug: "marseille", postalCode: "13007" },
-      { name: "Marseille", slug: "marseille", postalCode: "13008" },
-      { name: "Marseille", slug: "marseille", postalCode: "13009" },
-      { name: "Marseille", slug: "marseille", postalCode: "13010" },
-      { name: "Marseille", slug: "marseille", postalCode: "13011" },
-      { name: "Marseille", slug: "marseille", postalCode: "13012" },
-      { name: "Marseille", slug: "marseille", postalCode: "13013" },
-      { name: "Marseille", slug: "marseille", postalCode: "13014" },
-      { name: "Marseille", slug: "marseille", postalCode: "13015" },
-      { name: "Marseille", slug: "marseille", postalCode: "13016" },
       { name: "Marseille 10e", slug: "marseille-10e", postalCode: "13010" },
       { name: "Marseille 11e", slug: "marseille-11e", postalCode: "13011" },
       { name: "Marseille 12e", slug: "marseille-12e", postalCode: "13012" },
@@ -35921,15 +35901,44 @@ export function getDepartmentBySlug(slug: string): Department | undefined {
   return allDepartments.find(d => d.slug === slug);
 }
 
-/** Find a city by its slug (searches all departments) */
-export function getCityBySlug(citySlug: string): { city: City; department: Department } | undefined {
+/**
+ * Resolve a city inside a specific department.
+ *
+ * This is the ONLY correct way to resolve a /{service}/{department}/{city}
+ * URL: ~1,470 city slugs exist in more than one department (Montreuil,
+ * Bagneux, Chelles, Torcy, Grigny, Fresnes…), so resolving by slug alone
+ * silently returns a homonym from another department and canonicalises the
+ * page away from itself.
+ */
+export function getCityInDepartment(
+  deptSlug: string,
+  citySlug: string
+): { city: City; department: Department } | undefined {
+  const department = getDepartmentBySlug(deptSlug);
+  const city = department?.cities.find(c => c.slug === citySlug);
+  return department && city ? { city, department } : undefined;
+}
+
+/**
+ * Set of city slugs that exist in more than one department.
+ * Used to disambiguate titles/descriptions for homonym cities.
+ */
+export const homonymCitySlugs: ReadonlySet<string> = (() => {
+  const seen = new Map<string, string>();
+  const dupes = new Set<string>();
   for (const dept of allDepartments) {
-    const city = dept.cities.find(c => c.slug === citySlug);
-    if (city) {
-      return { city, department: dept };
+    for (const city of dept.cities) {
+      const previous = seen.get(city.slug);
+      if (previous !== undefined && previous !== dept.slug) dupes.add(city.slug);
+      else if (previous === undefined) seen.set(city.slug, dept.slug);
     }
   }
-  return undefined;
+  return dupes;
+})();
+
+/** True when this city name/slug is shared with a city in another department. */
+export function isHomonymCity(citySlug: string): boolean {
+  return homonymCitySlugs.has(citySlug);
 }
 
 /** Find the parent region for a department */

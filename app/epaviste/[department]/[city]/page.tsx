@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { allDepartments, getCityBySlug } from '@/lib/locations-complete';
+import { allDepartments, getCityInDepartment, isHomonymCity } from '@/lib/locations-complete';
 import { generateEpavisteCityMeta } from '@/lib/seo';
 import { getBreadcrumbData, getCityFAQData, getIdfCityStructuredData } from '@/lib/structured-data';
 import { getCityLocalData } from '@/lib/city-local-data';
@@ -46,25 +46,44 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
-  const { city: citySlug } = await params;
-  const result = getCityBySlug(citySlug);
-  
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ department: string; city: string }>;
+}): Promise<Metadata> {
+  const { department: deptSlug, city: citySlug } = await params;
+  // Resolve within the URL's department — never by slug alone (homonym cities).
+  const result = getCityInDepartment(deptSlug, citySlug);
+
   if (!result) {
     return {
       title: 'Page non trouvée',
+      robots: { index: false, follow: true },
     };
   }
 
   const { city, department } = result;
   const noIndex = shouldNoIndex(department.slug, city.slug);
 
-  return generateEpavisteCityMeta(city.name, department.slug, city.slug, city.postalCode, noIndex);
+  return generateEpavisteCityMeta(
+    city.name,
+    department.slug,
+    city.slug,
+    city.postalCode,
+    noIndex,
+    isHomonymCity(city.slug)
+  );
 }
 
-export default async function CityEpavistePage({ params }: { params: Promise<{ city: string }> }) {
-  const { city: citySlug } = await params;
-  const result = getCityBySlug(citySlug);
+export default async function CityEpavistePage({
+  params,
+}: {
+  params: Promise<{ department: string; city: string }>;
+}) {
+  const { department: deptSlug, city: citySlug } = await params;
+  // Unknown (department, city) combinations are 404 — they must never render
+  // a homonym city from another department (unbounded duplicate URL space).
+  const result = getCityInDepartment(deptSlug, citySlug);
   if (!result) notFound();
 
   const { city, department } = result;

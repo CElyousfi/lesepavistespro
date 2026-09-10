@@ -2,30 +2,66 @@ import { Metadata } from 'next';
 import { getSiteUrl } from './site';
 import { isIdfDeptCode, IDF_REGION_SLUG } from './idf';
 
-const TITLE_SUFFIX_LEN = 21; // ' | Les Épavistes Pro' from layout.tsx template
-const MAX_TITLE_TOTAL = 65;
+export const TITLE_SUFFIX = ' | Les Épavistes Pro'; // layout.tsx template
+export const TITLE_SUFFIX_LEN = TITLE_SUFFIX.length;
+/** Full SERP title budget, suffix included. */
+export const MAX_TITLE_TOTAL = 60;
 
 /**
- * Build a title that fits within the Google SERP pixel limit.
- * Strategy: include postal/code display if it fits, drop it if not,
- * truncate the name with '…' as a last resort.
+ * Build a title that fits the 60-character SERP budget.
+ *
+ * The city/department name is the primary keyword and is NEVER truncated.
+ * When the title does not fit, degrade in this order:
+ *   1. drop the postal/department code (only when it is not needed to
+ *      disambiguate a homonym city),
+ *   2. drop the marketing tag ('– Gratuit'),
+ *   3. drop the ' | Les Épavistes Pro' suffix by returning an absolute title.
+ *
+ * Returns a Next.js `title` value: a plain string uses the layout template,
+ * `{ absolute }` opts out of it.
  */
-function safeTitleFit(prefix: string, name: string, codeDisplay: string, tag: string): string {
-  const budget = MAX_TITLE_TOTAL - TITLE_SUFFIX_LEN;
-  // Try with code display
-  const full = `${prefix}${name}${codeDisplay}${tag}`;
-  if (full.length <= budget) return full;
-  // Drop code display
-  const noCode = `${prefix}${name}${tag}`;
-  if (noCode.length <= budget) return noCode;
-  // Truncate name
-  const fixedLen = prefix.length + tag.length;
-  const maxName = budget - fixedLen - 1; // -1 for '…'
-  return `${prefix}${name.substring(0, maxName)}…${tag}`;
+export function safeTitleFit(
+  prefix: string,
+  name: string,
+  codeDisplay: string,
+  tag: string,
+  options: { keepCode?: boolean } = {}
+): string | { absolute: string } {
+  const keepCode = options.keepCode === true;
+  const withSuffix = MAX_TITLE_TOTAL - TITLE_SUFFIX_LEN;
+
+  const candidates: Array<{ text: string; absolute: boolean }> = [];
+  const push = (text: string, absolute: boolean) => candidates.push({ text, absolute });
+
+  // With the brand suffix
+  push(`${prefix}${name}${codeDisplay}${tag}`, false);
+  if (!keepCode) push(`${prefix}${name}${tag}`, false);
+  push(`${prefix}${name}${codeDisplay}`, false);
+  if (!keepCode) push(`${prefix}${name}`, false);
+  // Without the brand suffix — the brand is the least valuable part of the title
+  push(`${prefix}${name}${codeDisplay}${tag}`, true);
+  push(`${prefix}${name}${codeDisplay}`, true);
+  push(`${prefix}${name}`, true);
+
+  for (const candidate of candidates) {
+    const limit = candidate.absolute ? MAX_TITLE_TOTAL : withSuffix;
+    if (candidate.text.length <= limit) {
+      return candidate.absolute ? { absolute: candidate.text } : candidate.text;
+    }
+  }
+
+  // Every candidate is too long (a commune name over 60 chars does not exist in
+  // France). Keep the name intact rather than truncating the keyword.
+  return { absolute: `${prefix}${name}` };
+}
+
+/** Length of a title as it will appear in the SERP, suffix included. */
+export function renderedTitleLength(title: string | { absolute: string }): number {
+  return typeof title === 'string' ? title.length + TITLE_SUFFIX_LEN : title.absolute.length;
 }
 
 interface SEOParams {
-  title: string;
+  title: string | { absolute: string };
   description: string;
   path?: string;
   image?: string;
@@ -46,6 +82,10 @@ export function generateMeta({
   const baseUrl = getSiteUrl();
   const url = `${baseUrl}${path}`;
   const imageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
+  // OG / Twitter need a plain string; an { absolute } title carries no brand,
+  // so append it there where there is no length pressure.
+  const socialTitle =
+    typeof title === 'string' ? `${title}${TITLE_SUFFIX}` : title.absolute;
 
   return {
     title,
@@ -54,7 +94,7 @@ export function generateMeta({
       canonical: url,
     },
     openGraph: {
-      title,
+      title: socialTitle,
       description,
       url,
       siteName: 'Les Épavistes Pro',
@@ -63,7 +103,7 @@ export function generateMeta({
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: socialTitle,
         },
       ],
       locale: 'fr_FR',
@@ -71,14 +111,16 @@ export function generateMeta({
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: socialTitle,
       description,
       images: [imageUrl],
     },
     robots: noIndex
       ? {
+        // index: false but follow: true — noindex pages must still pass link
+        // equity back to the indexed pages they link to.
         index: false,
-        follow: false,
+        follow: true,
       }
       : {
         index: true,
@@ -172,14 +214,18 @@ export function generateEpavisteCityMeta(
   deptSlug: string,
   citySlug: string,
   postalCode?: string,
-  noIndex?: boolean
+  noIndex?: boolean,
+  isHomonym?: boolean
 ): Metadata {
   const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
   const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
   const isIdf = isIdfDeptCode(deptCode);
+  // Homonym cities (~1,470 slugs exist in several departments) must carry the
+  // department code so their titles stay unique in the SERP.
+  const titleCode = isHomonym && deptCode ? ` (${deptCode})` : postalDisplay;
 
   return generateMeta({
-    title: safeTitleFit('Épaviste ', cityName, postalDisplay, ' – Gratuit'),
+    title: safeTitleFit('Épaviste ', cityName, titleCode, ' – Gratuit', { keepCode: isHomonym === true }),
     description: isIdf
       ? `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT, intervention sous 2h. ☎ 06 02 42 73 45`
       : `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45`,
@@ -196,14 +242,16 @@ export function generateRachatCityMeta(
   deptSlug: string,
   citySlug: string,
   postalCode?: string,
-  noIndex?: boolean
+  noIndex?: boolean,
+  isHomonym?: boolean
 ): Metadata {
   const deptCode = deptSlug.match(/\d+$/)?.[0] || '';
   const postalDisplay = postalCode ? ` (${postalCode})` : deptCode ? ` ${deptCode}` : '';
   const isIdf = isIdfDeptCode(deptCode);
+  const titleCode = isHomonym && deptCode ? ` (${deptCode})` : postalDisplay;
 
   return generateMeta({
-    title: safeTitleFit('Rachat ', cityName, postalDisplay, ' – Cash'),
+    title: safeTitleFit('Rachat ', cityName, titleCode, ' – Cash', { keepCode: isHomonym === true }),
     description: isIdf
       ? `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45`
       : `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45`,

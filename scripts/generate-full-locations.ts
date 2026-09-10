@@ -450,10 +450,18 @@ async function main() {
         .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
       
       const citiesOutput: string[] = [];
+      // One row per slug: two rows sharing a slug would emit the same URL twice
+      // in the sitemap and make the page unresolvable by (department, slug).
+      const emittedSlugs = new Set<string>();
       for (const city of sortedCities) {
         const citySlug = getCitySlug(city.name, deptCode);
+        if (emittedSlugs.has(citySlug)) {
+          console.warn(`   ⚠️ Duplicate slug "${citySlug}" in department ${deptCode} — keeping the first entry only`);
+          continue;
+        }
+        emittedSlugs.add(citySlug);
         const primaryPostal = Array.from(city.postalCodes).sort()[0];
-        
+
         citiesOutput.push(`      { name: ${JSON.stringify(city.name)}, slug: ${JSON.stringify(citySlug)}, postalCode: ${JSON.stringify(primaryPostal)} }`);
         totalCities++;
       }
@@ -547,15 +555,44 @@ export function getDepartmentBySlug(slug: string): Department | undefined {
   return allDepartments.find(d => d.slug === slug);
 }
 
-/** Find a city by its slug (searches all departments) */
-export function getCityBySlug(citySlug: string): { city: City; department: Department } | undefined {
+/**
+ * Resolve a city inside a specific department.
+ *
+ * This is the ONLY correct way to resolve a /{service}/{department}/{city}
+ * URL: ~1,470 city slugs exist in more than one department (Montreuil,
+ * Bagneux, Chelles, Torcy, Grigny, Fresnes…), so resolving by slug alone
+ * silently returns a homonym from another department and canonicalises the
+ * page away from itself.
+ */
+export function getCityInDepartment(
+  deptSlug: string,
+  citySlug: string
+): { city: City; department: Department } | undefined {
+  const department = getDepartmentBySlug(deptSlug);
+  const city = department?.cities.find(c => c.slug === citySlug);
+  return department && city ? { city, department } : undefined;
+}
+
+/**
+ * Set of city slugs that exist in more than one department.
+ * Used to disambiguate titles/descriptions for homonym cities.
+ */
+export const homonymCitySlugs: ReadonlySet<string> = (() => {
+  const seen = new Map<string, string>();
+  const dupes = new Set<string>();
   for (const dept of allDepartments) {
-    const city = dept.cities.find(c => c.slug === citySlug);
-    if (city) {
-      return { city, department: dept };
+    for (const city of dept.cities) {
+      const previous = seen.get(city.slug);
+      if (previous !== undefined && previous !== dept.slug) dupes.add(city.slug);
+      else if (previous === undefined) seen.set(city.slug, dept.slug);
     }
   }
-  return undefined;
+  return dupes;
+})();
+
+/** True when this city name/slug is shared with a city in another department. */
+export function isHomonymCity(citySlug: string): boolean {
+  return homonymCitySlugs.has(citySlug);
 }
 
 /** Find the parent region for a department */
