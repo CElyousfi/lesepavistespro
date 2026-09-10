@@ -17,6 +17,8 @@ export const seoConfig = {
   
   // Business information
   businessName: 'Les Épavistes Pro',
+  // TODO(owner): confirm the registered legal name and SIRET for the mentions
+  // légales, and settle the founding year — lib/schema.ts says 2023.
   legalName: 'Les Épavistes Pro SARL',
   foundingDate: '2020',
   

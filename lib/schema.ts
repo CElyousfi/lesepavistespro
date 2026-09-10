@@ -33,6 +33,8 @@ export function getOrganizationSchema() {
     description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés. Partenaire avec centre VHU agréé N° PR9500003D.',
     telephone: '+33602427345',
     email: 'lesepavistespro@gmail.com',
+    // TODO(owner): lib/seo-config.ts says 2020 and this says 2023. One of them
+    // is wrong and both end up in structured data — confirm the real year.
     foundingDate: '2023',
     hasCredential: {
       '@type': 'EducationalOccupationalCredential',
@@ -41,9 +43,12 @@ export function getOrganizationSchema() {
         '@type': 'GovernmentOrganization',
         name: 'Préfecture',
       },
+      // TODO(owner): confirm this agrément number is current and that it belongs
+      // to the partner VHU centre we are entitled to cite.
       identifier: 'PR9500003D',
       name: 'Agrément Centre VHU',
     },
+    // TODO(owner): confirm this headcount range, or remove the property.
     numberOfEmployees: {
       '@type': 'QuantitativeValue',
       minValue: 10,
