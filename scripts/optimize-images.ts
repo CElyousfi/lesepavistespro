@@ -25,6 +25,16 @@ type SharpPipeline = ReturnType<typeof sharp>;
 
 const DRY_RUN = process.argv.includes('--dry-run');
 const PUBLIC = path.join(process.cwd(), 'public');
+/**
+ * App Router icon conventions live in app/, not public/, but the browser
+ * downloads them on every page load — app/icon.png and app/apple-icon.png were
+ * 1,383 KB each at 1024×1024 while declaring 512×512 and 180×180.
+ * [file, exact square size] — sizes must match app/layout.tsx `icons`.
+ */
+const APP_ICONS: Array<[string, number]> = [
+  ['app/icon.png', 512],
+  ['app/apple-icon.png', 180],
+];
 
 interface Rule {
   /** Glob-ish directory under public/, or a specific file. */
@@ -130,6 +140,23 @@ async function main() {
       fs.unlinkSync(full);
       renames.push({ from: `/${rel}`, to: `/${target}` });
     }
+  }
+
+  // App Router icons — resized to exactly the dimensions layout.tsx declares.
+  for (const [rel, size] of APP_ICONS) {
+    const full = path.join(process.cwd(), rel);
+    if (!fs.existsSync(full)) continue;
+    const originalSize = fs.statSync(full).size;
+    const buffer = await sharp(full)
+      .resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .png({ palette: true, quality: 90, effort: 9 })
+      .toBuffer();
+    if (buffer.length >= originalSize) continue;
+    console.log(
+      `  ${rel.padEnd(38)} ${String(Math.round(originalSize / 1024)).padStart(5)} KB → ` +
+        `${String(Math.round(buffer.length / 1024)).padStart(5)} KB  (${size}×${size})`
+    );
+    if (!DRY_RUN) fs.writeFileSync(full, buffer);
   }
 
   console.log(`\n📦 public/ images: ${Math.round(before / 1024 / 1024)} MB → ${Math.round(after / 1024 / 1024)} MB`);

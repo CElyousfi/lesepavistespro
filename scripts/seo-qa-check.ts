@@ -7,6 +7,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { execSync } from 'child_process';
 import { checkCityResolution } from './check-city-resolution';
 import { checkHardcodedInternalLinks } from './check-internal-links';
 import { checkRedirectHops } from './check-redirect-hops';
@@ -983,26 +984,48 @@ function checkPublicAssetWeight() {
 
   const MAX_BYTES = 300 * 1024;
   const heavy: string[] = [];
+  const IMAGE = /\.(png|jpe?g|gif|webp|avif|bmp|tiff?)$/i;
 
-  const walk = (dir: string) => {
-    if (!fs.existsSync(dir)) return;
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) walk(full);
-      else {
-        const size = fs.statSync(full).size;
-        if (size > MAX_BYTES) {
-          heavy.push(`${path.relative(process.cwd(), full)} (${Math.round(size / 1024)} KB)`);
-        }
+  // Scan every TRACKED image, not just public/: 1.4 MB copies of logo.png and
+  // logo_name.png sat unreferenced in the repo root, invisible to a public/-only
+  // check, because Next only ever serves the public/ copies.
+  let tracked: string[] = [];
+  try {
+    tracked = execSync('git ls-files -z', { encoding: 'utf-8', maxBuffer: 32 * 1024 * 1024 })
+      .split('\0')
+      .filter(Boolean);
+  } catch {
+    // Not a git checkout — fall back to walking public/.
+    const walk = (dir: string) => {
+      if (!fs.existsSync(dir)) return;
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) walk(full);
+        else tracked.push(path.relative(process.cwd(), full));
       }
-    }
-  };
-  walk(path.join(process.cwd(), 'public'));
+    };
+    walk(path.join(process.cwd(), 'public'));
+  }
+
+  // Only images the BROWSER can download: everything under public/, plus the
+  // App Router icon file conventions. inspiration/ holds design references that
+  // are never served, so their weight is not a site problem.
+  const isServed = (rel: string) =>
+    rel.startsWith('public/') ||
+    /^app\/(icon|apple-icon|opengraph-image|twitter-image|favicon)[^/]*$/.test(rel);
+
+  for (const rel of tracked) {
+    if (!IMAGE.test(rel) || !isServed(rel)) continue;
+    const full = path.join(process.cwd(), rel);
+    if (!fs.existsSync(full)) continue;
+    const size = fs.statSync(full).size;
+    if (size > MAX_BYTES) heavy.push(`${rel} (${Math.round(size / 1024)} KB)`);
+  }
 
   if (heavy.length === 0) {
-    addResult(true, `✓ No public/ asset over ${MAX_BYTES / 1024} KB`);
+    addResult(true, `✓ No served image over ${MAX_BYTES / 1024} KB (public/ + app icons)`);
   } else {
-    heavy.forEach(f => addResult(false, `✗ Oversized public asset: ${f}`));
+    heavy.forEach(f => addResult(false, `✗ Oversized image: ${f}`));
   }
 }
 
