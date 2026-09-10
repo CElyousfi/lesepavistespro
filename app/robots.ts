@@ -2,22 +2,30 @@ import { MetadataRoute } from 'next';
 import { getSiteUrl } from '@/lib/site';
 
 /**
- * Advanced Robots.txt for Maximum Crawl Efficiency
- * - Bot-specific rules for optimal crawl budget
- * - Blocks parasitic SEO tool bots
- * - Multi-sitemap references
- * - Social crawler allowances
+ * robots.txt
+ *
+ * Rules of engagement:
+ * - Rendering resources (/_next/static, /_next/webpack, /_next/image) are NEVER
+ *   disallowed: Google needs the CSS/JS to render the page it is ranking.
+ * - SemrushBot-SA (Site Audit) is allowed so the site can be audited; the
+ *   backlink/discovery crawler (plain SemrushBot) stays blocked to save crawl
+ *   budget. Other parasitic SEO crawlers stay blocked.
+ * - Only the sitemap INDEX is listed; it points to every child sitemap.
  */
 export default function robots(): MetadataRoute.Robots {
   const base = getSiteUrl();
-  
+
+  // Tracking-parameter URLs are duplicates of their clean counterparts.
+  const TRACKING_PARAMS = ['/*?utm_*', '/*?fbclid=*', '/*?gclid=*'];
+  const PRIVATE_PATHS = ['/api/', '/admin/'];
+
   return {
     rules: [
-      // Primary search engines - full access
+      // Primary search engines — full access, including rendering resources
       {
         userAgent: 'Googlebot',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/static/', '/_next/webpack/', '/*?utm_*', '/*?fbclid=*', '/*?gclid=*'],
+        disallow: [...PRIVATE_PATHS, ...TRACKING_PARAMS],
       },
       {
         userAgent: 'Googlebot-Image',
@@ -27,24 +35,24 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: 'Bingbot',
         allow: '/',
-        disallow: ['/api/', '/admin/'],
+        disallow: PRIVATE_PATHS,
       },
       {
         userAgent: 'Slurp',
         allow: '/',
-        disallow: ['/api/', '/admin/'],
+        disallow: PRIVATE_PATHS,
       },
       {
         userAgent: 'DuckDuckBot',
         allow: '/',
-        disallow: ['/api/', '/admin/'],
+        disallow: PRIVATE_PATHS,
       },
       {
         userAgent: 'YandexBot',
         allow: '/',
-        disallow: ['/api/', '/admin/'],
+        disallow: PRIVATE_PATHS,
       },
-      // Social media crawlers - full access for rich previews
+      // Social media crawlers — full access for rich previews
       {
         userAgent: 'facebookexternalhit',
         allow: '/',
@@ -57,7 +65,13 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'LinkedInBot',
         allow: '/',
       },
-      // Block parasitic SEO tool bots (waste crawl budget)
+      // Semrush Site Audit — allowed so we can audit our own site.
+      {
+        userAgent: 'SemrushBot-SA',
+        allow: '/',
+        disallow: PRIVATE_PATHS,
+      },
+      // Block parasitic SEO tool bots (waste crawl budget, no SEO benefit)
       {
         userAgent: 'AhrefsBot',
         disallow: ['/'],
@@ -86,21 +100,11 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/static/', '/*?utm_*', '/*?fbclid=*'],
+        disallow: [...PRIVATE_PATHS, ...TRACKING_PARAMS],
       },
     ],
-    sitemap: [
-      `${base}/sitemap.xml`,
-      `${base}/sitemap-static.xml`,
-      `${base}/sitemap-blog.xml`,
-      `${base}/sitemap-epaviste-regions.xml`,
-      `${base}/sitemap-epaviste-departements.xml`,
-      `${base}/sitemap-epaviste-cities.xml`,
-      `${base}/sitemap-rachat-regions.xml`,
-      `${base}/sitemap-rachat-departements.xml`,
-      `${base}/sitemap-rachat-cities.xml`,
-      `${base}/sitemap-images.xml`,
-    ],
+    // Only the index — it references every child sitemap.
+    sitemap: `${base}/sitemap.xml`,
     host: base.replace(/^https?:\/\//, ''),
   };
 }
