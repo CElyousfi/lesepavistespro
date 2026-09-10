@@ -326,7 +326,9 @@ function checkSemanticContent() {
 function checkFAQContent() {
   log('\n❓ Checking FAQ content...', colors.blue);
   
-  const faqFile = path.join(process.cwd(), 'components/FAQ.tsx');
+  // The FAQ item lists moved to lib/faq.ts so server code can build the
+  // matching FAQPage without importing the client component.
+  const faqFile = path.join(process.cwd(), 'lib/faq.ts');
   const content = fs.readFileSync(faqFile, 'utf-8');
   
   const frictionQuestions = [
@@ -557,18 +559,40 @@ function checkSitemapPruning() {
 function checkDomainRedirect() {
   log('\n🔀 Checking domain redirect...', colors.blue);
 
-  const middlewareFile = path.join(process.cwd(), 'middleware.ts');
-  if (fs.existsSync(middlewareFile)) {
-    const content = fs.readFileSync(middlewareFile, 'utf-8');
-    const hasComRedirect = content.includes('lesepavistespro.com') && content.includes('lesepavistespro.fr');
-    if (hasComRedirect) {
-      addResult(true, '✓ Domain redirect .com → .fr configured in middleware');
-    } else {
-      addResult(false, '✗ Domain redirect .com → .fr not found in middleware');
-    }
-  } else {
-    addResult(false, '✗ middleware.ts not found');
+  // Next 16 renamed the "middleware" convention to "proxy".
+  const proxyFile = path.join(process.cwd(), 'proxy.ts');
+  if (!fs.existsSync(proxyFile)) {
+    addResult(false, '✗ proxy.ts not found');
+    return;
   }
+  const content = fs.readFileSync(proxyFile, 'utf-8');
+
+  const hasComRedirect = content.includes('lesepavistespro.com') && content.includes('lesepavistespro.fr');
+  addResult(
+    hasComRedirect,
+    hasComRedirect
+      ? '✓ Domain redirect .com → .fr configured in proxy.ts'
+      : '✗ Domain redirect .com → .fr not found in proxy.ts'
+  );
+
+  // Canonicalisation must resolve in a single hop, so exactly one redirect call.
+  const redirectCalls = (content.match(/NextResponse\.redirect\(/g) || []).length;
+  addResult(
+    redirectCalls === 1,
+    redirectCalls === 1
+      ? '✓ proxy.ts canonicalises in a single redirect (no chains)'
+      : `✗ proxy.ts issues ${redirectCalls} separate redirects — canonicalisation must be one hop`
+  );
+
+  // The trailing-slash rule must not be duplicated in next.config.ts.
+  const nextConfig = fs.readFileSync(path.join(process.cwd(), 'next.config.ts'), 'utf-8');
+  const duplicatesTrailingSlash = /source:\s*'\/:path\+\/'/.test(nextConfig);
+  addResult(
+    !duplicatesTrailingSlash,
+    duplicatesTrailingSlash
+      ? '✗ next.config.ts duplicates the trailing-slash redirect handled by proxy.ts (creates chains)'
+      : '✓ Trailing-slash canonicalisation lives only in proxy.ts'
+  );
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -693,6 +717,58 @@ function checkSitemapIntegrity() {
   }
 }
 
+/**
+ * Return only the source of the `metadata` export and `generateMetadata`
+ * function — the places that actually declare a page's SERP title.
+ */
+function extractMetadataRegions(source: string): string {
+  const regions: string[] = [];
+  const starts = [
+    /export const metadata\s*:?[^=]*=\s*\{/g,
+    /export async function generateMetadata[\s\S]*?\{/g,
+  ];
+  for (const re of starts) {
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(source)) !== null) {
+      let depth = 0;
+      let i = source.indexOf('{', m.index);
+      const start = i;
+      for (; i < source.length; i++) {
+        if (source[i] === '{') depth++;
+        else if (source[i] === '}') {
+          depth--;
+          if (depth === 0) break;
+        }
+      }
+      regions.push(source.slice(start, i + 1));
+    }
+  }
+  return regions.join('\n');
+}
+
+/** Remove `openGraph: { … }` / `twitter: { … }` blocks (brace-matched). */
+function stripSocialBlocks(source: string): string {
+  let out = source;
+  for (const key of ['openGraph', 'twitter']) {
+    let index = out.indexOf(`${key}: {`);
+    while (index !== -1) {
+      let depth = 0;
+      let i = out.indexOf('{', index);
+      const start = i;
+      for (; i < out.length; i++) {
+        if (out[i] === '{') depth++;
+        else if (out[i] === '}') {
+          depth--;
+          if (depth === 0) break;
+        }
+      }
+      out = out.slice(0, start) + out.slice(i + 1);
+      index = out.indexOf(`${key}: {`);
+    }
+  }
+  return out;
+}
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CHECK 22 (P2.1): no brand duplication, no title over the SERP budget
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -719,7 +795,11 @@ function checkTitleBudget() {
 
   for (const file of pageFiles) {
     const rel = path.relative(process.cwd(), file);
-    const content = fs.readFileSync(file, 'utf-8');
+    const raw = fs.readFileSync(file, 'utf-8');
+    // Only the metadata export declares SERP titles. openGraph/twitter titles
+    // are not run through the layout template (so the brand belongs there), and
+    // a `title:` inside a schema helper call is a schema headline, not a title.
+    const content = stripSocialBlocks(extractMetadataRegions(raw));
 
     // title: 'X'  |  title: "X"  |  title: { absolute: 'X' }
     const absoluteRe = /title:\s*\{\s*absolute:\s*['"`]([^'"`]+)['"`]/g;
@@ -991,11 +1071,11 @@ function runAllChecks() {
     checkHardcodedLinks();        // P1.2
     checkRobotsRules();           // P1.3
     checkSitemapIntegrity();      // P1.4
+    checkTitleBudget();           // P2.1
+    checkNoNofollow();            // P2.3
+    checkStructuredDataEntities();// P2.4
+    checkRootLayoutHead();        // P2.5
     // Enabled as each phase lands:
-    // checkTitleBudget();          // P2.1
-    // checkNoNofollow();           // P2.3
-    // checkStructuredDataEntities(); // P2.4
-    // checkRootLayoutHead();       // P2.5
     // checkPublicAssetWeight();    // P3.1
     // checkWhatsAppUrls();         // P4.3
   } catch (error) {

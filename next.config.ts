@@ -94,12 +94,9 @@ const nextConfig: NextConfig = {
   // SEO redirects
   async redirects() {
     return [
-      // Trailing slashes (prevent duplicate content)
-      {
-        source: '/:path+/',
-        destination: '/:path+',
-        permanent: true,
-      },
+      // NB: trailing-slash / www / https / lowercase canonicalisation lives in
+      // proxy.ts, which resolves all of them in a SINGLE 308. Duplicating the
+      // trailing-slash rule here produced multi-hop redirect chains.
       // Common typos / old URLs
       {
         source: '/home',
