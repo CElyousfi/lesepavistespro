@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server';
  * URL canonicalisation — ONE hop, always.
  *
  * Previously the trailing-slash rule lived in next.config.ts redirects AND the
- * www/https/lowercase rules lived here, so a URL like
+ * www/https/lowercase rules lived in middleware.ts, so a URL like
  * http://lesepavistespro.com/Epaviste/ took several hops before reaching its
  * canonical form. This computes the final URL in one pass and issues a single
  * 308, in this order:
@@ -15,53 +15,39 @@ import type { NextRequest } from 'next/server';
  *   4. lowercase path
  *   5. strip trailing slash (except the root)
  *
+ * The target is built as a PLAIN URL rather than by mutating req.nextUrl:
+ * NextURL.toString() re-appends a trailing slash that its own pathname setter
+ * reports as removed, which would redirect a trailing-slash URL to itself
+ * forever.
+ *
  * Renamed from middleware.ts: Next 16 deprecates the "middleware" file
  * convention in favour of "proxy". Same matcher, same behaviour.
  */
 export function proxy(req: NextRequest) {
-  const url = req.nextUrl.clone();
-  const hostname = url.hostname;
+  const { hostname, protocol, pathname, search } = req.nextUrl;
 
   // Local development is never canonicalised.
   if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('.local')) {
     return NextResponse.next();
   }
 
-  let changed = false;
-
   // 1. Domain consolidation: .com → .fr
-  if (hostname.includes('lesepavistespro.com')) {
-    url.hostname = 'www.lesepavistespro.fr';
-    changed = true;
-  }
-
-  // 2. Force https
-  if (url.protocol === 'http:') {
-    url.protocol = 'https:';
-    changed = true;
-  }
+  let host = hostname.includes('lesepavistespro.com') ? 'www.lesepavistespro.fr' : hostname;
 
   // 3. Force the www subdomain
-  if (!url.hostname.startsWith('www.')) {
-    url.hostname = `www.${url.hostname}`;
-    changed = true;
-  }
+  if (!host.startsWith('www.')) host = `www.${host}`;
 
-  // 4. Lowercase the path (mixed case would otherwise duplicate every URL)
-  const lowercased = url.pathname.toLowerCase();
-  if (url.pathname !== lowercased) {
-    url.pathname = lowercased;
-    changed = true;
-  }
+  // 4 + 5. Lowercase the path, then drop the trailing slash (except on the root).
+  //        Mixed case and a stray slash each duplicate every URL on the site.
+  let path = pathname.toLowerCase();
+  if (path.length > 1) path = path.replace(/\/+$/, '') || '/';
 
-  // 5. Strip the trailing slash (except on the root)
-  if (url.pathname !== '/' && url.pathname.endsWith('/')) {
-    url.pathname = url.pathname.replace(/\/+$/, '') || '/';
-    changed = true;
-  }
+  // 2. https is enforced by building the target with it.
+  const target = `https://${host}${path}${search}`;
+  const current = `${protocol}//${hostname}${pathname}${search}`;
 
   // A single permanent redirect straight to the canonical URL.
-  return changed ? NextResponse.redirect(url, 308) : NextResponse.next();
+  return target === current ? NextResponse.next() : NextResponse.redirect(target, 308);
 }
 
 export const config = {

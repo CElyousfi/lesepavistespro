@@ -267,12 +267,9 @@ export function getBlogArticleData(article: {
     image,
     datePublished: article.publishDate,
     dateModified: article.modifiedDate || article.publishDate,
-    author: {
-      '@type': 'Organization',
-      '@id': ORGANIZATION_ID,
-      name: article.author,
-      url: SITE_URL,
-    },
+    // Pure references — the Organization entity is defined once, in the layout.
+    // Repeating @id with extra properties would make it a competing definition.
+    author: { '@id': ORGANIZATION_ID },
     publisher: { '@id': ORGANIZATION_ID },
     mainEntityOfPage: {
       '@type': 'WebPage',

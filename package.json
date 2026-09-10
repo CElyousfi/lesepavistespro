@@ -14,7 +14,8 @@
     "seo-crawl": "tsx scripts/seo-crawl.ts",
     "check-cities": "tsx scripts/check-city-resolution.ts",
     "fix-city-names": "tsx scripts/fix-city-display-names.ts",
-    "optimize-images": "tsx scripts/optimize-images.ts"
+    "optimize-images": "tsx scripts/optimize-images.ts",
+    "check-redirects": "tsx scripts/check-redirect-hops.ts"
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",

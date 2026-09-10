@@ -9,6 +9,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { checkCityResolution } from './check-city-resolution';
 import { checkHardcodedInternalLinks } from './check-internal-links';
+import { checkRedirectHops } from './check-redirect-hops';
 
 interface ValidationResult {
   passed: boolean;
@@ -581,6 +582,14 @@ function checkDomainRedirect() {
       ? '✓ proxy.ts canonicalises in a single redirect (no chains)'
       : `✗ proxy.ts issues ${redirectCalls} separate redirects — canonicalisation must be one hop`
   );
+
+  // Every non-canonical variant must reach its canonical form in ONE hop.
+  const hops = checkRedirectHops();
+  if (hops.passed) {
+    addResult(true, `✓ ${hops.checked} URL variants canonicalise in a single hop`);
+  } else {
+    hops.failures.forEach(f => addResult(false, `✗ Redirect: ${f}`));
+  }
 
   // The trailing-slash rule must not be duplicated in next.config.ts.
   const nextConfig = fs.readFileSync(path.join(process.cwd(), 'next.config.ts'), 'utf-8');
