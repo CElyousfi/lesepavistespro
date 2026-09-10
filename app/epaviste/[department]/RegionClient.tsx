@@ -73,7 +73,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
 
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Épaviste agréé VHU en {region.name}.
-          Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni.
+          Enlèvement d&apos;épave 100% GRATUIT 24h/24, certificat de destruction fourni.
           Intervention rapide dans tous les départements de la région.
           06 02 42 73 45.
         </p>
@@ -124,14 +124,14 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 sm:mb-8 leading-tight tracking-tight">
-              Service d'enlèvement d'épave en {region.name}
+              Service d&apos;enlèvement d&apos;épave en {region.name}
             </h2>
             <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
               <p className="mb-4">
                 Vous avez une épave de voiture, moto, scooter ou utilitaire à faire enlever en {region.name} ?
-                Notre service d'épaviste agréé VHU (centre de destruction automobile agréé préfecture) intervient
+                Notre service d&apos;épaviste agréé VHU (centre de destruction automobile agréé préfecture) intervient
                 gratuitement dans les {region.departments.length} départements de la région pour la destruction
-                et le recyclage de votre véhicule hors d'usage.
+                et le recyclage de votre véhicule hors d&apos;usage.
               </p>
               <p className="mb-4">
                 Que votre véhicule soit accidenté, en panne, sans contrôle technique, brûlé, immobilisé ou simplement
@@ -139,7 +139,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
                 administratives obligatoires. Le certificat de destruction vous est remis immédiatement.
               </p>
               <p>
-                Notre équipe de professionnels dispose de l'équipement nécessaire pour intervenir même dans
+                Notre équipe de professionnels dispose de l&apos;équipement nécessaire pour intervenir même dans
                 les situations difficiles : parking souterrain, copropriété, terrain enclavé, voirie publique, fourrière.
                 Plus de {totalCities.toLocaleString('fr-FR')} communes desservies en {region.name}.
               </p>
@@ -153,7 +153,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-16">
-              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Zones d'intervention</span>
+              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Zones d&apos;intervention</span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight">
                 Départements desservis en {region.name}
               </h2>
@@ -206,7 +206,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Service 100% gratuit</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Aucun frais pour l'enlèvement de votre épave en {region.name}, même en sous-sol ou terrain difficile.
+                      Aucun frais pour l&apos;enlèvement de votre épave en {region.name}, même en sous-sol ou terrain difficile.
                     </p>
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Intervention rapide</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Prise en charge sous {isIdf ? '2-4h' : '24-48h'} dans toute la région {region.name}. Service d'urgence disponible.
+                      Prise en charge sous {isIdf ? '2-4h' : '24-48h'} dans toute la région {region.name}. Service d&apos;urgence disponible.
                     </p>
                   </div>
                 </div>
@@ -292,7 +292,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
                   Épaviste partout en France
                 </h3>
                 <p className="text-neutral-600 leading-relaxed text-sm mb-4">
-                  Découvrez notre service d'enlèvement d'épave dans toutes les régions de France.
+                  Découvrez notre service d&apos;enlèvement d&apos;épave dans toutes les régions de France.
                 </p>
                 <span className="text-brand-red font-semibold text-sm">
                   Voir toutes nos zones →

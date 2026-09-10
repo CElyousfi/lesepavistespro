@@ -15,7 +15,7 @@ Professional website for épaviste (scrap vehicle removal) and vehicle buyback s
 
 - **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
-- **Styling**: TailwindCSS 4
+- **Styling**: TailwindCSS 3.4
 - **Icons**: Lucide React
 - **Deployment**: Vercel-ready
 

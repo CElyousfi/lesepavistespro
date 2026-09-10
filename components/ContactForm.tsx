@@ -6,11 +6,10 @@ import Button from './Button';
 import { trackFormSubmit } from '@/lib/analytics';
 
 interface ContactFormProps {
-  department?: string;
   service?: string;
 }
 
-const ContactForm = ({ department, service }: ContactFormProps) => {
+const ContactForm = ({ service }: ContactFormProps) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -204,7 +203,7 @@ const ContactForm = ({ department, service }: ContactFormProps) => {
       </Button>
 
       <p className="text-xs text-gray-500 mt-4 text-center">
-        En soumettant ce formulaire, vous acceptez d'être contacté par nos services.
+        En soumettant ce formulaire, vous acceptez d&apos;être contacté par nos services.
       </p>
     </form>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle, Clock, Shield, Star, Users, MapPin } from '@phosphor-icons/react';
+import { CheckCircle, Clock, Shield, Star } from '@phosphor-icons/react';
 
 interface TrustBadgesProps {
   variant?: 'horizontal' | 'grid';

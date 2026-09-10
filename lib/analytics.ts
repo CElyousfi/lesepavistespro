@@ -2,7 +2,7 @@ import { getTrafficSource, type TrafficSource } from './trafficSource';
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -59,7 +59,7 @@ interface EnrichedEventParams {
   page_type?: 'city' | 'department' | 'service' | 'home' | 'other';
   location_slug?: string;
   is_repeat_intent: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 function getPageType(): 'city' | 'department' | 'service' | 'home' | 'other' {
@@ -88,7 +88,7 @@ function getLocationSlug(): string | undefined {
   return undefined;
 }
 
-function enrichEventParams(baseParams: Record<string, any> = {}): EnrichedEventParams {
+function enrichEventParams(baseParams: Record<string, unknown> = {}): EnrichedEventParams {
   const trafficSource = getTrafficSource();
   const pageType = getPageType();
   const locationSlug = getLocationSlug();
@@ -116,7 +116,7 @@ export const pageview = (url: string) => {
 };
 
 // Track custom events (base function)
-export const event = (action: string, params?: Record<string, any>) => {
+export const event = (action: string, params?: Record<string, unknown>) => {
   if (typeof window.gtag !== 'undefined') {
     window.gtag('event', action, params);
   }

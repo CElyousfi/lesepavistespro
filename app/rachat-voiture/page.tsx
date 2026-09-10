@@ -1,5 +1,3 @@
-import type { Metadata } from 'next';
-import Image from 'next/image';
 import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin, Clock } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { regions } from '@/lib/locations-complete';

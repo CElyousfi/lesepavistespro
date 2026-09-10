@@ -16,6 +16,11 @@ interface PostalCodeSelectProps {
   error?: string;
 }
 
+/** Minimum characters before the API is queried. */
+const MIN_QUERY_LENGTH = 2;
+/** Stable empty array so `results` keeps referential identity between renders. */
+const EMPTY_RESULTS: PostalCodeEntry[] = [];
+
 export default function PostalCodeSelect({
   value,
   cityValue,
@@ -24,25 +29,27 @@ export default function PostalCodeSelect({
 }: PostalCodeSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
-  const [results, setResults] = useState<PostalCodeEntry[]>([]);
+  const [fetchedResults, setFetchedResults] = useState<PostalCodeEntry[]>([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
+  // Below the minimum query length there is nothing to show. Deriving that
+  // during render (rather than calling setResults([]) inside the effect) avoids
+  // the cascading re-render react-hooks/set-state-in-effect warns about.
+  const results = search.length < MIN_QUERY_LENGTH ? EMPTY_RESULTS : fetchedResults;
+
   // Debounced search via API route
   useEffect(() => {
-    if (!search || search.length < 2) {
-      setResults([]);
-      return;
-    }
+    if (!search || search.length < MIN_QUERY_LENGTH) return;
 
     const controller = new AbortController();
     const timer = setTimeout(() => {
       fetch(`/api/postal-codes?q=${encodeURIComponent(search)}&limit=40`, { signal: controller.signal })
         .then(res => res.json())
         .then((found: PostalCodeEntry[]) => {
-          setResults(found);
+          setFetchedResults(found);
           setHighlightedIndex(-1);
         })
         .catch(() => {});
@@ -57,7 +64,7 @@ export default function PostalCodeSelect({
   const handleSelect = useCallback((entry: PostalCodeEntry) => {
     onSelect(entry.code, entry.city);
     setSearch('');
-    setResults([]);
+    setFetchedResults([]);
     setIsOpen(false);
     setHighlightedIndex(-1);
   }, [onSelect]);

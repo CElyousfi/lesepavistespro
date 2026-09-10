@@ -43,7 +43,7 @@ const Services = () => {
             Nos experts au service de votre trésorerie
           </h2>
           <p className="text-lg text-gray-600 font-light leading-relaxed">
-            Un service complet pour vous débarrasser de votre véhicule hors d'usage en toute légalité et simplicité.
+            Un service complet pour vous débarrasser de votre véhicule hors d&apos;usage en toute légalité et simplicité.
           </p>
         </div>
 

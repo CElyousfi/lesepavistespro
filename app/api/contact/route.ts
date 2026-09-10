@@ -30,8 +30,31 @@ function isDuplicate(phone: string): boolean {
 // ─────────────────────────────────────────────────────────────────────────────
 
 
+/** Lead payload posted by <ConversionForm /> and <ContactForm />. */
+interface LeadFormData {
+  service?: string;
+  vehicleType?: string;
+  marque?: string;
+  modele?: string;
+  immatriculation?: string;
+  etat?: string;
+  codePostal?: string;
+  ville?: string;
+  sousSol?: boolean;
+  prenom?: string;
+  phone?: string;
+  email?: string;
+  message?: string;
+  department?: string;
+  city?: string;
+  pageType?: string;
+  leadRegionTag?: string;
+  /** Honeypot — a filled value means a bot. */
+  website?: string;
+}
+
 // HTML Email Template — mirrors website design system exactly
-function generateEmailHTML(formData: any) {
+function generateEmailHTML(formData: LeadFormData) {
   const isEpaviste = formData.service === 'epaviste';
   const serviceName = isEpaviste ? 'Enlèvement d\'Épave' : 'Rachat de Voiture';
   const serviceAccent = isEpaviste ? '#A92020' : '#D4B372';
@@ -43,13 +66,14 @@ function generateEmailHTML(formData: any) {
   const whatsappLink = whatsappUrl(`Bonjour, suite à la demande de ${formData.prenom} (${formData.phone}) pour ${serviceName} - ${formData.marque} ${formData.modele}`);
 
   // Helper for data rows
-  const dataRow = (label: string, value: string, isAlt = false) => `
+  // A missing optional field renders as an em dash rather than "undefined".
+  const dataRow = (label: string, value: string | undefined, isAlt = false) => `
     <tr>
       <td style="padding: 12px 16px;${isAlt ? ' background-color: #fafafa;' : ''}">
         <table width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td width="140" style="color: #a3a3a3; font-size: 13px; font-weight: 500; vertical-align: top;">${label}</td>
-            <td style="color: #142641; font-size: 14px; font-weight: 600;">${value}</td>
+            <td style="color: #142641; font-size: 14px; font-weight: 600;">${value || '—'}</td>
           </tr>
         </table>
       </td>

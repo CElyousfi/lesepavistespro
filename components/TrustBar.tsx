@@ -1,16 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 
 const TrustBar = () => {
-  const partners = [
-    { name: 'Agréé Préfecture', logo: '/images/agraee-vhu.png' }, // We'll display text if logo is missing
-    { name: 'France Relance', logo: 'france-relance' },
-    { name: 'Partenaire Assurances', logo: 'assurances' },
-    { name: 'Normes Européennes', logo: 'eu-norms' },
-    { name: 'Paiement Sécurisé', logo: 'secure-pay' }
-  ];
-
   return (
     <div className="bg-brand-surface border-y border-neutral-200 py-8 overflow-hidden">
       <div className="container mx-auto px-4">

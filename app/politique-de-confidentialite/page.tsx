@@ -82,7 +82,7 @@ export default function PolitiqueConfidentialitePage() {
                   <ul className="list-disc ml-6 space-y-2">
                     <li><strong>Formulaire de contact / Devis :</strong> Nom, prénom, téléphone, email, adresse, informations sur le véhicule</li>
                     <li><strong>Newsletter :</strong> Adresse email</li>
-                    <li><strong>Appels téléphoniques :</strong> Numéro de téléphone, informations communiquées lors de l'appel</li>
+                    <li><strong>Appels téléphoniques :</strong> Numéro de téléphone, informations communiquées lors de l&apos;appel</li>
                     <li><strong>Messages WhatsApp :</strong> Numéro de téléphone, contenu des messages</li>
                   </ul>
 
@@ -90,7 +90,7 @@ export default function PolitiqueConfidentialitePage() {
                   <ul className="list-disc ml-6 space-y-2">
                     <li><strong>Données de navigation :</strong> Adresse IP, type de navigateur, pages visitées, durée de visite</li>
                     <li><strong>Cookies :</strong> Cookies de session, cookies analytiques (Google Analytics)</li>
-                    <li><strong>Données techniques :</strong> Type d'appareil, système d'exploitation, résolution d'écran</li>
+                    <li><strong>Données techniques :</strong> Type d&apos;appareil, système d&apos;exploitation, résolution d&apos;écran</li>
                   </ul>
                 </div>
               </div>
@@ -103,12 +103,12 @@ export default function PolitiqueConfidentialitePage() {
                     Vos données personnelles sont collectées et traitées pour les finalités suivantes :
                   </p>
                   <ul className="list-disc ml-6 space-y-2">
-                    <li><strong>Gestion des demandes de devis :</strong> Traiter vos demandes d'enlèvement d'épave ou de rachat de véhicule</li>
+                    <li><strong>Gestion des demandes de devis :</strong> Traiter vos demandes d&apos;enlèvement d&apos;épave ou de rachat de véhicule</li>
                     <li><strong>Communication :</strong> Vous contacter pour répondre à vos questions et confirmer les rendez-vous</li>
                     <li><strong>Newsletter :</strong> Vous envoyer des informations sur nos services (avec votre consentement)</li>
-                    <li><strong>Amélioration du site :</strong> Analyser l'utilisation du site pour améliorer l'expérience utilisateur</li>
+                    <li><strong>Amélioration du site :</strong> Analyser l&apos;utilisation du site pour améliorer l&apos;expérience utilisateur</li>
                     <li><strong>Obligations légales :</strong> Respecter nos obligations légales et réglementaires</li>
-                    <li><strong>Statistiques :</strong> Mesurer l'audience et les performances du site via Google Analytics</li>
+                    <li><strong>Statistiques :</strong> Mesurer l&apos;audience et les performances du site via Google Analytics</li>
                   </ul>
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default function PolitiqueConfidentialitePage() {
                     Le traitement de vos données repose sur les bases légales suivantes :
                   </p>
                   <ul className="list-disc ml-6 space-y-2">
-                    <li><strong>Exécution d'un contrat :</strong> Traitement de votre demande de service</li>
+                    <li><strong>Exécution d&apos;un contrat :</strong> Traitement de votre demande de service</li>
                     <li><strong>Consentement :</strong> Inscription à la newsletter, cookies analytiques</li>
                     <li><strong>Intérêt légitime :</strong> Amélioration de nos services, sécurité du site</li>
                     <li><strong>Obligation légale :</strong> Conservation des données pour obligations fiscales et comptables</li>
@@ -138,9 +138,9 @@ export default function PolitiqueConfidentialitePage() {
                   </p>
                   <ul className="list-disc ml-6 space-y-2">
                     <li><strong>Personnel autorisé :</strong> Équipe Les Épavistes Pro (service commercial, service client)</li>
-                    <li><strong>Prestataires techniques :</strong> Hébergeur web (Vercel), service d'emailing</li>
-                    <li><strong>Outils d'analyse :</strong> Google Analytics (données anonymisées)</li>
-                    <li><strong>Sous-traitants :</strong> Partenaires pour l'enlèvement et le traitement des véhicules</li>
+                    <li><strong>Prestataires techniques :</strong> Hébergeur web (Vercel), service d&apos;emailing</li>
+                    <li><strong>Outils d&apos;analyse :</strong> Google Analytics (données anonymisées)</li>
+                    <li><strong>Sous-traitants :</strong> Partenaires pour l&apos;enlèvement et le traitement des véhicules</li>
                   </ul>
                   <p className="mt-4">
                     <strong>Important :</strong> Nous ne vendons ni ne louons vos données personnelles à des tiers à des fins commerciales.
@@ -158,12 +158,12 @@ export default function PolitiqueConfidentialitePage() {
                   <ul className="list-disc ml-6 space-y-2">
                     <li><strong>Demandes de devis :</strong> 3 ans à compter de la dernière interaction</li>
                     <li><strong>Clients :</strong> 10 ans (obligations comptables et fiscales)</li>
-                    <li><strong>Newsletter :</strong> Jusqu'à désinscription ou 3 ans d'inactivité</li>
+                    <li><strong>Newsletter :</strong> Jusqu&apos;à désinscription ou 3 ans d&apos;inactivité</li>
                     <li><strong>Cookies analytiques :</strong> 13 mois maximum</li>
                     <li><strong>Logs de connexion :</strong> 12 mois</li>
                   </ul>
                   <p className="mt-4">
-                    À l'issue de ces durées, vos données sont supprimées ou anonymisées.
+                    À l&apos;issue de ces durées, vos données sont supprimées ou anonymisées.
                   </p>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default function PolitiqueConfidentialitePage() {
                   
                   <div className="bg-white border border-neutral-200 rounded-xl p-6 space-y-4">
                     <div>
-                      <h4 className="font-semibold text-brand-navy mb-2">✓ Droit d'accès</h4>
+                      <h4 className="font-semibold text-brand-navy mb-2">✓ Droit d&apos;accès</h4>
                       <p className="text-sm">Obtenir une copie de vos données personnelles</p>
                     </div>
                     <div>
@@ -186,11 +186,11 @@ export default function PolitiqueConfidentialitePage() {
                       <p className="text-sm">Corriger des données inexactes ou incomplètes</p>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-brand-navy mb-2">✓ Droit à l'effacement</h4>
+                      <h4 className="font-semibold text-brand-navy mb-2">✓ Droit à l&apos;effacement</h4>
                       <p className="text-sm">Demander la suppression de vos données (sous conditions)</p>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-brand-navy mb-2">✓ Droit d'opposition</h4>
+                      <h4 className="font-semibold text-brand-navy mb-2">✓ Droit d&apos;opposition</h4>
                       <p className="text-sm">Vous opposer au traitement de vos données (marketing, profilage)</p>
                     </div>
                     <div>
@@ -217,10 +217,10 @@ export default function PolitiqueConfidentialitePage() {
                     <li>Par courrier : Les Épavistes Pro, Île-de-France, France</li>
                   </ul>
                   <p className="mt-4">
-                    Nous nous engageons à répondre à votre demande dans un délai d'<strong>un mois</strong> maximum.
+                    Nous nous engageons à répondre à votre demande dans un délai d&apos;<strong>un mois</strong> maximum.
                   </p>
                   <p className="mt-4 text-sm bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-                    <strong>Note :</strong> Vous avez également le droit d'introduire une réclamation auprès de la CNIL (Commission Nationale de l'Informatique et des Libertés) si vous estimez que vos droits ne sont pas respectés.
+                    <strong>Note :</strong> Vous avez également le droit d&apos;introduire une réclamation auprès de la CNIL (Commission Nationale de l&apos;Informatique et des Libertés) si vous estimez que vos droits ne sont pas respectés.
                   </p>
                 </div>
               </div>
@@ -229,9 +229,9 @@ export default function PolitiqueConfidentialitePage() {
               <div className="mb-10">
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">8. Utilisation des cookies</h2>
                 <div className="text-neutral-600 space-y-4">
-                  <h3 className="text-xl font-semibold text-brand-navy mt-6 mb-3">Qu'est-ce qu'un cookie ?</h3>
+                  <h3 className="text-xl font-semibold text-brand-navy mt-6 mb-3">Qu&apos;est-ce qu&apos;un cookie ?</h3>
                   <p>
-                    Un cookie est un petit fichier texte déposé sur votre appareil lors de la visite d'un site web. Il permet de mémoriser des informations sur votre navigation.
+                    Un cookie est un petit fichier texte déposé sur votre appareil lors de la visite d&apos;un site web. Il permet de mémoriser des informations sur votre navigation.
                   </p>
 
                   <h3 className="text-xl font-semibold text-brand-navy mt-6 mb-3">Types de cookies utilisés</h3>
@@ -243,7 +243,7 @@ export default function PolitiqueConfidentialitePage() {
                     </div>
                     <div className="bg-white border border-neutral-200 rounded-lg p-4">
                       <h4 className="font-semibold mb-2">📊 Cookies analytiques (Google Analytics)</h4>
-                      <p className="text-sm">Mesure d'audience et statistiques de visite</p>
+                      <p className="text-sm">Mesure d&apos;audience et statistiques de visite</p>
                       <p className="text-sm text-neutral-600 mt-1">Durée : 13 mois</p>
                     </div>
                   </div>
@@ -274,7 +274,7 @@ export default function PolitiqueConfidentialitePage() {
                   <ul className="list-disc ml-6 space-y-2">
                     <li>La destruction accidentelle ou illicite</li>
                     <li>La perte accidentelle</li>
-                    <li>L'altération, la diffusion ou l'accès non autorisés</li>
+                    <li>L&apos;altération, la diffusion ou l&apos;accès non autorisés</li>
                     <li>Toute autre forme de traitement illicite</li>
                   </ul>
                   <p className="mt-4">
@@ -295,13 +295,13 @@ export default function PolitiqueConfidentialitePage() {
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">10. Transfert de données hors UE</h2>
                 <div className="text-neutral-600 space-y-4">
                   <p>
-                    Certains de nos prestataires (Google Analytics, Vercel) peuvent être situés hors de l'Union Européenne.
+                    Certains de nos prestataires (Google Analytics, Vercel) peuvent être situés hors de l&apos;Union Européenne.
                   </p>
                   <p>
                     Dans ce cas, nous nous assurons que :
                   </p>
                   <ul className="list-disc ml-6 space-y-2">
-                    <li>Le pays bénéficie d'une décision d'adéquation de la Commission Européenne</li>
+                    <li>Le pays bénéficie d&apos;une décision d&apos;adéquation de la Commission Européenne</li>
                     <li>Ou que des garanties appropriées sont mises en place (clauses contractuelles types)</li>
                   </ul>
                 </div>
@@ -312,7 +312,7 @@ export default function PolitiqueConfidentialitePage() {
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">11. Protection des mineurs</h2>
                 <div className="text-neutral-600 space-y-4">
                   <p>
-                    Notre site n'est pas destiné aux personnes de moins de 18 ans. Nous ne collectons pas sciemment de données personnelles concernant des mineurs.
+                    Notre site n&apos;est pas destiné aux personnes de moins de 18 ans. Nous ne collectons pas sciemment de données personnelles concernant des mineurs.
                   </p>
                   <p>
                     Si vous êtes parent ou tuteur légal et que vous découvrez que votre enfant nous a fourni des données personnelles, contactez-nous pour que nous puissions les supprimer.

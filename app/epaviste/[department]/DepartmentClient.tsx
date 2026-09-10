@@ -75,7 +75,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Épaviste agréé VHU dans tout le département {dept.name} ({dept.code}). 
-          Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni.
+          Enlèvement d&apos;épave 100% GRATUIT 24h/24, certificat de destruction fourni.
           Intervention rapide sous {isIdf ? '2h' : '24-48h'}.
           06 02 42 73 45.
         </p>
@@ -127,12 +127,12 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 sm:mb-8 leading-tight tracking-tight">
-              Service d'enlèvement d'épave dans le {dept.name}
+              Service d&apos;enlèvement d&apos;épave dans le {dept.name}
             </h2>
             <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
               <p className="mb-4">
                 Vous avez une épave de voiture, moto, scooter ou utilitaire à faire enlever dans le département {dept.name} ({dept.code}) ? 
-                Notre service d'épaviste agréé VHU (centre de destruction automobile agréé préfecture) intervient gratuitement dans toutes les villes du département pour la destruction et le recyclage de votre véhicule hors d'usage.
+                Notre service d&apos;épaviste agréé VHU (centre de destruction automobile agréé préfecture) intervient gratuitement dans toutes les villes du département pour la destruction et le recyclage de votre véhicule hors d&apos;usage.
               </p>
               <p className="mb-4">
                 Que votre véhicule soit accidenté, en panne, sans contrôle technique, brûlé, immobilisé ou simplement trop ancien, 
@@ -140,7 +140,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                 Le certificat de destruction (déclaration de cession préfectorale) vous est remis immédiatement pour vous libérer de toute responsabilité légale.
               </p>
               <p>
-                Notre équipe de professionnels de la casse automobile dispose de l'équipement nécessaire pour intervenir même dans 
+                Notre équipe de professionnels de la casse automobile dispose de l&apos;équipement nécessaire pour intervenir même dans 
                 les situations difficiles : parking souterrain, copropriété, terrain enclavé, voirie publique, fourrière. 
                 Service de dépollution et démontage conforme aux normes environnementales.
               </p>
@@ -154,7 +154,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-16">
-              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Zones d'intervention</span>
+              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Zones d&apos;intervention</span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight">
                 Villes desservies dans le {dept.name}
               </h2>
@@ -251,7 +251,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Service 100% gratuit</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Aucun frais pour l'enlèvement de votre épave dans le {dept.code}, même en sous-sol ou terrain difficile.
+                      Aucun frais pour l&apos;enlèvement de votre épave dans le {dept.code}, même en sous-sol ou terrain difficile.
                     </p>
                   </div>
                 </div>
@@ -265,7 +265,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Intervention rapide</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Prise en charge sous 24-48h dans tout le {dept.name}. Service d'urgence disponible.
+                      Prise en charge sous 24-48h dans tout le {dept.name}. Service d&apos;urgence disponible.
                     </p>
                   </div>
                 </div>
@@ -337,7 +337,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                   Épaviste {parentRegion ? parentRegion.name : 'France'}
                 </h3>
                 <p className="text-neutral-600 leading-relaxed text-sm mb-4">
-                  Découvrez notre service d'enlèvement d'épave dans tous les départements {parentRegion ? `de la région ${parentRegion.name}` : 'de France'}.
+                  Découvrez notre service d&apos;enlèvement d&apos;épave dans tous les départements {parentRegion ? `de la région ${parentRegion.name}` : 'de France'}.
                 </p>
                 <span className="text-brand-red font-semibold text-sm">
                   Voir toutes nos zones →

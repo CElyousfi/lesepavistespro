@@ -135,8 +135,8 @@ function checkTitleLengths() {
   const seoFile = path.join(process.cwd(), 'lib/seo.ts');
   const content = fs.readFileSync(seoFile, 'utf-8');
   
-  const SUFFIX_LENGTH = 21; // ' | Les Épavistes Pro' from layout.tsx template
-  const MAX_TOTAL = 65;
+  const SUFFIX_LENGTH = ' | Les Épavistes Pro'.length; // layout.tsx template
+  const MAX_TOTAL = 60; // must match MAX_TITLE_TOTAL in lib/seo.ts
 
   // 1. Check that safeTitleFit helper exists (runtime guarantee)
   const hasSafeFit = content.includes('function safeTitleFit(');
@@ -159,7 +159,6 @@ function checkTitleLengths() {
   // 3. Verify worst-case dynamic titles using real location data
   const locFile = path.join(process.cwd(), 'lib/locations-national.ts');
   let longestCityName = 32; // fallback if we can't parse
-  let longestDeptName = 23; // fallback
   if (fs.existsSync(locFile)) {
     const locContent = fs.readFileSync(locFile, 'utf-8');
     // Extract city names — match name: "..." patterns
@@ -180,13 +179,12 @@ function checkTitleLengths() {
     { prefix: 'Rachat voiture ', tag: ' – Cash', label: 'rachat dept' },
   ];
 
-  // With safeTitleFit, the max name that can fit is: budget - prefix - tag - 1 (for …)
-  // Verify each template can handle the longest name via truncation
+  // safeTitleFit never truncates the city name: it drops the postal code, then
+  // the tag, then the brand suffix. All that must hold here is that the fixed
+  // parts alone still leave room for a name.
   let templateOk = true;
   templates.forEach(t => {
     const fixedLen = t.prefix.length + t.tag.length;
-    const nameNoCode = budget - fixedLen;
-    // safeTitleFit will truncate if needed, so we just verify the helper handles it
     if (fixedLen >= budget) {
       templateOk = false;
       log(`    ✗ Template "${t.label}" fixed parts (${fixedLen}) >= budget (${budget})`, colors.red);

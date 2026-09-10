@@ -74,7 +74,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Nous rachetons tous types de véhicules dans le {dept.name} ({dept.code}) :
-          voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique.
+          voitures d&apos;occasion, véhicules accidentés, en panne, sans contrôle technique.
           Paiement cash immédiat. Estimation gratuite.
           06 02 42 73 45.
         </p>
@@ -131,12 +131,12 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
             <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
               <p className="mb-4">
                 Vous souhaitez vendre rapidement votre voiture dans le département {dept.name} ({dept.code}) ? 
-                Nous rachetons tous types de véhicules au meilleur prix : voitures d'occasion, véhicules accidentés, 
+                Nous rachetons tous types de véhicules au meilleur prix : voitures d&apos;occasion, véhicules accidentés, 
                 voitures en panne, épaves, véhicules sans contrôle technique, etc.
               </p>
               <p className="mb-4">
                 Notre service de rachat de voiture vous garantit une estimation gratuite et transparente, 
-                un paiement immédiat (espèces, chèque ou virement) et l'enlèvement gratuit de votre véhicule 
+                un paiement immédiat (espèces, chèque ou virement) et l&apos;enlèvement gratuit de votre véhicule 
                 partout dans le {dept.name}.
               </p>
               <p>
@@ -210,7 +210,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Épaves et véhicules anciens</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Achat d'épaves et de vieilles voitures, même non roulantes. Paiement selon l'état et les pièces.
+                      Achat d&apos;épaves et de vieilles voitures, même non roulantes. Paiement selon l&apos;état et les pièces.
                     </p>
                   </div>
                 </div>
@@ -225,7 +225,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-16">
-              <span className="inline-block text-brand-gold text-sm font-semibold tracking-wider uppercase mb-4">Zones d'intervention</span>
+              <span className="inline-block text-brand-gold text-sm font-semibold tracking-wider uppercase mb-4">Zones d&apos;intervention</span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight">
                 Rachat de voiture dans toutes les villes du {dept.name}
               </h2>
@@ -339,7 +339,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Estimation gratuite</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Nous évaluons votre véhicule et vous proposons un prix d'achat immédiat, sans engagement.
+                      Nous évaluons votre véhicule et vous proposons un prix d&apos;achat immédiat, sans engagement.
                     </p>
                   </div>
                 </div>
@@ -384,7 +384,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                   Épaviste {dept.name} ({dept.code})
                 </h3>
                 <p className="text-neutral-600 leading-relaxed text-sm mb-4">
-                  Service d'enlèvement d'épave 100% gratuit dans le {dept.name}. Agréé VHU, certificat de destruction fourni.
+                  Service d&apos;enlèvement d&apos;épave 100% gratuit dans le {dept.name}. Agréé VHU, certificat de destruction fourni.
                 </p>
                 <span className="text-brand-red font-semibold text-sm">
                   Voir le service épaviste →

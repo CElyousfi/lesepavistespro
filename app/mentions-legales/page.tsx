@@ -87,13 +87,13 @@ export default function MentionsLegalesPage() {
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">4. Propriété intellectuelle</h2>
                 <div className="text-neutral-500 space-y-4">
                   <p>
-                    L'ensemble du contenu de ce site (textes, images, vidéos, logos, icônes, etc.) est la propriété exclusive de Les Épavistes Pro, sauf mention contraire.
+                    L&apos;ensemble du contenu de ce site (textes, images, vidéos, logos, icônes, etc.) est la propriété exclusive de Les Épavistes Pro, sauf mention contraire.
                   </p>
                   <p>
                     Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de Les Épavistes Pro.
                   </p>
                   <p>
-                    Toute exploitation non autorisée du site ou de l'un quelconque des éléments qu'il contient sera considérée comme constitutive d'une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle.
+                    Toute exploitation non autorisée du site ou de l&apos;un quelconque des éléments qu&apos;il contient sera considérée comme constitutive d&apos;une contrefaçon et poursuivie conformément aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle.
                   </p>
                 </div>
               </div>
@@ -103,7 +103,7 @@ export default function MentionsLegalesPage() {
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">5. Protection des données personnelles</h2>
                 <div className="text-neutral-500 space-y-4">
                   <p>
-                    Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition aux données personnelles vous concernant.
+                    Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d&apos;un droit d&apos;accès, de rectification, de suppression et d&apos;opposition aux données personnelles vous concernant.
                   </p>
                   <p>
                     Pour exercer ces droits, vous pouvez nous contacter :
@@ -113,7 +113,7 @@ export default function MentionsLegalesPage() {
                     <li>Par téléphone : <a href="tel:+33602427345" className="text-brand-red hover:underline">06 02 42 73 45</a></li>
                   </ul>
                   <p className="mt-4">
-                    Pour plus d'informations, consultez notre{' '}
+                    Pour plus d&apos;informations, consultez notre{' '}
                     <Link href="/politique-de-confidentialite" className="text-brand-red hover:underline font-semibold">
                       Politique de confidentialité
                     </Link>.
@@ -126,7 +126,7 @@ export default function MentionsLegalesPage() {
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">6. Cookies</h2>
                 <div className="text-neutral-500 space-y-4">
                   <p>
-                    Le site utilise des cookies pour améliorer l'expérience utilisateur et analyser le trafic via Google Analytics.
+                    Le site utilise des cookies pour améliorer l&apos;expérience utilisateur et analyser le trafic via Google Analytics.
                   </p>
                   <p>
                     Vous pouvez à tout moment désactiver les cookies dans les paramètres de votre navigateur. Cependant, cela peut affecter certaines fonctionnalités du site.
@@ -139,18 +139,18 @@ export default function MentionsLegalesPage() {
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">7. Limitation de responsabilité</h2>
                 <div className="text-neutral-500 space-y-4">
                   <p>
-                    Les Épavistes Pro s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site, dont elle se réserve le droit de corriger, à tout moment et sans préavis, le contenu.
+                    Les Épavistes Pro s&apos;efforce d&apos;assurer l&apos;exactitude et la mise à jour des informations diffusées sur ce site, dont elle se réserve le droit de corriger, à tout moment et sans préavis, le contenu.
                   </p>
                   <p>
-                    Toutefois, Les Épavistes Pro ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition sur ce site.
+                    Toutefois, Les Épavistes Pro ne peut garantir l&apos;exactitude, la précision ou l&apos;exhaustivité des informations mises à disposition sur ce site.
                   </p>
                   <p>
                     En conséquence, Les Épavistes Pro décline toute responsabilité :
                   </p>
                   <ul className="list-disc ml-6 space-y-2">
                     <li>Pour toute imprécision, inexactitude ou omission portant sur des informations disponibles sur le site</li>
-                    <li>Pour tous dommages résultant d'une intrusion frauduleuse d'un tiers ayant entraîné une modification des informations mises à disposition sur le site</li>
-                    <li>Pour tous dommages directs ou indirects, quelles qu'en soient les causes, origines, natures ou conséquences, provoqués à raison de l'accès de quiconque au site ou de l'impossibilité d'y accéder</li>
+                    <li>Pour tous dommages résultant d&apos;une intrusion frauduleuse d&apos;un tiers ayant entraîné une modification des informations mises à disposition sur le site</li>
+                    <li>Pour tous dommages directs ou indirects, quelles qu&apos;en soient les causes, origines, natures ou conséquences, provoqués à raison de l&apos;accès de quiconque au site ou de l&apos;impossibilité d&apos;y accéder</li>
                   </ul>
                 </div>
               </div>
@@ -160,10 +160,10 @@ export default function MentionsLegalesPage() {
                 <h2 className="text-2xl font-bold text-brand-navy mb-4">8. Liens hypertextes</h2>
                 <div className="text-neutral-500 space-y-4">
                   <p>
-                    Le site peut contenir des liens hypertextes vers d'autres sites. Les Épavistes Pro n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
+                    Le site peut contenir des liens hypertextes vers d&apos;autres sites. Les Épavistes Pro n&apos;exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
                   </p>
                   <p>
-                    La création de liens hypertextes vers le site lesepavistespro.fr nécessite l'autorisation préalable écrite de Les Épavistes Pro.
+                    La création de liens hypertextes vers le site lesepavistespro.fr nécessite l&apos;autorisation préalable écrite de Les Épavistes Pro.
                   </p>
                 </div>
               </div>
@@ -176,7 +176,7 @@ export default function MentionsLegalesPage() {
                     Les présentes mentions légales sont régies par le droit français.
                   </p>
                   <p>
-                    En cas de litige et à défaut d'accord amiable, le litige sera porté devant les tribunaux français conformément aux règles de compétence en vigueur.
+                    En cas de litige et à défaut d&apos;accord amiable, le litige sera porté devant les tribunaux français conformément aux règles de compétence en vigueur.
                   </p>
                 </div>
               </div>

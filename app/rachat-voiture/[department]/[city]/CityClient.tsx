@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { CheckCircle, CurrencyEur, Shield, MapPin, Clock, CaretRight, Car } from '@phosphor-icons/react';
+import { CurrencyEur, Shield, MapPin, Clock, CaretRight, Car } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
@@ -38,7 +38,8 @@ interface CityRachatClientProps {
 export default function CityRachatClient({
   city,
   department,
-  localData,
+  // localData drives the épaviste template's local sections; the rachat
+  // template does not render them, so it is accepted and ignored.
   isIdf,
   idfDeptTestimonials = [],
   idfDeptContent = null,
@@ -85,7 +86,7 @@ export default function CityRachatClient({
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Nous rachetons tous types de véhicules à {city.name} :
-          voitures d'occasion en bon état, véhicules accidentés, voitures en panne,
+          voitures d&apos;occasion en bon état, véhicules accidentés, voitures en panne,
           épaves, véhicules sans contrôle technique. Paiement cash immédiat.
           06 02 42 73 45.
         </p>
@@ -117,7 +118,7 @@ export default function CityRachatClient({
                 pour acheter votre voiture au meilleur prix, quel que soit son état.
               </p>
               <p className="mb-4">
-                Nous rachetons tous types de véhicules à {city.name} : voitures d'occasion en bon état, 
+                Nous rachetons tous types de véhicules à {city.name} : voitures d&apos;occasion en bon état, 
                 véhicules accidentés, voitures en panne, épaves, véhicules sans contrôle technique.
               </p>
             </div>
@@ -242,7 +243,7 @@ export default function CityRachatClient({
                 Votre voiture est une épave ?
               </h3>
               <p className="text-neutral-600 leading-relaxed text-sm mb-4">
-                Découvrez notre service d'enlèvement d'épave à {city.name}. Service 100% gratuit, intervention rapide.
+                Découvrez notre service d&apos;enlèvement d&apos;épave à {city.name}. Service 100% gratuit, intervention rapide.
               </p>
               <Link
                 href={`/epaviste/${department.slug}/${city.slug}`}

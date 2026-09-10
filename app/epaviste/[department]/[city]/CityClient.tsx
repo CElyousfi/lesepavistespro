@@ -85,7 +85,7 @@ export default function CityEpavisteClient({
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
-          Épaviste agréé VHU à {city.name}. Enlèvement d'épave 100% GRATUIT 24h/24,
+          Épaviste agréé VHU à {city.name}. Enlèvement d&apos;épave 100% GRATUIT 24h/24,
           certificat de destruction fourni. Intervention rapide sous {isIdf ? '2h' : '24-48h'}.
           06 02 42 73 45.
         </p>
@@ -108,16 +108,16 @@ export default function CityEpavisteClient({
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 sm:mb-8 leading-tight tracking-tight">
-              Enlèvement d'épave à {city.name} ({city.postalCode})
+              Enlèvement d&apos;épave à {city.name} ({city.postalCode})
             </h2>
             <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Service d'enlèvement à {city.name}</h3>
+              <h3 className="text-xl font-bold text-brand-navy mb-3">Service d&apos;enlèvement à {city.name}</h3>
               <p className="mb-3">
                 Vous habitez {city.name} ({city.postalCode}) et vous avez besoin de faire enlever une épave ? 
-                Notre service d'épaviste agréé VHU intervient gratuitement pour récupérer votre véhicule hors d'usage.
+                Notre service d&apos;épaviste agréé VHU intervient gratuitement pour récupérer votre véhicule hors d&apos;usage.
               </p>
               
-              <h3 className="text-xl font-bold text-brand-navy mb-3 mt-6">Délai d'intervention</h3>
+              <h3 className="text-xl font-bold text-brand-navy mb-3 mt-6">Délai d&apos;intervention</h3>
               <p className="mb-3">
                 Intervention rapide sous {isIdf ? '2-4h' : '24-48h'} à {city.name} et dans tout le {department.name}. 
                 En urgence, nous pouvons intervenir le jour même.

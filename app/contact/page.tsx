@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
-import { Phone, EnvelopeSimple, MapPin, Clock, WhatsappLogo, MessengerLogo } from '@phosphor-icons/react/dist/ssr';
+import { Phone, EnvelopeSimple, Clock, WhatsappLogo } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { getBreadcrumbSchema } from '@/lib/schema';
 import { buildFaqPage, type FaqItem } from '@/lib/faq';

@@ -16,9 +16,15 @@ interface QuickContactProps {
 }
 
 export default function QuickContact({ service = 'epaviste', location, className = '', cityName, departmentName }: QuickContactProps) {
+  // Ads traffic is detected from the URL/referrer, which only exist in the
+  // browser. The value MUST start false so the server-rendered HTML and the
+  // first client render agree, then update after mount — the deliberate extra
+  // render this costs is the price of a hydration-safe read, which is why the
+  // set-state-in-effect rule is waived here specifically.
   const [isFromAds, setIsFromAds] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration-safe client-only read, see above
     setIsFromAds(isAdsTraffic());
   }, []);
 
@@ -26,7 +32,6 @@ export default function QuickContact({ service = 'epaviste', location, className
     ? `Bonjour, je souhaite ${service === 'epaviste' ? "un devis pour l'enlèvement d'une épave" : "vendre ma voiture"} à ${location}`
     : `Bonjour, je souhaite ${service === 'epaviste' ? "un devis pour l'enlèvement d'une épave" : "vendre ma voiture"}`;
 
-  const primaryColor = service === 'epaviste' ? 'brand-red' : 'brand-gold';
   
   const handleCallClick = () => {
     trackCallClick(location || service);

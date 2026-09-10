@@ -33,7 +33,7 @@ const Stats = () => {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Nos résultats parlent d'eux-mêmes
+            Nos résultats parlent d&apos;eux-mêmes
           </h2>
           <p className="text-lg text-gray-200">
             Des chiffres qui témoignent de notre expertise et de notre engagement envers nos clients.

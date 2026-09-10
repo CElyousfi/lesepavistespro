@@ -26,13 +26,13 @@ export default function ScrollAnimation({
     const getVariants = () => {
         const distance = 50;
 
-        const initial: any = { opacity: 0 };
+        const initial: { opacity: number; x?: number; y?: number } = { opacity: 0 };
         if (direction === 'up') initial.y = distance;
         if (direction === 'down') initial.y = -distance;
         if (direction === 'left') initial.x = distance;
         if (direction === 'right') initial.x = -distance;
 
-        const animate: any = { opacity: 1, x: 0, y: 0 };
+        const animate: { opacity: number; x: number; y: number } = { opacity: 1, x: 0, y: 0 };
 
         return { initial, animate };
     };
