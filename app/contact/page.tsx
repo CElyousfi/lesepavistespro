@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
@@ -9,7 +8,7 @@ import { getBreadcrumbSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
-    title: 'Contactez Les Épavistes Pro | Enlèvement Épave Gratuit',
+    title: 'Contact – Épaviste & rachat voiture 7j/7',
     description: 'Besoin d\'un épaviste ou d\'un rachat de voiture ? Contactez-nous par téléphone, WhatsApp ou via notre formulaire. Intervention rapide 7j/7 partout en France.',
     keywords: [
         "contact épaviste",
@@ -30,12 +29,10 @@ export default function ContactPage() {
 
     return (
         <>
-            <Script
-                id="structured-data-contact-breadcrumb"
+            <script
                 type="application/ld+json"
-                strategy="beforeInteractive"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-            />
+              />
             <Header />
 
             <main className="bg-white min-h-screen">

@@ -6,7 +6,7 @@ import VHUCertification from '@/components/VHUCertification';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'Politique des Cookies | Les Épavistes Pro',
+    title: 'Politique des cookies',
     description: 'Informations sur l\'utilisation des cookies sur le site Les Épavistes Pro.',
     robots: {
         index: false,

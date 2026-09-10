@@ -25,15 +25,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // The editorial title is the H1; `seoTitle` is the shorter SERP title.
+  // `absolute` opts out of the layout's ' | Les Épavistes Pro' template so the
+  // whole 60-character budget goes to the topic.
+  const serpTitle = post.seoTitle ?? post.title;
+  const description = post.seoDescription ?? post.excerpt;
+
   return {
-    title: `${post.title} | Blog Les Épavistes Pro`,
-    description: post.excerpt,
-    keywords: post.keywords,
+    title: { absolute: serpTitle },
+    description,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: serpTitle,
+      description,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.updatedAt ?? post.date,
+      url: `https://www.lesepavistespro.fr/blog/${post.slug}`,
+      images: [{ url: `https://www.lesepavistespro.fr${post.image}` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: serpTitle,
+      description,
+      images: [`https://www.lesepavistespro.fr${post.image}`],
     },
     alternates: {
       canonical: `https://www.lesepavistespro.fr/blog/${post.slug}`,

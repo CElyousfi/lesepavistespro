@@ -141,7 +141,10 @@ export function generateMeta({
  */
 export function generateHomeMeta(): Metadata {
   return generateMeta({
-    title: 'Épaviste agréé VHU – Enlèvement gratuit 24/7',
+    // The layout's ' | Les Épavistes Pro' template does not apply to the root
+    // segment, so the homepage owns the full 60-character budget — declare it
+    // absolute to say so explicitly.
+    title: { absolute: 'Épaviste agréé VHU – Enlèvement d\'épave gratuit 24h/24' },
     description:
       'Enlèvement d\'épave 100% GRATUIT 24h/24 partout en France. Rachat voiture sans CT, paiement cash. Agréé VHU. ☎ 06 02 42 73 45',
     path: '/',
@@ -153,7 +156,7 @@ export function generateHomeMeta(): Metadata {
  */
 export function generateEpavistePillarMeta(): Metadata {
   return generateMeta({
-    title: 'Épaviste agréé – Enlèvement d\'épave gratuit',
+    title: 'Épaviste agréé VHU – Enlèvement gratuit',
     description:
       'Enlèvement d\'épave 100% gratuit en France. Agréé VHU, intervention 24h/24, certificat de destruction fourni. ☎ 06 02 42 73 45',
     path: '/epaviste',

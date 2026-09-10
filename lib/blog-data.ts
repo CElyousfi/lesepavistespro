@@ -13,6 +13,13 @@ export interface BlogPost {
    * to fake freshness.
    */
   updatedAt?: string;
+  /**
+   * Short SERP title (≤ 60 chars, brand-free). `title` is the editorial H1 and
+   * is usually too long for the SERP; when this is absent `title` is used.
+   */
+  seoTitle?: string;
+  /** Meta description (120–155 chars). Falls back to `excerpt`. */
+  seoDescription?: string;
   readTime: string;
   image: string;
   keywords: string[];
@@ -21,6 +28,8 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "comment-enlever-epave-gratuit-ile-de-france",
+    seoTitle: "Enlèvement d'épave gratuit en Île-de-France",
+    seoDescription: "Comment faire enlever votre épave gratuitement en Île-de-France : conditions, documents à réunir, délais et obtention du certificat de destruction VHU.",
     title: "Comment faire enlever une épave gratuitement en Île-de-France ?",
     excerpt: "Découvrez toutes les étapes pour faire enlever votre épave gratuitement et obtenir votre certificat de destruction VHU.",
     category: "Guide Pratique",
@@ -265,6 +274,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "certificat-destruction-vhu-obligatoire",
+    seoTitle: "Certificat de destruction VHU : pourquoi il est obligatoire",
+    seoDescription: "Le certificat de destruction VHU met fin à votre responsabilité et permet de résilier l'assurance. Qui le délivre, sous quel délai et que faire s'il manque.",
     title: "Certificat de destruction VHU : Pourquoi est-il obligatoire ?",
     excerpt: "Tout savoir sur le certificat de destruction, son importance légale et comment l'obtenir rapidement.",
     category: "Réglementation",
@@ -567,6 +578,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "rachat-voiture-accidentee-meilleur-prix",
+    seoTitle: "Rachat voiture accidentée : obtenir le meilleur prix",
+    seoDescription: "Comment estimer et négocier le rachat de votre voiture accidentée : critères de valorisation, pièces qui comptent, documents et erreurs à éviter.",
     title: "Rachat de voiture accidentée : Comment obtenir le meilleur prix ?",
     excerpt: "Nos conseils d'experts pour maximiser le prix de rachat de votre véhicule accidenté ou en panne.",
     category: "Rachat Auto",
@@ -930,6 +943,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "epaviste-agree-vhu-comment-choisir",
+    seoTitle: "Épaviste agréé VHU : comment bien le choisir",
+    seoDescription: "Vérifier l'agrément préfectoral, exiger le certificat de destruction, refuser les frais cachés : les critères pour choisir un épaviste agréé VHU fiable.",
     title: "Épaviste agréé VHU : Comment bien choisir ?",
     excerpt: "Les critères essentiels pour choisir un épaviste agréé et éviter les arnaques.",
     category: "Guide Pratique",
@@ -1259,6 +1274,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "vendre-voiture-hs-demarches",
+    seoTitle: "Vendre une voiture HS : les démarches à suivre",
+    seoDescription: "Vendre une voiture hors d'usage : déclaration de cession, certificat de situation administrative, carte grise barrée et résiliation de l'assurance.",
     title: "Vendre une voiture HS : Quelles démarches ?",
     excerpt: "Guide complet des démarches administratives pour vendre votre véhicule hors service.",
     category: "Démarches",
@@ -1638,6 +1655,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "prix-enlevement-epave-ile-de-france",
+    seoTitle: "Prix d'un enlèvement d'épave en Île-de-France",
+    seoDescription: "Pourquoi l'enlèvement d'épave est gratuit en Île-de-France, dans quels cas des frais peuvent s'appliquer (sous-sol, fourrière) et comment les éviter.",
     title: "Prix enlèvement d'épave en Île-de-France : Ce qu'il faut savoir",
     excerpt: "Comprendre les tarifs et pourquoi certains services sont gratuits tandis que d'autres sont payants.",
     category: "Tarifs",
@@ -1932,6 +1951,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "enlevement-epave-sous-sol-parking-souterrain",
+    seoTitle: "Enlèvement d'épave en sous-sol et parking",
     title: "Enlèvement d'épave en sous-sol et parking souterrain : Guide complet",
     excerpt: "Comment faire enlever une épave d'un parking souterrain ou d'un sous-sol ? Équipement spécialisé, démarches et solutions pour les situations difficiles.",
     category: "Guide Pratique",
@@ -2002,6 +2022,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "prime-conversion-2025-conditions-montant",
+    seoTitle: "Prime à la conversion 2025 : conditions et montant",
     title: "Prime à la conversion 2025 : Conditions, montant et démarches",
     excerpt: "Tout savoir sur la prime à la conversion automobile en 2025. Conditions d'éligibilité, montants, véhicules concernés et comment en bénéficier.",
     category: "Réglementation",
@@ -2095,6 +2116,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "epaviste-moto-scooter-enlevement-gratuit",
+    seoTitle: "Épaviste moto et scooter : enlèvement gratuit",
     title: "Épaviste moto et scooter : Enlèvement gratuit de votre deux-roues",
     excerpt: "Comment faire enlever gratuitement une épave de moto ou scooter ? Conditions, documents et démarches pour la destruction de votre deux-roues.",
     category: "Guide Pratique",

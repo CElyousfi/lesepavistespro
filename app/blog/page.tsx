@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from '@/components/Header';
@@ -12,7 +11,7 @@ import { getBreadcrumbSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
-  title: "Blog Épaviste – Conseils & Actualités Enlèvement Épave France",
+  title: "Blog épaviste : conseils et démarches",
   description: "Découvrez nos articles sur l'enlèvement d'épave, le rachat de voiture, les démarches VHU et conseils pour vendre votre véhicule en France.",
   keywords: [
     "blog épaviste",
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
     "vendre voiture HS",
   ],
   openGraph: {
-    title: "Blog Épaviste | Conseils Enlèvement Épave",
+    title: "Blog épaviste : conseils et démarches | Les Épavistes Pro",
     description: "Tous nos conseils et actualités sur l'enlèvement d'épave et le rachat de voiture en France",
     type: "website",
   },
@@ -41,10 +40,8 @@ export default function BlogPage() {
 
   return (
     <>
-      <Script
-        id="structured-data-blog-breadcrumb"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <BlogAnimations />

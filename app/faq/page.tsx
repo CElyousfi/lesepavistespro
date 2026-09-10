@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import FAQ from '@/components/FAQ';
 import { Question } from '@phosphor-icons/react/dist/ssr';
 import { getBreadcrumbSchema } from '@/lib/schema';
+import { buildFaqPage, genericFaqItems } from '@/lib/faq';
 import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
-    title: 'Questions Fréquentes (FAQ) | Enlèvement Épave',
+    title: "FAQ – Enlèvement d'épave & rachat",
     description: 'Toutes les réponses à vos questions sur l\'enlèvement d\'épave gratuit, les documents à fournir, la prime à la conversion et le rachat de voiture.',
     alternates: {
         canonical: 'https://www.lesepavistespro.fr/faq',
@@ -21,15 +21,22 @@ export default function FAQPage() {
         { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
         { name: 'FAQ', url: 'https://www.lesepavistespro.fr/faq' },
     ]);
+    // The page's single FAQPage node, built from exactly the questions <FAQ />
+    // renders below.
+    const faqPage = buildFaqPage(genericFaqItems);
 
     return (
         <>
-            <Script
-                id="structured-data-faq-breadcrumb"
+            <script
                 type="application/ld+json"
-                strategy="beforeInteractive"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
+            {faqPage && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }}
+                />
+            )}
             <Header />
 
             <main className="bg-white min-h-screen">
@@ -53,7 +60,7 @@ export default function FAQPage() {
                 <section className="py-8 md:py-12">
                     <div className="container mx-auto px-4">
                         <div className="max-w-4xl mx-auto">
-                            <FAQ />
+                            <FAQ items={genericFaqItems} />
 
                             <div className="mt-16 bg-brand-surface rounded-2xl p-8 md:p-12 text-center border border-neutral-200">
                                 <div className="w-14 h-14 bg-brand-red/10 rounded-xl flex items-center justify-center mx-auto mb-6">

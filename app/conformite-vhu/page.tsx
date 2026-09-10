@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
@@ -9,7 +8,7 @@ import { getBreadcrumbSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
-    title: 'Conformité VHU & Agrément Préfectoral | Les Épavistes Pro',
+    title: 'Conformité VHU & agrément préfectoral',
     description: 'Tout savoir sur l\'agrément VHU, le certificat de destruction et le recyclage écologique de votre véhicule hors d\'usage.',
     alternates: {
         canonical: 'https://www.lesepavistespro.fr/conformite-vhu',
@@ -24,12 +23,10 @@ export default function ConformiteVHUPage() {
 
     return (
         <>
-            <Script
-                id="structured-data-vhu-breadcrumb"
+            <script
                 type="application/ld+json"
-                strategy="beforeInteractive"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-            />
+              />
             <Header />
 
             <main className="bg-white min-h-screen">
