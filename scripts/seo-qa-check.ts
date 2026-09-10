@@ -7,6 +7,8 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { checkCityResolution } from './check-city-resolution';
+import { checkHardcodedInternalLinks } from './check-internal-links';
 
 interface ValidationResult {
   passed: boolean;
@@ -570,6 +572,394 @@ function checkDomainRedirect() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 18 (P1.1): every (department, city) resolves to itself
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkCityResolutionGuard() {
+  log('\n🏙️  Checking city resolution (department + slug)...', colors.blue);
+
+  const result = checkCityResolution();
+  if (result.passed) {
+    addResult(
+      true,
+      `✓ All ${result.stats.cities} cities resolve to their own department; ` +
+        `${result.stats.sitemapUrlsPerService} sitemap URLs per service are self-canonical and indexable; ` +
+        `${result.stats.homonymSlugs} homonym slugs have unique titles`
+    );
+  } else {
+    result.failures.slice(0, 10).forEach(f => addResult(false, `✗ City resolution: ${f}`));
+    if (result.failures.length > 10) {
+      addResult(false, `✗ …and ${result.failures.length - 10} more city resolution failures`);
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 19 (P1.2): every hardcoded internal link resolves
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkHardcodedLinks() {
+  log('\n🔗 Checking hardcoded internal links...', colors.blue);
+
+  const result = checkHardcodedInternalLinks();
+  if (result.passed) {
+    addResult(true, `✓ All ${result.checked} hardcoded internal links resolve`);
+  } else {
+    result.failures.forEach(f => addResult(false, `✗ Broken internal link: ${f}`));
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 20 (P1.3): robots.txt must not block rendering resources or Semrush SA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkRobotsRules() {
+  log('\n🤖 Checking robots.ts rules...', colors.blue);
+
+  const file = path.join(process.cwd(), 'app/robots.ts');
+  if (!fs.existsSync(file)) {
+    addResult(false, '✗ app/robots.ts not found');
+    return;
+  }
+  const content = fs.readFileSync(file, 'utf-8');
+
+  // Rendering resources: Google needs the CSS/JS to render the page.
+  const blocksRenderResources = /disallow[\s\S]{0,400}?['"`]\/_next\/(static|webpack)\//i.test(content);
+  addResult(
+    !blocksRenderResources,
+    blocksRenderResources
+      ? '✗ robots.ts disallows /_next/static or /_next/webpack — blocks rendering resources'
+      : '✓ robots.ts does not block rendering resources (/_next/static, /_next/webpack)'
+  );
+
+  // Semrush Site Audit must be able to crawl the site.
+  const allowsSemrushSA = /userAgent:\s*['"`]SemrushBot-SA['"`][\s\S]{0,200}?allow:\s*['"`]\//.test(content);
+  addResult(
+    allowsSemrushSA,
+    allowsSemrushSA
+      ? '✓ robots.ts allows SemrushBot-SA (Site Audit)'
+      : '✗ robots.ts blocks SemrushBot-SA — Semrush Site Audit cannot crawl the site'
+  );
+
+  // Only the sitemap index should be advertised.
+  const childSitemapListed = /sitemap:[\s\S]{0,400}?sitemap-(static|blog|epaviste|rachat|images)/.test(content);
+  addResult(
+    !childSitemapListed,
+    childSitemapListed
+      ? '✗ robots.ts lists child sitemaps — list only /sitemap.xml (the index)'
+      : '✓ robots.ts advertises only the sitemap index'
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 21 (P1.4): sitemaps use real lastmod and the shared indexation rules
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkSitemapIntegrity() {
+  log('\n🗺️  Checking sitemap generators...', colors.blue);
+
+  const dir = path.join(process.cwd(), 'app');
+  const sitemapRoutes = fs
+    .readdirSync(dir)
+    .filter(name => name.startsWith('sitemap') && name.endsWith('.xml'))
+    .map(name => path.join(dir, name, 'route.ts'))
+    .filter(fs.existsSync);
+
+  addResult(sitemapRoutes.length >= 9, `✓ ${sitemapRoutes.length} sitemap routes found`);
+
+  for (const route of sitemapRoutes) {
+    const rel = path.relative(process.cwd(), route);
+    const content = fs.readFileSync(route, 'utf-8');
+
+    // <lastmod> must never be the request timestamp.
+    if (/lastmod/.test(content) && /new Date\(\)\.toISOString\(\)/.test(content)) {
+      addResult(false, `✗ ${rel}: <lastmod> uses new Date() — Google ignores an always-now lastmod`);
+    }
+
+    // changefreq / priority are ignored by Google and add noise.
+    if (/<changefreq>|<priority>/.test(content)) {
+      addResult(false, `✗ ${rel}: emits <changefreq>/<priority> (ignored by Google)`, 'warning');
+    }
+
+    // City sitemaps must reuse the page's own indexation functions.
+    if (/cities\.xml/.test(rel)) {
+      const usesRules =
+        content.includes('shouldIncludeInSitemap') &&
+        content.includes('shouldNoIndex') &&
+        content.includes('getCityInDepartment');
+      addResult(
+        usesRules,
+        usesRules
+          ? `✓ ${rel}: filters on shouldIncludeInSitemap + shouldNoIndex + getCityInDepartment`
+          : `✗ ${rel}: must reuse shouldIncludeInSitemap, shouldNoIndex and getCityInDepartment`
+      );
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 22 (P2.1): no brand duplication, no title over the SERP budget
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkTitleBudget() {
+  log('\n📏 Checking title budget and brand duplication...', colors.blue);
+
+  const BRAND = 'Les Épavistes Pro';
+  const SUFFIX_LEN = ' | Les Épavistes Pro'.length;
+  const MAX = 60;
+
+  // Static page titles declared inline in app/**/page.tsx
+  const pageFiles: string[] = [];
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name === 'page.tsx') pageFiles.push(full);
+    }
+  };
+  walk(path.join(process.cwd(), 'app'));
+
+  let violations = 0;
+  let checked = 0;
+
+  for (const file of pageFiles) {
+    const rel = path.relative(process.cwd(), file);
+    const content = fs.readFileSync(file, 'utf-8');
+
+    // title: 'X'  |  title: "X"  |  title: { absolute: 'X' }
+    const absoluteRe = /title:\s*\{\s*absolute:\s*['"`]([^'"`]+)['"`]/g;
+    const plainRe = /(?<!absolute:\s)title:\s*['"`]([^'"`\n]{5,})['"`]/g;
+
+    let m: RegExpExecArray | null;
+    while ((m = absoluteRe.exec(content)) !== null) {
+      checked++;
+      const title = m[1];
+      if (title.length > MAX) {
+        addResult(false, `✗ ${rel}: absolute title is ${title.length} chars (max ${MAX}): "${title}"`);
+        violations++;
+      }
+    }
+    while ((m = plainRe.exec(content)) !== null) {
+      const title = m[1];
+      if (title === 'Page non trouvée') continue;
+      checked++;
+      if (title.includes(BRAND)) {
+        addResult(
+          false,
+          `✗ ${rel}: title repeats the brand while the layout template already appends it: "${title}"`
+        );
+        violations++;
+        continue;
+      }
+      const rendered = title.length + SUFFIX_LEN;
+      if (rendered > MAX) {
+        addResult(false, `✗ ${rel}: title renders at ${rendered} chars (max ${MAX}): "${title}"`);
+        violations++;
+      }
+    }
+  }
+
+  // Generated titles: sample real city/department data through lib/seo.ts.
+  const seoSrc = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8');
+  const hasBudget = /MAX_TITLE_TOTAL\s*=\s*60/.test(seoSrc);
+  addResult(
+    hasBudget,
+    hasBudget ? '✓ lib/seo.ts MAX_TITLE_TOTAL is 60' : '✗ lib/seo.ts MAX_TITLE_TOTAL must be 60'
+  );
+  const neverTruncates = !/name\.substring/.test(seoSrc);
+  addResult(
+    neverTruncates,
+    neverTruncates
+      ? '✓ safeTitleFit never truncates a city name'
+      : '✗ safeTitleFit still truncates the city name with "…"'
+  );
+
+  if (violations === 0) {
+    addResult(true, `✓ ${checked} static page titles within ${MAX} chars, no brand duplication`);
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 23 (P2.3): noindex pages must still follow
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkNoNofollow() {
+  log('\n🔓 Checking robots meta never emits nofollow...', colors.blue);
+
+  const seoSrc = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8');
+  const hasNofollow = /follow:\s*false/.test(seoSrc);
+  addResult(
+    !hasNofollow,
+    hasNofollow
+      ? '✗ lib/seo.ts emits follow: false — noindex pages must still pass link equity'
+      : '✓ lib/seo.ts never emits follow: false'
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 24 (P2.4): one business entity, one FAQPage, no conflicting @id
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkStructuredDataEntities() {
+  log('\n🧩 Checking structured data entities...', colors.blue);
+
+  const sdSrc = fs.readFileSync(path.join(process.cwd(), 'lib/structured-data.ts'), 'utf-8');
+
+  // Only the layout may define the business entity; page-level schemas must
+  // reference it, not redefine it with different data.
+  const businessDefinitions = (sdSrc.match(/'@id':\s*BUSINESS_ID,\s*\n\s*name:/g) || []).length;
+  addResult(
+    businessDefinitions === 0,
+    businessDefinitions === 0
+      ? '✓ lib/structured-data.ts defines no competing business entity (references only)'
+      : `✗ lib/structured-data.ts redefines the #business entity ${businessDefinitions}× with page-specific data`
+  );
+
+  // Page-level city/department/region schemas should be Service nodes.
+  const usesService = /'@type':\s*'Service'/.test(sdSrc);
+  addResult(
+    usesService,
+    usesService
+      ? '✓ Location pages emit Service nodes'
+      : '✗ Location pages must emit Service (not LocalBusiness) nodes'
+  );
+
+  // No fabricated ratings anywhere in schema.
+  const schemaSrc = fs.readFileSync(path.join(process.cwd(), 'lib/schema.ts'), 'utf-8');
+  const hasRating = /aggregateRating|ratingValue|reviewCount/.test(sdSrc + schemaSrc);
+  addResult(
+    !hasRating,
+    hasRating
+      ? '✗ aggregateRating/review found in schema — only real, verifiable reviews are allowed'
+      : '✓ No aggregateRating/review in schema'
+  );
+
+  // City pages must emit exactly one FAQPage.
+  for (const service of ['epaviste', 'rachat-voiture']) {
+    const file = path.join(process.cwd(), `app/${service}/[department]/[city]/page.tsx`);
+    if (!fs.existsSync(file)) continue;
+    const content = fs.readFileSync(file, 'utf-8');
+    const mergesFaq = content.includes('mergeFaqPages') || content.includes('buildFaqPage');
+    addResult(
+      mergesFaq,
+      mergesFaq
+        ? `✓ ${service} city page emits a single merged FAQPage`
+        : `✗ ${service} city page can emit more than one FAQPage block`
+    );
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 25 (P2.5): the root layout must not set a canonical
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkRootLayoutHead() {
+  log('\n🧭 Checking root layout head hygiene...', colors.blue);
+
+  const content = fs.readFileSync(path.join(process.cwd(), 'app/layout.tsx'), 'utf-8');
+
+  const hasCanonical = /alternates:\s*\{[\s\S]{0,300}?canonical:/.test(content);
+  addResult(
+    !hasCanonical,
+    hasCanonical
+      ? '✗ app/layout.tsx sets alternates.canonical — pages that forget their own canonical silently point at the homepage'
+      : '✓ app/layout.tsx sets no root canonical'
+  );
+
+  const hasHreflang = /languages:\s*\{/.test(content);
+  addResult(
+    !hasHreflang,
+    hasHreflang
+      ? '✗ app/layout.tsx declares alternates.languages — the site is FR-only, no hreflang needed'
+      : '✓ app/layout.tsx declares no hreflang'
+  );
+
+  const bingTags = (content.match(/msvalidate\.01/g) || []).length;
+  addResult(
+    bingTags <= 1,
+    bingTags <= 1
+      ? '✓ Bing verification tag emitted once'
+      : `✗ app/layout.tsx emits msvalidate.01 ${bingTags}× (duplicate meta tag)`
+  );
+
+  for (const junk of ['revisit-after', 'ICBM', 'geo.region', 'geo.placename']) {
+    if (content.includes(junk)) {
+      addResult(false, `✗ app/layout.tsx still emits the ignored meta "${junk}"`, 'warning');
+    }
+  }
+  const hasKeywords = /^\s*keywords:\s*\[/m.test(content);
+  addResult(
+    !hasKeywords,
+    hasKeywords
+      ? '✗ app/layout.tsx still declares a keywords meta (ignored by Google)'
+      : '✓ No keywords meta in the root layout'
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 26 (P3.1): no oversized asset in public/
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkPublicAssetWeight() {
+  log('\n🖼️  Checking public/ asset weight...', colors.blue);
+
+  const MAX_BYTES = 300 * 1024;
+  const heavy: string[] = [];
+
+  const walk = (dir: string) => {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else {
+        const size = fs.statSync(full).size;
+        if (size > MAX_BYTES) {
+          heavy.push(`${path.relative(process.cwd(), full)} (${Math.round(size / 1024)} KB)`);
+        }
+      }
+    }
+  };
+  walk(path.join(process.cwd(), 'public'));
+
+  if (heavy.length === 0) {
+    addResult(true, `✓ No public/ asset over ${MAX_BYTES / 1024} KB`);
+  } else {
+    heavy.forEach(f => addResult(false, `✗ Oversized public asset: ${f}`));
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 27 (P4.3): WhatsApp URLs must never contain wa.me/+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkWhatsAppUrls() {
+  log('\n💬 Checking WhatsApp URLs...', colors.blue);
+
+  const offenders: string[] = [];
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (['node_modules', '.next', '.git'].includes(entry.name)) continue;
+        walk(full);
+      } else if (/\.(ts|tsx)$/.test(entry.name)) {
+        const content = fs.readFileSync(full, 'utf-8');
+        // A literal wa.me/+ or a template that interpolates a +-prefixed number.
+        if (/wa\.me\/\+/.test(content)) {
+          offenders.push(path.relative(process.cwd(), full));
+        }
+      }
+    }
+  };
+  ['app', 'components', 'lib', 'data'].forEach(d => walk(path.join(process.cwd(), d)));
+
+  // The single helper must be the only place a wa.me URL is built by hand.
+  const helperExists = fs.existsSync(path.join(process.cwd(), 'lib/whatsapp.ts'));
+  addResult(
+    helperExists,
+    helperExists
+      ? '✓ lib/whatsapp.ts helper exists'
+      : '✗ Missing lib/whatsapp.ts — all WhatsApp URLs must go through one helper'
+  );
+
+  if (offenders.length === 0) {
+    addResult(true, '✓ No wa.me/+ URLs (the + is invalid for wa.me)');
+  } else {
+    offenders.forEach(f => addResult(false, `✗ Invalid WhatsApp URL (wa.me/+) in ${f}`));
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // RUN ALL CHECKS
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function runAllChecks() {
@@ -596,6 +986,18 @@ function runAllChecks() {
     checkHomepageIdfPriority();
     checkSitemapPruning();
     checkDomainRedirect();
+    // ── Audit remediation guardrails (see SEO-REMEDIATION-REPORT.md) ──
+    checkCityResolutionGuard();   // P1.1
+    checkHardcodedLinks();        // P1.2
+    checkRobotsRules();           // P1.3
+    checkSitemapIntegrity();      // P1.4
+    // Enabled as each phase lands:
+    // checkTitleBudget();          // P2.1
+    // checkNoNofollow();           // P2.3
+    // checkStructuredDataEntities(); // P2.4
+    // checkRootLayoutHead();       // P2.5
+    // checkPublicAssetWeight();    // P3.1
+    // checkWhatsAppUrls();         // P4.3
   } catch (error) {
     log(`\n❌ Error running checks: ${error}`, colors.red);
     process.exit(1);
