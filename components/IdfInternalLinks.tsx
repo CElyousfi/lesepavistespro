@@ -83,7 +83,8 @@ const IDF_KEY_CITIES: Record<string, { name: string; slug: string; deptSlug: str
     { name: 'Sarcelles', slug: 'sarcelles', deptSlug: 'val-d-oise-95' },
     { name: 'Bezons', slug: 'bezons', deptSlug: 'val-d-oise-95' },
     { name: 'Garges-lès-Gonesse', slug: 'garges-les-gonesse', deptSlug: 'val-d-oise-95' },
-    { name: 'Franconville', slug: 'franconville', deptSlug: 'val-d-oise-95' },
+    // NB: the data slug is the full commune name 'franconville-la-garenne'.
+    { name: 'Franconville', slug: 'franconville-la-garenne', deptSlug: 'val-d-oise-95' },
   ],
 };
 

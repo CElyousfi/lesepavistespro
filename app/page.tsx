@@ -45,7 +45,8 @@ export default function Home() {
     { name: 'Paris 18e', slug: 'paris-18e', deptSlug: 'paris-75' },
     { name: 'Boulogne-Billancourt', slug: 'boulogne-billancourt', deptSlug: 'hauts-de-seine-92' },
     { name: 'Nanterre', slug: 'nanterre', deptSlug: 'hauts-de-seine-92' },
-    { name: 'Saint-Denis', slug: 'saint-denis', deptSlug: 'seine-saint-denis-93' },
+    // NB: the data slug is 'st-denis' (La Poste abbreviation), not 'saint-denis'.
+    { name: 'Saint-Denis', slug: 'st-denis', deptSlug: 'seine-saint-denis-93' },
     { name: 'Montreuil', slug: 'montreuil', deptSlug: 'seine-saint-denis-93' },
     { name: 'Créteil', slug: 'creteil', deptSlug: 'val-de-marne-94' },
     { name: 'Vitry-sur-Seine', slug: 'vitry-sur-seine', deptSlug: 'val-de-marne-94' },
