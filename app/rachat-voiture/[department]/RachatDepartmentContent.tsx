@@ -283,15 +283,15 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                 <h3 className="text-lg font-bold text-brand-navy mb-5">
                   Toutes les communes du {dept.name} ({dept.code})
                 </h3>
-                <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm leading-relaxed">
+                {/*
+                  Link styling lives on the <ul> via descendant variants, not on
+                  each <a>. Repeating a 52-character class string across ~900
+                  links cost ~46 KB of HTML — and again in the RSC payload.
+                */}
+                <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm leading-relaxed [&_a]:text-neutral-600 [&_a]:transition-colors [&_a:hover]:text-brand-gold">
                   {indexCities.map((city) => (
                     <li key={city.slug}>
-                      <Link
-                        href={`/rachat-voiture/${dept.slug}/${city.slug}`}
-                        className="text-neutral-600 hover:text-brand-gold transition-colors"
-                      >
-                        {city.name}
-                      </Link>
+                      <Link href={`/rachat-voiture/${dept.slug}/${city.slug}`}>{city.name}</Link>
                     </li>
                   ))}
                 </ul>
