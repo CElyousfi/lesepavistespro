@@ -5,6 +5,7 @@ import { Phone, WhatsappLogo } from '@phosphor-icons/react';
 import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
 import { isAdsTraffic } from '@/lib/trafficSource';
 import ConversionForm from '@/components/ConversionForm';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 interface QuickContactProps {
   service?: 'epaviste' | 'rachat';
@@ -69,7 +70,7 @@ export default function QuickContact({ service = 'epaviste', location, className
           <span>06 02 42 73 45</span>
         </a>
         <a 
-          href={`https://wa.me/33602427345?text=${encodeURIComponent(whatsappMessage)}`}
+          href={whatsappUrl(whatsappMessage)}
           onClick={handleWhatsAppClick}
           target="_blank"
           rel="noopener noreferrer"

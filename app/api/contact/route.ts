@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 // Initialize Resend only if API key is available
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -39,7 +40,7 @@ function generateEmailHTML(formData: any) {
   const etatBg = formData.etat === 'roulante' ? '#dcfce7' : formData.etat === 'non-roulante' ? '#fef3c7' : '#fee2e2';
   const etatText = formData.etat === 'roulante' ? '#166534' : formData.etat === 'non-roulante' ? '#92400e' : '#991b1b';
   const dateStr = new Date().toLocaleString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-  const whatsappLink = `https://wa.me/33602427345?text=${encodeURIComponent(`Bonjour, suite à la demande de ${formData.prenom} (${formData.phone}) pour ${serviceName} - ${formData.marque} ${formData.modele}`)}`;
+  const whatsappLink = whatsappUrl(`Bonjour, suite à la demande de ${formData.prenom} (${formData.phone}) pour ${serviceName} - ${formData.marque} ${formData.modele}`);
 
   // Helper for data rows
   const dataRow = (label: string, value: string, isAlt = false) => `

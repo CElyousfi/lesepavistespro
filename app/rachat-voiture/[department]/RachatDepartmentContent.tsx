@@ -10,6 +10,7 @@ import type { DepartmentData, ParentRegionData } from '@/lib/page-data';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
 import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
@@ -93,7 +94,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
             06 02 42 73 45
           </a>
           <a 
-            href={`https://wa.me/33602427345?text=Bonjour, je souhaite vendre ma voiture dans le ${dept.name}`}
+            href={whatsappUrl(`Bonjour, je souhaite vendre ma voiture dans le ${dept.name}`)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover"

@@ -7,6 +7,7 @@ import { List, X, Phone, WhatsappLogo, EnvelopeSimple } from '@phosphor-icons/re
 import Button from './Button';
 import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
 import MobileServiceMenu from './MobileServiceMenu';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -108,7 +109,7 @@ const Header = () => {
           </a>
 
           <a
-            href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis%20pour%20l%27enl%C3%A8vement%20d%27une%20%C3%A9pave.%20Pouvez-vous%20me%20rappeler%20%3F"
+            href={whatsappUrl("Bonjour, je souhaite obtenir un devis pour l'enlèvement d'une épave. Pouvez-vous me rappeler ?")}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick('mobile_sticky')}

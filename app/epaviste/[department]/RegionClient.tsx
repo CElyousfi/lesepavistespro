@@ -10,6 +10,7 @@ import type { RegionData } from '@/lib/page-data';
 import type { IdfRegionContent } from '@/data/idf-extra-content';
 import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 // Dynamic imports for below-fold heavy components
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
@@ -91,7 +92,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
             06 02 42 73 45
           </a>
           <a
-            href={`https://wa.me/33602427345?text=Bonjour, je souhaite un devis pour l'enlèvement d'une épave en ${region.name}`}
+            href={whatsappUrl(`Bonjour, je souhaite un devis pour l'enlèvement d'une épave en ${region.name}`)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover"

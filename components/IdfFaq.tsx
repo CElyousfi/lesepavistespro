@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { CaretDown, Phone, WhatsappLogo } from '@phosphor-icons/react';
 import { type FaqItem } from '@/lib/faq';
 import ScrollAnimation from '@/components/ScrollAnimation';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 interface IdfFaqProps {
   faqItems?: FaqItem[];
@@ -53,7 +54,7 @@ export default function IdfFaq({ faqItems = [], service }: IdfFaqProps) {
                   </a>
 
                   <a
-                    href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20un%20devis"
+                    href={whatsappUrl('Bonjour, je souhaite un devis')}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-4 px-6 py-4 bg-whatsapp/5 hover:bg-whatsapp/10 border border-whatsapp/20 hover:border-whatsapp/30 text-brand-navy rounded-2xl font-medium transition-all group"

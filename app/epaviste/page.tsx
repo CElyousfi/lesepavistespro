@@ -14,6 +14,7 @@ import { buildFaqPage, pillarFaqItems } from '@/lib/faq';
 import { generateEpavistePillarMeta } from '@/lib/seo';
 import { getEpaveRemovalHowToSchema, getBreadcrumbSchema, getSpeakableSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 export const metadata: Metadata = generateEpavistePillarMeta();
 
@@ -98,7 +99,7 @@ export default function EpavistePage() {
                 06 02 42 73 45
               </a>
               <a
-                href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20un%20devis"
+                href={whatsappUrl('Bonjour, je souhaite un devis')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover"

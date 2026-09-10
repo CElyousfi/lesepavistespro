@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { X, Truck, CurrencyEur, Phone, WhatsappLogo } from '@phosphor-icons/react';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 interface MobileServiceMenuProps {
   isOpen: boolean;
@@ -114,7 +115,7 @@ export default function MobileServiceMenu({ isOpen, onClose }: MobileServiceMenu
           </a>
 
           <a
-            href="https://wa.me/33602427345"
+            href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-4 bg-whatsapp/5 rounded-xl border border-whatsapp/20 text-brand-navy active:scale-[0.98] transition-all"

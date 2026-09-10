@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import VHUCertification from '@/components/VHUCertification';
 import Link from 'next/link';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 export const metadata: Metadata = {
   title: 'Mentions Légales',
@@ -199,7 +200,7 @@ export default function MentionsLegalesPage() {
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">WhatsApp :</span>
-                        <a href="https://wa.me/33602427345" target="_blank" rel="noopener noreferrer" className="text-brand-red hover:underline">+33 6 02 42 73 45</a>
+                        <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="text-brand-red hover:underline">+33 6 02 42 73 45</a>
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">Horaires :</span>

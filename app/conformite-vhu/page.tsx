@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ShieldCheck, FileText, Recycle, Certificate } from '@phosphor-icons/react/dist/ssr';
 import { getBreadcrumbSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Conformité VHU & agrément préfectoral',
@@ -125,6 +126,82 @@ export default function ConformiteVHUPage() {
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                </section>
+
+                {/* Regulatory detail */}
+                <section className="py-16 md:py-20 border-t border-neutral-200">
+                    <div className="container mx-auto px-4">
+                        <div className="max-w-4xl mx-auto">
+                            <h2 className="text-2xl md:text-3xl font-bold text-brand-navy mb-6">
+                                Ce que la réglementation impose
+                            </h2>
+                            <p className="text-neutral-600 leading-relaxed mb-6">
+                                Un véhicule hors d&apos;usage est un déchet dangereux au sens du code de
+                                l&apos;environnement : il contient des huiles, du liquide de refroidissement, du
+                                carburant, une batterie au plomb et, sur les modèles récents, des gaz de climatisation
+                                et des cartouches pyrotechniques d&apos;airbag. Sa prise en charge n&apos;est donc pas
+                                libre. Seul un centre titulaire d&apos;un agrément préfectoral peut le dépolluer, le
+                                démonter et faire annuler sa carte grise.
+                            </p>
+                            <p className="text-neutral-600 leading-relaxed mb-6">
+                                Confier son véhicule à un intervenant non agréé expose le propriétaire, pas seulement
+                                le récupérateur. Tant que la destruction n&apos;est pas enregistrée dans le fichier
+                                national, le titulaire de la carte grise reste responsable du véhicule : amendes,
+                                stationnement abusif, pollution du terrain sur lequel il finit. C&apos;est la raison
+                                pour laquelle le certificat de destruction n&apos;est pas une formalité mais la seule
+                                preuve qui vous libère.
+                            </p>
+
+                            <h2 className="text-2xl md:text-3xl font-bold text-brand-navy mb-4">
+                                Comment vérifier qu&apos;un épaviste est réellement agréé
+                            </h2>
+                            <ul className="space-y-3 mb-8 text-neutral-600 leading-relaxed list-disc pl-5">
+                                <li>
+                                    <strong className="text-brand-navy">Demandez le numéro d&apos;agrément.</strong> Il
+                                    se présente sous la forme PRxxxxxxxx et doit être communiqué sans hésitation, avant
+                                    l&apos;intervention.
+                                </li>
+                                <li>
+                                    <strong className="text-brand-navy">Vérifiez-le.</strong> La liste des centres VHU
+                                    agréés est publiée par chaque préfecture et consolidée au niveau national ; le
+                                    numéro doit y figurer, associé au nom du centre.
+                                </li>
+                                <li>
+                                    <strong className="text-brand-navy">Exigez le certificat de destruction par écrit.</strong>{' '}
+                                    Un professionnel agréé s&apos;engage sur un délai — 15 jours dans notre cas. Un
+                                    intervenant qui élude la question ne détruira pas réglementairement le véhicule.
+                                </li>
+                                <li>
+                                    <strong className="text-brand-navy">Méfiez-vous des frais de dernière minute.</strong>{' '}
+                                    L&apos;enlèvement d&apos;un véhicule complet est gratuit. Un surcoût annoncé une
+                                    fois la dépanneuse sur place n&apos;a pas de fondement réglementaire.
+                                </li>
+                            </ul>
+
+                            <h2 className="text-2xl md:text-3xl font-bold text-brand-navy mb-4">
+                                Le taux de valorisation de 95 %
+                            </h2>
+                            <p className="text-neutral-600 leading-relaxed mb-6">
+                                La directive européenne 2000/53/CE, transposée en droit français, fixe un objectif de
+                                réutilisation et de valorisation de 95 % de la masse du véhicule, dont 85 % en
+                                réutilisation et recyclage. Concrètement : les fluides sont extraits et traités, la
+                                batterie et le pot catalytique sont déposés, les pièces en bon état repartent en
+                                réemploi, puis la carcasse est broyée et les métaux séparés pour refonte. Les 5 %
+                                restants — plastiques composites, mousses, verre feuilleté — partent en valorisation
+                                énergétique.
+                            </p>
+                            <p className="text-neutral-600 leading-relaxed">
+                                C&apos;est cette économie de la matière qui rend l&apos;{' '}
+                                <Link href="/epaviste" className="text-brand-red hover:underline">enlèvement d&apos;épave gratuit</Link>{' '}
+                                possible : le centre se rémunère sur les matières et les pièces, pas sur le
+                                propriétaire. Pour préparer votre dossier, consultez la liste des{' '}
+                                <Link href="/documents" className="text-brand-red hover:underline">documents à fournir</Link> ;
+                                si votre véhicule roule encore, comparez d&apos;abord avec un{' '}
+                                <Link href="/rachat-voiture" className="text-brand-red hover:underline">rachat de voiture</Link>, y compris{' '}
+                                <Link href="/guides/rachat-sans-ct" className="text-brand-red hover:underline">sans contrôle technique</Link>.
+                            </p>
                         </div>
                     </div>
                 </section>

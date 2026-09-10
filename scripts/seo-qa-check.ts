@@ -1013,10 +1013,14 @@ function checkWhatsAppUrls() {
         if (['node_modules', '.next', '.git'].includes(entry.name)) continue;
         walk(full);
       } else if (/\.(ts|tsx)$/.test(entry.name)) {
+        // The helper itself documents the invalid form it exists to prevent.
+        if (full.endsWith(`lib${path.sep}whatsapp.ts`)) continue;
         const content = fs.readFileSync(full, 'utf-8');
         // A literal wa.me/+ or a template that interpolates a +-prefixed number.
         if (/wa\.me\/\+/.test(content)) {
-          offenders.push(path.relative(process.cwd(), full));
+          offenders.push(`${path.relative(process.cwd(), full)} (wa.me/+)`);
+        } else if (/wa\.me\//.test(content)) {
+          offenders.push(`${path.relative(process.cwd(), full)} (hand-built wa.me URL — use whatsappUrl())`);
         }
       }
     }
@@ -1076,8 +1080,7 @@ function runAllChecks() {
     checkStructuredDataEntities();// P2.4
     checkRootLayoutHead();        // P2.5
     checkPublicAssetWeight();     // P3.1
-    // Enabled as each phase lands:
-    // checkWhatsAppUrls();         // P4.3
+    checkWhatsAppUrls();          // P4.3
   } catch (error) {
     log(`\n❌ Error running checks: ${error}`, colors.red);
     process.exit(1);

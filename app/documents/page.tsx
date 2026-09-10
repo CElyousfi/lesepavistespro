@@ -5,6 +5,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { IdentificationCard, FileText, CheckCircle, DownloadSimple } from '@phosphor-icons/react/dist/ssr';
 import { getBreadcrumbSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: "Documents pour l'enlèvement d'épave",
@@ -156,6 +157,102 @@ export default function DocumentsPage() {
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                </section>
+
+                {/* Special cases */}
+                <section className="py-16 md:py-20 border-t border-neutral-200">
+                    <div className="container mx-auto px-4">
+                        <div className="max-w-4xl mx-auto">
+                            <h2 className="text-2xl md:text-3xl font-bold text-brand-navy mb-6">
+                                Les cas particuliers
+                            </h2>
+                            <p className="text-neutral-600 leading-relaxed mb-8">
+                                Les quatre documents ci-dessus couvrent la grande majorité des enlèvements.
+                                Il arrive pourtant qu&apos;une situation sorte du cadre habituel : véhicule hérité,
+                                carte grise introuvable, propriétaire injoignable. Aucune de ces situations
+                                n&apos;empêche l&apos;enlèvement — elles demandent simplement une pièce
+                                supplémentaire.
+                            </p>
+
+                            <div className="space-y-6">
+                                <div className="bg-white rounded-2xl border border-neutral-200 p-6">
+                                    <h3 className="font-bold text-brand-navy mb-2">Carte grise perdue ou volée</h3>
+                                    <p className="text-neutral-600 leading-relaxed">
+                                        Une déclaration de perte ou de vol (Cerfa 13753*04) remplace la carte grise,
+                                        accompagnée d&apos;un certificat de situation administrative de moins de 15
+                                        jours. Si le véhicule est immatriculé au format ancien (FNI), joignez également
+                                        un justificatif de domicile. La déclaration se fait en ligne sur le site de
+                                        l&apos;ANTS et est gratuite.
+                                    </p>
+                                </div>
+
+                                <div className="bg-white rounded-2xl border border-neutral-200 p-6">
+                                    <h3 className="font-bold text-brand-navy mb-2">Véhicule issu d&apos;une succession</h3>
+                                    <p className="text-neutral-600 leading-relaxed">
+                                        Il faut un acte de notoriété ou une attestation notariée désignant les
+                                        héritiers, ainsi que l&apos;accord écrit de chacun d&apos;eux. Si vous êtes
+                                        l&apos;unique héritier, une attestation sur l&apos;honneur signée suffit
+                                        généralement, accompagnée du certificat de décès. La carte grise n&apos;a pas
+                                        besoin d&apos;être remise à votre nom pour une destruction.
+                                    </p>
+                                </div>
+
+                                <div className="bg-white rounded-2xl border border-neutral-200 p-6">
+                                    <h3 className="font-bold text-brand-navy mb-2">Vous n&apos;êtes pas le titulaire de la carte grise</h3>
+                                    <p className="text-neutral-600 leading-relaxed">
+                                        Une procuration écrite et signée par le titulaire, avec la copie de sa pièce
+                                        d&apos;identité, vous autorise à signer la cession à sa place. Sans cet accord,
+                                        nous ne pouvons pas procéder : la destruction d&apos;un véhicule engage la
+                                        responsabilité de son propriétaire légal.
+                                    </p>
+                                </div>
+
+                                <div className="bg-white rounded-2xl border border-neutral-200 p-6">
+                                    <h3 className="font-bold text-brand-navy mb-2">Véhicule gagé, saisi ou en opposition</h3>
+                                    <p className="text-neutral-600 leading-relaxed">
+                                        Le certificat de situation administrative fera apparaître le gage ou
+                                        l&apos;opposition. Un gage doit être levé par le créancier avant toute
+                                        destruction ; une opposition pour amendes impayées se lève auprès du Trésor
+                                        public. Nous vous indiquons la démarche exacte selon la mention qui figure sur
+                                        votre certificat.
+                                    </p>
+                                </div>
+
+                                <div className="bg-white rounded-2xl border border-neutral-200 p-6">
+                                    <h3 className="font-bold text-brand-navy mb-2">Véhicule en fourrière</h3>
+                                    <p className="text-neutral-600 leading-relaxed">
+                                        Vous pouvez abandonner le véhicule au profit de la fourrière ou nous mandater
+                                        pour le récupérer. Dans le second cas, les frais de garde restent dus au
+                                        gestionnaire de la fourrière : nous vous disons à l&apos;avance à combien ils
+                                        s&apos;élèvent afin que vous puissiez arbitrer en connaissance de cause.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <h2 className="text-2xl md:text-3xl font-bold text-brand-navy mt-14 mb-4">
+                                Après l&apos;enlèvement
+                            </h2>
+                            <p className="text-neutral-600 leading-relaxed mb-4">
+                                Conservez votre exemplaire de la déclaration de cession : c&apos;est lui qui met fin à
+                                votre responsabilité de propriétaire dès la signature. Le{' '}
+                                <Link href="/conformite-vhu" className="text-brand-red hover:underline">certificat de destruction</Link>{' '}
+                                vous parvient sous 15 jours et vaut preuve définitive : il vous permet de résilier
+                                l&apos;assurance sans préavis et, le cas échéant, de constituer un dossier de prime à
+                                la conversion. La carte grise est annulée dans le fichier national des immatriculations
+                                au même moment.
+                            </p>
+                            <p className="text-neutral-600 leading-relaxed">
+                                Si votre véhicule roule encore, la destruction n&apos;est pas votre seule option :
+                                un <Link href="/rachat-voiture" className="text-brand-red hover:underline">rachat de voiture</Link>{' '}
+                                est souvent plus intéressant, même{' '}
+                                <Link href="/guides/rachat-sans-ct" className="text-brand-red hover:underline">sans contrôle technique valide</Link>.
+                                Dans le doute, envoyez-nous quelques photos : nous vous disons franchement laquelle des
+                                deux solutions vous rapporte le plus. Voir aussi nos{' '}
+                                <Link href="/zones" className="text-brand-red hover:underline">zones d&apos;intervention</Link>{' '}
+                                et notre <Link href="/faq" className="text-brand-red hover:underline">FAQ</Link>.
+                            </p>
                         </div>
                     </div>
                 </section>
