@@ -80,8 +80,8 @@ export default function CityEpavisteClient({
         )}
         
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
-          Épaviste à {city.name} ({city.postalCode})
-          <br /><span className="text-brand-red">Enlèvement d&apos;épave gratuit</span>
+          Épaviste à {city.name} ({city.postalCode})&nbsp;:
+          <br /><span className="text-brand-red">enlèvement d&apos;épave gratuit</span>
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
