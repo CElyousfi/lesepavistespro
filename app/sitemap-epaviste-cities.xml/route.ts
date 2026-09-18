@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSiteUrl, lastmod } from '@/lib/site';
 import { allDepartments, getCityInDepartment } from '@/lib/locations-complete';
 import { shouldIncludeInSitemap, shouldNoIndex } from '@/lib/geo-targeting';
+import { getIdfCityUpdatedAt } from '@/data/idf-cities';
 
 /**
  * epaviste city pages sitemap.
@@ -17,7 +18,7 @@ export async function GET() {
   const base = getSiteUrl();
   const updated = lastmod('cities');
 
-  const locs: string[] = [];
+  const locs: Array<{ loc: string; lastmod: string }> = [];
 
   for (const dept of allDepartments) {
     for (const city of dept.cities) {
@@ -26,7 +27,11 @@ export async function GET() {
       // Self-canonical guard: the URL must resolve to this exact department.
       const resolved = getCityInDepartment(dept.slug, city.slug);
       if (!resolved || resolved.department.slug !== dept.slug) continue;
-      locs.push(`${base}/epaviste/${dept.slug}/${city.slug}`);
+      // Enriched IDF communes carry their own content date.
+      locs.push({
+        loc: `${base}/epaviste/${dept.slug}/${city.slug}`,
+        lastmod: getIdfCityUpdatedAt(dept.slug, city.slug) ?? updated,
+      });
     }
   }
 
@@ -34,9 +39,9 @@ export async function GET() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${locs
   .map(
-    (loc) => `  <url>
-    <loc>${loc}</loc>
-    <lastmod>${updated}</lastmod>
+    (u) => `  <url>
+    <loc>${u.loc}</loc>
+    <lastmod>${u.lastmod}</lastmod>
   </url>`
   )
   .join('\n')}

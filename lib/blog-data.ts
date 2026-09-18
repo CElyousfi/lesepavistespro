@@ -23,11 +23,14 @@ export interface BlogPost {
   readTime: string;
   image: string;
   keywords: string[];
+  /** 'idf' when the post is about Île-de-France — listed in sitemap-idf.xml. */
+  region?: 'idf';
 }
 
 export const blogPosts: BlogPost[] = [
   {
     slug: "comment-enlever-epave-gratuit-ile-de-france",
+    region: "idf",
     seoTitle: "Enlèvement d'épave gratuit en Île-de-France",
     seoDescription: "Comment faire enlever votre épave gratuitement en Île-de-France : conditions, documents à réunir, délais et obtention du certificat de destruction VHU.",
     title: "Comment faire enlever une épave gratuitement en Île-de-France ?",
@@ -1655,6 +1658,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "prix-enlevement-epave-ile-de-france",
+    region: "idf",
     seoTitle: "Prix d'un enlèvement d'épave en Île-de-France",
     seoDescription: "Pourquoi l'enlèvement d'épave est gratuit en Île-de-France, dans quels cas des frais peuvent s'appliquer (sous-sol, fourrière) et comment les éviter.",
     title: "Prix enlèvement d'épave en Île-de-France : Ce qu'il faut savoir",

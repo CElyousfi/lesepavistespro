@@ -693,7 +693,24 @@ function checkSitemapIntegrity() {
     .map(name => path.join(dir, name, 'route.ts'))
     .filter(fs.existsSync);
 
-  addResult(sitemapRoutes.length >= 9, `✓ ${sitemapRoutes.length} sitemap routes found`);
+  addResult(sitemapRoutes.length >= 10, `✓ ${sitemapRoutes.length} sitemap routes found`);
+
+  // Île-de-France sitemap: exists, and is the FIRST child of the index.
+  const idfRoute = path.join(dir, 'sitemap-idf.xml', 'route.ts');
+  const indexRoute = fs.readFileSync(path.join(dir, 'sitemap.xml', 'route.ts'), 'utf-8');
+  const firstChild = indexRoute.match(/const sitemaps = \[\s*`\$\{base\}\/(sitemap-[a-z-]+\.xml)`/)?.[1];
+  addResult(fs.existsSync(idfRoute), fs.existsSync(idfRoute) ? '✓ sitemap-idf.xml exists' : '✗ sitemap-idf.xml is missing');
+  addResult(
+    firstChild === 'sitemap-idf.xml',
+    firstChild === 'sitemap-idf.xml'
+      ? '✓ sitemap-idf.xml is listed first in the sitemap index'
+      : `✗ sitemap index must list sitemap-idf.xml first (found ${firstChild ?? 'nothing'})`
+  );
+  if (fs.existsSync(idfRoute)) {
+    const idfSrc = fs.readFileSync(idfRoute, 'utf-8');
+    const idfOk = ['getIdfCityUpdatedAt', 'shouldIncludeInSitemap', 'shouldNoIndex', 'getCityInDepartment', "region !== 'idf'"].every(t => idfSrc.includes(t));
+    addResult(idfOk, idfOk ? '✓ sitemap-idf.xml validates URLs and uses per-city lastmod' : '✗ sitemap-idf.xml must validate every URL and use per-city lastmod');
+  }
 
   for (const route of sitemapRoutes) {
     const rel = path.relative(process.cwd(), route);
