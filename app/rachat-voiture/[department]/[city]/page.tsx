@@ -80,7 +80,7 @@ export default async function CityRachatPage({
   if (!result) notFound();
 
   const { city, department } = result;
-  const localData = getCityLocalData(city.slug);
+  const localData = getCityLocalData(department.slug, city.slug);
   const isIdf = isIdfDepartment(department.slug);
 
   const cityUrl = `https://www.lesepavistespro.fr/rachat-voiture/${department.slug}/${city.slug}`;

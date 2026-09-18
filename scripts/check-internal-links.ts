@@ -7,7 +7,11 @@
  *   - `{ name, slug, deptSlug }` city triples resolve via getCityInDepartment,
  *   - `{ name, code, slug }` department entries resolve via getDepartmentBySlug,
  *   - hardcoded /blog/<slug> hrefs match a real post,
- *   - hardcoded static hrefs match a real route.
+ *   - hardcoded static hrefs match a real route,
+ *   - every `<dept>/<city>` key of lib/city-local-data.ts resolves (the keys
+ *     `saint-denis` / `saint-germain-en-laye` never matched the data slugs
+ *     `st-denis` / `st-germain-en-laye`, so the richest local content was
+ *     silently never rendered).
  *
  * Run via scripts/seo-qa-check.ts, which runs on `prebuild`.
  */
@@ -16,6 +20,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { getCityInDepartment, getDepartmentBySlug, getRegionBySlug } from '../lib/locations-national';
 import { blogPosts } from '../lib/blog-data';
+import { cityLocalData } from '../lib/city-local-data';
 
 /** Files that hardcode internal links to generated pages. */
 const WATCHED_FILES = [
@@ -55,6 +60,18 @@ export function checkHardcodedInternalLinks(): InternalLinkResult {
   let checked = 0;
 
   const blogSlugs = new Set(blogPosts.map((p) => p.slug));
+
+  // Data keyed by (department, city) — a key that does not resolve is content
+  // that is never rendered.
+  for (const key of Object.keys(cityLocalData)) {
+    checked++;
+    const [deptSlug, citySlug, ...rest] = key.split('/');
+    if (!deptSlug || !citySlug || rest.length) {
+      failures.push(`lib/city-local-data.ts: key "${key}" must be "<deptSlug>/<citySlug>"`);
+    } else if (!getCityInDepartment(deptSlug, citySlug)) {
+      failures.push(`lib/city-local-data.ts: key "${key}" does not resolve to a city`);
+    }
+  }
 
   for (const rel of WATCHED_FILES) {
     const file = path.join(process.cwd(), rel);

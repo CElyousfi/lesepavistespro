@@ -1,5 +1,11 @@
 // Local data for cities - fourrière, parking, access details
 // This provides unique content for each city page
+//
+// Keys are `<departmentSlug>/<citySlug>`, never the city slug alone: ~1,470
+// city slugs exist in several departments (montreuil is in 93, 28 and 85), and
+// a slug-only key leaked Montreuil (93) data — and an indexable status — onto
+// /epaviste/vendee-85/montreuil. Every key is asserted to resolve via
+// getCityInDepartment by scripts/check-internal-links.ts (prebuild).
 
 export interface CityLocalData {
   fourriere?: {
@@ -16,7 +22,7 @@ export interface CityLocalData {
 
 export const cityLocalData: Record<string, CityLocalData> = {
   // PARIS ARRONDISSEMENTS
-  'paris-1er': {
+  'paris-75/paris-1er': {
     fourriere: {
       name: 'Fourrière Paris Centre',
       address: '2 Rue du Département, 75018 Paris',
@@ -32,7 +38,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Délais fourrière courts (48h) avant majoration'
     ]
   },
-  'paris-2e': {
+  'paris-75/paris-2e': {
     fourriere: {
       name: 'Fourrière Paris Centre',
       address: '2 Rue du Département, 75018 Paris',
@@ -48,7 +54,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Zone commerçante - intervention matinale recommandée'
     ]
   },
-  'paris-3e': {
+  'paris-75/paris-3e': {
     fourriere: {
       name: 'Fourrière Paris Centre',
       address: '2 Rue du Département, 75018 Paris',
@@ -64,7 +70,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Coordination avec gardiens souvent nécessaire'
     ]
   },
-  'paris-15e': {
+  'paris-75/paris-15e': {
     fourriere: {
       name: 'Fourrière Paris Sud',
       address: '12 Rue Jean Colly, 75013 Paris',
@@ -80,7 +86,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Accès camion généralement bon'
     ]
   },
-  'paris-18e': {
+  'paris-75/paris-18e': {
     fourriere: {
       name: 'Fourrière Paris Nord',
       address: '2 Rue du Département, 75018 Paris',
@@ -98,7 +104,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // HAUTS-DE-SEINE (92)
-  'boulogne-billancourt': {
+  'hauts-de-seine-92/boulogne-billancourt': {
     fourriere: {
       name: 'Fourrière Boulogne-Billancourt',
       address: '32 Rue de Silly, 92100 Boulogne',
@@ -114,7 +120,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Zone ZFE - véhicules polluants souvent mis en fourrière'
     ]
   },
-  'nanterre': {
+  'hauts-de-seine-92/nanterre': {
     fourriere: {
       name: 'Fourrière Nanterre',
       address: 'Avenue Frédéric et Irène Joliot-Curie, 92000 Nanterre',
@@ -130,7 +136,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Université - stationnement étudiant problématique'
     ]
   },
-  'courbevoie': {
+  'hauts-de-seine-92/courbevoie': {
     fourriere: {
       name: 'Fourrière Courbevoie',
       address: '142 Boulevard Saint-Denis, 92400 Courbevoie',
@@ -148,7 +154,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // SEINE-SAINT-DENIS (93)
-  'saint-denis': {
+  'seine-saint-denis-93/st-denis': {
     fourriere: {
       name: 'Fourrière Saint-Denis',
       address: 'Rue du Landy, 93200 Saint-Denis',
@@ -164,7 +170,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Nombreux véhicules abandonnés - fourrière saturée'
     ]
   },
-  'montreuil': {
+  'seine-saint-denis-93/montreuil': {
     fourriere: {
       name: 'Fourrière Montreuil',
       address: 'Avenue du Président Wilson, 93100 Montreuil',
@@ -182,7 +188,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // VAL-DE-MARNE (94)
-  'creteil': {
+  'val-de-marne-94/creteil': {
     fourriere: {
       name: 'Fourrière Créteil',
       address: 'Rue de Falkirk, 94000 Créteil',
@@ -198,7 +204,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Préfecture Val-de-Marne - zone administrative'
     ]
   },
-  'vitry-sur-seine': {
+  'val-de-marne-94/vitry-sur-seine': {
     fourriere: {
       name: 'Fourrière Vitry-sur-Seine',
       address: 'Avenue Guy Môquet, 94400 Vitry',
@@ -216,7 +222,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // VAL-D'OISE (95)
-  'argenteuil': {
+  'val-d-oise-95/argenteuil': {
     fourriere: {
       name: 'Fourrière Argenteuil',
       address: 'Rue Henri Barbusse, 95100 Argenteuil',
@@ -232,7 +238,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Quartiers pavillonnaires - garages individuels fréquents'
     ]
   },
-  'cergy': {
+  'val-d-oise-95/cergy': {
     fourriere: {
       name: 'Fourrière Cergy-Pontoise',
       address: 'Boulevard de l\'Oise, 95000 Cergy',
@@ -250,7 +256,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // SEINE-ET-MARNE (77)
-  'meaux': {
+  'seine-et-marne-77/meaux': {
     fourriere: {
       name: 'Fourrière Meaux',
       address: 'Rue du Faubourg Saint-Nicolas, 77100 Meaux',
@@ -266,7 +272,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Tarifs fourrière moins élevés qu\'à Paris'
     ]
   },
-  'melun': {
+  'seine-et-marne-77/melun': {
     fourriere: {
       name: 'Fourrière Melun',
       address: 'Avenue Thiers, 77000 Melun',
@@ -284,7 +290,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // YVELINES (78)
-  'versailles': {
+  'yvelines-78/versailles': {
     fourriere: {
       name: 'Fourrière Versailles',
       address: '4 Rue des Chantiers, 78000 Versailles',
@@ -300,7 +306,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Nombreux parkings souterrains modernes'
     ]
   },
-  'saint-germain-en-laye': {
+  'yvelines-78/st-germain-en-laye': {
     fourriere: {
       name: 'Fourrière Saint-Germain-en-Laye',
       address: 'Rue de Poissy, 78100 Saint-Germain',
@@ -318,7 +324,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // ESSONNE (91)
-  'evry-courcouronnes': {
+  'essonne-91/evry-courcouronnes': {
     fourriere: {
       name: 'Fourrière Évry-Courcouronnes',
       address: 'Boulevard de l\'Europe, 91000 Évry',
@@ -334,7 +340,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Quartiers modernes - accès facilité'
     ]
   },
-  'massy': {
+  'essonne-91/massy': {
     fourriere: {
       name: 'Fourrière Massy',
       address: 'Avenue de Paris, 91300 Massy',
@@ -352,7 +358,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // HIGH-PRIORITY CITIES (high impressions, 0% CTR - added for Phase 2 optimization)
-  'mantes-la-jolie': {
+  'yvelines-78/mantes-la-jolie': {
     fourriere: {
       name: 'Fourrière Mantes-la-Jolie',
       address: 'Rue Pierre Curie, 78200 Mantes-la-Jolie',
@@ -369,7 +375,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Tarifs fourrière modérés comparé à Paris'
     ]
   },
-  'les-mureaux': {
+  'yvelines-78/les-mureaux': {
     fourriere: {
       name: 'Fourrière Les Mureaux',
       address: 'Avenue Paul Raoult, 78130 Les Mureaux',
@@ -386,7 +392,7 @@ export const cityLocalData: Record<string, CityLocalData> = {
       'Peu de restrictions de circulation'
     ]
   },
-  'fontainebleau': {
+  'seine-et-marne-77/fontainebleau': {
     fourriere: {
       name: 'Fourrière Fontainebleau',
       address: 'Rue de la Chancellerie, 77300 Fontainebleau',
@@ -405,91 +411,91 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // ARRONDISSEMENTS PARISIENS MANQUANTS
-  'paris-4e': {
+  'paris-75/paris-4e': {
     fourriere: { name: 'Fourrière Paris Centre', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Pont Marie', 'Parking Baudoyer', 'Parking Lobau'],
     acces: 'Île de la Cité et Île Saint-Louis : rues très étroites, circulation très restreinte. Le Marais historique impose des fenêtres d\'intervention très précises (avant 8h ou après 20h).',
     specificites: ['Habitat haussmannien dense avec caves profondes', 'Île Saint-Louis : accès par pont unique, treuil nécessaire', 'Zone piétonne étendue — autorisation préfectorale parfois requise']
   },
-  'paris-5e': {
+  'paris-75/paris-5e': {
     fourriere: { name: 'Fourrière Paris Centre', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Panthéon', 'Parking Maubert', 'Parking Port Royal'],
     acces: 'Quartier Latin : forte densité étudiante, rues pavées et en pente. Certaines rues du Mouffetard impossibles aux véhicules de plus de 3,5t.',
     specificites: ['Habitat mixte : immeubles haussmanniens + résidences universitaires', 'Nombreuses cours intérieures sur rue étroite', 'Rampes de parking parfois inférieures à 1,9m de hauteur']
   },
-  'paris-6e': {
+  'paris-75/paris-6e': {
     fourriere: { name: 'Fourrière Paris Centre', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Saint-Sulpice', 'Parking Montparnasse', 'Parking Saint-Germain-des-Prés'],
     acces: 'Saint-Germain-des-Prés : arrondissement résidentiel haut de gamme, circulation modérée. Accès sous-sol généralement bon mais hauteurs parfois limitées.',
     specificites: ['Habitat bourgeois : immeubles pierre de taille, caves nombreuses', 'Parkings privés résidentiels bien entretenus', 'Zone ZFE stricte — amendes fréquentes pour véhicules Crit\'Air 3+']
   },
-  'paris-7e': {
+  'paris-75/paris-7e': {
     fourriere: { name: 'Fourrière Paris Centre', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Tour Eiffel', 'Parking Invalides', 'Parking Saint-François-Xavier'],
     acces: 'Arrondissement ministériel et résidentiel huppé. Large avenue avec stationnement résidentiel. Secteur Tour Eiffel : restrictions importantes les jours d\'affluence touristique.',
     specificites: ['Hôtels particuliers avec cours privées', 'Nombreux ministères : restrictions circulation secteur Assemblée', 'Habitat de prestige — parkings privatifs bien équipés']
   },
-  'paris-8e': {
+  'paris-75/paris-8e': {
     fourriere: { name: 'Fourrière Paris Centre', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Champs-Élysées', 'Parking George V', 'Parking Madeleine'],
     acces: 'Champs-Élysées : avenue très surveillée, arrêt interdit. Intervention par rues adjacentes obligatoire. Quartier des affaires actif en semaine.',
     specificites: ['Immeubles haussmanniens haut de gamme avec gardiens', 'Parkings souterrains privés nombreux sous immeubles de bureaux', 'Axe routier chargé — intervention nuit/week-end vivement conseillée']
   },
-  'paris-9e': {
+  'paris-75/paris-9e': {
     fourriere: { name: 'Fourrière Paris Centre', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Opéra', 'Parking Drouot', 'Parking Saint-Georges'],
     acces: 'Opéra-Grands Boulevards : forte affluence piétonne. Rues nord (Pigalle, Anvers) plus accessibles. Stationnement limité en journée.',
     specificites: ['Mixte commerce/résidence — activité nocturne importante', 'Nombreux hôtels : coordination avec réception nécessaire', 'Sous-sols variables : bonne accessibilité rue de la Victoire, difficile rues étroites']
   },
-  'paris-10e': {
+  'paris-75/paris-10e': {
     fourriere: { name: 'Fourrière Paris Centre', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Gare du Nord', 'Parking Gare de l\'Est', 'Parking République'],
     acces: 'Deux grandes gares (Nord + Est) génèrent un trafic intense. Secteur Canal Saint-Martin : rues à sens unique. Intervention matinale (avant 8h) recommandée.',
     specificites: ['Habitat populaire mixte : haussmannien + immeubles récents', 'Canal Saint-Martin : sous-sols peu nombreux, stationnement sur rue dominant', 'Zone en mutation rapide — nouveaux immeubles avec parkings modernes']
   },
-  'paris-11e': {
+  'paris-75/paris-11e': {
     fourriere: { name: 'Fourrière Paris Centre', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Bastille', 'Parking Voltaire', 'Parking Charonne'],
     acces: 'Arrondissement populaire et vivant. Réseau de rues dense mais généralement accessible. Place de la Bastille : zone très fréquentée, prévoir créneau tôt le matin.',
     specificites: ['Habitat haussmannien dense avec caves', 'Nombreux garages de quartier — coordination propriétaire indispensable', 'Fort trafic nocturne place de la Bastille — intervention 6h-9h idéale']
   },
-  'paris-12e': {
+  'paris-75/paris-12e': {
     fourriere: { name: 'Fourrière Paris Sud', address: '12 Rue Jean Colly, 75013 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Gare de Lyon', 'Parking Bercy Village', 'Parking Nation'],
     acces: 'Grand arrondissement, accès variable. Bercy : parkings modernes sous le parc. Nation : artère large, intervention aisée. Bois de Vincennes en bordure.',
     specificites: ['Parc de Bercy : espace vert dense, accès limité aux véhicules d\'intervention', 'Gare de Lyon : zone réglementée, coordination sécurité ferroviaire', 'Quartiers résidentiels calmes côté Daumesnil — accès parking souterrain bon']
   },
-  'paris-13e': {
+  'paris-75/paris-13e': {
     fourriere: { name: 'Fourrière Paris Sud', address: '12 Rue Jean Colly, 75013 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Italie 2', 'Parking MK2 Bibliothèque', 'Parking Olympiades'],
     acces: 'Arrondissement mixte : tours modernes du quartier Olympiades + habitat haussmannien + Chinatown. Les tours des Olympiades ont des parkings souterrains profonds (4-5 niveaux) nécessitant du matériel spécialisé.',
     specificites: ['Tours Olympiades : parkings -4/-5 avec rampes en hélice serrées', 'Habitat populaire dense Butte-aux-Cailles : rues en pente', 'Zone Bibliothèque François-Mitterrand : quartier neuf, accès moderne']
   },
-  'paris-14e': {
+  'paris-75/paris-14e': {
     fourriere: { name: 'Fourrière Paris Sud', address: '12 Rue Jean Colly, 75013 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Montparnasse', 'Parking Alésia', 'Parking Plaisance'],
     acces: 'Montparnasse : gare et tour génèrent un trafic soutenu. Quartiers résidentiels (Pernety, Plaisance) plus calmes avec bon accès.',
     specificites: ['Tour Montparnasse : parking souterrain commercial, accès parking résidentiel séparé', 'Quartier résidentiel calme côté Alésia — sous-sols de bonne hauteur', 'Nombreux ateliers d\'artistes reconvertis en lofts sans parking']
   },
-  'paris-16e': {
+  'paris-75/paris-16e': {
     fourriere: { name: 'Fourrière Paris Ouest', address: '143 Rue du Point du Jour, 92100 Boulogne', phone: '01 55 18 54 00', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Trocadéro', 'Parking Auteuil', 'Parking Passy'],
     acces: 'Arrondissement résidentiel aisé. Larges avenues, stationnement facilité. Parkings privatifs dans les immeubles haussmanniens bien équipés. Bois de Boulogne : zones sans parking.',
     specificites: ['Habitat bourgeois haut de gamme avec concierge — coordination indispensable', 'Nombreux garages privatifs individuels sous immeubles', 'Secteur Trocadéro très surveillé : intervenir tôt le matin']
   },
-  'paris-17e': {
+  'paris-75/paris-17e': {
     fourriere: { name: 'Fourrière Paris Nord', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Courcelles', 'Parking Batignolles', 'Parking Porte de Champerret'],
     acces: 'Arrondissement mixte : quartier huppé Monceau au sud, plus populaire Batignolles au nord. Accès variable selon secteur. Porte de Champerret : bonne accessibilité.',
     specificites: ['Quartier Monceau : hôtels particuliers avec cours privées', 'Batignolles : immeubles anciens avec cours intérieures étroites', 'Forte densité résidentielle — places de stationnement rares']
   },
-  'paris-19e': {
+  'paris-75/paris-19e': {
     fourriere: { name: 'Fourrière Paris Nord', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking La Villette', 'Parking Stalingrad', 'Parking Botzaris'],
     acces: 'Arrondissement populaire en pleine mutation. La Villette : grands espaces accessibles. Quartiers Belleville et Combat : rues en pente, intervention matinale recommandée.',
     specificites: ['Parc de La Villette : véhicules abandonnés sur voie publique fréquents', 'Buttes-Chaumont : zone résidentielle sur relief — équipement treuil parfois nécessaire', 'Nouveaux programmes immobiliers avec parkings souterrains modernes']
   },
-  'paris-20e': {
+  'paris-75/paris-20e': {
     fourriere: { name: 'Fourrière Paris Nord', address: '2 Rue du Département, 75018 Paris', phone: '01 53 71 53 71', tarif: '150-200€ selon durée', delai: 'Récupération sous 24h' },
     parkings: ['Parking Père Lachaise', 'Parking Gambetta', 'Parking Nation'],
     acces: 'Belleville-Ménilmontant : relief accidenté, rues en pente. Accès difficile pour grandes remorques. Secteur Père-Lachaise plus plat et accessible.',
@@ -497,61 +503,61 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 
   // GRANDES COMMUNES PETITE COURONNE MANQUANTES
-  'aubervilliers': {
+  'seine-saint-denis-93/aubervilliers': {
     fourriere: { name: 'Fourrière Aubervilliers', address: 'Route de la Révolte, 93300 Aubervilliers', phone: '01 48 34 55 55', tarif: '100-150€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Quatre-Chemins', 'Parking Fort d\'Aubervilliers', 'Parking Centre Commercial'],
     acces: 'Commune dense à vocation mixte (résidentielle + industrielle). Zone du Fort en pleine reconversion. Accès variable selon quartier.',
     specificites: ['Zone industrielle Fort d\'Aubervilliers : grands espaces, nombreux utilitaires en fin de vie', 'Habitat populaire dense : parc locatif social dominant, peu de parkings privés', 'Fourrière souvent saturée — délais plus courts avec épaviste privé']
   },
-  'asnieres-sur-seine': {
+  'hauts-de-seine-92/asnieres-sur-seine': {
     fourriere: { name: 'Fourrière Asnières-sur-Seine', address: 'Rue Galilée, 92600 Asnières', phone: '01 41 11 31 00', tarif: '120-170€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Gare', 'Parking Les Grésillons', 'Parking Centre-Ville'],
     acces: 'Ville résidentielle aisée, largement pavillonnaire dans sa partie ouest. Centre-ville dense avec immeubles haussmanniens. Bords de Seine accessibles.',
     specificites: ['Habitat mixte : pavillons avec garage intégré côté Seine, collectifs côté centre', 'Forte proportion de garages individuels — accès direct plateau possible', 'Zone ZFE Grand Paris : véhicules Crit\'Air 3+ très concernés']
   },
-  'champigny-sur-marne': {
+  'val-de-marne-94/champigny-sur-marne': {
     fourriere: { name: 'Fourrière Champigny-sur-Marne', address: 'Avenue Roger Salengro, 94500 Champigny', phone: '01 55 09 69 00', tarif: '100-150€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Mairie', 'Parking Gare', 'Parking Tremblay'],
     acces: 'Grande commune résidentielle pavillonnaire. Accès très facile, larges rues. Bords de Marne accessibles avec quelques contraintes de voirie.',
     specificites: ['Tissu pavillonnaire dominant : garages individuels nombreux', 'Faible densité relative — intervention rapide', 'Bords de Marne : risque d\'inondation certaines zones, vérifier accessibilité hiver']
   },
-  'colombes': {
+  'hauts-de-seine-92/colombes': {
     fourriere: { name: 'Fourrière Colombes', address: 'Rue Pierre et Marie Curie, 92700 Colombes', phone: '01 41 19 22 00', tarif: '120-170€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Hôtel de Ville', 'Parking Les Fossés Jean', 'Parking Gare'],
     acces: 'Ville résidentielle avec zones pavillonnaires et immeubles collectifs. Accès généralement bon sauf abords de la N1 en heure de pointe.',
     specificites: ['Habitat varié : collectifs 60-70 avec sous-sols + pavillons ouest', 'Stade Yves-du-Manoir : parking important à proximité', 'Zone ZFE : restrictions croissantes pour véhicules anciens']
   },
-  'drancy': {
+  'seine-saint-denis-93/drancy': {
     fourriere: { name: 'Fourrière Drancy', address: 'Avenue Henri Barbusse, 93700 Drancy', phone: '01 41 60 61 00', tarif: '100-150€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Mairie', 'Parking Gare', 'Parking Centre Commercial'],
     acces: 'Commune résidentielle dense. Nombreuses cités de logement social avec parkings en pied d\'immeuble. Accès parfois restreint aux véhicules extérieurs dans les résidences fermées.',
     specificites: ['Fort taux de logement social : épaves en parking résidence fréquentes', 'Proximité aéroport Bourget : zone sous couloir aérien', 'Fourrière municipale limitée — recours épaviste privé fréquent']
   },
-  'issy-les-moulineaux': {
+  'hauts-de-seine-92/issy-les-moulineaux': {
     fourriere: { name: 'Fourrière Issy-les-Moulineaux', address: 'Rue Ernest Renan, 92130 Issy', phone: '01 41 23 15 15', tarif: '120-180€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Issy Coeur de Ville', 'Parking Victor Cresson', 'Parking Mairie'],
     acces: 'Commune en forte mutation : nombreux sièges sociaux + quartiers résidentiels. Zone Val de Seine moderne avec sous-sols de haute qualité. Accès excellent côté bureaux.',
     specificites: ['Forte présence de sièges sociaux (Canal+, Microsoft) : parkings d\'entreprise bien équipés', 'Quartiers résidentiels en hauteur côté fort : accès parfois complexe', 'Zone ZFE stricte — renouvellement fréquent du parc automobile']
   },
-  'ivry-sur-seine': {
+  'val-de-marne-94/ivry-sur-seine': {
     fourriere: { name: 'Fourrière Ivry-sur-Seine', address: 'Rue Raspail, 94200 Ivry', phone: '01 49 60 21 00', tarif: '100-150€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Mairie', 'Parking Gare RER', 'Parking Centre Commercial'],
     acces: 'Commune industrielle et résidentielle. Zone portuaire en bord de Seine. Anciens entrepôts reconvertis. Accès variable selon quartier.',
     specificites: ['Zone industrielle portuaire : utilitaires en fin de vie fréquents', 'Habitat social dense : épaves en parking collectif récurrentes', 'Quartier en gentrification : nouveaux immeubles avec parkings modernes']
   },
-  'levallois-perret': {
+  'hauts-de-seine-92/levallois-perret': {
     fourriere: { name: 'Fourrière Levallois-Perret', address: 'Rue Baudin, 92300 Levallois', phone: '01 47 58 32 00', tarif: '150-200€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Anatole France', 'Parking Louise Michel', 'Parking Île de la Jatte'],
     acces: 'Ville très dense, plan en damier. Toutes les rues sont à sens unique alternés. Stationnement quasi impossible en double file — intervention à planifier tôt le matin.',
     specificites: ['Densité humaine et automobile parmi les plus élevées de France', 'Immeubles haussmanniens : caves nombreuses, sous-sols bien aménagés', 'Taux d\'imposition élevé = parc automobile récent, mais épaves présentes en parking résidence']
   },
-  'montrouge': {
+  'hauts-de-seine-92/montrouge': {
     fourriere: { name: 'Fourrière Montrouge', address: 'Avenue de la République, 92120 Montrouge', phone: '01 42 53 11 11', tarif: '120-170€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Mairie', 'Parking Gabriel Péri', 'Parking Centre-Ville'],
     acces: 'Commune compacte et résidentielle, limitrophe du 14e. Accès facilité, larges voies. Parking Gabriel Péri (métro) : sous-sol bien accessible.',
     specificites: ['Forte densité résidentielle : immeubles récents avec parkings souterrains', 'Limitrophe Paris 14e — même zone ZFE stricte', 'Excellente desserte transports en commun : intervention plateau facilitée']
   },
-  'rueil-malmaison': {
+  'hauts-de-seine-92/rueil-malmaison': {
     fourriere: { name: 'Fourrière Rueil-Malmaison', address: 'Rue Henri Regnault, 92500 Rueil', phone: '01 47 32 63 00', tarif: '120-170€ selon durée', delai: 'Récupération en journée' },
     parkings: ['Parking Gare RER', 'Parking Centre Commercial Régional', 'Parking Malmaison'],
     acces: 'Commune résidentielle aisée avec zones pavillonnaires importantes. Quartier La Défense côté Nanterre en limite. Accès très facile dans les zones pavillonnaires.',
@@ -559,12 +565,17 @@ export const cityLocalData: Record<string, CityLocalData> = {
   },
 };
 
-// Helper function to get city data
-export function getCityLocalData(citySlug: string): CityLocalData | null {
-  return cityLocalData[citySlug] || null;
+/** Composite key used by `cityLocalData`. */
+export function cityLocalDataKey(deptSlug: string, citySlug: string): string {
+  return `${deptSlug}/${citySlug}`;
 }
 
-// Check if city has local data
-export function hasCityLocalData(citySlug: string): boolean {
-  return citySlug in cityLocalData;
+/** Local data for a city, resolved within its department. */
+export function getCityLocalData(deptSlug: string, citySlug: string): CityLocalData | null {
+  return cityLocalData[cityLocalDataKey(deptSlug, citySlug)] || null;
+}
+
+/** True when we hold local data for this (department, city). */
+export function hasCityLocalData(deptSlug: string, citySlug: string): boolean {
+  return cityLocalDataKey(deptSlug, citySlug) in cityLocalData;
 }

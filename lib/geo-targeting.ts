@@ -7,7 +7,7 @@
  */
 
 import { IDF_DEPT_CODES } from './idf';
-import { cityLocalData } from './city-local-data';
+import { hasCityLocalData } from './city-local-data';
 
 // Regions adjacent to Île-de-France — target for business expansion
 export const LIMITROPHE_REGION_SLUGS = [
@@ -53,7 +53,7 @@ export function isIndexedDepartment(deptSlug: string): boolean {
  */
 export function shouldIncludeInSitemap(deptSlug: string, citySlug: string): boolean {
   if (isIndexedDepartment(deptSlug)) return true;
-  return citySlug in cityLocalData;
+  return hasCityLocalData(deptSlug, citySlug);
 }
 
 /**
@@ -65,5 +65,5 @@ export function shouldIncludeInSitemap(deptSlug: string, citySlug: string): bool
  */
 export function shouldNoIndex(deptSlug: string, citySlug: string): boolean {
   if (isIndexedDepartment(deptSlug)) return false;
-  return !(citySlug in cityLocalData);
+  return !hasCityLocalData(deptSlug, citySlug);
 }
