@@ -2,7 +2,11 @@
  * seo-crawl.ts — Local SEO audit crawler (Semrush Site Audit style)
  *
  * Usage:
- *   npm run seo-crawl -- [baseUrl] [--limit=N] [--sample-per-sitemap=N] [--concurrency=N] [--label=name]
+ *   npm run seo-crawl -- [baseUrl] [--limit=N] [--sample-per-sitemap=N] [--concurrency=N] [--label=name] [--idf-only]
+ *
+ * --idf-only crawls EVERY Île-de-France URL (region, 8 departments, all IDF
+ * communes for both services, IDF blog posts) and only a sample elsewhere, so
+ * the IDF section of the report is exhaustive rather than sampled.
  *
  * Starts from `/` plus every URL discovered in /sitemap.xml (a sitemap index),
  * fetches each page without following redirects, and records the SEO signals
@@ -37,6 +41,7 @@ const LIMIT = flag('limit', 900);
 const SAMPLE_PER_SITEMAP = flag('sample-per-sitemap', 120);
 const CONCURRENCY = flag('concurrency', 8);
 const LABEL = strFlag('label', '');
+const IDF_ONLY = argv.includes('--idf-only');
 const OUT_DIR = path.join(process.cwd(), 'seo-audit');
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -82,6 +87,9 @@ interface PageRecord {
   localBusinessCount: number;
   duplicateIdConflicts: string[];
   inSitemap: boolean;
+  isIdf: boolean;
+  /** A `TODO(owner)` placeholder leaked into the visible HTML. */
+  todoOwnerRendered: boolean;
   error?: string;
 }
 
@@ -91,12 +99,14 @@ interface CrawlReport {
   startedAt: string;
   finishedAt: string;
   durationMs: number;
-  options: { limit: number; samplePerSitemap: number; concurrency: number };
+  options: { limit: number; samplePerSitemap: number; concurrency: number; idfOnly: boolean };
   sitemapIndex: string[];
   sitemapUrlCounts: Record<string, number>;
   totalSitemapUrls: number;
   pagesCrawled: number;
   summary: Record<string, number>;
+  /** Same metrics restricted to Île-de-France URLs (exhaustive with --idf-only). */
+  idf: { pagesCrawled: number; summary: Record<string, number>; errors: IssueGroup[]; warnings: IssueGroup[]; notices: IssueGroup[] };
   errors: IssueGroup[];
   warnings: IssueGroup[];
   notices: IssueGroup[];
@@ -127,6 +137,18 @@ function normalizeUrl(u: string): string {
 }
 
 /** Map a production URL onto the crawl base so we can crawl a local build. */
+/**
+ * Île-de-France URL test. Location pages carry the region or a department
+ * slug; blog posts are matched on their slug. Kept in sync with lib/idf.ts by
+ * the QA check, not imported, so the crawler stays dependency-free.
+ */
+const IDF_PATH_RE =
+  /^\/(epaviste|rachat-voiture)\/(ile-de-france|paris-75|seine-et-marne-77|yvelines-78|essonne-91|hauts-de-seine-92|seine-saint-denis-93|val-de-marne-94|val-d-oise-95)(\/|$)/;
+const IDF_BLOG_RE = /^\/blog\/[^/]*(ile-de-france|idf|paris|grand-paris)[^/]*$/;
+function isIdfPath(pathname: string): boolean {
+  return IDF_PATH_RE.test(pathname) || IDF_BLOG_RE.test(pathname);
+}
+
 function toBase(u: string): string {
   try {
     const parsed = new URL(u);
@@ -265,6 +287,13 @@ async function discoverSitemapUrls() {
   return { sitemapUrls, perSitemap, counts, total };
 }
 
+function median(values: number[]): number {
+  if (!values.length) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+}
+
 /** Deterministic even sampling so re-runs compare like-for-like. */
 function sample<T>(arr: T[], n: number): T[] {
   if (arr.length <= n) return [...arr];
@@ -311,6 +340,8 @@ async function analyzePage(url: string, inSitemap: boolean): Promise<PageRecord>
     localBusinessCount: 0,
     duplicateIdConflicts: [],
     inSitemap,
+    isIdf: isIdfPath(new URL(url).pathname),
+    todoOwnerRendered: false,
   };
 
   try {
@@ -371,6 +402,9 @@ async function analyzePage(url: string, inSitemap: boolean): Promise<PageRecord>
     });
 
     record.wordCount = textWordCount($);
+    // Placeholders must be hidden, never shown: a leaked `TODO(owner)` in the
+    // visible text is a warning.
+    record.todoOwnerRendered = /TODO\(owner\)/.test($('body').text());
 
     const imgs = $('img');
     record.imgTotal = imgs.length;
@@ -442,7 +476,7 @@ async function analyzePage(url: string, inSitemap: boolean): Promise<PageRecord>
 async function main() {
   const startedAt = Date.now();
   console.log(`\n🔎 SEO crawl of ${BASE_URL}`);
-  console.log(`   limit=${LIMIT} sample-per-sitemap=${SAMPLE_PER_SITEMAP} concurrency=${CONCURRENCY}\n`);
+  console.log(`   limit=${LIMIT} sample-per-sitemap=${SAMPLE_PER_SITEMAP} concurrency=${CONCURRENCY}${IDF_ONLY ? ' idf-only' : ''}\n`);
 
   console.log('→ Discovering sitemaps…');
   const { sitemapUrls, perSitemap, counts, total } = await discoverSitemapUrls();
@@ -453,10 +487,21 @@ async function main() {
 
   // Build the crawl queue: homepage + an even sample of each child sitemap.
   const queue: string[] = [normalizeUrl(`${BASE_URL}/`)];
+  const sampled: string[] = [];
   Object.entries(perSitemap).forEach(([, urls]) => {
-    sample(urls, SAMPLE_PER_SITEMAP).forEach((u) => queue.push(u));
+    if (IDF_ONLY) {
+      // Every IDF URL goes first; the non-IDF remainder is sampled evenly.
+      urls.filter((u) => isIdfPath(new URL(u).pathname)).forEach((u) => queue.push(u));
+      sample(urls.filter((u) => !isIdfPath(new URL(u).pathname)), SAMPLE_PER_SITEMAP).forEach((u) => sampled.push(u));
+    } else {
+      sample(urls, SAMPLE_PER_SITEMAP).forEach((u) => sampled.push(u));
+    }
   });
-  const unique = Array.from(new Set(queue)).slice(0, LIMIT);
+  // --idf-only must never drop an IDF URL: the limit only trims the sample.
+  const idfQueue = Array.from(new Set(queue));
+  const unique = IDF_ONLY
+    ? [...idfQueue, ...Array.from(new Set(sampled)).filter((u) => !idfQueue.includes(u)).slice(0, LIMIT)]
+    : Array.from(new Set([...queue, ...sampled])).slice(0, LIMIT);
 
   console.log(`→ Crawling ${unique.length} URLs…`);
   const pages: PageRecord[] = [];
@@ -481,14 +526,6 @@ async function main() {
   // ── Cross-page analysis ───────────────────────────────────────────────────
   const byUrl = new Map(pages.map((p) => [p.url, p]));
   const okPages = pages.filter((p) => p.status === 200);
-  const indexable = okPages.filter((p) => !p.noindex);
-
-  const titleMap = new Map<string, string[]>();
-  const descMap = new Map<string, string[]>();
-  indexable.forEach((p) => {
-    if (p.title) titleMap.set(p.title, [...(titleMap.get(p.title) || []), p.url]);
-    if (p.description) descMap.set(p.description, [...(descMap.get(p.description) || []), p.url]);
-  });
 
   // Internal link targets that are broken / redirected / noindex / non-canonical.
   const linkTargets = new Set<string>();
@@ -530,76 +567,109 @@ async function main() {
     samples: items.slice(0, 15),
   });
 
-  const sitemapPages = pages.filter((p) => p.inSitemap);
+  /**
+   * Issue groups + key metrics for a set of pages. Called once for the whole
+   * crawl and once for the Île-de-France subset so the IDF section of the
+   * report is computed with exactly the same rules.
+   */
+  function analyse(subset: PageRecord[]) {
+    const ok = subset.filter((p) => p.status === 200);
+    const idx = ok.filter((p) => !p.noindex);
+    const inSm = subset.filter((p) => p.inSitemap);
+    const subsetPaths = new Set(subset.map((p) => p.path));
+    const tMap = new Map<string, string[]>();
+    const dMap = new Map<string, string[]>();
+    idx.forEach((p) => {
+      if (p.title) tMap.set(p.title, [...(tMap.get(p.title) || []), p.url]);
+      if (p.description) dMap.set(p.description, [...(dMap.get(p.description) || []), p.url]);
+    });
+    const fromSubset = (s: string) => subsetPaths.has(s.split(' → ')[0]);
+    const broken = Array.from(new Set(brokenInternalLinks)).filter(fromSubset);
+    const redirected = Array.from(new Set(redirectedInternalLinks)).filter(fromSubset);
+    const noindexLinked = Array.from(new Set(noindexLinkedInternally)).filter(fromSubset);
 
-  const errors: IssueGroup[] = [
-    group('4xx status codes', pages.filter((p) => p.status >= 400 && p.status < 500).map((p) => `${p.path} (${p.status})`)),
-    group('5xx status codes', pages.filter((p) => p.status >= 500).map((p) => `${p.path} (${p.status})`)),
-    group('Broken internal links (target 4xx/5xx)', Array.from(new Set(brokenInternalLinks))),
-    group('Duplicate title tags', Array.from(titleMap.entries()).filter(([, u]) => u.length > 1).map(([t, u]) => `"${t}" ×${u.length} — ${u.slice(0, 3).join(', ')}`)),
-    group('Duplicate meta descriptions', Array.from(descMap.entries()).filter(([, u]) => u.length > 1).map(([d, u]) => `"${d.slice(0, 60)}…" ×${u.length}`)),
-    group('Sitemap URL not 200', sitemapPages.filter((p) => p.status !== 200).map((p) => `${p.path} (${p.status})`)),
-    group('Sitemap URL is noindex', sitemapPages.filter((p) => p.status === 200 && p.noindex).map((p) => p.path)),
-    group('Sitemap URL is not self-canonical', sitemapPages.filter((p) => p.status === 200 && p.canonical && !p.selfCanonical).map((p) => `${p.path} → ${p.canonical}`)),
-    group('Missing canonical', okPages.filter((p) => !p.canonical).map((p) => p.path)),
-    group('JSON-LD parse errors', pages.filter((p) => p.jsonLdParseErrors > 0).map((p) => `${p.path} (${p.jsonLdParseErrors})`)),
-    group('Conflicting JSON-LD @id (same id, different data)', pages.filter((p) => p.duplicateIdConflicts.length > 0).map((p) => `${p.path} — ${p.duplicateIdConflicts.join(', ')}`)),
-    group('Multiple FAQPage blocks on one page', okPages.filter((p) => p.faqPageCount > 1).map((p) => `${p.path} (${p.faqPageCount})`)),
-    group('Missing title', okPages.filter((p) => !p.title).map((p) => p.path)),
-    group('Missing meta description', okPages.filter((p) => !p.description).map((p) => p.path)),
-  ].filter((g) => g.count > 0);
+    const errors: IssueGroup[] = [
+      group('4xx status codes', subset.filter((p) => p.status >= 400 && p.status < 500).map((p) => `${p.path} (${p.status})`)),
+      group('5xx status codes', subset.filter((p) => p.status >= 500).map((p) => `${p.path} (${p.status})`)),
+      group('Broken internal links (target 4xx/5xx)', broken),
+      group('Duplicate title tags', Array.from(tMap.entries()).filter(([, u]) => u.length > 1).map(([t, u]) => `"${t}" ×${u.length} — ${u.slice(0, 3).join(', ')}`)),
+      group('Duplicate meta descriptions', Array.from(dMap.entries()).filter(([, u]) => u.length > 1).map(([d, u]) => `"${d.slice(0, 60)}…" ×${u.length}`)),
+      group('Sitemap URL not 200', inSm.filter((p) => p.status !== 200).map((p) => `${p.path} (${p.status})`)),
+      group('Sitemap URL is noindex', inSm.filter((p) => p.status === 200 && p.noindex).map((p) => p.path)),
+      group('Sitemap URL is not self-canonical', inSm.filter((p) => p.status === 200 && p.canonical && !p.selfCanonical).map((p) => `${p.path} → ${p.canonical}`)),
+      group('Missing canonical', ok.filter((p) => !p.canonical).map((p) => p.path)),
+      group('JSON-LD parse errors', subset.filter((p) => p.jsonLdParseErrors > 0).map((p) => `${p.path} (${p.jsonLdParseErrors})`)),
+      group('Conflicting JSON-LD @id (same id, different data)', subset.filter((p) => p.duplicateIdConflicts.length > 0).map((p) => `${p.path} — ${p.duplicateIdConflicts.join(', ')}`)),
+      group('Multiple FAQPage blocks on one page', ok.filter((p) => p.faqPageCount > 1).map((p) => `${p.path} (${p.faqPageCount})`)),
+      group('Missing title', ok.filter((p) => !p.title).map((p) => p.path)),
+      group('Missing meta description', ok.filter((p) => !p.description).map((p) => p.path)),
+    ].filter((g) => g.count > 0);
 
-  const warnings: IssueGroup[] = [
-    group('Title longer than 60 chars', okPages.filter((p) => p.titleLength > 60).map((p) => `${p.path} (${p.titleLength})`)),
-    group('Title longer than 70 chars', okPages.filter((p) => p.titleLength > 70).map((p) => `${p.path} (${p.titleLength})`)),
-    group('Meta description outside 70–160 chars', okPages.filter((p) => p.description && (p.descriptionLength < 70 || p.descriptionLength > 160)).map((p) => `${p.path} (${p.descriptionLength})`)),
-    group('Missing H1', okPages.filter((p) => p.h1Count === 0).map((p) => p.path)),
-    group('Multiple H1', okPages.filter((p) => p.h1Count > 1).map((p) => `${p.path} (${p.h1Count})`)),
-    group('Low word count (< 300)', okPages.filter((p) => p.wordCount < 300).map((p) => `${p.path} (${p.wordCount})`)),
-    group('Redirect chains (2+ hops)', pages.filter((p) => p.redirectHops > 1).map((p) => `${p.path} (${p.redirectHops} hops)`)),
-    group('Images without alt', okPages.filter((p) => p.imgWithoutAlt > 0).map((p) => `${p.path} (${p.imgWithoutAlt}/${p.imgTotal})`)),
-    group('High HTML size (> 300 KB)', okPages.filter((p) => p.htmlBytes > 300_000).map((p) => `${p.path} (${Math.round(p.htmlBytes / 1024)} KB)`)),
-    group('Internal links to redirects', Array.from(new Set(redirectedInternalLinks))),
-  ].filter((g) => g.count > 0);
+    const warnings: IssueGroup[] = [
+      group('Title longer than 60 chars', ok.filter((p) => p.titleLength > 60).map((p) => `${p.path} (${p.titleLength})`)),
+      group('Title longer than 70 chars', ok.filter((p) => p.titleLength > 70).map((p) => `${p.path} (${p.titleLength})`)),
+      group('Title truncated with an ellipsis', ok.filter((p) => p.title && /…/.test(p.title)).map((p) => `${p.path} — ${p.title}`)),
+      group('Meta description outside 70–160 chars', ok.filter((p) => p.description && (p.descriptionLength < 70 || p.descriptionLength > 160)).map((p) => `${p.path} (${p.descriptionLength})`)),
+      group('Missing H1', ok.filter((p) => p.h1Count === 0).map((p) => p.path)),
+      group('Multiple H1', ok.filter((p) => p.h1Count > 1).map((p) => `${p.path} (${p.h1Count})`)),
+      group('Low word count (< 300)', ok.filter((p) => p.wordCount < 300).map((p) => `${p.path} (${p.wordCount})`)),
+      group('Redirect chains (2+ hops)', subset.filter((p) => p.redirectHops > 1).map((p) => `${p.path} (${p.redirectHops} hops)`)),
+      group('Images without alt', ok.filter((p) => p.imgWithoutAlt > 0).map((p) => `${p.path} (${p.imgWithoutAlt}/${p.imgTotal})`)),
+      group('High HTML size (> 300 KB)', ok.filter((p) => p.htmlBytes > 300_000).map((p) => `${p.path} (${Math.round(p.htmlBytes / 1024)} KB)`)),
+      group('Internal links to redirects', redirected),
+      group('TODO(owner) placeholder rendered in HTML', ok.filter((p) => p.todoOwnerRendered).map((p) => p.path)),
+    ].filter((g) => g.count > 0);
 
-  const notices: IssueGroup[] = [
-    group('Noindex pages linked internally', Array.from(new Set(noindexLinkedInternally))),
-    group('Noindex + nofollow robots meta', okPages.filter((p) => p.noindex && p.nofollow).map((p) => p.path)),
-    group('Nofollow internal links', pages.filter((p) => p.nofollowInternalLinks.length > 0).map((p) => `${p.path} (${p.nofollowInternalLinks.length})`)),
-    group('H1 identical to title', okPages.filter((p) => p.h1Count === 1 && p.title && p.h1Texts[0] === p.title).map((p) => p.path)),
-    group('Multiple LocalBusiness nodes on one page', okPages.filter((p) => p.localBusinessCount > 1).map((p) => `${p.path} (${p.localBusinessCount})`)),
-  ].filter((g) => g.count > 0);
+    const notices: IssueGroup[] = [
+      group('Noindex pages linked internally', noindexLinked),
+      group('Noindex + nofollow robots meta', ok.filter((p) => p.noindex && p.nofollow).map((p) => p.path)),
+      group('Nofollow internal links', subset.filter((p) => p.nofollowInternalLinks.length > 0).map((p) => `${p.path} (${p.nofollowInternalLinks.length})`)),
+      group('H1 identical to title', ok.filter((p) => p.h1Count === 1 && p.title && p.h1Texts[0] === p.title).map((p) => p.path)),
+      group('Multiple LocalBusiness nodes on one page', ok.filter((p) => p.localBusinessCount > 1).map((p) => `${p.path} (${p.localBusinessCount})`)),
+      group('More than 200 internal links', ok.filter((p) => p.internalLinks.length > 200).map((p) => `${p.path} (${p.internalLinks.length})`)),
+    ].filter((g) => g.count > 0);
 
-  const summary: Record<string, number> = {
-    pagesCrawled: pages.length,
-    status200: okPages.length,
-    status3xx: pages.filter((p) => p.status >= 300 && p.status < 400).length,
-    status4xx: pages.filter((p) => p.status >= 400 && p.status < 500).length,
-    status5xx: pages.filter((p) => p.status >= 500).length,
-    indexablePages: indexable.length,
-    noindexPages: okPages.filter((p) => p.noindex).length,
-    noindexNofollowPages: okPages.filter((p) => p.noindex && p.nofollow).length,
-    titlesOver60: okPages.filter((p) => p.titleLength > 60).length,
-    titlesOver70: okPages.filter((p) => p.titleLength > 70).length,
-    duplicateTitleGroups: Array.from(titleMap.values()).filter((u) => u.length > 1).length,
-    duplicateDescriptionGroups: Array.from(descMap.values()).filter((u) => u.length > 1).length,
-    sitemapUrlsNonCanonical: sitemapPages.filter((p) => p.status === 200 && p.canonical && !p.selfCanonical).length,
-    sitemapUrlsNoindex: sitemapPages.filter((p) => p.status === 200 && p.noindex).length,
-    sitemapUrlsNon200: sitemapPages.filter((p) => p.status !== 200).length,
-    jsonLdParseErrorPages: pages.filter((p) => p.jsonLdParseErrors > 0).length,
-    conflictingJsonLdIdPages: pages.filter((p) => p.duplicateIdConflicts.length > 0).length,
-    multiFaqPages: okPages.filter((p) => p.faqPageCount > 1).length,
-    multiLocalBusinessPages: okPages.filter((p) => p.localBusinessCount > 1).length,
-    totalLocalBusinessNodes: okPages.reduce((s, p) => s + p.localBusinessCount, 0),
-    brokenInternalLinks: new Set(brokenInternalLinks).size,
-    noindexLinkedInternally: new Set(noindexLinkedInternally.map((s) => s.split(' → ')[1])).size,
-    missingH1: okPages.filter((p) => p.h1Count === 0).length,
-    multipleH1: okPages.filter((p) => p.h1Count > 1).length,
-    lowWordCount: okPages.filter((p) => p.wordCount < 300).length,
-    imagesWithoutAlt: okPages.reduce((s, p) => s + p.imgWithoutAlt, 0),
-    maxHtmlBytes: okPages.reduce((m, p) => Math.max(m, p.htmlBytes), 0),
-    redirectChains: pages.filter((p) => p.redirectHops > 1).length,
-  };
+    const summary: Record<string, number> = {
+      pagesCrawled: subset.length,
+      status200: ok.length,
+      status3xx: subset.filter((p) => p.status >= 300 && p.status < 400).length,
+      status4xx: subset.filter((p) => p.status >= 400 && p.status < 500).length,
+      status5xx: subset.filter((p) => p.status >= 500).length,
+      indexablePages: idx.length,
+      noindexPages: ok.filter((p) => p.noindex).length,
+      noindexNofollowPages: ok.filter((p) => p.noindex && p.nofollow).length,
+      titlesOver60: ok.filter((p) => p.titleLength > 60).length,
+      titlesOver70: ok.filter((p) => p.titleLength > 70).length,
+      titlesTruncated: ok.filter((p) => p.title && /…/.test(p.title)).length,
+      duplicateTitleGroups: Array.from(tMap.values()).filter((u) => u.length > 1).length,
+      duplicateDescriptionGroups: Array.from(dMap.values()).filter((u) => u.length > 1).length,
+      sitemapUrlsNonCanonical: inSm.filter((p) => p.status === 200 && p.canonical && !p.selfCanonical).length,
+      sitemapUrlsNoindex: inSm.filter((p) => p.status === 200 && p.noindex).length,
+      sitemapUrlsNon200: inSm.filter((p) => p.status !== 200).length,
+      jsonLdParseErrorPages: subset.filter((p) => p.jsonLdParseErrors > 0).length,
+      conflictingJsonLdIdPages: subset.filter((p) => p.duplicateIdConflicts.length > 0).length,
+      multiFaqPages: ok.filter((p) => p.faqPageCount > 1).length,
+      multiLocalBusinessPages: ok.filter((p) => p.localBusinessCount > 1).length,
+      totalLocalBusinessNodes: ok.reduce((s, p) => s + p.localBusinessCount, 0),
+      brokenInternalLinks: broken.length,
+      noindexLinkedInternally: new Set(noindexLinked.map((s) => s.split(' → ')[1])).size,
+      missingH1: ok.filter((p) => p.h1Count === 0).length,
+      multipleH1: ok.filter((p) => p.h1Count > 1).length,
+      lowWordCount: ok.filter((p) => p.wordCount < 300).length,
+      medianWordCount: median(ok.map((p) => p.wordCount)),
+      imagesWithoutAlt: ok.reduce((s, p) => s + p.imgWithoutAlt, 0),
+      maxHtmlBytes: ok.reduce((m, p) => Math.max(m, p.htmlBytes), 0),
+      maxInternalLinks: ok.reduce((m, p) => Math.max(m, p.internalLinks.length), 0),
+      redirectChains: subset.filter((p) => p.redirectHops > 1).length,
+      todoOwnerRendered: ok.filter((p) => p.todoOwnerRendered).length,
+    };
+
+    return { errors, warnings, notices, summary };
+  }
+
+  const { errors, warnings, notices, summary } = analyse(pages);
+  const idfPages = pages.filter((p) => p.isIdf);
+  const idfAnalysis = analyse(idfPages);
 
   const heaviest = [...okPages].sort((a, b) => b.htmlBytes - a.htmlBytes).slice(0, 5);
 
@@ -609,12 +679,13 @@ async function main() {
     startedAt: new Date(startedAt).toISOString(),
     finishedAt: new Date().toISOString(),
     durationMs: Date.now() - startedAt,
-    options: { limit: LIMIT, samplePerSitemap: SAMPLE_PER_SITEMAP, concurrency: CONCURRENCY },
+    options: { limit: LIMIT, samplePerSitemap: SAMPLE_PER_SITEMAP, concurrency: CONCURRENCY, idfOnly: IDF_ONLY },
     sitemapIndex: sitemapUrls,
     sitemapUrlCounts: counts,
     totalSitemapUrls: total,
     pagesCrawled: pages.length,
     summary,
+    idf: { pagesCrawled: idfPages.length, ...idfAnalysis },
     errors,
     warnings,
     notices,
@@ -652,6 +723,17 @@ async function main() {
   printGroups('ERRORS', errors);
   printGroups('WARNINGS', warnings);
   printGroups('NOTICES', notices);
+
+  line();
+  line('═'.repeat(72));
+  line(`ÎLE-DE-FRANCE — ${idfPages.length} IDF URLs crawled${IDF_ONLY ? ' (exhaustive)' : ' (sampled; use --idf-only for all)'}`);
+  line('═'.repeat(72));
+  printGroups('IDF ERRORS', idfAnalysis.errors);
+  printGroups('IDF WARNINGS', idfAnalysis.warnings);
+  printGroups('IDF NOTICES', idfAnalysis.notices);
+  line();
+  line('── IDF key metrics ──');
+  Object.entries(idfAnalysis.summary).forEach(([k, v]) => line(`   ${k.padEnd(32)} ${v}`));
 
   line();
   line('── Heaviest pages ──');
