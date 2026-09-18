@@ -49,7 +49,7 @@ export function getHomeStructuredData() {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/#webpage`,
       url: `${SITE_URL}/`,
-      name: "Épaviste France – Enlèvement d'épave gratuit 24h/24",
+      name: "Épaviste Île-de-France – Enlèvement d'épave gratuit 24h/24",
       isPartOf: { '@id': WEBSITE_ID },
       about: providerRef,
       inLanguage: 'fr-FR',

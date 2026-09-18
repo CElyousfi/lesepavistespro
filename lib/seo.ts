@@ -144,9 +144,10 @@ export function generateHomeMeta(): Metadata {
     // The layout's ' | Les Épavistes Pro' template does not apply to the root
     // segment, so the homepage owns the full 60-character budget — declare it
     // absolute to say so explicitly.
-    title: { absolute: 'Épaviste agréé VHU – Enlèvement d\'épave gratuit 24h/24' },
+    // 55 characters — the region is the primary keyword, not the country.
+    title: { absolute: 'Épaviste Île-de-France – Enlèvement d\'épave gratuit 24h/24' },
     description:
-      'Enlèvement d\'épave 100% GRATUIT 24h/24 partout en France. Rachat voiture sans CT, paiement cash. Agréé VHU. ☎ 06 02 42 73 45',
+      'Épaviste agréé VHU à Paris et en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Enlèvement d\'épave gratuit sous 2h, rachat voiture cash. ☎ 06 02 42 73 45',
     path: '/',
   });
 }

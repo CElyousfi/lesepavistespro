@@ -31,12 +31,13 @@ const Coverage = ({ regions, topCities }: CoverageProps) => {
         <div className="max-w-6xl mx-auto">
           <ScrollAnimation>
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Couverture</span>
+              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Couverture nationale</span>
               <h2 className="text-3xl md:text-5xl font-bold text-brand-navy mb-4 tracking-tight">
-                Couverture nationale complète
+                Nous intervenons aussi partout en France
               </h2>
               <p className="text-lg text-neutral-600 leading-relaxed">
-                Intervention rapide dans les 18 régions de France. Plus de 35 000 communes desservies.
+                Notre base est en Île-de-France, mais l&apos;enlèvement d&apos;épave et le rachat de voiture sont
+                organisés dans les 18 régions et 101 départements, soit plus de 34&nbsp;900 communes.
               </p>
             </div>
           </ScrollAnimation>
@@ -46,9 +47,13 @@ const Coverage = ({ regions, topCities }: CoverageProps) => {
             <div className="flex justify-center mb-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red/5 border border-brand-red/20 rounded-full text-sm">
                 <MapPin size={16} weight="bold" className="text-brand-red" />
-                <span className="font-semibold text-brand-navy">Zone la plus demandée :</span>
+                <span className="font-semibold text-brand-navy">Notre base&nbsp;:</span>
                 <Link href="/epaviste/ile-de-france" className="text-brand-red font-bold hover:underline">
                   Île-de-France
+                </Link>
+                <span className="text-neutral-400">·</span>
+                <Link href="/zones" className="text-brand-navy font-semibold hover:underline">
+                  Toutes les zones
                 </Link>
               </div>
             </div>
@@ -84,7 +89,7 @@ const Coverage = ({ regions, topCities }: CoverageProps) => {
           <ScrollAnimation>
             <div className="bg-brand-surface rounded-2xl p-8 md:p-10 border border-neutral-200">
               <h3 className="text-xl md:text-2xl font-bold text-brand-navy mb-8 text-center tracking-tight">
-                Principales villes desservies
+                Principales villes desservies hors Île-de-France
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {topCities.map((city, index) => (
@@ -100,7 +105,7 @@ const Coverage = ({ regions, topCities }: CoverageProps) => {
               </div>
               <div className="mt-8 text-center">
                 <Link 
-                  href="/epaviste"
+                  href="/zones"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-brand-red text-white rounded-full font-semibold text-sm hover:bg-brand-red/90 transition-all"
                 >
                   Voir toutes les zones

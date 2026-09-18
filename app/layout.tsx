@@ -29,10 +29,10 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.lesepavistespro.fr'),
   title: {
-    default: "Épaviste France – Enlèvement d'épave gratuit 24h/24",
+    default: "Épaviste Île-de-France – Enlèvement d'épave gratuit 24h/24",
     template: '%s | Les Épavistes Pro',
   },
-  description: "Épaviste agréé VHU partout en France. Enlèvement d'épave 100% GRATUIT 24h/24, 7j/7. Rachat de véhicules accidentés, HS ou en panne. 18 régions, 101 départements. 06 02 42 73 45.",
+  description: "Épaviste agréé VHU à Paris et en Île-de-France. Enlèvement d'épave 100% GRATUIT 24h/24, intervention sous 2h, rachat de véhicules accidentés, HS ou en panne. Aussi partout en France. 06 02 42 73 45.",
   applicationName: 'Les Épavistes Pro',
   formatDetection: {
     telephone: true,
@@ -54,8 +54,8 @@ export const metadata: Metadata = {
   publisher: "Les Épavistes Pro",
   category: 'Automobile',
   openGraph: {
-    title: "Épaviste France | Enlèvement d'épave gratuit 24h",
-    description: "Service d'enlèvement d'épave 100% gratuit 24h/24, 7j/7 partout en France. Épaviste agréé VHU et rachat de véhicules au meilleur prix. Appelez le 06 02 42 73 45",
+    title: "Épaviste Île-de-France | Enlèvement d'épave gratuit 24h",
+    description: "Enlèvement d'épave 100% gratuit 24h/24 à Paris et en Île-de-France, intervention sous 2h. Épaviste agréé VHU et rachat de véhicules. Appelez le 06 02 42 73 45",
     type: "website",
     locale: "fr_FR",
     url: "https://www.lesepavistespro.fr",
@@ -67,15 +67,15 @@ export const metadata: Metadata = {
         url: '/images/og-default.jpg',
         width: 1200,
         height: 630,
-        alt: 'Les Épavistes Pro - Épaviste agréé VHU en France',
+        alt: 'Les Épavistes Pro - Épaviste agréé VHU en Île-de-France',
         type: 'image/jpeg',
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Épaviste France | Enlèvement gratuit 24h",
-    description: "Enlèvement d'épave 100% gratuit 24h/24, 7j/7. Épaviste agréé VHU partout en France.",
+    title: "Épaviste Île-de-France | Enlèvement gratuit 24h",
+    description: "Enlèvement d'épave 100% gratuit 24h/24, 7j/7 à Paris et en Île-de-France. Épaviste agréé VHU.",
     images: ['/images/og-default.jpg'],
   },
   robots: {

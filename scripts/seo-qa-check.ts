@@ -514,19 +514,23 @@ function checkHomepageIdfPriority() {
   const pageFile = path.join(process.cwd(), 'app/page.tsx');
   const content = fs.readFileSync(pageFile, 'utf-8');
 
-  const hasIdfFirst = content.includes('IDF_REGION_SLUG_LOCAL') && content.includes('rawRegions.filter(r => r.slug === IDF_REGION_SLUG_LOCAL)');
-  if (hasIdfFirst) {
-    addResult(true, '✓ IDF region in first position on homepage');
-  } else {
-    addResult(false, '✗ IDF region not prioritized on homepage');
-  }
+  // IDF hero + IDF coverage must render before the national <Coverage>.
+  const heroAt = content.indexOf('<IdfHero');
+  const idfCoverageAt = content.indexOf('<IdfCoverage');
+  const nationalAt = content.indexOf('<Coverage ');
+  const idfFirst = heroAt !== -1 && idfCoverageAt !== -1 && nationalAt !== -1 && heroAt < idfCoverageAt && idfCoverageAt < nationalAt;
+  addResult(idfFirst, idfFirst ? '✓ Homepage: IDF hero and IDF coverage render before national coverage' : '✗ Homepage must render IdfHero, then IdfCoverage, then the national Coverage');
 
-  const hasIdfCities = content.includes('IDF_PRIORITY_CITIES');
-  if (hasIdfCities) {
-    addResult(true, '✓ IDF priority cities defined on homepage');
-  } else {
-    addResult(false, '✗ No IDF priority cities on homepage');
-  }
+  // Top cities come from the dataset (population), never a hardcoded slug list.
+  const derived = content.includes('getTopIdfCities(') && content.includes('getIdfDepartments()') && !content.includes('IDF_PRIORITY_CITIES');
+  addResult(derived, derived ? '✓ Homepage IDF departments and top cities derived from data' : '✗ Homepage must derive IDF departments/cities from lib/idf-cities, not hardcode slugs');
+
+  // National links are kept, only moved below.
+  const keepsNational = content.includes('<Coverage ') && content.includes('coverageRegions');
+  addResult(keepsNational, keepsNational ? '✓ Homepage keeps the national coverage section' : '✗ Homepage must keep national coverage links (moved below IDF, not removed)');
+
+  const homeTitle = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8').match(/absolute: '(Épaviste Île-de-France(?:[^'\\]|\\.)*)'/)?.[1]?.replace(/\\'/g, "'") ?? '';
+  addResult(homeTitle.length > 0 && homeTitle.length <= 60, homeTitle ? `✓ Homepage title is IDF-first (${homeTitle.length} chars)` : '✗ Homepage title must start with "Épaviste Île-de-France"');
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
