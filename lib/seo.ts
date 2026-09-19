@@ -229,9 +229,11 @@ export function generateEpavisteCityMeta(
   const titleCode = isHomonym && deptCode ? ` (${deptCode})` : postalDisplay;
 
   return generateMeta({
-    title: safeTitleFit('Épaviste ', cityName, titleCode, ' – Gratuit', { keepCode: isHomonym === true }),
+    // IDF pattern: 'Épaviste {Ville} ({CP}) – Gratuit 24h/24'; safeTitleFit
+    // degrades (code → tag → brand) so the commune name is never truncated.
+    title: safeTitleFit('Épaviste ', cityName, titleCode, isIdf ? ' – Gratuit 24h/24' : ' – Gratuit', { keepCode: isHomonym === true }),
     description: isIdf
-      ? `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT, intervention sous 2h. ☎ 06 02 42 73 45`
+      ? `Épaviste agréé VHU à ${cityName}${postalDisplay}. Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45`
       : `Épaviste agréé à ${cityName}${postalDisplay}. Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45`,
     path: `/epaviste/${deptSlug}/${citySlug}`,
     noIndex,
@@ -255,9 +257,10 @@ export function generateRachatCityMeta(
   const titleCode = isHomonym && deptCode ? ` (${deptCode})` : postalDisplay;
 
   return generateMeta({
-    title: safeTitleFit('Rachat ', cityName, titleCode, ' – Cash', { keepCode: isHomonym === true }),
+    // IDF pattern: 'Rachat voiture {Ville} ({CP}) – Cash'.
+    title: safeTitleFit(isIdf ? 'Rachat voiture ' : 'Rachat ', cityName, titleCode, ' – Cash', { keepCode: isHomonym === true }),
     description: isIdf
-      ? `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45`
+      ? `Rachat voiture à ${cityName}${postalDisplay}. Paiement cash le jour de l'enlèvement, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45`
       : `Rachat voiture à ${cityName}${postalDisplay}. Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45`,
     path: `/rachat-voiture/${deptSlug}/${citySlug}`,
     noIndex,
