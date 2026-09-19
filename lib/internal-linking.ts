@@ -185,10 +185,25 @@ export function getFooterSEOLinks(): InternalLink[] {
  * by the prebuild link check.
  */
 export function getIdfGuideLinks(service: 'epaviste' | 'rachat-voiture'): InternalLink[] {
+  // IDF-specific guides first (P3.4), then the two evergreen national guides.
   const slugs =
     service === 'epaviste'
-      ? ['comment-enlever-epave-gratuit-ile-de-france', 'prix-enlevement-epave-ile-de-france']
-      : ['rachat-voiture-accidentee-meilleur-prix', 'vendre-voiture-hs-demarches'];
+      ? [
+          'voiture-en-fourriere-paris-que-faire',
+          'epave-parking-souterrain-paris-copropriete',
+          'voiture-abandonnee-voie-publique-ile-de-france-procedure',
+          'que-devient-votre-epave-centre-vhu-ile-de-france',
+          'comment-enlever-epave-gratuit-ile-de-france',
+          'prix-enlevement-epave-ile-de-france',
+        ]
+      : [
+          'vendre-voiture-sans-controle-technique-ile-de-france',
+          'rachat-voiture-accidentee-paris-vei-assurance',
+          'zfe-grand-paris-vieille-voiture-que-faire',
+          'aides-2026-remplacer-vieille-voiture-ile-de-france',
+          'rachat-voiture-accidentee-meilleur-prix',
+          'vendre-voiture-hs-demarches',
+        ];
   return slugs
     .map((slug) => blogPosts.find((p) => p.slug === slug))
     .filter((p): p is (typeof blogPosts)[number] => Boolean(p))
