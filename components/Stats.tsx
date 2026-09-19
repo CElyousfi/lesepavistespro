@@ -1,10 +1,11 @@
 import { Users, TrendingUp, Euro, Leaf } from 'lucide-react';
+import { BUSINESS_CLAIMS } from '@/lib/business-claims';
 
 const stats = [
   {
     icon: Users,
-    value: '500+',
-    label: 'Clients satisfaits',
+    value: BUSINESS_CLAIMS.clientCount.verified ? BUSINESS_CLAIMS.clientCount.text : '24h/24',
+    label: BUSINESS_CLAIMS.clientCount.verified ? 'Clients satisfaits' : 'Disponibles 7j/7',
     description: 'Nous font déjà confiance',
   },
   {

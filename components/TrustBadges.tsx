@@ -1,6 +1,7 @@
 'use client';
 
 import { CheckCircle, Clock, Shield, Star } from '@phosphor-icons/react';
+import { BUSINESS_CLAIMS } from '@/lib/business-claims';
 
 interface TrustBadgesProps {
   variant?: 'horizontal' | 'grid';
@@ -16,12 +17,12 @@ export default function TrustBadges({ variant = 'horizontal', service = 'epavist
     { icon: CheckCircle, text: '100% Gratuit', colorClass: 'text-brand-red' },
     { icon: Clock, text: isIdf ? 'Intervention 2h' : 'Intervention 24-48h', colorClass: 'text-brand-red' },
     { icon: Shield, text: 'Agréé VHU', colorClass: 'text-brand-red' },
-    { icon: Star, text: '500+ clients satisfaits', colorClass: 'text-brand-red' },
+    { icon: Star, text: BUSINESS_CLAIMS.clientCount.verified ? `${BUSINESS_CLAIMS.clientCount.text} clients satisfaits` : 'Certificat de destruction remis', colorClass: 'text-brand-red' },
   ] : [
     { icon: CheckCircle, text: 'Paiement Cash', colorClass: 'text-brand-gold' },
     { icon: Clock, text: 'Estimation Gratuite', colorClass: 'text-brand-gold' },
     { icon: Shield, text: 'Meilleur Prix', colorClass: 'text-brand-gold' },
-    { icon: Star, text: '500+ rachats réalisés', colorClass: 'text-brand-gold' },
+    { icon: Star, text: BUSINESS_CLAIMS.clientCount.verified ? `${BUSINESS_CLAIMS.clientCount.text} rachats réalisés` : 'Paiement le jour même', colorClass: 'text-brand-gold' },
   ];
 
   if (variant === 'grid') {

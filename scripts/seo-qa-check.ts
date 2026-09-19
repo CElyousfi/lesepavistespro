@@ -587,6 +587,34 @@ function checkIdfContentQuality() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: unverifiable business claims are gated (P4.3)
+//   "500+ clients", "15 min" and similar numbers may only appear through
+//   lib/business-claims.ts, which renders them only when verified.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkBusinessClaimsGated() {
+  log('\n🔒 Checking unverifiable business claims are gated...', colors.blue);
+  const offenders: string[] = [];
+  const claimRe = /500\+|Réponse sous 15|rappelé en 15|15 min\b/;
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) { if (entry.name !== 'node_modules') walk(full); continue; }
+      if (!/\.(tsx|ts)$/.test(entry.name) || full.endsWith('lib/business-claims.ts')) continue;
+      const src = fs.readFileSync(full, 'utf-8');
+      src.split('\n').forEach((line, i) => {
+        if (claimRe.test(line) && !line.includes('BUSINESS_CLAIMS') && !line.includes('RESPONSE_TIME_COPY') && !line.trim().startsWith('//') && !line.trim().startsWith('*')) {
+          offenders.push(`${path.relative(process.cwd(), full)}:${i + 1}`);
+        }
+      });
+    }
+  };
+  ['app', 'components'].forEach(d => walk(path.join(process.cwd(), d)));
+  addResult(offenders.length === 0, offenders.length === 0 ? '✓ No ungated "500+" / "15 min" claim in app/ or components/' : `✗ Ungated business claims: ${offenders.slice(0, 8).join(', ')}`);
+  const claims = fs.readFileSync(path.join(process.cwd(), 'lib/business-claims.ts'), 'utf-8');
+  addResult(/verified:\s*(true|false)/.test(claims), '✓ lib/business-claims.ts gates claims with a verified flag');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CHECK 16: Sitemap pruning implemented
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function checkSitemapPruning() {
@@ -1182,6 +1210,7 @@ function runAllChecks() {
     checkHomepageIdfPriority();
     checkIdfHubs();
     checkIdfContentQuality();     // P3.2
+    checkBusinessClaimsGated();   // P4.3
     checkSitemapPruning();
     checkDomainRedirect();
     // ── Audit remediation guardrails (see SEO-REMEDIATION-REPORT.md) ──

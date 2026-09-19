@@ -14,6 +14,7 @@ import { generateEpavistePillarMeta } from '@/lib/seo';
 import { getEpaveRemovalHowToSchema, getBreadcrumbSchema, getSpeakableSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
 import { whatsappUrl } from '@/lib/whatsapp';
+import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 
 export const metadata: Metadata = generateEpavistePillarMeta();
 
@@ -307,7 +308,7 @@ export default function EpavistePage() {
                 Demandez votre enlèvement gratuit
               </h2>
               <p className="text-lg text-neutral-600">
-                Remplissez le formulaire &bull; Réponse sous 15 minutes &bull; Service 100% gratuit
+                Remplissez le formulaire &bull; {RESPONSE_TIME_COPY} &bull; Service 100% gratuit
               </p>
             </div>
             <ConversionForm trigger="inline" defaultService="epaviste" />

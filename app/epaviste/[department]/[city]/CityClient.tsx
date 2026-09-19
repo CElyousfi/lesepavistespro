@@ -14,6 +14,7 @@ import type { CityLocalData } from '@/lib/city-local-data';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
 import type { FaqItem } from '@/lib/faq';
+import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
@@ -328,7 +329,7 @@ export default function CityEpavisteClient({
                 Demandez votre devis gratuit à {city.name}
               </h2>
               <p className="text-lg text-neutral-600">
-                Remplissez le formulaire &bull; Réponse sous 15 minutes &bull; Service 100% gratuit
+                Remplissez le formulaire &bull; {RESPONSE_TIME_COPY} &bull; Service 100% gratuit
               </p>
             </div>
             <ConversionForm trigger="inline" />

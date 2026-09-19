@@ -11,6 +11,7 @@ import type { IdfDeptContent } from '@/data/idf-extra-content';
 import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 import { whatsappUrl } from '@/lib/whatsapp';
+import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 
 // Dynamic imports for below-fold heavy components
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
@@ -357,7 +358,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                 Demandez votre enlèvement gratuit
               </h2>
               <p className="text-lg text-neutral-600">
-                Remplissez le formulaire • Réponse sous 15 minutes • Service 100% gratuit
+                Remplissez le formulaire • {RESPONSE_TIME_COPY} • Service 100% gratuit
               </p>
             </div>
             <ConversionForm trigger="inline" defaultService="epaviste" />

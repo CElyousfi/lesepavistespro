@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { List, X, Phone, WhatsappLogo, EnvelopeSimple, CaretDown } from '@phosphor-icons/react';
 import Button from './Button';
-import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
+import { trackCallClick, trackWhatsAppClick, trackStickyDevisClick } from '@/lib/analytics';
 import MobileServiceMenu from './MobileServiceMenu';
 import { whatsappUrl } from '@/lib/whatsapp';
 import { IDF_NAV_DEPARTMENTS } from './IdfNav';
@@ -132,7 +132,7 @@ const Header = () => {
         <div className="grid grid-cols-3 gap-2 max-w-lg mx-auto">
           <a
             href="tel:+33602427345"
-            onClick={handleCallClick}
+            onClick={() => trackCallClick('mobile_sticky')}
             className="flex flex-col items-center justify-center bg-brand-red text-white py-3 px-2 rounded-xl font-semibold hover:bg-brand-red/90 transition-colors active:scale-95"
           >
             <Phone size={20} weight="bold" className="mb-1" />
@@ -152,6 +152,7 @@ const Header = () => {
 
           <button
             onClick={() => {
+              trackStickyDevisClick();
               const formSection = document.querySelector('section:has(form)');
               if (formSection) {
                 formSection.scrollIntoView({ behavior: 'smooth' });

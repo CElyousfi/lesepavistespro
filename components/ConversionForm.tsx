@@ -7,6 +7,7 @@ import { trackFormSubmit } from '@/lib/analytics';
 import { getMarqueNames, getModelsForMarque } from '@/lib/vehicle-data';
 import SearchableSelect from '@/components/SearchableSelect';
 import PostalCodeSelect from '@/components/PostalCodeSelect';
+import { BUSINESS_CLAIMS } from '@/lib/business-claims';
 
 interface FormData {
   service: 'epaviste' | 'rachat' | '';
@@ -45,7 +46,7 @@ interface ConversionFormProps {
 export default function ConversionFormNew({
   defaultService,
   trigger = 'button',
-  buttonText = "Être rappelé en 15 min",
+  buttonText = BUSINESS_CLAIMS.responseTime.verified ? "Être rappelé en 15 min" : "Être rappelé rapidement",
   cityName,
   departmentName,
   pageType = 'home',

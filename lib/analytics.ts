@@ -1,3 +1,4 @@
+import { IDF_DEPT_SLUGS, IDF_REGION_SLUG } from './idf';
 import { getTrafficSource, type TrafficSource } from './trafficSource';
 
 declare global {
@@ -88,13 +89,34 @@ function getLocationSlug(): string | undefined {
   return undefined;
 }
 
+/**
+ * Service / department / city split of the current location page, plus an
+ * Île-de-France flag — so GA4 can segment IDF conversions by commune (P4.3).
+ */
+function getGeoParams(): { service?: 'epaviste' | 'rachat-voiture'; department_slug?: string; city_slug?: string; is_idf: boolean } {
+  if (typeof window === 'undefined') return { is_idf: false };
+  const match = window.location.pathname.match(/^\/(epaviste|rachat-voiture)\/([^/]+)(?:\/([^/]+))?/);
+  if (!match) return { is_idf: false };
+  const [, service, second, third] = match;
+  const isRegion = second === IDF_REGION_SLUG;
+  const department_slug = isRegion ? undefined : second;
+  return {
+    service: service as 'epaviste' | 'rachat-voiture',
+    department_slug,
+    city_slug: third || undefined,
+    is_idf: isRegion || IDF_DEPT_SLUGS.includes(second),
+  };
+}
+
 function enrichEventParams(baseParams: Record<string, unknown> = {}): EnrichedEventParams {
   const trafficSource = getTrafficSource();
   const pageType = getPageType();
   const locationSlug = getLocationSlug();
+  const geo = getGeoParams();
   
   return {
     ...baseParams,
+    ...geo,
     traffic_source: trafficSource,
     page_type: pageType,
     location_slug: locationSlug,
@@ -152,6 +174,15 @@ export const trackWhatsAppClick = (location?: string) => {
   
   event(eventName, params);
   recordConversion(eventName);
+};
+
+/** Sticky mobile bar → "Devis" (scroll to the form). */
+export const trackStickyDevisClick = () => {
+  event('click_devis_sticky', enrichEventParams({
+    event_category: 'engagement',
+    event_label: 'mobile_sticky',
+    is_repeat_intent: hasConvertedBefore('lead_form_submit'),
+  }));
 };
 
 export const trackFormSubmit = (formType: string) => {
