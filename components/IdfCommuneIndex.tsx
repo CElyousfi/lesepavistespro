@@ -1,10 +1,8 @@
-import Link from 'next/link';
 import { idfGenitive } from '@/lib/idf';
 
 export interface IdfCommuneLink {
   name: string;
   slug: string;
-  postalCode: string;
 }
 
 interface IdfCommuneIndexProps {
@@ -31,6 +29,11 @@ function initial(name: string): string {
  * Server component: all links are in the static HTML for crawlers; large
  * departments (Seine-et-Marne: 507 communes) are visually collapsed with
  * native <details>, never withheld behind client-side pagination.
+ *
+ * Weight: the list is rendered as plain <a> (no next/link client boundary,
+ * no prefetch of 500 routes), one class string per group rather than per
+ * link, and only name + slug per commune — the page's RSC payload mirrors
+ * the element tree, so every repeated attribute counts twice.
  */
 export default function IdfCommuneIndex({ service, deptSlug, deptCode, deptName, cities, collapseAbove = 120 }: IdfCommuneIndexProps) {
   const sorted = [...cities].sort((a, b) => a.name.localeCompare(b.name, 'fr'));
@@ -59,16 +62,13 @@ export default function IdfCommuneIndex({ service, deptSlug, deptCode, deptName,
           <div className={collapsed ? 'space-y-2' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'}>
             {Array.from(groups.entries()).map(([letter, list]) =>
               collapsed ? (
-                <details key={letter} className="group rounded-xl border border-neutral-200 bg-white open:shadow-sm">
-                  <summary className="cursor-pointer select-none px-4 py-3 flex items-center justify-between font-semibold text-brand-navy">
-                    <span>{letter} <span className="text-neutral-400 font-normal text-sm">({list.length} commune{list.length > 1 ? 's' : ''})</span></span>
-                    <span className="text-neutral-400 text-sm group-open:rotate-180 transition-transform">▾</span>
+                <details key={letter} className="rounded-xl border border-neutral-200 bg-white">
+                  <summary className="cursor-pointer px-4 py-3 font-semibold text-brand-navy">
+                    {letter} <span className="text-neutral-400 font-normal text-sm">({list.length})</span>
                   </summary>
-                  <ul className="px-4 pb-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-1 [&_a]:text-sm [&_a]:text-neutral-700 [&_a:hover]:text-brand-red [&_a]:leading-6">
+                  <ul className="px-4 pb-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-4 [&_a]:text-sm [&_a]:text-neutral-700 [&_a:hover]:text-brand-red [&_a]:leading-6">
                     {list.map((city) => (
-                      <li key={city.slug}>
-                        <Link href={`/${service}/${deptSlug}/${city.slug}`}>{city.name}</Link>
-                      </li>
+                      <li key={city.slug}><a href={`/${service}/${deptSlug}/${city.slug}`}>{city.name}</a></li>
                     ))}
                   </ul>
                 </details>
@@ -77,11 +77,7 @@ export default function IdfCommuneIndex({ service, deptSlug, deptCode, deptName,
                   <h3 className="font-semibold text-brand-navy mb-2 border-b border-neutral-100 pb-1">{letter}</h3>
                   <ul className="[&_a]:text-sm [&_a]:text-neutral-700 [&_a:hover]:text-brand-red [&_a]:leading-6">
                     {list.map((city) => (
-                      <li key={city.slug}>
-                        <Link href={`/${service}/${deptSlug}/${city.slug}`}>
-                          {city.name} <span className="text-neutral-400 text-xs">{city.postalCode}</span>
-                        </Link>
-                      </li>
+                      <li key={city.slug}><a href={`/${service}/${deptSlug}/${city.slug}`}>{city.name}</a></li>
                     ))}
                   </ul>
                 </div>

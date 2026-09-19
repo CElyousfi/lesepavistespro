@@ -207,7 +207,7 @@ export default function IdfDepartmentPage({ service, dept, hub, faqItems, guides
       </section>
 
       {/* Every commune — links in the HTML, collapsed visually when large */}
-      <IdfCommuneIndex service={service} deptSlug={dept.slug} deptCode={dept.code} deptName={dept.name} cities={dept.cities} />
+      <IdfCommuneIndex service={service} deptSlug={dept.slug} deptCode={dept.code} deptName={dept.name} cities={dept.cities.map(c => ({ name: c.name, slug: c.slug }))} />
 
       {/* Conversion form, pre-filled with the department */}
       <section className="py-16 sm:py-24 bg-brand-surface border-t border-neutral-200">
