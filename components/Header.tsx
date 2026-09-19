@@ -22,10 +22,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleCallClick = () => {
-    trackCallClick('header');
-  };
-
   return (
     <>
       <header data-nosnippet className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-4">
@@ -94,7 +90,7 @@ const Header = () => {
 
             {/* CTA Buttons */}
             <div className="hidden lg:flex items-center gap-3">
-              <a href="tel:+33602427345" className="text-sm font-medium text-neutral-600 hover:text-brand-red transition-colors">
+              <a href="tel:+33602427345" onClick={() => trackCallClick('header')} className="text-sm font-medium text-neutral-600 hover:text-brand-red transition-colors">
                 06 02 42 73 45
               </a>
               <Button
