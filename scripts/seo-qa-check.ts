@@ -11,6 +11,7 @@ import { execSync } from 'child_process';
 import { checkCityResolution } from './check-city-resolution';
 import { checkHardcodedInternalLinks } from './check-internal-links';
 import { checkRedirectHops } from './check-redirect-hops';
+import { analyseIdfContent, TIER_MIN_WORDS, TIER_MAX_SIMILARITY } from './idf-content-similarity';
 
 interface ValidationResult {
   passed: boolean;
@@ -562,6 +563,27 @@ function checkIdfHubs() {
   const index = fs.readFileSync(path.join(process.cwd(), 'components/IdfCommuneIndex.tsx'), 'utf-8');
   const linksInHtml = index.includes('<details') && !index.includes("'use client'");
   addResult(linksInHtml, linksInHtml ? '✓ Commune index is server-rendered with <details> (all links in HTML)' : '✗ Commune index must be a server component using <details>, never a client-side "Voir plus"');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: IDF city content quality (P3.2 guardrail #9)
+//   Tier A: every commune hand-written, ≥ 800 unique words per service,
+//           pairwise similarity < 0.40 within the tier.
+//   Tier B: ≥ 500 unique words, pairwise similarity < 0.60.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkIdfContentQuality() {
+  log('\n📝 Checking Île-de-France city content (words + similarity)...', colors.blue);
+  const { reports, tierCounts } = analyseIdfContent();
+  addResult(tierCounts.A > 0 && tierCounts.B > 0, `✓ IDF tiers computed: A=${tierCounts.A} B=${tierCounts.B} C=${tierCounts.C}`);
+  for (const r of reports) {
+    const label = `${r.service} tier ${r.tier}`;
+    if (r.tier === 'A') {
+      const covered = r.handwritten === r.pages;
+      addResult(covered, covered ? `✓ ${label}: ${r.handwritten}/${r.pages} communes hand-written` : `✗ ${label}: only ${r.handwritten}/${r.pages} communes hand-written (Tier A must not fall back to generated text)`);
+    }
+    addResult(r.words.below === 0, `${r.words.below === 0 ? '✓' : '✗'} ${label}: min ${r.words.min} unique words (threshold ${TIER_MIN_WORDS[r.tier]}, ${r.words.below} below)`);
+    addResult(r.similarity.over === 0, `${r.similarity.over === 0 ? '✓' : '✗'} ${label}: max similarity ${r.similarity.max.toFixed(3)} (threshold ${TIER_MAX_SIMILARITY[r.tier]}, ${r.similarity.over}/${r.similarity.pairs} pairs over)${r.similarity.worst.length ? ' — ' + r.similarity.worst.join('; ') : ''}`);
+  }
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1150,7 +1172,8 @@ function runAllChecks() {
     checkBrandSchema();
     checkNoFabricatedRatings();
     checkHomepageIdfPriority();
-  checkIdfHubs();
+    checkIdfHubs();
+    checkIdfContentQuality();     // P3.2
     checkSitemapPruning();
     checkDomainRedirect();
     // ── Audit remediation guardrails (see SEO-REMEDIATION-REPORT.md) ──

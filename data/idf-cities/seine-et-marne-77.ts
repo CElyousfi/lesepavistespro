@@ -58,7 +58,7 @@ export const cities: IdfCityContentMap = {
       { question: "Rachetez-vous la camionnette frigorifique d'un fromager du marché de Meaux ?", answer: "Oui, jusqu'à 3,5 tonnes, sur Kbis ; le groupe froid est estimé avec le véhicule, facture au nom de l'entreprise, virement, enlèvement devant l'atelier." },
       { question: "Le déplacement jusqu'à Meaux est-il déduit de l'offre ?", answer: "Non : l'offre est la même qu'en petite couronne, le déplacement est compris ; nous groupons les rendez-vous du nord de la Seine-et-Marne." },
       { question: "Une Crit'Air 4 vaut-elle quelque chose à Meaux ?", answer: "Oui, et plutôt mieux qu'en petite couronne : loin de la ZFE, elle garde un usage quotidien." },
-      { question: "Comment suis-je payé ?", answer: "Par virement immédiat le jour de l'enlèvement, après vérification des documents et avant le chargement ; jamais en espèces." },
+      { question: "Comment suis-je payé ?", answer: "Par virement immédiat le jour de l'enlèvement, après vérification des documents et avant le chargement, ou selon le mode convenu au moment de l'offre." },
       { question: "Et la déclaration de cession ?", answer: "Nous la faisons en ligne le jour même ; vous conservez votre exemplaire et le coupon de la carte grise." },
       { question: "Combien de temps prend un rachat à Meaux ?", answer: "L'estimation est faite dans la journée ; l'enlèvement et le paiement suivent sur rendez-vous, en général sous 48 h." },
     ],
