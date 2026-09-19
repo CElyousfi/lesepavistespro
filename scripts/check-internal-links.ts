@@ -19,6 +19,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getCityInDepartment, getDepartmentBySlug, getRegionBySlug } from '../lib/locations-national';
+import { idfCityContentByDept } from '../data/idf-cities';
+import { getIdfGuideLinks } from '../lib/internal-linking';
 import { blogPosts } from '../lib/blog-data';
 import { cityLocalData } from '../lib/city-local-data';
 
@@ -77,6 +79,25 @@ export function checkHardcodedInternalLinks(): InternalLinkResult {
       failures.push(`lib/city-local-data.ts: key "${key}" must be "<deptSlug>/<citySlug>"`);
     } else if (!getCityInDepartment(deptSlug, citySlug)) {
       failures.push(`lib/city-local-data.ts: key "${key}" does not resolve to a city`);
+    }
+  }
+
+  // data/idf-cities/<dept>.ts — every hand-written commune key must resolve in
+  // its department (guardrail #2), and every blog slug the guides point at
+  // must exist.
+  for (const [deptSlug, communes] of Object.entries(idfCityContentByDept)) {
+    for (const citySlug of Object.keys(communes)) {
+      checked++;
+      if (!getCityInDepartment(deptSlug, citySlug)) {
+        failures.push(`data/idf-cities: "${deptSlug}/${citySlug}" does not resolve to a city`);
+      }
+    }
+  }
+  for (const service of ['epaviste', 'rachat-voiture'] as const) {
+    for (const link of getIdfGuideLinks(service)) {
+      checked++;
+      const slug = link.href.replace('/blog/', '');
+      if (!blogSlugs.has(slug)) failures.push(`lib/internal-linking.ts: guide "${slug}" is not a blog post`);
     }
   }
 

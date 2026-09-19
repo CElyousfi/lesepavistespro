@@ -615,6 +615,61 @@ function checkBusinessClaimsGated() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: no TODO(owner) can reach the rendered HTML (guardrail #12)
+//   A TODO(owner) marker belongs in a code comment. If it sits in a string
+//   literal or JSX text of app/, components/, data/ or lib/, it is rendered.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkNoRenderedTodoOwner() {
+  log('\n🚧 Checking TODO(owner) markers stay in comments...', colors.blue);
+  const offenders: string[] = [];
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) { if (entry.name !== 'node_modules') walk(full); continue; }
+      if (!/\.(tsx|ts)$/.test(entry.name)) continue;
+      const src = fs.readFileSync(full, 'utf-8');
+      // Strip block comments, then flag lines that still contain the marker
+      // outside a // comment.
+      const noBlocks = src.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
+      noBlocks.split('\n').forEach((line, i) => {
+        const idx = line.indexOf('TODO(owner)');
+        if (idx === -1) return;
+        const lineComment = line.indexOf('//');
+        if (lineComment !== -1 && lineComment < idx) return;
+        offenders.push(`${path.relative(process.cwd(), full)}:${i + 1}`);
+      });
+    }
+  };
+  ['app', 'components', 'data', 'lib'].forEach(d => walk(path.join(process.cwd(), d)));
+  addResult(offenders.length === 0, offenders.length === 0 ? '✓ Every TODO(owner) is inside a comment (none can render)' : `✗ TODO(owner) outside comments (would render): ${offenders.slice(0, 8).join(', ')}`);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: internal-linking rules (guardrail #10)
+//   - IDF city pages link nearest communes (cross-department), department,
+//     region and guides through server components (links in HTML);
+//   - the footer is a server component listing the 8 IDF departments;
+//   - the commune index never hides links behind client-side toggles.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkIdfLinkRules() {
+  log('\n🕸️  Checking Île-de-France internal-linking rules...', colors.blue);
+  const read = (rel: string) => fs.readFileSync(path.join(process.cwd(), rel), 'utf-8');
+  const cityPage = read('components/IdfCityPage.tsx');
+  const cityOk = !cityPage.includes("'use client'") && /nearby/i.test(cityPage) && cityPage.includes('guides.map') && cityPage.includes('/ile-de-france`');
+  addResult(cityOk, cityOk ? '✓ IdfCityPage is a server component linking nearest communes, department, region and guides' : '✗ IdfCityPage must stay a server component and render the nearby communes, the region hub link and the guides');
+  const footer = read('components/Footer.tsx');
+  const footerOk = !footer.includes("'use client'") && footer.includes('getIdfDepartments') && footer.includes('getTopIdfCities');
+  addResult(footerOk, footerOk ? '✓ Footer is a server component listing the IDF departments and top communes' : '✗ Footer must be a server component listing getIdfDepartments() and getTopIdfCities()');
+  const also = fs.existsSync(path.join(process.cwd(), 'components/AlsoInIdf.tsx'));
+  addResult(also, also ? '✓ Non-IDF pages carry the "Aussi en Île-de-France" block' : '✗ components/AlsoInIdf.tsx missing');
+  for (const route of ['app/epaviste/[department]/[city]/page.tsx', 'app/rachat-voiture/[department]/[city]/page.tsx']) {
+    const src = read(route);
+    const ok = src.includes('getNearestIdfCities') && src.includes('getIdfGuideLinks');
+    addResult(ok, ok ? `✓ ${route} computes nearest IDF communes and guide links` : `✗ ${route} must call getNearestIdfCities() and getIdfGuideLinks()`);
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CHECK 16: Sitemap pruning implemented
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function checkSitemapPruning() {
@@ -1211,6 +1266,8 @@ function runAllChecks() {
     checkIdfHubs();
     checkIdfContentQuality();     // P3.2
     checkBusinessClaimsGated();   // P4.3
+    checkNoRenderedTodoOwner();   // guardrail #12
+    checkIdfLinkRules();          // guardrail #10
     checkSitemapPruning();
     checkDomainRedirect();
     // ── Audit remediation guardrails (see SEO-REMEDIATION-REPORT.md) ──
