@@ -14,6 +14,8 @@ import { getIdfDeptContent } from '@/data/idf-extra-content';
 import { idfRachatFaq } from '@/data/idf-faq';
 import CityRachatClient from './CityClient';
 import Footer from '@/components/Footer';
+import IdfCityPage from '@/components/IdfCityPage';
+import { resolveIdfCity } from '@/lib/idf-city-content';
 import AlsoInIdf from '@/components/AlsoInIdf';
 
 // Allow on-demand rendering for cities not pre-built
@@ -101,9 +103,14 @@ export default async function CityRachatPage({
   const idfDeptTestimonials = isIdf ? getIdfTestimonialsByDept(department.code) : [];
   const idfDeptContent = isIdf ? getIdfDeptContent(department.code) ?? null : null;
 
-  // ONE FAQ list: rendered by the client component AND turned into the page's
-  // single FAQPage node. A FAQPage may only contain visible questions.
-  const faqItems: FaqItem[] = [
+  // Île-de-France: hand-written or generated commune content (P3.2).
+  const idfCity = isIdf ? resolveIdfCity(department.slug, city.slug) : null;
+
+  // ONE FAQ list: rendered by the page AND turned into the page's single
+  // FAQPage node. A FAQPage may only contain visible questions.
+  const faqItems: FaqItem[] = idfCity
+    ? [...idfCity.faqRachat, ...idfRachatFaq]
+    : [
     ...getCityFaqItems(city.name, localData),
     ...(isIdf ? idfRachatFaq : genericFaqItems),
   ];
@@ -149,6 +156,22 @@ export default async function CityRachatPage({
           .map(c => ({ name: c.name, slug: c.slug, postalCode: c.postalCode })),
   };
   const guides = isIdf ? getIdfGuideLinks('rachat-voiture').map(g => ({ title: g.text, href: g.href })) : [];
+
+  if (idfCity) {
+    return (
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <IdfCityPage
+          service="rachat-voiture"
+          city={idfCity}
+          deptContent={idfDeptContent}
+          regionFaq={idfRachatFaq}
+          guides={guides}
+        />
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
