@@ -962,6 +962,14 @@ function checkStructuredDataEntities() {
 
   // Only the layout may define the business entity; page-level schemas must
   // reference it, not redefine it with different data.
+  // P4.1: the one business entity names Île-de-France first in areaServed and
+  // keeps a ContactPoint scoped FR-IDF, while still listing the other regions.
+  const schemaSrcP41 = fs.readFileSync(path.join(process.cwd(), 'lib/schema.ts'), 'utf-8');
+  const idfFirst = /areaServed:\s*\[\s*\{[^}]*name:\s*'Île-de-France',\s*identifier:\s*'FR-IDF'/.test(schemaSrcP41)
+    && schemaSrcP41.includes("areaServed: ['FR-IDF', 'FR']")
+    && schemaSrcP41.includes("REGION_NAMES.filter(name => name !== 'Île-de-France')");
+  addResult(idfFirst, idfFirst ? '✓ #business areaServed is IDF-first (region + 8 departments, then other regions) with FR-IDF ContactPoint' : '✗ #business areaServed must list Île-de-France (FR-IDF) and its departments first, keep the other regions, and scope the ContactPoint to FR-IDF/FR');
+
   const businessDefinitions = (sdSrc.match(/'@id':\s*BUSINESS_ID,\s*\n\s*name:/g) || []).length;
   addResult(
     businessDefinitions === 0,

@@ -10,6 +10,12 @@ const REGION_NAMES = [
   'Guyane', 'La Réunion', 'Mayotte',
 ];
 
+/** The 8 Île-de-France departments — the primary service area (P4.1). */
+const IDF_DEPARTMENT_NAMES = [
+  'Paris', 'Seine-et-Marne', 'Yvelines', 'Essonne',
+  'Hauts-de-Seine', 'Seine-Saint-Denis', 'Val-de-Marne', "Val-d'Oise",
+];
+
 /**
  * Organization schema for brand SERP ownership
  */
@@ -103,7 +109,7 @@ export function getOrganizationSchema() {
         telephone: '+33602427345',
         contactType: 'customer service',
         availableLanguage: 'French',
-        areaServed: 'FR',
+        areaServed: ['FR-IDF', 'FR'],
         hoursAvailable: {
           '@type': 'OpeningHoursSpecification',
           dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -161,7 +167,7 @@ export function getLocalBusinessSchema() {
     '@id': `${baseUrl}/#business`,
     name: 'Les Épavistes Pro',
     description:
-      'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés ou hors d\'usage.',
+      'Épaviste agréé VHU basé en Île-de-France : enlèvement d\'épave gratuit 24h/24, 7j/7 à Paris et dans les 8 départements franciliens, rachat de véhicules accidentés ou hors d\'usage. Intervention également possible partout en France.',
     url: baseUrl,
     telephone: '+33602427345',
     email: 'lesepavistespro@gmail.com',
@@ -176,10 +182,31 @@ export function getLocalBusinessSchema() {
       // inventing a street address would be fabricated local-business data.
       addressCountry: 'FR',
     },
-    areaServed: REGION_NAMES.map(name => ({
-      '@type': 'AdministrativeArea',
-      name,
-    })),
+    // Primary service area first (Île-de-France and its 8 departments), then
+    // the other regions: the site is IDF-first but keeps national coverage.
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Île-de-France', identifier: 'FR-IDF' },
+      ...IDF_DEPARTMENT_NAMES.map(name => ({ '@type': 'AdministrativeArea', name })),
+      ...REGION_NAMES.filter(name => name !== 'Île-de-France').map(name => ({
+        '@type': 'AdministrativeArea',
+        name,
+      })),
+    ],
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: '+33602427345',
+        contactType: 'customer service',
+        availableLanguage: 'French',
+        areaServed: ['FR-IDF', 'FR'],
+        hoursAvailable: {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          opens: '00:00',
+          closes: '23:59',
+        },
+      },
+    ],
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
