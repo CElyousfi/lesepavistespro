@@ -8,13 +8,13 @@ import LocationHero from '@/components/LocationHero';
 import Breadcrumb from '@/components/Breadcrumb';
 import type { RegionData } from '@/lib/page-data';
 import type { IdfRegionContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
@@ -26,11 +26,11 @@ interface RachatRegionClientProps {
   isIdf: boolean;
   idfRegionContent: IdfRegionContent | null;
   idfTestimonials: IdfTestimonial[];
-  idfFaqItems: IdfFaqItem[];
+  faqItems?: FaqItem[];
 }
 
-export default function RachatRegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, idfFaqItems }: RachatRegionClientProps) {
-  const totalCities = region.departments.reduce((sum, dept) => sum + dept.cities.length, 0);
+export default function RachatRegionClientPage({ region, isIdf, idfRegionContent, idfTestimonials, faqItems }: RachatRegionClientProps) {
+  const totalCities = region.departments.reduce((sum, dept) => sum + dept.cityCount, 0);
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
         {isIdf && (
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-8 sm:mb-10 ml-2">
             <span className="text-xs sm:text-sm font-semibold text-brand-gold/90">
-              Prime à la conversion 2026 — jusqu&apos;à 6 000€
+              Certificat de destruction remis le jour de l&apos;enlèvement
             </span>
           </div>
         )}
@@ -71,7 +71,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
 
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Nous rachetons tous types de véhicules en {region.name} :
-          voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique.
+          voitures d&apos;occasion, véhicules accidentés, en panne, sans contrôle technique.
           Paiement cash immédiat dans tous les départements.
           06 02 42 73 45.
         </p>
@@ -90,7 +90,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
             06 02 42 73 45
           </a>
           <a
-            href={`https://wa.me/33602427345?text=Bonjour, je souhaite vendre ma voiture en ${region.name}`}
+            href={whatsappUrl(`Bonjour, je souhaite vendre ma voiture en ${region.name}`)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover"
@@ -131,7 +131,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
                 de la région pour acheter votre voiture au meilleur prix, quel que soit son état.
               </p>
               <p className="mb-4">
-                Nous rachetons tous types de véhicules en {region.name} : voitures d'occasion,
+                Nous rachetons tous types de véhicules en {region.name} : voitures d&apos;occasion,
                 véhicules accidentés, voitures en panne, épaves, véhicules sans contrôle technique.
                 Paiement immédiat par espèces, chèque ou virement selon votre préférence.
               </p>
@@ -149,7 +149,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-16">
-              <span className="inline-block text-brand-gold text-sm font-semibold tracking-wider uppercase mb-4">Zones d'intervention</span>
+              <span className="inline-block text-brand-gold text-sm font-semibold tracking-wider uppercase mb-4">Zones d&apos;intervention</span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight">
                 Rachat de voiture dans tous les départements
               </h2>
@@ -172,7 +172,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
                     <div className="font-semibold text-sm text-brand-navy group-hover:text-brand-gold transition-colors">
                       {dept.name} ({dept.code})
                     </div>
-                    <div className="text-xs text-neutral-500">{dept.cities.length} communes</div>
+                    <div className="text-xs text-neutral-500">{dept.cityCount} communes</div>
                   </div>
                 </Link>
               ))}
@@ -243,7 +243,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Épaves et véhicules anciens</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Achat d'épaves et de vieilles voitures, même non roulantes. Paiement selon l'état et les pièces.
+                      Achat d&apos;épaves et de vieilles voitures, même non roulantes. Paiement selon l&apos;état et les pièces.
                     </p>
                   </div>
                 </div>
@@ -272,7 +272,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
                   Épaviste en {region.name}
                 </h3>
                 <p className="text-neutral-600 leading-relaxed text-sm mb-4">
-                  Service d'enlèvement d'épave 100% gratuit dans toute la région {region.name}. Agréé VHU, certificat de destruction fourni.
+                  Service d&apos;enlèvement d&apos;épave 100% gratuit dans toute la région {region.name}. Agréé VHU, certificat de destruction fourni.
                 </p>
                 <span className="text-brand-red font-semibold text-sm">
                   Voir le service épaviste →
@@ -342,10 +342,7 @@ export default function RachatRegionClientPage({ region, isIdf, idfRegionContent
       )}
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="rachat" /> : <FAQ />}
-
-      {/* Footer */}
-      <Footer />
+      {isIdf ? <IdfFaq faqItems={faqItems} service="rachat" /> : <FAQ items={faqItems} />}
 
       {/* Floating WhatsApp */}
       <FloatingWhatsApp />

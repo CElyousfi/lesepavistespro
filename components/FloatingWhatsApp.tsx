@@ -1,14 +1,12 @@
 'use client';
 
 import { WhatsappLogo } from '@phosphor-icons/react';
+import { whatsappUrl, WHATSAPP_DEFAULT_MESSAGE } from '@/lib/whatsapp';
 
 const FloatingWhatsApp = () => {
-  const whatsappNumber = '+33602427345';
-  const message = encodeURIComponent("Bonjour, je souhaite un devis pour l'enlèvement d'une épave");
-
   return (
     <a
-      href={`https://wa.me/${whatsappNumber}?text=${message}`}
+      href={whatsappUrl(WHATSAPP_DEFAULT_MESSAGE)}
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-50 group"

@@ -58,10 +58,10 @@ const ServicesArtea = () => {
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 tracking-tight">
-              Nos services d'épaviste en France
+              Nos services d&apos;épaviste en France
             </h2>
             <p className="text-lg text-neutral-600 font-light leading-relaxed">
-              Un service complet pour vous débarrasser de votre véhicule hors d'usage en toute légalité et simplicité.
+              Un service complet pour vous débarrasser de votre véhicule hors d&apos;usage en toute légalité et simplicité.
             </p>
           </div>
 

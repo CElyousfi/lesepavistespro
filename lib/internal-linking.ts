@@ -1,5 +1,6 @@
 import { getSiteUrl } from './site';
 import { regions, allDepartments } from './locations-national';
+import { blogPosts } from './blog-data';
 
 /**
  * Internal Linking System for SEO
@@ -176,4 +177,35 @@ export function getFooterSEOLinks(): InternalLink[] {
     { text: 'Documents', href: '/documents' },
     { text: 'Guide rachat sans CT', href: '/guides/rachat-sans-ct' },
   ];
+}
+
+/**
+ * Two guides for an Île-de-France location page. Titles come from the real
+ * post data so a renamed post never leaves a stale label; slugs are asserted
+ * by the prebuild link check.
+ */
+export function getIdfGuideLinks(service: 'epaviste' | 'rachat-voiture'): InternalLink[] {
+  // IDF-specific guides first (P3.4), then the two evergreen national guides.
+  const slugs =
+    service === 'epaviste'
+      ? [
+          'voiture-en-fourriere-paris-que-faire',
+          'epave-parking-souterrain-paris-copropriete',
+          'voiture-abandonnee-voie-publique-ile-de-france-procedure',
+          'que-devient-votre-epave-centre-vhu-ile-de-france',
+          'comment-enlever-epave-gratuit-ile-de-france',
+          'prix-enlevement-epave-ile-de-france',
+        ]
+      : [
+          'vendre-voiture-sans-controle-technique-ile-de-france',
+          'rachat-voiture-accidentee-paris-vei-assurance',
+          'zfe-grand-paris-vieille-voiture-que-faire',
+          'aides-2026-remplacer-vieille-voiture-ile-de-france',
+          'rachat-voiture-accidentee-meilleur-prix',
+          'vendre-voiture-hs-demarches',
+        ];
+  return slugs
+    .map((slug) => blogPosts.find((p) => p.slug === slug))
+    .filter((p): p is (typeof blogPosts)[number] => Boolean(p))
+    .map((p) => ({ text: p.title, href: `/blog/${p.slug}` }));
 }

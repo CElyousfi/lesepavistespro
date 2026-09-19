@@ -7,6 +7,11 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { execSync } from 'child_process';
+import { checkCityResolution } from './check-city-resolution';
+import { checkHardcodedInternalLinks } from './check-internal-links';
+import { checkRedirectHops } from './check-redirect-hops';
+import { analyseIdfContent, TIER_MIN_WORDS, TIER_MAX_SIMILARITY } from './idf-content-similarity';
 
 interface ValidationResult {
   passed: boolean;
@@ -133,8 +138,8 @@ function checkTitleLengths() {
   const seoFile = path.join(process.cwd(), 'lib/seo.ts');
   const content = fs.readFileSync(seoFile, 'utf-8');
   
-  const SUFFIX_LENGTH = 21; // ' | Les Épavistes Pro' from layout.tsx template
-  const MAX_TOTAL = 65;
+  const SUFFIX_LENGTH = ' | Les Épavistes Pro'.length; // layout.tsx template
+  const MAX_TOTAL = 60; // must match MAX_TITLE_TOTAL in lib/seo.ts
 
   // 1. Check that safeTitleFit helper exists (runtime guarantee)
   const hasSafeFit = content.includes('function safeTitleFit(');
@@ -157,7 +162,6 @@ function checkTitleLengths() {
   // 3. Verify worst-case dynamic titles using real location data
   const locFile = path.join(process.cwd(), 'lib/locations-national.ts');
   let longestCityName = 32; // fallback if we can't parse
-  let longestDeptName = 23; // fallback
   if (fs.existsSync(locFile)) {
     const locContent = fs.readFileSync(locFile, 'utf-8');
     // Extract city names — match name: "..." patterns
@@ -178,13 +182,12 @@ function checkTitleLengths() {
     { prefix: 'Rachat voiture ', tag: ' – Cash', label: 'rachat dept' },
   ];
 
-  // With safeTitleFit, the max name that can fit is: budget - prefix - tag - 1 (for …)
-  // Verify each template can handle the longest name via truncation
+  // safeTitleFit never truncates the city name: it drops the postal code, then
+  // the tag, then the brand suffix. All that must hold here is that the fixed
+  // parts alone still leave room for a name.
   let templateOk = true;
   templates.forEach(t => {
     const fixedLen = t.prefix.length + t.tag.length;
-    const nameNoCode = budget - fixedLen;
-    // safeTitleFit will truncate if needed, so we just verify the helper handles it
     if (fixedLen >= budget) {
       templateOk = false;
       log(`    ✗ Template "${t.label}" fixed parts (${fixedLen}) >= budget (${budget})`, colors.red);
@@ -324,7 +327,9 @@ function checkSemanticContent() {
 function checkFAQContent() {
   log('\n❓ Checking FAQ content...', colors.blue);
   
-  const faqFile = path.join(process.cwd(), 'components/FAQ.tsx');
+  // The FAQ item lists moved to lib/faq.ts so server code can build the
+  // matching FAQPage without importing the client component.
+  const faqFile = path.join(process.cwd(), 'lib/faq.ts');
   const content = fs.readFileSync(faqFile, 'utf-8');
   
   const frictionQuestions = [
@@ -510,18 +515,157 @@ function checkHomepageIdfPriority() {
   const pageFile = path.join(process.cwd(), 'app/page.tsx');
   const content = fs.readFileSync(pageFile, 'utf-8');
 
-  const hasIdfFirst = content.includes('IDF_REGION_SLUG_LOCAL') && content.includes('rawRegions.filter(r => r.slug === IDF_REGION_SLUG_LOCAL)');
-  if (hasIdfFirst) {
-    addResult(true, '✓ IDF region in first position on homepage');
-  } else {
-    addResult(false, '✗ IDF region not prioritized on homepage');
+  // IDF hero + IDF coverage must render before the national <Coverage>.
+  const heroAt = content.indexOf('<IdfHero');
+  const idfCoverageAt = content.indexOf('<IdfCoverage');
+  const nationalAt = content.indexOf('<Coverage ');
+  const idfFirst = heroAt !== -1 && idfCoverageAt !== -1 && nationalAt !== -1 && heroAt < idfCoverageAt && idfCoverageAt < nationalAt;
+  addResult(idfFirst, idfFirst ? '✓ Homepage: IDF hero and IDF coverage render before national coverage' : '✗ Homepage must render IdfHero, then IdfCoverage, then the national Coverage');
+
+  // Top cities come from the dataset (population), never a hardcoded slug list.
+  const derived = content.includes('getTopIdfCities(') && content.includes('getIdfDepartments()') && !content.includes('IDF_PRIORITY_CITIES');
+  addResult(derived, derived ? '✓ Homepage IDF departments and top cities derived from data' : '✗ Homepage must derive IDF departments/cities from lib/idf-cities, not hardcode slugs');
+
+  // National links are kept, only moved below.
+  const keepsNational = content.includes('<Coverage ') && content.includes('coverageRegions');
+  addResult(keepsNational, keepsNational ? '✓ Homepage keeps the national coverage section' : '✗ Homepage must keep national coverage links (moved below IDF, not removed)');
+
+  const homeTitle = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8').match(/absolute: '(Épaviste Île-de-France(?:[^'\\]|\\.)*)'/)?.[1]?.replace(/\\'/g, "'") ?? '';
+  addResult(homeTitle.length > 0 && homeTitle.length <= 60, homeTitle ? `✓ Homepage title is IDF-first (${homeTitle.length} chars)` : '✗ Homepage title must start with "Épaviste Île-de-France"');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK (P2.2): IDF hubs — 8 department hubs of 400+ unique words, wired
+// into both services' routes; non-IDF departments keep the national template
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkIdfHubs() {
+  log('\n🏛️  Checking Île-de-France hubs...', colors.blue);
+  const src = fs.readFileSync(path.join(process.cwd(), 'data/idf-extra-content.ts'), 'utf-8');
+  const codes = ['75', '77', '78', '91', '92', '93', '94', '95'];
+  const hubCodes = [...src.matchAll(/^    deptCode: '(\d{2})',\n    prefecture:/gm)].map(m => m[1]);
+  const allHubs = codes.every(c => hubCodes.includes(c));
+  addResult(allHubs, allHubs ? '✓ 8 IDF department hubs defined' : `✗ Missing IDF hubs for ${codes.filter(c => !hubCodes.includes(c)).join(', ')}`);
+
+  // Word count per hub (prose fields only), from the source text.
+  const hubBlocks = src.split(/^  \{\n    deptCode: '/m).slice(1).filter(b => /^\d{2}',\n    prefecture: '/.test(b));
+  for (const block of hubBlocks) {
+    const code = block.slice(0, 2);
+    const prose = [...block.matchAll(/`([^`]*)`/g)].map(m => m[1]).join(' ');
+    const words = prose.split(/\s+/).filter(Boolean).length;
+    addResult(words >= 400, `${words >= 400 ? '✓' : '✗'} IDF hub ${code}: ${words} words (min 400)`);
   }
 
-  const hasIdfCities = content.includes('IDF_PRIORITY_CITIES');
-  if (hasIdfCities) {
-    addResult(true, '✓ IDF priority cities defined on homepage');
-  } else {
-    addResult(false, '✗ No IDF priority cities on homepage');
+  for (const route of ['app/epaviste/[department]/page.tsx', 'app/rachat-voiture/[department]/page.tsx']) {
+    const content = fs.readFileSync(path.join(process.cwd(), route), 'utf-8');
+    const wired = content.includes('<IdfDepartmentPage') && content.includes('<IdfRegionPage') && content.includes('isIdf');
+    addResult(wired, wired ? `✓ ${route} renders IdfDepartmentPage / IdfRegionPage for IDF only` : `✗ ${route} must render the IDF hubs for IDF departments/region`);
+  }
+  const index = fs.readFileSync(path.join(process.cwd(), 'components/IdfCommuneIndex.tsx'), 'utf-8');
+  const linksInHtml = index.includes('<details') && !index.includes("'use client'");
+  addResult(linksInHtml, linksInHtml ? '✓ Commune index is server-rendered with <details> (all links in HTML)' : '✗ Commune index must be a server component using <details>, never a client-side "Voir plus"');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: IDF city content quality (P3.2 guardrail #9)
+//   Tier A: every commune hand-written, ≥ 800 unique words per service,
+//           pairwise similarity < 0.40 within the tier.
+//   Tier B: ≥ 500 unique words, pairwise similarity < 0.60.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkIdfContentQuality() {
+  log('\n📝 Checking Île-de-France city content (words + similarity)...', colors.blue);
+  const { reports, tierCounts } = analyseIdfContent();
+  addResult(tierCounts.A > 0 && tierCounts.B > 0, `✓ IDF tiers computed: A=${tierCounts.A} B=${tierCounts.B} C=${tierCounts.C}`);
+  for (const r of reports) {
+    const label = `${r.service} tier ${r.tier}`;
+    if (r.tier === 'A') {
+      const covered = r.handwritten === r.pages;
+      addResult(covered, covered ? `✓ ${label}: ${r.handwritten}/${r.pages} communes hand-written` : `✗ ${label}: only ${r.handwritten}/${r.pages} communes hand-written (Tier A must not fall back to generated text)`);
+    }
+    addResult(r.words.below === 0, `${r.words.below === 0 ? '✓' : '✗'} ${label}: min ${r.words.min} unique words (threshold ${TIER_MIN_WORDS[r.tier]}, ${r.words.below} below)`);
+    addResult(r.similarity.over === 0, `${r.similarity.over === 0 ? '✓' : '✗'} ${label}: max similarity ${r.similarity.max.toFixed(3)} (threshold ${TIER_MAX_SIMILARITY[r.tier]}, ${r.similarity.over}/${r.similarity.pairs} pairs over)${r.similarity.worst.length ? ' — ' + r.similarity.worst.join('; ') : ''}`);
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: unverifiable business claims are gated (P4.3)
+//   "500+ clients", "15 min" and similar numbers may only appear through
+//   lib/business-claims.ts, which renders them only when verified.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkBusinessClaimsGated() {
+  log('\n🔒 Checking unverifiable business claims are gated...', colors.blue);
+  const offenders: string[] = [];
+  const claimRe = /500\+|Réponse sous 15|rappelé en 15|15 min\b/;
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) { if (entry.name !== 'node_modules') walk(full); continue; }
+      if (!/\.(tsx|ts)$/.test(entry.name) || full.endsWith('lib/business-claims.ts')) continue;
+      const src = fs.readFileSync(full, 'utf-8');
+      src.split('\n').forEach((line, i) => {
+        if (claimRe.test(line) && !line.includes('BUSINESS_CLAIMS') && !line.includes('RESPONSE_TIME_COPY') && !line.trim().startsWith('//') && !line.trim().startsWith('*')) {
+          offenders.push(`${path.relative(process.cwd(), full)}:${i + 1}`);
+        }
+      });
+    }
+  };
+  ['app', 'components'].forEach(d => walk(path.join(process.cwd(), d)));
+  addResult(offenders.length === 0, offenders.length === 0 ? '✓ No ungated "500+" / "15 min" claim in app/ or components/' : `✗ Ungated business claims: ${offenders.slice(0, 8).join(', ')}`);
+  const claims = fs.readFileSync(path.join(process.cwd(), 'lib/business-claims.ts'), 'utf-8');
+  addResult(/verified:\s*(true|false)/.test(claims), '✓ lib/business-claims.ts gates claims with a verified flag');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: no TODO(owner) can reach the rendered HTML (guardrail #12)
+//   A TODO(owner) marker belongs in a code comment. If it sits in a string
+//   literal or JSX text of app/, components/, data/ or lib/, it is rendered.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkNoRenderedTodoOwner() {
+  log('\n🚧 Checking TODO(owner) markers stay in comments...', colors.blue);
+  const offenders: string[] = [];
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) { if (entry.name !== 'node_modules') walk(full); continue; }
+      if (!/\.(tsx|ts)$/.test(entry.name)) continue;
+      const src = fs.readFileSync(full, 'utf-8');
+      // Strip block comments, then flag lines that still contain the marker
+      // outside a // comment.
+      const noBlocks = src.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '));
+      noBlocks.split('\n').forEach((line, i) => {
+        const idx = line.indexOf('TODO(owner)');
+        if (idx === -1) return;
+        const lineComment = line.indexOf('//');
+        if (lineComment !== -1 && lineComment < idx) return;
+        offenders.push(`${path.relative(process.cwd(), full)}:${i + 1}`);
+      });
+    }
+  };
+  ['app', 'components', 'data', 'lib'].forEach(d => walk(path.join(process.cwd(), d)));
+  addResult(offenders.length === 0, offenders.length === 0 ? '✓ Every TODO(owner) is inside a comment (none can render)' : `✗ TODO(owner) outside comments (would render): ${offenders.slice(0, 8).join(', ')}`);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: internal-linking rules (guardrail #10)
+//   - IDF city pages link nearest communes (cross-department), department,
+//     region and guides through server components (links in HTML);
+//   - the footer is a server component listing the 8 IDF departments;
+//   - the commune index never hides links behind client-side toggles.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkIdfLinkRules() {
+  log('\n🕸️  Checking Île-de-France internal-linking rules...', colors.blue);
+  const read = (rel: string) => fs.readFileSync(path.join(process.cwd(), rel), 'utf-8');
+  const cityPage = read('components/IdfCityPage.tsx');
+  const cityOk = !cityPage.includes("'use client'") && cityPage.includes('city.nearest.map') && cityPage.includes('guides.map') && cityPage.includes('/ile-de-france`');
+  addResult(cityOk, cityOk ? '✓ IdfCityPage is a server component linking nearest communes, department, region and guides' : '✗ IdfCityPage must stay a server component and render the nearby communes, the region hub link and the guides');
+  const footer = read('components/Footer.tsx');
+  const footerOk = !footer.includes("'use client'") && footer.includes('getIdfDepartments') && footer.includes('getTopIdfCities');
+  addResult(footerOk, footerOk ? '✓ Footer is a server component listing the IDF departments and top communes' : '✗ Footer must be a server component listing getIdfDepartments() and getTopIdfCities()');
+  const also = fs.existsSync(path.join(process.cwd(), 'components/AlsoInIdf.tsx'));
+  addResult(also, also ? '✓ Non-IDF pages carry the "Aussi en Île-de-France" block' : '✗ components/AlsoInIdf.tsx missing');
+  for (const route of ['app/epaviste/[department]/[city]/page.tsx', 'app/rachat-voiture/[department]/[city]/page.tsx']) {
+    const src = read(route);
+    const ok = src.includes('getNearestIdfCities') && src.includes('getIdfGuideLinks');
+    addResult(ok, ok ? `✓ ${route} computes nearest IDF communes and guide links` : `✗ ${route} must call getNearestIdfCities() and getIdfGuideLinks()`);
   }
 }
 
@@ -555,17 +699,542 @@ function checkSitemapPruning() {
 function checkDomainRedirect() {
   log('\n🔀 Checking domain redirect...', colors.blue);
 
-  const middlewareFile = path.join(process.cwd(), 'middleware.ts');
-  if (fs.existsSync(middlewareFile)) {
-    const content = fs.readFileSync(middlewareFile, 'utf-8');
-    const hasComRedirect = content.includes('lesepavistespro.com') && content.includes('lesepavistespro.fr');
-    if (hasComRedirect) {
-      addResult(true, '✓ Domain redirect .com → .fr configured in middleware');
-    } else {
-      addResult(false, '✗ Domain redirect .com → .fr not found in middleware');
-    }
+  // Next 16 renamed the "middleware" convention to "proxy".
+  const proxyFile = path.join(process.cwd(), 'proxy.ts');
+  if (!fs.existsSync(proxyFile)) {
+    addResult(false, '✗ proxy.ts not found');
+    return;
+  }
+  const content = fs.readFileSync(proxyFile, 'utf-8');
+
+  const hasComRedirect = content.includes('lesepavistespro.com') && content.includes('lesepavistespro.fr');
+  addResult(
+    hasComRedirect,
+    hasComRedirect
+      ? '✓ Domain redirect .com → .fr configured in proxy.ts'
+      : '✗ Domain redirect .com → .fr not found in proxy.ts'
+  );
+
+  // Canonicalisation must resolve in a single hop, so exactly one redirect call.
+  const redirectCalls = (content.match(/NextResponse\.redirect\(/g) || []).length;
+  addResult(
+    redirectCalls === 1,
+    redirectCalls === 1
+      ? '✓ proxy.ts canonicalises in a single redirect (no chains)'
+      : `✗ proxy.ts issues ${redirectCalls} separate redirects — canonicalisation must be one hop`
+  );
+
+  // Every non-canonical variant must reach its canonical form in ONE hop.
+  const hops = checkRedirectHops();
+  if (hops.passed) {
+    addResult(true, `✓ ${hops.checked} URL variants canonicalise in a single hop`);
   } else {
-    addResult(false, '✗ middleware.ts not found');
+    hops.failures.forEach(f => addResult(false, `✗ Redirect: ${f}`));
+  }
+
+  // The trailing-slash rule must not be duplicated in next.config.ts.
+  const nextConfig = fs.readFileSync(path.join(process.cwd(), 'next.config.ts'), 'utf-8');
+  const duplicatesTrailingSlash = /source:\s*'\/:path\+\/'/.test(nextConfig);
+  addResult(
+    !duplicatesTrailingSlash,
+    duplicatesTrailingSlash
+      ? '✗ next.config.ts duplicates the trailing-slash redirect handled by proxy.ts (creates chains)'
+      : '✓ Trailing-slash canonicalisation lives only in proxy.ts'
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 18 (P1.1): every (department, city) resolves to itself
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkCityResolutionGuard() {
+  log('\n🏙️  Checking city resolution (department + slug)...', colors.blue);
+
+  const result = checkCityResolution();
+  if (result.passed) {
+    addResult(
+      true,
+      `✓ All ${result.stats.cities} cities resolve to their own department; ` +
+        `${result.stats.sitemapUrlsPerService} sitemap URLs per service are self-canonical and indexable; ` +
+        `${result.stats.homonymSlugs} homonym slugs have unique titles`
+    );
+  } else {
+    result.failures.slice(0, 10).forEach(f => addResult(false, `✗ City resolution: ${f}`));
+    if (result.failures.length > 10) {
+      addResult(false, `✗ …and ${result.failures.length - 10} more city resolution failures`);
+    }
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 19 (P1.2): every hardcoded internal link resolves
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkHardcodedLinks() {
+  log('\n🔗 Checking hardcoded internal links...', colors.blue);
+
+  const result = checkHardcodedInternalLinks();
+  if (result.passed) {
+    addResult(true, `✓ All ${result.checked} hardcoded internal links resolve`);
+  } else {
+    result.failures.forEach(f => addResult(false, `✗ Broken internal link: ${f}`));
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 20 (P1.3): robots.txt must not block rendering resources or Semrush SA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkRobotsRules() {
+  log('\n🤖 Checking robots.ts rules...', colors.blue);
+
+  const file = path.join(process.cwd(), 'app/robots.ts');
+  if (!fs.existsSync(file)) {
+    addResult(false, '✗ app/robots.ts not found');
+    return;
+  }
+  const content = fs.readFileSync(file, 'utf-8');
+
+  // Rendering resources: Google needs the CSS/JS to render the page.
+  const blocksRenderResources = /disallow[\s\S]{0,400}?['"`]\/_next\/(static|webpack)\//i.test(content);
+  addResult(
+    !blocksRenderResources,
+    blocksRenderResources
+      ? '✗ robots.ts disallows /_next/static or /_next/webpack — blocks rendering resources'
+      : '✓ robots.ts does not block rendering resources (/_next/static, /_next/webpack)'
+  );
+
+  // Semrush Site Audit must be able to crawl the site.
+  const allowsSemrushSA = /userAgent:\s*['"`]SemrushBot-SA['"`][\s\S]{0,200}?allow:\s*['"`]\//.test(content);
+  addResult(
+    allowsSemrushSA,
+    allowsSemrushSA
+      ? '✓ robots.ts allows SemrushBot-SA (Site Audit)'
+      : '✗ robots.ts blocks SemrushBot-SA — Semrush Site Audit cannot crawl the site'
+  );
+
+  // Only the sitemap index should be advertised.
+  const childSitemapListed = /sitemap:[\s\S]{0,400}?sitemap-(static|blog|epaviste|rachat|images)/.test(content);
+  addResult(
+    !childSitemapListed,
+    childSitemapListed
+      ? '✗ robots.ts lists child sitemaps — list only /sitemap.xml (the index)'
+      : '✓ robots.ts advertises only the sitemap index'
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 21 (P1.4): sitemaps use real lastmod and the shared indexation rules
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkSitemapIntegrity() {
+  log('\n🗺️  Checking sitemap generators...', colors.blue);
+
+  const dir = path.join(process.cwd(), 'app');
+  const sitemapRoutes = fs
+    .readdirSync(dir)
+    .filter(name => name.startsWith('sitemap') && name.endsWith('.xml'))
+    .map(name => path.join(dir, name, 'route.ts'))
+    .filter(fs.existsSync);
+
+  addResult(sitemapRoutes.length >= 10, `✓ ${sitemapRoutes.length} sitemap routes found`);
+
+  // Île-de-France sitemap: exists, and is the FIRST child of the index.
+  const idfRoute = path.join(dir, 'sitemap-idf.xml', 'route.ts');
+  const indexRoute = fs.readFileSync(path.join(dir, 'sitemap.xml', 'route.ts'), 'utf-8');
+  const firstChild = indexRoute.match(/const sitemaps = \[\s*`\$\{base\}\/(sitemap-[a-z-]+\.xml)`/)?.[1];
+  addResult(fs.existsSync(idfRoute), fs.existsSync(idfRoute) ? '✓ sitemap-idf.xml exists' : '✗ sitemap-idf.xml is missing');
+  addResult(
+    firstChild === 'sitemap-idf.xml',
+    firstChild === 'sitemap-idf.xml'
+      ? '✓ sitemap-idf.xml is listed first in the sitemap index'
+      : `✗ sitemap index must list sitemap-idf.xml first (found ${firstChild ?? 'nothing'})`
+  );
+  if (fs.existsSync(idfRoute)) {
+    const idfSrc = fs.readFileSync(idfRoute, 'utf-8');
+    const idfOk = ['getIdfCityUpdatedAt', 'shouldIncludeInSitemap', 'shouldNoIndex', 'getCityInDepartment', "region !== 'idf'"].every(t => idfSrc.includes(t));
+    addResult(idfOk, idfOk ? '✓ sitemap-idf.xml validates URLs and uses per-city lastmod' : '✗ sitemap-idf.xml must validate every URL and use per-city lastmod');
+  }
+
+  for (const route of sitemapRoutes) {
+    const rel = path.relative(process.cwd(), route);
+    const content = fs.readFileSync(route, 'utf-8');
+
+    // <lastmod> must never be the request timestamp.
+    if (/lastmod/.test(content) && /new Date\(\)\.toISOString\(\)/.test(content)) {
+      addResult(false, `✗ ${rel}: <lastmod> uses new Date() — Google ignores an always-now lastmod`);
+    }
+
+    // changefreq / priority are ignored by Google and add noise.
+    if (/<changefreq>|<priority>/.test(content)) {
+      addResult(false, `✗ ${rel}: emits <changefreq>/<priority> (ignored by Google)`, 'warning');
+    }
+
+    // City sitemaps must reuse the page's own indexation functions.
+    if (/cities\.xml/.test(rel)) {
+      const usesRules =
+        content.includes('shouldIncludeInSitemap') &&
+        content.includes('shouldNoIndex') &&
+        content.includes('getCityInDepartment');
+      addResult(
+        usesRules,
+        usesRules
+          ? `✓ ${rel}: filters on shouldIncludeInSitemap + shouldNoIndex + getCityInDepartment`
+          : `✗ ${rel}: must reuse shouldIncludeInSitemap, shouldNoIndex and getCityInDepartment`
+      );
+    }
+  }
+}
+
+/**
+ * Return only the source of the `metadata` export and `generateMetadata`
+ * function — the places that actually declare a page's SERP title.
+ */
+function extractMetadataRegions(source: string): string {
+  const regions: string[] = [];
+  const starts = [
+    /export const metadata\s*:?[^=]*=\s*\{/g,
+    /export async function generateMetadata[\s\S]*?\{/g,
+  ];
+  for (const re of starts) {
+    let m: RegExpExecArray | null;
+    while ((m = re.exec(source)) !== null) {
+      let depth = 0;
+      let i = source.indexOf('{', m.index);
+      const start = i;
+      for (; i < source.length; i++) {
+        if (source[i] === '{') depth++;
+        else if (source[i] === '}') {
+          depth--;
+          if (depth === 0) break;
+        }
+      }
+      regions.push(source.slice(start, i + 1));
+    }
+  }
+  return regions.join('\n');
+}
+
+/** Remove `openGraph: { … }` / `twitter: { … }` blocks (brace-matched). */
+function stripSocialBlocks(source: string): string {
+  let out = source;
+  for (const key of ['openGraph', 'twitter']) {
+    let index = out.indexOf(`${key}: {`);
+    while (index !== -1) {
+      let depth = 0;
+      let i = out.indexOf('{', index);
+      const start = i;
+      for (; i < out.length; i++) {
+        if (out[i] === '{') depth++;
+        else if (out[i] === '}') {
+          depth--;
+          if (depth === 0) break;
+        }
+      }
+      out = out.slice(0, start) + out.slice(i + 1);
+      index = out.indexOf(`${key}: {`);
+    }
+  }
+  return out;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 22 (P2.1): no brand duplication, no title over the SERP budget
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkTitleBudget() {
+  log('\n📏 Checking title budget and brand duplication...', colors.blue);
+
+  const BRAND = 'Les Épavistes Pro';
+  const SUFFIX_LEN = ' | Les Épavistes Pro'.length;
+  const MAX = 60;
+
+  // Static page titles declared inline in app/**/page.tsx
+  const pageFiles: string[] = [];
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name === 'page.tsx') pageFiles.push(full);
+    }
+  };
+  walk(path.join(process.cwd(), 'app'));
+
+  let violations = 0;
+  let checked = 0;
+
+  for (const file of pageFiles) {
+    const rel = path.relative(process.cwd(), file);
+    const raw = fs.readFileSync(file, 'utf-8');
+    // Only the metadata export declares SERP titles. openGraph/twitter titles
+    // are not run through the layout template (so the brand belongs there), and
+    // a `title:` inside a schema helper call is a schema headline, not a title.
+    const content = stripSocialBlocks(extractMetadataRegions(raw));
+
+    // title: 'X'  |  title: "X"  |  title: { absolute: 'X' }
+    const absoluteRe = /title:\s*\{\s*absolute:\s*['"`]([^'"`]+)['"`]/g;
+    const plainRe = /(?<!absolute:\s)title:\s*['"`]([^'"`\n]{5,})['"`]/g;
+
+    let m: RegExpExecArray | null;
+    while ((m = absoluteRe.exec(content)) !== null) {
+      checked++;
+      const title = m[1];
+      if (title.length > MAX) {
+        addResult(false, `✗ ${rel}: absolute title is ${title.length} chars (max ${MAX}): "${title}"`);
+        violations++;
+      }
+    }
+    while ((m = plainRe.exec(content)) !== null) {
+      const title = m[1];
+      if (title === 'Page non trouvée') continue;
+      checked++;
+      if (title.includes(BRAND)) {
+        addResult(
+          false,
+          `✗ ${rel}: title repeats the brand while the layout template already appends it: "${title}"`
+        );
+        violations++;
+        continue;
+      }
+      const rendered = title.length + SUFFIX_LEN;
+      if (rendered > MAX) {
+        addResult(false, `✗ ${rel}: title renders at ${rendered} chars (max ${MAX}): "${title}"`);
+        violations++;
+      }
+    }
+  }
+
+  // Generated titles: sample real city/department data through lib/seo.ts.
+  const seoSrc = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8');
+  const hasBudget = /MAX_TITLE_TOTAL\s*=\s*60/.test(seoSrc);
+  addResult(
+    hasBudget,
+    hasBudget ? '✓ lib/seo.ts MAX_TITLE_TOTAL is 60' : '✗ lib/seo.ts MAX_TITLE_TOTAL must be 60'
+  );
+  const neverTruncates = !/name\.substring/.test(seoSrc);
+  addResult(
+    neverTruncates,
+    neverTruncates
+      ? '✓ safeTitleFit never truncates a city name'
+      : '✗ safeTitleFit still truncates the city name with "…"'
+  );
+
+  if (violations === 0) {
+    addResult(true, `✓ ${checked} static page titles within ${MAX} chars, no brand duplication`);
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 23 (P2.3): noindex pages must still follow
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkNoNofollow() {
+  log('\n🔓 Checking robots meta never emits nofollow...', colors.blue);
+
+  const seoSrc = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8');
+  const hasNofollow = /follow:\s*false/.test(seoSrc);
+  addResult(
+    !hasNofollow,
+    hasNofollow
+      ? '✗ lib/seo.ts emits follow: false — noindex pages must still pass link equity'
+      : '✓ lib/seo.ts never emits follow: false'
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 24 (P2.4): one business entity, one FAQPage, no conflicting @id
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkStructuredDataEntities() {
+  log('\n🧩 Checking structured data entities...', colors.blue);
+
+  const sdSrc = fs.readFileSync(path.join(process.cwd(), 'lib/structured-data.ts'), 'utf-8');
+
+  // Only the layout may define the business entity; page-level schemas must
+  // reference it, not redefine it with different data.
+  // P4.1: the one business entity names Île-de-France first in areaServed and
+  // keeps a ContactPoint scoped FR-IDF, while still listing the other regions.
+  const schemaSrcP41 = fs.readFileSync(path.join(process.cwd(), 'lib/schema.ts'), 'utf-8');
+  const idfFirst = /areaServed:\s*\[\s*\{[^}]*name:\s*'Île-de-France',\s*identifier:\s*'FR-IDF'/.test(schemaSrcP41)
+    && schemaSrcP41.includes("areaServed: ['FR-IDF', 'FR']")
+    && schemaSrcP41.includes("REGION_NAMES.filter(name => name !== 'Île-de-France')");
+  addResult(idfFirst, idfFirst ? '✓ #business areaServed is IDF-first (region + 8 departments, then other regions) with FR-IDF ContactPoint' : '✗ #business areaServed must list Île-de-France (FR-IDF) and its departments first, keep the other regions, and scope the ContactPoint to FR-IDF/FR');
+
+  const businessDefinitions = (sdSrc.match(/'@id':\s*BUSINESS_ID,\s*\n\s*name:/g) || []).length;
+  addResult(
+    businessDefinitions === 0,
+    businessDefinitions === 0
+      ? '✓ lib/structured-data.ts defines no competing business entity (references only)'
+      : `✗ lib/structured-data.ts redefines the #business entity ${businessDefinitions}× with page-specific data`
+  );
+
+  // Page-level city/department/region schemas should be Service nodes.
+  const usesService = /'@type':\s*'Service'/.test(sdSrc);
+  addResult(
+    usesService,
+    usesService
+      ? '✓ Location pages emit Service nodes'
+      : '✗ Location pages must emit Service (not LocalBusiness) nodes'
+  );
+
+  // No fabricated ratings anywhere in schema.
+  const schemaSrc = fs.readFileSync(path.join(process.cwd(), 'lib/schema.ts'), 'utf-8');
+  const hasRating = /aggregateRating|ratingValue|reviewCount/.test(sdSrc + schemaSrc);
+  addResult(
+    !hasRating,
+    hasRating
+      ? '✗ aggregateRating/review found in schema — only real, verifiable reviews are allowed'
+      : '✓ No aggregateRating/review in schema'
+  );
+
+  // City pages must emit exactly one FAQPage.
+  for (const service of ['epaviste', 'rachat-voiture']) {
+    const file = path.join(process.cwd(), `app/${service}/[department]/[city]/page.tsx`);
+    if (!fs.existsSync(file)) continue;
+    const content = fs.readFileSync(file, 'utf-8');
+    const mergesFaq = content.includes('mergeFaqPages') || content.includes('buildFaqPage');
+    addResult(
+      mergesFaq,
+      mergesFaq
+        ? `✓ ${service} city page emits a single merged FAQPage`
+        : `✗ ${service} city page can emit more than one FAQPage block`
+    );
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 25 (P2.5): the root layout must not set a canonical
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkRootLayoutHead() {
+  log('\n🧭 Checking root layout head hygiene...', colors.blue);
+
+  const content = fs.readFileSync(path.join(process.cwd(), 'app/layout.tsx'), 'utf-8');
+
+  const hasCanonical = /alternates:\s*\{[\s\S]{0,300}?canonical:/.test(content);
+  addResult(
+    !hasCanonical,
+    hasCanonical
+      ? '✗ app/layout.tsx sets alternates.canonical — pages that forget their own canonical silently point at the homepage'
+      : '✓ app/layout.tsx sets no root canonical'
+  );
+
+  const hasHreflang = /languages:\s*\{/.test(content);
+  addResult(
+    !hasHreflang,
+    hasHreflang
+      ? '✗ app/layout.tsx declares alternates.languages — the site is FR-only, no hreflang needed'
+      : '✓ app/layout.tsx declares no hreflang'
+  );
+
+  const bingTags = (content.match(/msvalidate\.01/g) || []).length;
+  addResult(
+    bingTags <= 1,
+    bingTags <= 1
+      ? '✓ Bing verification tag emitted once'
+      : `✗ app/layout.tsx emits msvalidate.01 ${bingTags}× (duplicate meta tag)`
+  );
+
+  for (const junk of ['revisit-after', 'ICBM', 'geo.region', 'geo.placename']) {
+    if (content.includes(junk)) {
+      addResult(false, `✗ app/layout.tsx still emits the ignored meta "${junk}"`, 'warning');
+    }
+  }
+  const hasKeywords = /^\s*keywords:\s*\[/m.test(content);
+  addResult(
+    !hasKeywords,
+    hasKeywords
+      ? '✗ app/layout.tsx still declares a keywords meta (ignored by Google)'
+      : '✓ No keywords meta in the root layout'
+  );
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 26 (P3.1): no oversized asset in public/
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkPublicAssetWeight() {
+  log('\n🖼️  Checking public/ asset weight...', colors.blue);
+
+  const MAX_BYTES = 300 * 1024;
+  const heavy: string[] = [];
+  const IMAGE = /\.(png|jpe?g|gif|webp|avif|bmp|tiff?)$/i;
+
+  // Scan every TRACKED image, not just public/: 1.4 MB copies of logo.png and
+  // logo_name.png sat unreferenced in the repo root, invisible to a public/-only
+  // check, because Next only ever serves the public/ copies.
+  let tracked: string[] = [];
+  try {
+    tracked = execSync('git ls-files -z', { encoding: 'utf-8', maxBuffer: 32 * 1024 * 1024 })
+      .split('\0')
+      .filter(Boolean);
+  } catch {
+    // Not a git checkout — fall back to walking public/.
+    const walk = (dir: string) => {
+      if (!fs.existsSync(dir)) return;
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) walk(full);
+        else tracked.push(path.relative(process.cwd(), full));
+      }
+    };
+    walk(path.join(process.cwd(), 'public'));
+  }
+
+  // Only images the BROWSER can download: everything under public/, plus the
+  // App Router icon file conventions. inspiration/ holds design references that
+  // are never served, so their weight is not a site problem.
+  const isServed = (rel: string) =>
+    rel.startsWith('public/') ||
+    /^app\/(icon|apple-icon|opengraph-image|twitter-image|favicon)[^/]*$/.test(rel);
+
+  for (const rel of tracked) {
+    if (!IMAGE.test(rel) || !isServed(rel)) continue;
+    const full = path.join(process.cwd(), rel);
+    if (!fs.existsSync(full)) continue;
+    const size = fs.statSync(full).size;
+    if (size > MAX_BYTES) heavy.push(`${rel} (${Math.round(size / 1024)} KB)`);
+  }
+
+  if (heavy.length === 0) {
+    addResult(true, `✓ No served image over ${MAX_BYTES / 1024} KB (public/ + app icons)`);
+  } else {
+    heavy.forEach(f => addResult(false, `✗ Oversized image: ${f}`));
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK 27 (P4.3): WhatsApp URLs must never contain wa.me/+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkWhatsAppUrls() {
+  log('\n💬 Checking WhatsApp URLs...', colors.blue);
+
+  const offenders: string[] = [];
+  const walk = (dir: string) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        if (['node_modules', '.next', '.git'].includes(entry.name)) continue;
+        walk(full);
+      } else if (/\.(ts|tsx)$/.test(entry.name)) {
+        // The helper itself documents the invalid form it exists to prevent.
+        if (full.endsWith(`lib${path.sep}whatsapp.ts`)) continue;
+        const content = fs.readFileSync(full, 'utf-8');
+        // A literal wa.me/+ or a template that interpolates a +-prefixed number.
+        if (/wa\.me\/\+/.test(content)) {
+          offenders.push(`${path.relative(process.cwd(), full)} (wa.me/+)`);
+        } else if (/wa\.me\//.test(content)) {
+          offenders.push(`${path.relative(process.cwd(), full)} (hand-built wa.me URL — use whatsappUrl())`);
+        }
+      }
+    }
+  };
+  ['app', 'components', 'lib', 'data'].forEach(d => walk(path.join(process.cwd(), d)));
+
+  // The single helper must be the only place a wa.me URL is built by hand.
+  const helperExists = fs.existsSync(path.join(process.cwd(), 'lib/whatsapp.ts'));
+  addResult(
+    helperExists,
+    helperExists
+      ? '✓ lib/whatsapp.ts helper exists'
+      : '✗ Missing lib/whatsapp.ts — all WhatsApp URLs must go through one helper'
+  );
+
+  if (offenders.length === 0) {
+    addResult(true, '✓ No wa.me/+ URLs (the + is invalid for wa.me)');
+  } else {
+    offenders.forEach(f => addResult(false, `✗ Invalid WhatsApp URL (wa.me/+) in ${f}`));
   }
 }
 
@@ -594,8 +1263,24 @@ function runAllChecks() {
     checkBrandSchema();
     checkNoFabricatedRatings();
     checkHomepageIdfPriority();
+    checkIdfHubs();
+    checkIdfContentQuality();     // P3.2
+    checkBusinessClaimsGated();   // P4.3
+    checkNoRenderedTodoOwner();   // guardrail #12
+    checkIdfLinkRules();          // guardrail #10
     checkSitemapPruning();
     checkDomainRedirect();
+    // ── Audit remediation guardrails (see SEO-REMEDIATION-REPORT.md) ──
+    checkCityResolutionGuard();   // P1.1
+    checkHardcodedLinks();        // P1.2
+    checkRobotsRules();           // P1.3
+    checkSitemapIntegrity();      // P1.4
+    checkTitleBudget();           // P2.1
+    checkNoNofollow();            // P2.3
+    checkStructuredDataEntities();// P2.4
+    checkRootLayoutHead();        // P2.5
+    checkPublicAssetWeight();     // P3.1
+    checkWhatsAppUrls();          // P4.3
   } catch (error) {
     log(`\n❌ Error running checks: ${error}`, colors.red);
     process.exit(1);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, WhatsappLogo } from '@phosphor-icons/react/dist/ssr';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 const CTASection = () => {
   return (
@@ -27,7 +28,7 @@ const CTASection = () => {
           </a>
 
           <a
-            href="https://wa.me/33602427345"
+            href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-whatsapp text-white rounded-full font-semibold text-base hover:bg-whatsapp-hover hover:scale-[1.02] transition-all shadow-lg min-w-[220px]"

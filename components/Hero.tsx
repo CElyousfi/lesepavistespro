@@ -25,23 +25,23 @@ const Hero = () => {
         <div className="text-center">
           {/* Main Headline - Clean and Bold */}
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight tracking-tight">
-            Enlèvement d'épave{' '}
+            Enlèvement d&apos;épave{' '}
             <span className="text-brand-red italic">100% gratuit</span>
             {' '}partout en France
           </h1>
 
           {/* Subheadline - Lighter weight */}
           <p className="text-base md:text-lg text-gray-300 mb-8 max-w-3xl mx-auto font-light leading-relaxed">
-            Épaviste agréé VHU disponible 7j/7. Service rapide d'enlèvement gratuit et rachat de véhicules 
+            Épaviste agréé VHU disponible 7j/7. Service rapide d&apos;enlèvement gratuit et rachat de véhicules 
             accidentés, HS ou en panne partout en France.
           </p>
 
           {/* CTA Button - Rounded rectangle */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <a href="tel:0617948585" onClick={handleCallClick}>
+            <a href="tel:+33602427345" onClick={handleCallClick}>
               <Button size="lg" className="w-full sm:w-auto bg-brand-red hover:bg-brand-red/90 text-white border-0 shadow-lg rounded-xl">
                 <Phone className="mr-2 h-5 w-5" />
-                06 17 94 85 85
+                06 02 42 73 45
               </Button>
             </a>
           </div>

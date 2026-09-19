@@ -2,6 +2,7 @@
 
 import { Phone, WhatsappLogo, ArrowRight } from '@phosphor-icons/react';
 import ScrollAnimation from './ScrollAnimation';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 interface DualServiceCTAProps {
   className?: string;
@@ -37,7 +38,7 @@ export default function DualServiceCTA({ className = '' }: DualServiceCTAProps) 
                 06 02 42 73 45
               </a>
               <a
-                href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20un%20devis"
+                href={whatsappUrl('Bonjour, je souhaite un devis')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-whatsapp text-white rounded-full font-semibold text-base hover:bg-whatsapp-hover hover:scale-[1.02] transition-all shadow-lg min-w-[220px]"

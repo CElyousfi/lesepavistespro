@@ -1,18 +1,27 @@
-'use client';
-
-import { Phone, EnvelopeSimple, MapPin } from '@phosphor-icons/react';
+import { Phone, EnvelopeSimple, MapPin } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getIdfDepartments, getTopIdfCities } from '@/lib/idf-cities';
 
+/** Most-populated IDF communes linked from every page. */
+const FOOTER_IDF_CITIES = 20;
+
+/**
+ * Site footer — server component so the Île-de-France links are derived
+ * from the dataset (INSEE population), never a hardcoded slug list. Client
+ * page templates must not import it: the route renders it after them.
+ */
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const departments = getIdfDepartments();
+  const topCities = getTopIdfCities(FOOTER_IDF_CITIES);
 
   return (
     <footer data-nosnippet className="bg-brand-navy pt-20 pb-28 lg:pb-12">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
 
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-1">
@@ -22,7 +31,8 @@ const Footer = () => {
                 </span>
               </Link>
               <p className="text-neutral-400 text-sm leading-relaxed">
-                Service professionnel agréé VHU. Enlèvement d&apos;épave gratuit et rachat de véhicules partout en France.
+                Épaviste agréé VHU en Île-de-France&nbsp;: enlèvement d&apos;épave gratuit et rachat de véhicules à Paris et dans
+                les 8 départements franciliens. Intervention aussi partout en France.
               </p>
             </div>
 
@@ -32,7 +42,9 @@ const Footer = () => {
               <ul className="space-y-3">
                 <li><Link href="/epaviste" className="text-neutral-400 hover:text-white text-sm transition-colors">Enlèvement d&apos;Épave</Link></li>
                 <li><Link href="/rachat-voiture" className="text-neutral-400 hover:text-white text-sm transition-colors">Rachat de Voiture</Link></li>
-                <li><Link href="/zones" className="text-neutral-400 hover:text-white text-sm transition-colors">Zones d&apos;Intervention</Link></li>
+                <li><Link href="/epaviste/ile-de-france" className="text-neutral-400 hover:text-white text-sm transition-colors">Épaviste Île-de-France</Link></li>
+                <li><Link href="/rachat-voiture/ile-de-france" className="text-neutral-400 hover:text-white text-sm transition-colors">Rachat voiture Île-de-France</Link></li>
+                <li><Link href="/zones" className="text-neutral-400 hover:text-white text-sm transition-colors">Toute la France</Link></li>
                 <li><Link href="/blog" className="text-neutral-400 hover:text-white text-sm transition-colors">Conseils &amp; Actus</Link></li>
               </ul>
             </div>
@@ -57,7 +69,10 @@ const Footer = () => {
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
                   <Phone size={16} className="text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-sm text-neutral-300">06 02 42 73 45<br /><span className="text-neutral-500">7j/7 - 8h à 20h</span></span>
+                  <span className="text-sm text-neutral-300">
+                    <a href="tel:+33602427345" className="hover:text-white">06 02 42 73 45</a>
+                    <br /><span className="text-neutral-500">7j/7, 24h/24</span>
+                  </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <EnvelopeSimple size={16} className="text-brand-gold shrink-0 mt-0.5" />
@@ -65,18 +80,45 @@ const Footer = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin size={16} className="text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-sm text-neutral-300">France Entière</span>
+                  <span className="text-sm text-neutral-300">Île-de-France (75, 77, 78, 91, 92, 93, 94, 95)</span>
                 </li>
               </ul>
             </div>
 
           </div>
 
+          {/* Île-de-France: departments (both services) + top communes */}
+          <nav aria-label="Île-de-France" className="border-t border-white/10 pt-8 pb-6">
+            <h4 className="font-semibold text-sm text-white mb-4">Épaviste et rachat de voiture en Île-de-France</h4>
+            <ul className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-2 mb-6">
+              {departments.map((d) => (
+                <li key={d.slug} className="text-sm">
+                  <Link href={`/epaviste/${d.slug}`} className="text-neutral-300 hover:text-white">
+                    {d.name} ({d.code})
+                  </Link>
+                  <span className="text-neutral-600"> · </span>
+                  <Link href={`/rachat-voiture/${d.slug}`} className="text-neutral-500 hover:text-white">
+                    rachat
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1">
+              {topCities.map((c) => (
+                <li key={`${c.deptSlug}/${c.slug}`}>
+                  <Link href={`/epaviste/${c.deptSlug}/${c.slug}`} className="text-xs text-neutral-500 hover:text-neutral-200">
+                    Épaviste {c.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           {/* VHU Agrément bar */}
           <div className="pt-8 pb-6 border-t border-white/10 flex items-center justify-center gap-4">
             <div className="relative w-14 h-8 shrink-0">
               <Image
-                src="/images/centre-vhu-agree.jpeg"
+                src="/images/centre-vhu-agree.webp"
                 alt="Centre VHU Agréé"
                 fill
                 sizes="56px"

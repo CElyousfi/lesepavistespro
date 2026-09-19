@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from '@/components/Header';
@@ -12,7 +11,7 @@ import { getBreadcrumbSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
-  title: "Blog Épaviste – Conseils & Actualités Enlèvement Épave France",
+  title: "Blog épaviste : conseils et démarches",
   description: "Découvrez nos articles sur l'enlèvement d'épave, le rachat de voiture, les démarches VHU et conseils pour vendre votre véhicule en France.",
   keywords: [
     "blog épaviste",
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
     "vendre voiture HS",
   ],
   openGraph: {
-    title: "Blog Épaviste | Conseils Enlèvement Épave",
+    title: "Blog épaviste : conseils et démarches | Les Épavistes Pro",
     description: "Tous nos conseils et actualités sur l'enlèvement d'épave et le rachat de voiture en France",
     type: "website",
   },
@@ -41,10 +40,8 @@ export default function BlogPage() {
 
   return (
     <>
-      <Script
-        id="structured-data-blog-breadcrumb"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <BlogAnimations />
@@ -73,7 +70,7 @@ export default function BlogPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {blogPosts.map((post, index) => (
+                {blogPosts.map((post) => (
                   <Link
                     key={post.slug}
                     href={`/blog/${post.slug}`}
@@ -85,6 +82,7 @@ export default function BlogPage() {
                         src={post.image}
                         alt={post.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-4 left-4 z-10">

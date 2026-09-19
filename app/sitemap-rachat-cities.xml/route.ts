@@ -1,46 +1,55 @@
 import { NextResponse } from 'next/server';
-import { getSiteUrl } from '@/lib/site';
-import { allDepartments } from '@/lib/locations-complete';
-import { isIdfDepartment } from '@/lib/idf';
-import { shouldIncludeInSitemap } from '@/lib/geo-targeting';
+import { getSiteUrl, lastmod } from '@/lib/site';
+import { allDepartments, getCityInDepartment } from '@/lib/locations-complete';
+import { shouldIncludeInSitemap, shouldNoIndex } from '@/lib/geo-targeting';
+import { getIdfCityUpdatedAt } from '@/data/idf-cities';
 
 /**
- * Rachat voiture city pages sitemap
- * PRUNED: Only IDF + limitrophe regions + cities with real local content.
- * See SEO-PRUNING-DECISION.md for rationale.
+ * rachat-voiture city pages sitemap.
+ *
+ * Every emitted URL must be 200, self-canonical and indexable, so each
+ * candidate is validated against the exact same functions the page uses:
+ *   - getCityInDepartment  → the page renders (and canonicalises to) this URL
+ *   - shouldNoIndex        → the page is indexable
+ *   - shouldIncludeInSitemap → it is inside the targeted geography
+ * See SEO-PRUNING-DECISION.md for the pruning rationale.
  */
 export async function GET() {
   const base = getSiteUrl();
-  const buildTime = new Date().toISOString();
+  const updated = lastmod('cities');
 
-  const urls: { loc: string; lastmod: string; changefreq: string; priority: number }[] = [];
+  const locs: Array<{ loc: string; lastmod: string }> = [];
 
   for (const dept of allDepartments) {
-    const isIdf = isIdfDepartment(dept.slug);
     for (const city of dept.cities) {
       if (!shouldIncludeInSitemap(dept.slug, city.slug)) continue;
-      urls.push({
+      if (shouldNoIndex(dept.slug, city.slug)) continue;
+      // Self-canonical guard: the URL must resolve to this exact department.
+      const resolved = getCityInDepartment(dept.slug, city.slug);
+      if (!resolved || resolved.department.slug !== dept.slug) continue;
+      // Enriched IDF communes carry their own content date.
+      locs.push({
         loc: `${base}/rachat-voiture/${dept.slug}/${city.slug}`,
-        lastmod: buildTime,
-        changefreq: isIdf ? 'weekly' : 'monthly',
-        priority: isIdf ? 0.9 : 0.6,
+        lastmod: getIdfCityUpdatedAt(dept.slug, city.slug) ?? updated,
       });
     }
   }
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `  <url>
+${locs
+  .map(
+    (u) => `  <url>
     <loc>${u.loc}</loc>
     <lastmod>${u.lastmod}</lastmod>
-    <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
-  </url>`).join('\n')}
+  </url>`
+  )
+  .join('\n')}
 </urlset>`;
 
   return new NextResponse(xml, {
     headers: {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, s-maxage=3600',
     },
   });

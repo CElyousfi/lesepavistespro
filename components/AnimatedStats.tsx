@@ -1,6 +1,7 @@
 'use client';
 
 import ScrollAnimation from './ScrollAnimation';
+import { BUSINESS_CLAIMS } from '@/lib/business-claims';
 
 interface Stat {
   number: string;
@@ -10,8 +11,8 @@ interface Stat {
 
 const stats: Stat[] = [
   {
-    number: '500+',
-    label: 'Clients satisfaits',
+    number: BUSINESS_CLAIMS.clientCount.verified ? BUSINESS_CLAIMS.clientCount.text : '24h/24',
+    label: BUSINESS_CLAIMS.clientCount.verified ? 'Clients satisfaits' : 'Disponibles 7j/7',
     description: 'Service rapide et professionnel garanti partout en France.'
   },
   {

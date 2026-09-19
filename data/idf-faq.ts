@@ -23,7 +23,7 @@ export const idfEpavisteFaq: IdfFaqItem[] = [
   },
   {
     question: "Mon véhicule est concerné par la ZFE-m du Grand Paris, que faire ?",
-    answer: "Si votre véhicule est classé Crit'Air 3, 4, 5 ou non classé, il ne peut plus circuler dans la Zone à Faibles Émissions métropolitaine (ZFE-m) du Grand Paris. Nous proposons l'enlèvement gratuit de votre véhicule avec certificat de destruction, qui vous permet de bénéficier de la prime à la conversion (jusqu'à 6 000€) pour l'achat d'un véhicule propre.",
+    answer: "La ZFE du Grand Paris couvre Paris et les communes situées à l'intérieur de l'A86. Son calendrier est incertain en 2026 : les sanctions pour les Crit'Air 3 ont été suspendues et une loi votée en avril 2026 prévoit la suppression des ZFE, sous réserve de promulgation. Si votre véhicule ancien ne circule plus, nous l'enlevons gratuitement avec certificat de destruction, ce qui met fin à l'assurance et aux obligations liées à la carte grise.",
   },
   {
     question: "Quels documents sont nécessaires pour faire enlever une épave en IDF ?",
@@ -42,8 +42,8 @@ export const idfEpavisteFaq: IdfFaqItem[] = [
     answer: "Un centre VHU (Véhicule Hors d'Usage) agréé est un établissement autorisé par la préfecture pour traiter et détruire les véhicules en fin de vie. Seul un centre agréé peut délivrer un certificat de destruction valide. En Île-de-France, nous travaillons exclusivement avec des centres agréés qui recyclent 95% des matériaux, conformément à la directive européenne 2000/53/CE.",
   },
   {
-    question: "Puis-je bénéficier de la prime à la conversion en faisant enlever mon épave en IDF ?",
-    answer: "Oui, en faisant détruire votre véhicule ancien via notre service en Île-de-France, vous recevez un certificat de destruction officiel. Ce document est indispensable pour bénéficier de la prime à la conversion, qui peut atteindre 6 000€ en IDF pour l'achat d'un véhicule électrique ou hybride rechargeable, selon vos revenus et votre lieu de résidence.",
+    question: "Existe-t-il encore une prime à la conversion en Île-de-France ?",
+    answer: "La prime à la conversion nationale a été supprimée le 2 décembre 2024. Les aides à l'achat d'un véhicule propre qui subsistent (coup de pouce CEE pour les voitures électriques depuis juillet 2025, dispositifs locaux de la Métropole du Grand Paris) ont chacune leurs conditions et évoluent chaque année : vérifiez-les avant d'acheter. Dans tous les cas, le certificat de destruction que nous remettons le jour de l'enlèvement est le document qui prouve la mise au rebut de votre ancien véhicule.",
   },
   {
     question: "Comment se déroule l'enlèvement d'une épave en Île-de-France ?",

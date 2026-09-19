@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { Icon } from '@phosphor-icons/react';
-import { ReactNode } from 'react';
 
 interface ServiceCardProps {
   icon: Icon;

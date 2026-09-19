@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { Phone, WhatsappLogo, CheckCircle, X, ArrowRight, ArrowLeft, MapPin, Car, Motorcycle } from '@phosphor-icons/react';
+import { Phone, CheckCircle, X, ArrowRight, ArrowLeft, Car, Motorcycle } from '@phosphor-icons/react';
 import { trackFormSubmit } from '@/lib/analytics';
 import { getMarqueNames, getModelsForMarque } from '@/lib/vehicle-data';
 import SearchableSelect from '@/components/SearchableSelect';
 import PostalCodeSelect from '@/components/PostalCodeSelect';
+import { BUSINESS_CLAIMS } from '@/lib/business-claims';
 
 interface FormData {
   service: 'epaviste' | 'rachat' | '';
@@ -45,7 +46,7 @@ interface ConversionFormProps {
 export default function ConversionFormNew({
   defaultService,
   trigger = 'button',
-  buttonText = "Être rappelé en 15 min",
+  buttonText = BUSINESS_CLAIMS.responseTime.verified ? "Être rappelé en 15 min" : "Être rappelé rapidement",
   cityName,
   departmentName,
   pageType = 'home',
@@ -82,17 +83,21 @@ export default function ConversionFormNew({
   const modelNames = useMemo(() => getModelsForMarque(formData.marque, formData.vehicleType), [formData.marque, formData.vehicleType]);
 
   // Reset model when marque changes
+  // Resetting a dependent field when its parent changes. React would prefer
+  // this in the change handler, but that is lead-form logic we are not
+  // authorised to restructure here, and the extra render is harmless on a
+  // four-field step. See SEO-REMEDIATION-REPORT.md (Phase 5).
   useEffect(() => {
     if (formData.marque) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- dependent-field reset, see above
       setFormData(prev => ({ ...prev, modele: '' }));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData.marque]);
 
   // Reset marque and model when vehicle type changes
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- dependent-field reset, see above
     setFormData(prev => ({ ...prev, marque: '', modele: '' }));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData.vehicleType]);
 
   const totalSteps = 4;
@@ -102,8 +107,8 @@ export default function ConversionFormNew({
 
     if (!hasStartedForm) {
       setHasStartedForm(true);
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'form_start', {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'form_start', {
           service: formData.service || defaultService,
           page_type: formData.pageType,
           department: formData.department,
@@ -178,8 +183,8 @@ export default function ConversionFormNew({
 
     // ── Tracking GA4 régional ─────────────────────────────────────────────
     const leadRegionTag = getLeadRegionTag(formData.codePostal || '');
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', leadRegionTag, {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', leadRegionTag, {
         service: formData.service,
         code_postal: formData.codePostal,
         ville: formData.ville,

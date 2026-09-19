@@ -8,14 +8,15 @@ import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
 import type { DepartmentData, ParentRegionData } from '@/lib/page-data';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
+import { whatsappUrl } from '@/lib/whatsapp';
+import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 
 // Dynamic imports for below-fold heavy components
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
@@ -28,14 +29,24 @@ interface DepartmentClientProps {
   isIdf: boolean;
   idfContent: IdfDeptContent | null;
   idfTestimonials: IdfTestimonial[];
-  idfFaqItems: IdfFaqItem[];
+  faqItems?: FaqItem[];
+  /**
+   * True when this department's city pages are indexable. Their links are
+   * then ALL rendered into the HTML (collapsed with CSS, not withheld), so
+   * crawlers can reach every city page instead of only the first 20.
+   */
+  linkAllCities?: boolean;
 }
 
-export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfContent, idfTestimonials, idfFaqItems }: DepartmentClientProps) {
+export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfContent, idfTestimonials, faqItems, linkAllCities = false }: DepartmentClientProps) {
   const CITIES_PER_PAGE = 20;
   const [visibleCities, setVisibleCities] = useState(CITIES_PER_PAGE);
   const hasMoreCities = dept.cities.length > visibleCities;
   const displayedCities = dept.cities.slice(0, visibleCities);
+  // Rich cards are capped, but when the department's city pages are indexable
+  // every commune also appears in a compact index below, so no city page is
+  // orphaned behind a "Voir plus" button the crawler never clicks.
+  const indexCities = linkAllCities ? dept.cities : [];
 
   return (
     <>
@@ -52,7 +63,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
         {isIdf && (
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-8 sm:mb-10 ml-2">
             <span className="text-xs sm:text-sm font-semibold text-brand-gold/90">
-              Prime à la conversion 2026 — jusqu&apos;à 6 000€
+              Certificat de destruction remis le jour de l&apos;enlèvement
             </span>
           </div>
         )}
@@ -64,7 +75,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Épaviste agréé VHU dans tout le département {dept.name} ({dept.code}). 
-          Enlèvement d'épave 100% GRATUIT 24h/24, certificat de destruction fourni.
+          Enlèvement d&apos;épave 100% GRATUIT 24h/24, certificat de destruction fourni.
           Intervention rapide sous {isIdf ? '2h' : '24-48h'}.
           06 02 42 73 45.
         </p>
@@ -84,7 +95,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
             06 02 42 73 45
           </a>
           <a 
-            href={`https://wa.me/33602427345?text=Bonjour, je souhaite un devis pour l'enlèvement d'une épave dans le ${dept.name}`}
+            href={whatsappUrl(`Bonjour, je souhaite un devis pour l'enlèvement d'une épave dans le ${dept.name}`)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover"
@@ -116,12 +127,12 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 sm:mb-8 leading-tight tracking-tight">
-              Service d'enlèvement d'épave dans le {dept.name}
+              Service d&apos;enlèvement d&apos;épave dans le {dept.name}
             </h2>
             <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
               <p className="mb-4">
                 Vous avez une épave de voiture, moto, scooter ou utilitaire à faire enlever dans le département {dept.name} ({dept.code}) ? 
-                Notre service d'épaviste agréé VHU (centre de destruction automobile agréé préfecture) intervient gratuitement dans toutes les villes du département pour la destruction et le recyclage de votre véhicule hors d'usage.
+                Notre service d&apos;épaviste agréé VHU (centre de destruction automobile agréé préfecture) intervient gratuitement dans toutes les villes du département pour la destruction et le recyclage de votre véhicule hors d&apos;usage.
               </p>
               <p className="mb-4">
                 Que votre véhicule soit accidenté, en panne, sans contrôle technique, brûlé, immobilisé ou simplement trop ancien, 
@@ -129,7 +140,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                 Le certificat de destruction (déclaration de cession préfectorale) vous est remis immédiatement pour vous libérer de toute responsabilité légale.
               </p>
               <p>
-                Notre équipe de professionnels de la casse automobile dispose de l'équipement nécessaire pour intervenir même dans 
+                Notre équipe de professionnels de la casse automobile dispose de l&apos;équipement nécessaire pour intervenir même dans 
                 les situations difficiles : parking souterrain, copropriété, terrain enclavé, voirie publique, fourrière. 
                 Service de dépollution et démontage conforme aux normes environnementales.
               </p>
@@ -143,7 +154,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-16">
-              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Zones d'intervention</span>
+              <span className="inline-block text-brand-red text-sm font-semibold tracking-wider uppercase mb-4">Zones d&apos;intervention</span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight">
                 Villes desservies dans le {dept.name}
               </h2>
@@ -189,6 +200,32 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                 </p>
               </div>
             )}
+
+            {/*
+              Compact index of every commune in the department. Always in the
+              HTML: the card grid above is capped at 20 and the "Voir plus"
+              button only reveals more client-side, which left the remaining
+              city pages reachable from the sitemap alone.
+            */}
+            {indexCities.length > CITIES_PER_PAGE && (
+              <div className="mt-14 pt-10 border-t border-neutral-200">
+                <h3 className="text-lg font-bold text-brand-navy mb-5">
+                  Toutes les communes du {dept.name} ({dept.code})
+                </h3>
+                {/*
+                  Link styling lives on the <ul> via descendant variants, not on
+                  each <a>. Repeating a 52-character class string across ~900
+                  links cost ~46 KB of HTML — and again in the RSC payload.
+                */}
+                <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm leading-relaxed [&_a]:text-neutral-600 [&_a]:transition-colors [&_a:hover]:text-brand-red">
+                  {indexCities.map((city) => (
+                    <li key={city.slug}>
+                      <Link href={`/epaviste/${dept.slug}/${city.slug}`}>{city.name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -214,7 +251,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Service 100% gratuit</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Aucun frais pour l'enlèvement de votre épave dans le {dept.code}, même en sous-sol ou terrain difficile.
+                      Aucun frais pour l&apos;enlèvement de votre épave dans le {dept.code}, même en sous-sol ou terrain difficile.
                     </p>
                   </div>
                 </div>
@@ -228,7 +265,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Intervention rapide</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Prise en charge sous 24-48h dans tout le {dept.name}. Service d'urgence disponible.
+                      Prise en charge sous 24-48h dans tout le {dept.name}. Service d&apos;urgence disponible.
                     </p>
                   </div>
                 </div>
@@ -300,7 +337,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                   Épaviste {parentRegion ? parentRegion.name : 'France'}
                 </h3>
                 <p className="text-neutral-600 leading-relaxed text-sm mb-4">
-                  Découvrez notre service d'enlèvement d'épave dans tous les départements {parentRegion ? `de la région ${parentRegion.name}` : 'de France'}.
+                  Découvrez notre service d&apos;enlèvement d&apos;épave dans tous les départements {parentRegion ? `de la région ${parentRegion.name}` : 'de France'}.
                 </p>
                 <span className="text-brand-red font-semibold text-sm">
                   Voir toutes nos zones →
@@ -321,7 +358,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
                 Demandez votre enlèvement gratuit
               </h2>
               <p className="text-lg text-neutral-600">
-                Remplissez le formulaire • Réponse sous 15 minutes • Service 100% gratuit
+                Remplissez le formulaire • {RESPONSE_TIME_COPY} • Service 100% gratuit
               </p>
             </div>
             <ConversionForm trigger="inline" defaultService="epaviste" />
@@ -356,11 +393,7 @@ export default function DepartmentClientPage({ dept, parentRegion, isIdf, idfCon
       )}
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="epaviste" /> : <FAQ />}
-
-
-      {/* Footer */}
-      <Footer />
+      {isIdf ? <IdfFaq faqItems={faqItems} service="epaviste" /> : <FAQ items={faqItems} />}
 
       {/* Floating WhatsApp */}
       <FloatingWhatsApp />

@@ -9,16 +9,16 @@ import Breadcrumb from '@/components/Breadcrumb';
 import QuickContact from '@/components/QuickContact';
 import TrustBadges from '@/components/TrustBadges';
 import ServiceCard from '@/components/ServiceCard';
-import type { CityData, DepartmentData } from '@/lib/page-data';
+import type { CityData, CityPageDepartment } from '@/lib/page-data';
 import type { CityLocalData } from '@/lib/city-local-data';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
+import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
@@ -27,13 +27,15 @@ const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr:
 
 interface CityEpavisteClientProps {
   city: CityData;
-  department: DepartmentData;
+  department: CityPageDepartment;
   localData: CityLocalData | null;
   isIdf: boolean;
   // Optional IDF-only data (passed only when isIdf=true)
   idfDeptTestimonials?: IdfTestimonial[];
   idfDeptContent?: IdfDeptContent | null;
-  idfFaqItems?: IdfFaqItem[];
+  faqItems?: FaqItem[];
+  /** Two guides (blog posts) relevant to this service — IDF pages only. */
+  guides?: Array<{ title: string; href: string }>;
 }
 
 export default function CityEpavisteClient({
@@ -43,12 +45,11 @@ export default function CityEpavisteClient({
   isIdf,
   idfDeptTestimonials = [],
   idfDeptContent = null,
-  idfFaqItems = [],
+  faqItems = [],
+  guides = [],
 }: CityEpavisteClientProps) {
-  // Get nearby cities (first 6 from same department, excluding current)
-  const nearbyCities = department.cities
-    .filter(c => c.slug !== city.slug)
-    .slice(0, 6);
+  // Neighbours are pre-selected server-side (current city already excluded).
+  const nearbyCities = department.nearbyCities.slice(0, 6);
 
   return (
     <>
@@ -60,7 +61,8 @@ export default function CityEpavisteClient({
           <Breadcrumb 
             items={[
               { label: 'Épaviste', href: '/epaviste' },
-              { label: department.name, href: `/epaviste/${department.slug}` },
+              ...(isIdf ? [{ label: 'Île-de-France', href: '/epaviste/ile-de-france' }] : []),
+              { label: `${department.name} (${department.code})`, href: `/epaviste/${department.slug}` },
               { label: city.name }
             ]}
           />
@@ -76,18 +78,18 @@ export default function CityEpavisteClient({
         {isIdf && (
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-8 sm:mb-10 ml-2">
             <span className="text-xs sm:text-sm font-semibold text-brand-gold/90">
-              Prime à la conversion 2026 — jusqu&apos;à 6 000€
+              Certificat de destruction remis le jour de l&apos;enlèvement
             </span>
           </div>
         )}
         
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
-          Épaviste {city.name}
-          <br /><span className="text-brand-red">Enlèvement Gratuit ({city.postalCode})</span>
+          Épaviste à {city.name} ({city.postalCode})&nbsp;:{' '}
+          <br /><span className="text-brand-red">enlèvement d&apos;épave gratuit</span>
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
-          Épaviste agréé VHU à {city.name}. Enlèvement d'épave 100% GRATUIT 24h/24,
+          Épaviste agréé VHU à {city.name}. Enlèvement d&apos;épave 100% GRATUIT 24h/24,
           certificat de destruction fourni. Intervention rapide sous {isIdf ? '2h' : '24-48h'}.
           06 02 42 73 45.
         </p>
@@ -110,16 +112,16 @@ export default function CityEpavisteClient({
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 sm:mb-8 leading-tight tracking-tight">
-              Enlèvement d'épave à {city.name} ({city.postalCode})
+              Enlèvement d&apos;épave à {city.name} ({city.postalCode})
             </h2>
             <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
-              <h3 className="text-xl font-bold text-brand-navy mb-3">Service d'enlèvement à {city.name}</h3>
+              <h3 className="text-xl font-bold text-brand-navy mb-3">Service d&apos;enlèvement à {city.name}</h3>
               <p className="mb-3">
                 Vous habitez {city.name} ({city.postalCode}) et vous avez besoin de faire enlever une épave ? 
-                Notre service d'épaviste agréé VHU intervient gratuitement pour récupérer votre véhicule hors d'usage.
+                Notre service d&apos;épaviste agréé VHU intervient gratuitement pour récupérer votre véhicule hors d&apos;usage.
               </p>
               
-              <h3 className="text-xl font-bold text-brand-navy mb-3 mt-6">Délai d'intervention</h3>
+              <h3 className="text-xl font-bold text-brand-navy mb-3 mt-6">Délai d&apos;intervention</h3>
               <p className="mb-3">
                 Intervention rapide sous {isIdf ? '2-4h' : '24-48h'} à {city.name} et dans tout le {department.name}. 
                 En urgence, nous pouvons intervenir le jour même.
@@ -286,7 +288,7 @@ export default function CityEpavisteClient({
                 {nearbyCities.map((nearbyCity) => (
                   <Link
                     key={nearbyCity.slug}
-                    href={`/epaviste/${department.slug}/${nearbyCity.slug}`}
+                    href={`/epaviste/${nearbyCity.deptSlug ?? department.slug}/${nearbyCity.slug}`}
                     className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-red/30 hover:shadow-md transition-all duration-300 group"
                   >
                     <MapPin size={18} weight="bold" className="text-brand-red flex-shrink-0" />
@@ -327,7 +329,7 @@ export default function CityEpavisteClient({
                 Demandez votre devis gratuit à {city.name}
               </h2>
               <p className="text-lg text-neutral-600">
-                Remplissez le formulaire &bull; Réponse sous 15 minutes &bull; Service 100% gratuit
+                Remplissez le formulaire &bull; {RESPONSE_TIME_COPY} &bull; Service 100% gratuit
               </p>
             </div>
             <ConversionForm trigger="inline" />
@@ -357,20 +359,52 @@ export default function CityEpavisteClient({
               </Link>
             </div>
 
+            {/* IDF: department, region and two guides (P2.3) */}
+            {isIdf && (
+              <div className="mb-8 sm:mb-12 grid sm:grid-cols-2 gap-4">
+                <div className="p-5 bg-white rounded-2xl border border-neutral-200">
+                  <h3 className="text-sm font-bold text-brand-navy mb-3">Autour de {city.name}</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <Link href={`/epaviste/${department.slug}`} className="text-neutral-700 hover:text-brand-red font-medium">
+                        Épaviste {department.name} ({department.code})
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/epaviste/ile-de-france" className="text-neutral-700 hover:text-brand-red font-medium">
+                        Épaviste Île-de-France
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                {guides.length > 0 && (
+                  <div className="p-5 bg-white rounded-2xl border border-neutral-200">
+                    <h3 className="text-sm font-bold text-brand-navy mb-3">Guides utiles</h3>
+                    <ul className="space-y-2 text-sm">
+                      {guides.map((g) => (
+                        <li key={g.href}>
+                          <Link href={g.href} className="text-neutral-700 hover:text-brand-red underline-offset-4 hover:underline">
+                            {g.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Neighboring Cities */}
-            {department.cities.length > 1 && (
+            {department.nearbyCities.length > 0 && (
               <div>
                 <h3 className="text-lg font-bold text-brand-navy mb-6">
                   Épaviste dans les villes voisines
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {department.cities
-                    .filter(c => c.slug !== city.slug)
-                    .slice(0, 8)
-                    .map((neighborCity) => (
+                  {department.nearbyCities.map((neighborCity) => (
                       <Link
                         key={neighborCity.slug}
-                        href={`/epaviste/${department.slug}/${neighborCity.slug}`}
+                        href={`/epaviste/${neighborCity.deptSlug ?? department.slug}/${neighborCity.slug}`}
                         className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-red/30 hover:shadow-md transition-all duration-300 group"
                       >
                         <MapPin size={18} weight="bold" className="text-brand-red flex-shrink-0" />
@@ -412,15 +446,16 @@ export default function CityEpavisteClient({
         />
       )}
 
-      {/* FAQ — IDF cities get hyper-local IdfFaq, others get the generic FAQ */}
-      {isIdf && idfFaqItems.length > 0 ? (
-        <IdfFaq faqItems={idfFaqItems} service="epaviste" />
+      {/*
+        FAQ — the item list is built server-side (local questions + IDF or
+        generic questions) and is the SAME list the page turns into its single
+        FAQPage node, so every schema question is visibly rendered.
+      */}
+      {isIdf && faqItems.length > 0 ? (
+        <IdfFaq faqItems={faqItems} service="epaviste" />
       ) : (
-        <FAQ />
+        <FAQ items={faqItems} />
       )}
-
-      {/* Footer */}
-      <Footer />
 
       {/* Floating WhatsApp */}
       <FloatingWhatsApp />

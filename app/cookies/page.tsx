@@ -6,7 +6,7 @@ import VHUCertification from '@/components/VHUCertification';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'Politique des Cookies | Les Épavistes Pro',
+    title: 'Politique des cookies',
     description: 'Informations sur l\'utilisation des cookies sur le site Les Épavistes Pro.',
     robots: {
         index: false,
@@ -42,25 +42,25 @@ export default function CookiesPage() {
 
                             <h2 className="text-2xl font-bold text-brand-navy mb-4">1. Qu&apos;est-ce qu&apos;un cookie ?</h2>
                             <p>
-                                Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, tablette ou mobile) lors de la visite d'un site internet. Il permet au site de mémoriser certaines informations sur votre visite, comme votre langue préférée et d'autres paramètres, afin de faciliter votre navigation ultérieure.
+                                Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, tablette ou mobile) lors de la visite d&apos;un site internet. Il permet au site de mémoriser certaines informations sur votre visite, comme votre langue préférée et d&apos;autres paramètres, afin de faciliter votre navigation ultérieure.
                             </p>
 
                             <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">2. Les cookies que nous utilisons</h2>
                             <p>
-                                Nous utilisons différents types de cookies pour améliorer le fonctionnement du site et l'expérience utilisateur :
+                                Nous utilisons différents types de cookies pour améliorer le fonctionnement du site et l&apos;expérience utilisateur :
                             </p>
                             <ul className="list-disc ml-6 space-y-2 mt-4">
                                 <li>
-                                    <strong>Cookies essentiels :</strong> Indispensables au fonctionnement du site, ils vous permettent de naviguer et d'utiliser ses fonctionnalités de base (ex: accès aux zones sécurisées).
+                                    <strong>Cookies essentiels :</strong> Indispensables au fonctionnement du site, ils vous permettent de naviguer et d&apos;utiliser ses fonctionnalités de base (ex: accès aux zones sécurisées).
                                 </li>
                                 <li>
-                                    <strong>Cookies de performance (Google Analytics) :</strong> Ils nous aident à comprendre comment les visiteurs interagissent avec le site en collectant et en signalant des informations de manière anonyme. Cela nous permet d'améliorer l'ergonomie et le contenu.
+                                    <strong>Cookies de performance (Google Analytics) :</strong> Ils nous aident à comprendre comment les visiteurs interagissent avec le site en collectant et en signalant des informations de manière anonyme. Cela nous permet d&apos;améliorer l&apos;ergonomie et le contenu.
                                 </li>
                             </ul>
 
                             <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">3. Gestion des cookies</h2>
                             <p>
-                                Vous avez le choix d'accepter ou de refuser les cookies. La plupart des navigateurs web acceptent automatiquement les cookies, mais vous pouvez généralement modifier les paramètres de votre navigateur pour les refuser si vous le préférez.
+                                Vous avez le choix d&apos;accepter ou de refuser les cookies. La plupart des navigateurs web acceptent automatiquement les cookies, mais vous pouvez généralement modifier les paramètres de votre navigateur pour les refuser si vous le préférez.
                             </p>
                             <p>
                                 Notez que le refus des cookies peut vous empêcher de profiter pleinement de certaines fonctionnalités du site.
@@ -71,7 +71,7 @@ export default function CookiesPage() {
 
                             <h2 className="text-2xl font-bold text-brand-navy mt-8 mb-4">4. Durée de conservation</h2>
                             <p>
-                                Les cookies ont une durée de vie limitée à treize (13) mois après leur premier dépôt dans l'équipement terminal de l'utilisateur.
+                                Les cookies ont une durée de vie limitée à treize (13) mois après leur premier dépôt dans l&apos;équipement terminal de l&apos;utilisateur.
                             </p>
 
                             <div className="mt-12 pt-8 border-t border-neutral-200">

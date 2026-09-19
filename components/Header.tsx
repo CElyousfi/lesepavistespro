@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { List, X, Phone, WhatsappLogo, EnvelopeSimple } from '@phosphor-icons/react';
+import { List, X, Phone, WhatsappLogo, EnvelopeSimple, CaretDown } from '@phosphor-icons/react';
 import Button from './Button';
-import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
+import { trackCallClick, trackWhatsAppClick, trackStickyDevisClick } from '@/lib/analytics';
 import MobileServiceMenu from './MobileServiceMenu';
+import { whatsappUrl } from '@/lib/whatsapp';
+import { IDF_NAV_DEPARTMENTS } from './IdfNav';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,10 +21,6 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleCallClick = () => {
-    trackCallClick('header');
-  };
 
   return (
     <>
@@ -52,6 +50,36 @@ const Header = () => {
               <Link href="/rachat-voiture" className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-navy rounded-full hover:bg-neutral-100 transition-all">
                 Rachat
               </Link>
+              {/* Île-de-France dropdown — CSS hover/focus, links are in the HTML */}
+              <div className="relative group">
+                <Link
+                  href="/epaviste/ile-de-france"
+                  className="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-navy rounded-full hover:bg-neutral-100 transition-all"
+                  aria-haspopup="true"
+                >
+                  Île-de-France <CaretDown size={12} weight="bold" />
+                </Link>
+                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 hidden group-hover:block group-focus-within:block z-50">
+                  <div className="w-[36rem] bg-white rounded-2xl border border-neutral-200 shadow-xl p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <Link href="/epaviste/ile-de-france" className="text-sm font-semibold text-brand-red hover:underline">Épaviste Île-de-France</Link>
+                      <Link href="/rachat-voiture/ile-de-france" className="text-sm font-semibold text-brand-gold hover:underline">Rachat voiture Île-de-France</Link>
+                    </div>
+                    <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5">
+                      {IDF_NAV_DEPARTMENTS.map((d) => (
+                        <li key={d.slug} className="flex items-center justify-between text-sm">
+                          <Link href={`/epaviste/${d.slug}`} className="text-brand-navy hover:text-brand-red font-medium">
+                            {d.name} ({d.code})
+                          </Link>
+                          <Link href={`/rachat-voiture/${d.slug}`} className="text-xs text-neutral-500 hover:text-brand-gold">
+                            rachat
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
               <Link href="/blog" className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-navy rounded-full hover:bg-neutral-100 transition-all">
                 Conseils
               </Link>
@@ -62,7 +90,7 @@ const Header = () => {
 
             {/* CTA Buttons */}
             <div className="hidden lg:flex items-center gap-3">
-              <a href="tel:+33602427345" className="text-sm font-medium text-neutral-600 hover:text-brand-red transition-colors">
+              <a href="tel:+33602427345" onClick={() => trackCallClick('header')} className="text-sm font-medium text-neutral-600 hover:text-brand-red transition-colors">
                 06 02 42 73 45
               </a>
               <Button
@@ -100,7 +128,7 @@ const Header = () => {
         <div className="grid grid-cols-3 gap-2 max-w-lg mx-auto">
           <a
             href="tel:+33602427345"
-            onClick={handleCallClick}
+            onClick={() => trackCallClick('mobile_sticky')}
             className="flex flex-col items-center justify-center bg-brand-red text-white py-3 px-2 rounded-xl font-semibold hover:bg-brand-red/90 transition-colors active:scale-95"
           >
             <Phone size={20} weight="bold" className="mb-1" />
@@ -108,7 +136,7 @@ const Header = () => {
           </a>
 
           <a
-            href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis%20pour%20l%27enl%C3%A8vement%20d%27une%20%C3%A9pave.%20Pouvez-vous%20me%20rappeler%20%3F"
+            href={whatsappUrl("Bonjour, je souhaite obtenir un devis pour l'enlèvement d'une épave. Pouvez-vous me rappeler ?")}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWhatsAppClick('mobile_sticky')}
@@ -120,6 +148,7 @@ const Header = () => {
 
           <button
             onClick={() => {
+              trackStickyDevisClick();
               const formSection = document.querySelector('section:has(form)');
               if (formSection) {
                 formSection.scrollIntoView({ behavior: 'smooth' });

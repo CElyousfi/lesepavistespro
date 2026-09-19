@@ -6,6 +6,13 @@
  * Usage: npx tsx scripts/generate-full-locations.ts
  */
 
+/*
+ * NOTE: the La Poste source file spells commune names in flat ASCII with
+ * abbreviations ("Boissy St Leger", "Asnieres sur Seine"). After running this
+ * generator you MUST run scripts/fix-city-display-names.ts, which rewrites the
+ * display names from the official INSEE/geo.api.gouv.fr register without ever
+ * touching a slug. `npm run generate-locations` chains both.
+ */
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -195,6 +202,15 @@ function getCitySlug(cityName: string, deptCode: string): string {
   return toSlug(cityName);
 }
 
+// Department code from an INSEE commune code (2A/2B for Corsica, 3 digits overseas).
+function getDeptCodeFromInsee(insee: string): string {
+  if (!insee || insee.length !== 5) return '';
+  const p2 = insee.substring(0, 2);
+  if (p2 === '2A' || p2 === '2B') return p2;
+  if (p2 === '97') { const p3 = insee.substring(0, 3); return DEPARTMENT_NAMES[p3] ? p3 : ''; }
+  return DEPARTMENT_NAMES[p2] ? p2 : '';
+}
+
 // Get department code from postal code
 function getDeptCodeFromPostal(postalCode: string): string {
   if (!postalCode || postalCode.length < 2) return '';
@@ -322,7 +338,12 @@ async function main() {
     
     if (!communeName || !postalCode) { skipped++; continue; }
     
-    const deptCode = getDeptCodeFromPostal(postalCode);
+    // The department is the one of the INSEE code, never of the postal code:
+    // a commune whose postal codes straddle two departments (Paray-Vieille-
+    // Poste, 91479, served by 91550 and 94390) must exist once, in its own
+    // department. Postal prefix is only a fallback when INSEE is missing or
+    // is not a department we know (COM such as 977/978 stay under 971).
+    const deptCode = getDeptCodeFromInsee(inseeCode) || getDeptCodeFromPostal(postalCode);
     if (!deptCode || !DEPARTMENT_NAMES[deptCode]) { skipped++; continue; }
     
     if (!deptCities.has(deptCode)) {
@@ -450,10 +471,18 @@ async function main() {
         .sort((a, b) => a.name.localeCompare(b.name, 'fr'));
       
       const citiesOutput: string[] = [];
+      // One row per slug: two rows sharing a slug would emit the same URL twice
+      // in the sitemap and make the page unresolvable by (department, slug).
+      const emittedSlugs = new Set<string>();
       for (const city of sortedCities) {
         const citySlug = getCitySlug(city.name, deptCode);
+        if (emittedSlugs.has(citySlug)) {
+          console.warn(`   ⚠️ Duplicate slug "${citySlug}" in department ${deptCode} — keeping the first entry only`);
+          continue;
+        }
+        emittedSlugs.add(citySlug);
         const primaryPostal = Array.from(city.postalCodes).sort()[0];
-        
+
         citiesOutput.push(`      { name: ${JSON.stringify(city.name)}, slug: ${JSON.stringify(citySlug)}, postalCode: ${JSON.stringify(primaryPostal)} }`);
         totalCities++;
       }
@@ -547,15 +576,44 @@ export function getDepartmentBySlug(slug: string): Department | undefined {
   return allDepartments.find(d => d.slug === slug);
 }
 
-/** Find a city by its slug (searches all departments) */
-export function getCityBySlug(citySlug: string): { city: City; department: Department } | undefined {
+/**
+ * Resolve a city inside a specific department.
+ *
+ * This is the ONLY correct way to resolve a /{service}/{department}/{city}
+ * URL: ~1,470 city slugs exist in more than one department (Montreuil,
+ * Bagneux, Chelles, Torcy, Grigny, Fresnes…), so resolving by slug alone
+ * silently returns a homonym from another department and canonicalises the
+ * page away from itself.
+ */
+export function getCityInDepartment(
+  deptSlug: string,
+  citySlug: string
+): { city: City; department: Department } | undefined {
+  const department = getDepartmentBySlug(deptSlug);
+  const city = department?.cities.find(c => c.slug === citySlug);
+  return department && city ? { city, department } : undefined;
+}
+
+/**
+ * Set of city slugs that exist in more than one department.
+ * Used to disambiguate titles/descriptions for homonym cities.
+ */
+export const homonymCitySlugs: ReadonlySet<string> = (() => {
+  const seen = new Map<string, string>();
+  const dupes = new Set<string>();
   for (const dept of allDepartments) {
-    const city = dept.cities.find(c => c.slug === citySlug);
-    if (city) {
-      return { city, department: dept };
+    for (const city of dept.cities) {
+      const previous = seen.get(city.slug);
+      if (previous !== undefined && previous !== dept.slug) dupes.add(city.slug);
+      else if (previous === undefined) seen.set(city.slug, dept.slug);
     }
   }
-  return undefined;
+  return dupes;
+})();
+
+/** True when this city name/slug is shared with a city in another department. */
+export function isHomonymCity(citySlug: string): boolean {
+  return homonymCitySlugs.has(citySlug);
 }
 
 /** Find the parent region for a department */

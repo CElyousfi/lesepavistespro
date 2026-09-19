@@ -4,6 +4,7 @@ import { Phone, ArrowRight } from '@phosphor-icons/react';
 import Button from './Button';
 import Header from './Header';
 import { trackCallClick } from '@/lib/analytics';
+import { BUSINESS_CLAIMS } from '@/lib/business-claims';
 
 const HeroNew = () => {
 
@@ -77,8 +78,8 @@ const HeroNew = () => {
             {[...Array(2)].map((_, setIndex) => (
               <div key={setIndex} className="flex items-center gap-12 px-6">
                 <div className="flex items-center gap-4 whitespace-nowrap">
-                  <span className="text-4xl md:text-5xl font-bold text-brand-navy tracking-tight">500+</span>
-                  <span className="text-sm text-neutral-500 font-medium">Clients<br/>satisfaits</span>
+                  <span className="text-4xl md:text-5xl font-bold text-brand-navy tracking-tight">{BUSINESS_CLAIMS.clientCount.verified ? BUSINESS_CLAIMS.clientCount.text : '24h/24'}</span>
+                  <span className="text-sm text-neutral-500 font-medium">{BUSINESS_CLAIMS.clientCount.verified ? <>Clients<br/>satisfaits</> : <>Disponibles<br/>7j/7</>}</span>
                 </div>
                 <span className="text-neutral-300 text-2xl">+</span>
                 <div className="flex items-center gap-4 whitespace-nowrap">

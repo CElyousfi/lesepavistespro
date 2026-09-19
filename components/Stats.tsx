@@ -1,10 +1,11 @@
 import { Users, TrendingUp, Euro, Leaf } from 'lucide-react';
+import { BUSINESS_CLAIMS } from '@/lib/business-claims';
 
 const stats = [
   {
     icon: Users,
-    value: '500+',
-    label: 'Clients satisfaits',
+    value: BUSINESS_CLAIMS.clientCount.verified ? BUSINESS_CLAIMS.clientCount.text : '24h/24',
+    label: BUSINESS_CLAIMS.clientCount.verified ? 'Clients satisfaits' : 'Disponibles 7j/7',
     description: 'Nous font déjà confiance',
   },
   {
@@ -33,7 +34,7 @@ const Stats = () => {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Nos résultats parlent d'eux-mêmes
+            Nos résultats parlent d&apos;eux-mêmes
           </h2>
           <p className="text-lg text-gray-200">
             Des chiffres qui témoignent de notre expertise et de notre engagement envers nos clients.

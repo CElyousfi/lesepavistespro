@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { CheckCircle, CurrencyEur, Shield, MapPin, Clock, CaretRight, Car } from '@phosphor-icons/react';
+import { CurrencyEur, Shield, MapPin, Clock, CaretRight, Car } from '@phosphor-icons/react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
@@ -9,16 +9,15 @@ import Breadcrumb from '@/components/Breadcrumb';
 import QuickContact from '@/components/QuickContact';
 import TrustBadges from '@/components/TrustBadges';
 import ServiceCard from '@/components/ServiceCard';
-import type { CityData, DepartmentData } from '@/lib/page-data';
+import type { CityData, CityPageDepartment } from '@/lib/page-data';
 import type { CityLocalData } from '@/lib/city-local-data';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
@@ -27,27 +26,29 @@ const IdfAeoSection = dynamic(() => import('@/components/IdfAeoSection'), { ssr:
 
 interface CityRachatClientProps {
   city: CityData;
-  department: DepartmentData;
+  department: CityPageDepartment;
   localData: CityLocalData | null;
   isIdf: boolean;
   idfDeptTestimonials?: IdfTestimonial[];
   idfDeptContent?: IdfDeptContent | null;
-  idfFaqItems?: IdfFaqItem[];
+  faqItems?: FaqItem[];
+  /** Two guides (blog posts) relevant to this service — IDF pages only. */
+  guides?: Array<{ title: string; href: string }>;
 }
 
 export default function CityRachatClient({
   city,
   department,
-  localData,
+  // localData drives the épaviste template's local sections; the rachat
+  // template does not render them, so it is accepted and ignored.
   isIdf,
   idfDeptTestimonials = [],
   idfDeptContent = null,
-  idfFaqItems = [],
+  faqItems = [],
+  guides = [],
 }: CityRachatClientProps) {
-  // Get nearby cities (first 6 from same department, excluding current)
-  const nearbyCities = department.cities
-    .filter(c => c.slug !== city.slug)
-    .slice(0, 6);
+  // Neighbours are pre-selected server-side (current city already excluded).
+  const nearbyCities = department.nearbyCities.slice(0, 6);
 
   return (
     <>
@@ -59,7 +60,8 @@ export default function CityRachatClient({
           <Breadcrumb 
             items={[
               { label: 'Rachat Voiture', href: '/rachat-voiture' },
-              { label: department.name, href: `/rachat-voiture/${department.slug}` },
+              ...(isIdf ? [{ label: 'Île-de-France', href: '/rachat-voiture/ile-de-france' }] : []),
+              { label: `${department.name} (${department.code})`, href: `/rachat-voiture/${department.slug}` },
               { label: city.name }
             ]}
           />
@@ -75,19 +77,19 @@ export default function CityRachatClient({
         {isIdf && (
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-8 sm:mb-10 ml-2">
             <span className="text-xs sm:text-sm font-semibold text-brand-gold/90">
-              Prime à la conversion 2026 — jusqu&apos;à 6 000€
+              Certificat de destruction remis le jour de l&apos;enlèvement
             </span>
           </div>
         )}
         
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight text-brand-navy">
-          Rachat Voiture {city.name}
-          <br /><span className="text-brand-gold">Paiement Immédiat ({city.postalCode})</span>
+          Rachat de voiture à {city.name} ({city.postalCode})&nbsp;:{' '}
+          <br /><span className="text-brand-gold">paiement cash immédiat</span>
         </h1>
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Nous rachetons tous types de véhicules à {city.name} :
-          voitures d'occasion en bon état, véhicules accidentés, voitures en panne,
+          voitures d&apos;occasion en bon état, véhicules accidentés, voitures en panne,
           épaves, véhicules sans contrôle technique. Paiement cash immédiat.
           06 02 42 73 45.
         </p>
@@ -119,7 +121,7 @@ export default function CityRachatClient({
                 pour acheter votre voiture au meilleur prix, quel que soit son état.
               </p>
               <p className="mb-4">
-                Nous rachetons tous types de véhicules à {city.name} : voitures d'occasion en bon état, 
+                Nous rachetons tous types de véhicules à {city.name} : voitures d&apos;occasion en bon état, 
                 véhicules accidentés, voitures en panne, épaves, véhicules sans contrôle technique.
               </p>
             </div>
@@ -184,7 +186,7 @@ export default function CityRachatClient({
                 {nearbyCities.map((nearbyCity) => (
                   <Link
                     key={nearbyCity.slug}
-                    href={`/rachat-voiture/${department.slug}/${nearbyCity.slug}`}
+                    href={`/rachat-voiture/${nearbyCity.deptSlug ?? department.slug}/${nearbyCity.slug}`}
                     className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-gold/30 hover:shadow-md transition-all duration-300 group"
                   >
                     <MapPin size={18} weight="bold" className="text-brand-gold flex-shrink-0" />
@@ -244,7 +246,7 @@ export default function CityRachatClient({
                 Votre voiture est une épave ?
               </h3>
               <p className="text-neutral-600 leading-relaxed text-sm mb-4">
-                Découvrez notre service d'enlèvement d'épave à {city.name}. Service 100% gratuit, intervention rapide.
+                Découvrez notre service d&apos;enlèvement d&apos;épave à {city.name}. Service 100% gratuit, intervention rapide.
               </p>
               <Link
                 href={`/epaviste/${department.slug}/${city.slug}`}
@@ -255,20 +257,52 @@ export default function CityRachatClient({
               </Link>
             </div>
 
+            {/* IDF: department, region and two guides (P2.3) */}
+            {isIdf && (
+              <div className="mb-8 sm:mb-12 grid sm:grid-cols-2 gap-4">
+                <div className="p-5 bg-white rounded-2xl border border-neutral-200">
+                  <h3 className="text-sm font-bold text-brand-navy mb-3">Autour de {city.name}</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <Link href={`/rachat-voiture/${department.slug}`} className="text-neutral-700 hover:text-brand-red font-medium">
+                        Rachat voiture {department.name} ({department.code})
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/rachat-voiture/ile-de-france" className="text-neutral-700 hover:text-brand-red font-medium">
+                        Rachat voiture Île-de-France
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                {guides.length > 0 && (
+                  <div className="p-5 bg-white rounded-2xl border border-neutral-200">
+                    <h3 className="text-sm font-bold text-brand-navy mb-3">Guides utiles</h3>
+                    <ul className="space-y-2 text-sm">
+                      {guides.map((g) => (
+                        <li key={g.href}>
+                          <Link href={g.href} className="text-neutral-700 hover:text-brand-red underline-offset-4 hover:underline">
+                            {g.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Neighboring Cities */}
-            {department.cities.length > 1 && (
+            {department.nearbyCities.length > 0 && (
               <div>
                 <h3 className="text-lg font-bold text-brand-navy mb-6">
                   Rachat voiture dans les villes voisines
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {department.cities
-                    .filter(c => c.slug !== city.slug)
-                    .slice(0, 8)
-                    .map((neighborCity) => (
+                  {department.nearbyCities.map((neighborCity) => (
                       <Link
                         key={neighborCity.slug}
-                        href={`/rachat-voiture/${department.slug}/${neighborCity.slug}`}
+                        href={`/rachat-voiture/${neighborCity.deptSlug ?? department.slug}/${neighborCity.slug}`}
                         className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-gold/30 hover:shadow-md transition-all duration-300 group"
                       >
                         <MapPin size={18} weight="bold" className="text-brand-gold flex-shrink-0" />
@@ -310,15 +344,16 @@ export default function CityRachatClient({
         />
       )}
 
-      {/* FAQ — IDF cities get hyper-local IdfFaq, others get the generic FAQ */}
-      {isIdf && idfFaqItems.length > 0 ? (
-        <IdfFaq faqItems={idfFaqItems} service="rachat" />
+      {/*
+        FAQ — the item list is built server-side (local questions + IDF or
+        generic questions) and is the SAME list the page turns into its single
+        FAQPage node, so every schema question is visibly rendered.
+      */}
+      {isIdf && faqItems.length > 0 ? (
+        <IdfFaq faqItems={faqItems} service="rachat" />
       ) : (
-        <FAQ />
+        <FAQ items={faqItems} />
       )}
-
-      {/* Footer */}
-      <Footer />
 
       {/* Floating WhatsApp */}
       <FloatingWhatsApp />

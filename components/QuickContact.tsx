@@ -5,6 +5,7 @@ import { Phone, WhatsappLogo } from '@phosphor-icons/react';
 import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
 import { isAdsTraffic } from '@/lib/trafficSource';
 import ConversionForm from '@/components/ConversionForm';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 interface QuickContactProps {
   service?: 'epaviste' | 'rachat';
@@ -15,9 +16,15 @@ interface QuickContactProps {
 }
 
 export default function QuickContact({ service = 'epaviste', location, className = '', cityName, departmentName }: QuickContactProps) {
+  // Ads traffic is detected from the URL/referrer, which only exist in the
+  // browser. The value MUST start false so the server-rendered HTML and the
+  // first client render agree, then update after mount — the deliberate extra
+  // render this costs is the price of a hydration-safe read, which is why the
+  // set-state-in-effect rule is waived here specifically.
   const [isFromAds, setIsFromAds] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration-safe client-only read, see above
     setIsFromAds(isAdsTraffic());
   }, []);
 
@@ -25,7 +32,6 @@ export default function QuickContact({ service = 'epaviste', location, className
     ? `Bonjour, je souhaite ${service === 'epaviste' ? "un devis pour l'enlèvement d'une épave" : "vendre ma voiture"} à ${location}`
     : `Bonjour, je souhaite ${service === 'epaviste' ? "un devis pour l'enlèvement d'une épave" : "vendre ma voiture"}`;
 
-  const primaryColor = service === 'epaviste' ? 'brand-red' : 'brand-gold';
   
   const handleCallClick = () => {
     trackCallClick(location || service);
@@ -69,7 +75,7 @@ export default function QuickContact({ service = 'epaviste', location, className
           <span>06 02 42 73 45</span>
         </a>
         <a 
-          href={`https://wa.me/33602427345?text=${encodeURIComponent(whatsappMessage)}`}
+          href={whatsappUrl(whatsappMessage)}
           onClick={handleWhatsAppClick}
           target="_blank"
           rel="noopener noreferrer"

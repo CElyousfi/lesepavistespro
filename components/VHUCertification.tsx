@@ -31,7 +31,7 @@ const VHUCertification = () => {
               <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 justify-center">
                 <div className="relative w-[180px] h-[100px] shrink-0">
                   <Image
-                    src="/images/centre-vhu-agree.jpeg"
+                    src="/images/centre-vhu-agree.webp"
                     alt="Centre VHU Agréé - Partenaire avec centre VHU agréé N° PR9500003D"
                     fill
                     sizes="180px"

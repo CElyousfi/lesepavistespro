@@ -28,8 +28,8 @@ const services = [
   },
   {
     icon: Recycle,
-    title: 'Prime à la conversion',
-    description: 'Conseils et accompagnement pour bénéficier de la prime gouvernementale. Attestation de destruction fournie.',
+    title: 'Certificat de destruction',
+    description: 'Remis le jour de l’enlèvement : il met fin à votre responsabilité et sert de justificatif pour les aides à l’achat d’un véhicule propre.',
   },
 ];
 
@@ -43,7 +43,7 @@ const Services = () => {
             Nos experts au service de votre trésorerie
           </h2>
           <p className="text-lg text-gray-600 font-light leading-relaxed">
-            Un service complet pour vous débarrasser de votre véhicule hors d'usage en toute légalité et simplicité.
+            Un service complet pour vous débarrasser de votre véhicule hors d&apos;usage en toute légalité et simplicité.
           </p>
         </div>
 

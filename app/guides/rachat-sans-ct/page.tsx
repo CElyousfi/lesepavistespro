@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
@@ -9,7 +8,7 @@ import { getBlogArticleData, renderJSONLD, getBreadcrumbData } from '@/lib/struc
 import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
-  title: "Rachat sans CT en France : Démarches & Légalité",
+  title: "Rachat voiture sans contrôle technique",
   description: "Guide complet sur le rachat de voiture sans contrôle technique. Démarches légales, documents nécessaires, prix et conseils d'experts.",
   keywords: ['rachat sans CT', 'voiture sans contrôle technique', 'vente sans CT', 'France'],
   alternates: {
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function RachatSansCTPage() {
   const articleData = getBlogArticleData({
-    title: "Rachat sans CT en France : Démarches & Légalité",
+    title: "Rachat voiture sans contrôle technique : le guide complet",
     description: "Guide complet sur le rachat de voiture sans contrôle technique. Tout ce qu'il faut savoir sur la légalité, les démarches et les prix.",
     author: 'Les Épavistes Pro',
     publishDate: '2024-11-11',
@@ -28,17 +27,14 @@ export default function RachatSansCTPage() {
 
   const breadcrumbData = getBreadcrumbData([
     { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
-    { name: 'Guides', url: 'https://www.lesepavistespro.fr/guides/rachat-sans-ct' },
     { name: 'Rachat sans CT', url: 'https://www.lesepavistespro.fr/guides/rachat-sans-ct' },
   ]);
 
   return (
     <>
       {/* Breadcrumb Structured Data */}
-      <Script
-        id="structured-data-guide-breadcrumb"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       {/* Article Structured Data */}
@@ -75,7 +71,7 @@ export default function RachatSansCTPage() {
               
               <h2>Est-il légal de vendre une voiture sans CT ?</h2>
               <p>
-                <strong>Oui, c'est parfaitement légal</strong> de vendre une voiture sans contrôle technique valide en France, 
+                <strong>Oui, c&apos;est parfaitement légal</strong> de vendre une voiture sans contrôle technique valide en France, 
                 mais sous certaines conditions importantes :
               </p>
 
@@ -85,7 +81,7 @@ export default function RachatSansCTPage() {
                   <div>
                     <h3 className="font-bold text-green-900 mb-2">Vente légale sans CT si :</h3>
                     <ul className="text-green-800 space-y-2">
-                      <li>✅ Vente à un professionnel de l'automobile</li>
+                      <li>✅ Vente à un professionnel de l&apos;automobile</li>
                       <li>✅ Vente pour destruction (épaviste agréé VHU)</li>
                       <li>✅ Vente pour pièces détachées</li>
                       <li>✅ Véhicule de collection (+ de 30 ans)</li>
@@ -116,9 +112,9 @@ export default function RachatSansCTPage() {
                   <FileText size={32} weight="fill" className="text-brand-red mb-3" />
                   <h3 className="font-bold text-brand-navy mb-2">Documents obligatoires</h3>
                   <ul className="text-neutral-700 space-y-2 text-sm">
-                    <li>• Carte grise (certificat d'immatriculation)</li>
+                    <li>• Carte grise (certificat d&apos;immatriculation)</li>
                     <li>• Certificat de situation administrative (non-gage)</li>
-                    <li>• Pièce d'identité valide</li>
+                    <li>• Pièce d&apos;identité valide</li>
                     <li>• Déclaration de cession (Cerfa 15776*02)</li>
                   </ul>
                 </div>
@@ -127,17 +123,17 @@ export default function RachatSansCTPage() {
                   <Warning size={32} weight="fill" className="text-brand-gold mb-3" />
                   <h3 className="font-bold text-brand-navy mb-2">Mentions obligatoires</h3>
                   <ul className="text-neutral-700 space-y-2 text-sm">
-                    <li>• "Vendu sans contrôle technique"</li>
-                    <li>• "Vendu pour destruction" ou "pour pièces"</li>
+                    <li>• &quot;Vendu sans contrôle technique&quot;</li>
+                    <li>• &quot;Vendu pour destruction&quot; ou &quot;pour pièces&quot;</li>
                     <li>• Date et signature du vendeur</li>
                     <li>• Barrer la carte grise</li>
                   </ul>
                 </div>
               </div>
 
-              <h2>Prix de rachat sans CT : à quoi s'attendre ?</h2>
+              <h2>Prix de rachat sans CT : à quoi s&apos;attendre ?</h2>
               <p>
-                Le prix de rachat d'une voiture sans CT dépend de plusieurs facteurs :
+                Le prix de rachat d&apos;une voiture sans CT dépend de plusieurs facteurs :
               </p>
 
               <div className="bg-brand-blue/5 p-6 rounded-xl my-6 not-prose">
@@ -160,7 +156,7 @@ export default function RachatSansCTPage() {
                   </div>
                   <div>
                     <strong className="text-brand-navy">Poids et métaux :</strong>
-                    <p className="text-sm mt-1">Valeur de l'acier, aluminium, cuivre</p>
+                    <p className="text-sm mt-1">Valeur de l&apos;acier, aluminium, cuivre</p>
                   </div>
                 </div>
               </div>
@@ -189,7 +185,7 @@ export default function RachatSansCTPage() {
                     <h3 className="font-bold text-brand-navy mb-2">Estimation gratuite</h3>
                     <p className="text-neutral-700">
                       Nous évaluons votre véhicule et vous proposons un prix de rachat immédiat, sans engagement. 
-                      Estimation transparente basée sur l'état réel.
+                      Estimation transparente basée sur l&apos;état réel.
                     </p>
                   </div>
                 </div>
@@ -224,7 +220,7 @@ export default function RachatSansCTPage() {
                 <div className="text-center p-6 bg-white rounded-2xl border border-neutral-200">
                   <FileText size={48} weight="fill" className="text-brand-red mx-auto mb-3" />
                   <h3 className="font-bold text-brand-navy mb-2">Sans Tracas</h3>
-                  <p className="text-sm text-neutral-600">On s'occupe de tout, enlèvement gratuit</p>
+                  <p className="text-sm text-neutral-600">On s&apos;occupe de tout, enlèvement gratuit</p>
                 </div>
               </div>
 
@@ -247,7 +243,7 @@ export default function RachatSansCTPage() {
                   </summary>
                   <p className="mt-3 text-neutral-700">
                     Vous pouvez vendre immédiatement. Nous intervenons sous 24-48h partout en France. 
-                    Estimation et paiement le jour même de l'enlèvement.
+                    Estimation et paiement le jour même de l&apos;enlèvement.
                   </p>
                 </details>
 
@@ -256,7 +252,7 @@ export default function RachatSansCTPage() {
                     Que devient ma voiture après la vente ?
                   </summary>
                   <p className="mt-3 text-neutral-700">
-                    Selon l'état, elle est soit démontée pour récupérer les pièces réutilisables, soit envoyée en centre VHU agréé 
+                    Selon l&apos;état, elle est soit démontée pour récupérer les pièces réutilisables, soit envoyée en centre VHU agréé 
                     pour dépollution et recyclage. Vous recevez un certificat de destruction si nécessaire.
                   </p>
                 </details>

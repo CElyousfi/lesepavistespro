@@ -1,6 +1,3 @@
-import type { Metadata } from 'next';
-import Script from 'next/script';
-import Image from 'next/image';
 import { Phone, WhatsappLogo, CheckCircle, CurrencyEur, Shield, MapPin, Clock } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { regions } from '@/lib/locations-complete';
@@ -10,16 +7,18 @@ import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
-import { getRachatServiceData, getPillarFAQData } from '@/lib/structured-data';
+import { getRachatServiceData } from '@/lib/structured-data';
+import { buildFaqPage, pillarFaqItems } from '@/lib/faq';
 import { generateRachatPillarMeta } from '@/lib/seo';
 import { getBreadcrumbSchema, getSpeakableSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 export const metadata = generateRachatPillarMeta();
 
 export default function RachatVoiturePage() {
   const serviceData = getRachatServiceData();
-  const faqData = getPillarFAQData();
+  const faqData = buildFaqPage(pillarFaqItems);
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
     { name: 'Rachat Voiture France', url: 'https://www.lesepavistespro.fr/rachat-voiture' },
@@ -35,28 +34,20 @@ export default function RachatVoiturePage() {
   return (
     <>
       {/* Structured Data for SEO - Rendered in head */}
-      <Script
-        id="structured-data-rachat-service"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceData) }}
       />
-      <Script
-        id="structured-data-rachat-faq"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
       />
-      <Script
-        id="structured-data-rachat-breadcrumb"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Script
-        id="structured-data-rachat-speakable"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
       <Header />
@@ -101,7 +92,7 @@ export default function RachatVoiturePage() {
                 06 02 42 73 45
               </a>
               <a
-                href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20vendre%20ma%20voiture"
+                href={whatsappUrl('Bonjour, je souhaite vendre ma voiture')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover"
@@ -317,7 +308,7 @@ export default function RachatVoiturePage() {
 
       {/* FAQ & Footer */}
       <CTASection />
-      <FAQ />
+      <FAQ items={pillarFaqItems} />
       <VHUCertification />
       <Footer />
       <FloatingWhatsApp />

@@ -1,43 +1,45 @@
 import { NextResponse } from 'next/server';
-import { getSiteUrl } from '@/lib/site';
+import { getSiteUrl, lastmod } from '@/lib/site';
 
 /**
- * Static pages sitemap
- * Includes: homepage, pillars, zones, blog index, contact
+ * Static pages sitemap.
+ * Every entry is a 200, self-canonical, indexable route.
+ * <lastmod> comes from CONTENT_UPDATED_AT, never from `new Date()`.
  */
 export async function GET() {
   const base = getSiteUrl();
-  const buildTime = new Date().toISOString();
+  const updated = lastmod('static');
 
-  const urls = [
-    { loc: `${base}/`, changefreq: 'daily', priority: 1.0 },
-    { loc: `${base}/epaviste`, changefreq: 'weekly', priority: 0.9 },
-    { loc: `${base}/rachat-voiture`, changefreq: 'weekly', priority: 0.9 },
-    { loc: `${base}/zones`, changefreq: 'weekly', priority: 0.85 },
-    { loc: `${base}/blog`, changefreq: 'weekly', priority: 0.8 },
-    { loc: `${base}/contact`, changefreq: 'monthly', priority: 0.7 },
-    { loc: `${base}/faq`, changefreq: 'monthly', priority: 0.7 },
-    { loc: `${base}/conformite-vhu`, changefreq: 'monthly', priority: 0.7 },
-    { loc: `${base}/documents`, changefreq: 'monthly', priority: 0.6 },
-    { loc: `${base}/guides/rachat-sans-ct`, changefreq: 'monthly', priority: 0.6 },
-    { loc: `${base}/cookies`, changefreq: 'yearly', priority: 0.3 },
-    { loc: `${base}/mentions-legales`, changefreq: 'yearly', priority: 0.3 },
-    { loc: `${base}/politique-de-confidentialite`, changefreq: 'yearly', priority: 0.3 },
+  const paths = [
+    '/',
+    '/epaviste',
+    '/rachat-voiture',
+    '/zones',
+    '/blog',
+    '/contact',
+    '/faq',
+    '/conformite-vhu',
+    '/documents',
+    '/guides/rachat-sans-ct',
+    '/mentions-legales',
+    '/politique-de-confidentialite',
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `  <url>
-    <loc>${u.loc}</loc>
-    <lastmod>${buildTime}</lastmod>
-    <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
-  </url>`).join('\n')}
+${paths
+  .map(
+    (p) => `  <url>
+    <loc>${base}${p === '/' ? '/' : p}</loc>
+    <lastmod>${updated}</lastmod>
+  </url>`
+  )
+  .join('\n')}
 </urlset>`;
 
   return new NextResponse(xml, {
     headers: {
-      'Content-Type': 'application/xml',
+      'Content-Type': 'application/xml; charset=utf-8',
       'Cache-Control': 'public, max-age=3600, s-maxage=3600',
     },
   });

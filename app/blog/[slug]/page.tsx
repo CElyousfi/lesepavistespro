@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AlsoInIdf from '@/components/AlsoInIdf';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { Clock, User, ArrowLeft, Phone } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
@@ -25,15 +26,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // The editorial title is the H1; `seoTitle` is the shorter SERP title.
+  // `absolute` opts out of the layout's ' | Les Épavistes Pro' template so the
+  // whole 60-character budget goes to the topic.
+  const serpTitle = post.seoTitle ?? post.title;
+  const description = post.seoDescription ?? post.excerpt;
+
   return {
-    title: `${post.title} | Blog Les Épavistes Pro`,
-    description: post.excerpt,
-    keywords: post.keywords,
+    title: { absolute: serpTitle },
+    description,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: serpTitle,
+      description,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.updatedAt ?? post.date,
+      url: `https://www.lesepavistespro.fr/blog/${post.slug}`,
+      images: [{ url: `https://www.lesepavistespro.fr${post.image}` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: serpTitle,
+      description,
+      images: [`https://www.lesepavistespro.fr${post.image}`],
     },
     alternates: {
       canonical: `https://www.lesepavistespro.fr/blog/${post.slug}`,
@@ -57,6 +72,7 @@ export default async function BlogPost({ params }: Props) {
     description: post.excerpt,
     author: 'Les Épavistes Pro',
     publishDate: post.date,
+    modifiedDate: post.updatedAt ?? post.date,
     image: post.image,
     url: `https://www.lesepavistespro.fr/blog/${post.slug}`
   }) : null;
@@ -151,6 +167,7 @@ export default async function BlogPost({ params }: Props) {
                 src={post.image}
                 alt={post.title}
                 fill
+                sizes="(max-width: 1024px) 100vw, 900px"
                 className="object-cover"
                 priority
               />
@@ -172,6 +189,34 @@ export default async function BlogPost({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </div>
+
+            {/*
+              Service links. Every article body already carries contextual links,
+              but this block guarantees a consistent set of internal links from
+              each post to the pages that convert.
+            */}
+            <nav aria-label="Nos services" className="mb-10 bg-white rounded-2xl border border-neutral-200 p-8">
+              <h2 className="text-xl font-bold text-brand-navy mb-4">Pour aller plus loin</h2>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+                {[
+                  { href: '/epaviste', label: "Enlèvement d'épave gratuit partout en France" },
+                  { href: '/rachat-voiture', label: 'Rachat de voiture — paiement cash immédiat' },
+                  { href: '/conformite-vhu', label: 'Conformité VHU et certificat de destruction' },
+                  { href: '/documents', label: 'Documents à fournir pour un enlèvement' },
+                  { href: '/guides/rachat-sans-ct', label: 'Vendre une voiture sans contrôle technique' },
+                  { href: '/epaviste/ile-de-france', label: 'Épaviste en Île-de-France (75, 92, 93, 94…)' },
+                ].map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-neutral-600 hover:text-brand-red transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
             {/* CTA Section */}
             <div className="bg-brand-navy text-white rounded-2xl p-8 md:p-12 text-center relative overflow-hidden">
@@ -239,6 +284,8 @@ export default async function BlogPost({ params }: Props) {
       </main>
 
       <VHUCertification />
+      {/* Non-IDF posts link both IDF hubs once (P2.3); IDF posts already do in their body. */}
+      {post.region !== 'idf' && <AlsoInIdf />}
       <Footer />
       <FloatingWhatsApp />
     </>

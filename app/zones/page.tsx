@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import Link from 'next/link';
-import { MapPin, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
+import { MapPin } from '@phosphor-icons/react/dist/ssr';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
@@ -9,6 +8,7 @@ import { regions, allDepartments } from '@/lib/locations-complete';
 import { generateZonesMeta } from '@/lib/seo';
 import { getBreadcrumbSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 export const metadata: Metadata = generateZonesMeta();
 
@@ -35,10 +35,8 @@ export default function ZonesPage() {
 
   return (
     <>
-      <Script
-        id="structured-data-zones-breadcrumb"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Header />
@@ -70,7 +68,7 @@ export default function ZonesPage() {
                 06 02 42 73 45
               </a>
               <a
-                href="https://wa.me/33602427345"
+                href={whatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-whatsapp text-white rounded-full font-semibold hover:bg-whatsapp-hover transition-all"
@@ -178,7 +176,7 @@ export default function ZonesPage() {
                   06 02 42 73 45
                 </a>
                 <a
-                  href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20obtenir%20un%20devis"
+                  href={whatsappUrl('Bonjour, je souhaite obtenir un devis')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-whatsapp text-white rounded-full font-semibold hover:bg-whatsapp-hover transition-all"

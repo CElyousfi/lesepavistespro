@@ -2,15 +2,16 @@ import { getSiteUrl } from '@/lib/site';
 
 /**
  * Sitemap Index Route Handler
- * Returns proper <sitemapindex> XML pointing to 8 child sitemaps
- * 
- * CRITICAL FIX: This generates a sitemap INDEX, not a regular sitemap
- * Google will discover all URLs across the 8 child sitemaps
+ * Returns proper <sitemapindex> XML pointing to the child sitemaps.
+ *
+ * sitemap-idf.xml comes FIRST: Île-de-France is where the business operates,
+ * so its URLs are the ones we want discovered and refreshed first.
  */
 export async function GET() {
   const base = getSiteUrl();
   
   const sitemaps = [
+    `${base}/sitemap-idf.xml`,
     `${base}/sitemap-static.xml`,
     `${base}/sitemap-blog.xml`,
     `${base}/sitemap-epaviste-regions.xml`,

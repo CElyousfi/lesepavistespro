@@ -1,6 +1,4 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
-import Image from 'next/image';
 import { Phone, WhatsappLogo, CheckCircle, Clock, Shield, MapPin } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { regions } from '@/lib/locations-complete';
@@ -10,16 +8,19 @@ import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import ConversionForm from '@/components/ConversionForm';
-import { getEpavisteServiceData, getPillarFAQData } from '@/lib/structured-data';
+import { getEpavisteServiceData } from '@/lib/structured-data';
+import { buildFaqPage, pillarFaqItems } from '@/lib/faq';
 import { generateEpavistePillarMeta } from '@/lib/seo';
 import { getEpaveRemovalHowToSchema, getBreadcrumbSchema, getSpeakableSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
+import { whatsappUrl } from '@/lib/whatsapp';
+import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 
 export const metadata: Metadata = generateEpavistePillarMeta();
 
 export default function EpavistePage() {
   const serviceData = getEpavisteServiceData();
-  const faqData = getPillarFAQData();
+  const faqData = buildFaqPage(pillarFaqItems);
   const howToSchema = getEpaveRemovalHowToSchema();
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
@@ -36,34 +37,24 @@ export default function EpavistePage() {
   return (
     <>
       {/* Structured Data for SEO - Rendered in head */}
-      <Script
-        id="structured-data-epaviste-service"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceData) }}
       />
-      <Script
-        id="structured-data-epaviste-faq"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
       />
-      <Script
-        id="structured-data-epaviste-howto"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
-      <Script
-        id="structured-data-epaviste-breadcrumb"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Script
-        id="structured-data-epaviste-speakable"
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
       <Header />
@@ -108,7 +99,7 @@ export default function EpavistePage() {
                 06 02 42 73 45
               </a>
               <a
-                href="https://wa.me/33602427345?text=Bonjour,%20je%20souhaite%20un%20devis"
+                href={whatsappUrl('Bonjour, je souhaite un devis')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover"
@@ -317,7 +308,7 @@ export default function EpavistePage() {
                 Demandez votre enlèvement gratuit
               </h2>
               <p className="text-lg text-neutral-600">
-                Remplissez le formulaire &bull; Réponse sous 15 minutes &bull; Service 100% gratuit
+                Remplissez le formulaire &bull; {RESPONSE_TIME_COPY} &bull; Service 100% gratuit
               </p>
             </div>
             <ConversionForm trigger="inline" defaultService="epaviste" />
@@ -327,7 +318,7 @@ export default function EpavistePage() {
 
       {/* FAQ & Footer */}
       <CTASection />
-      <FAQ />
+      <FAQ items={pillarFaqItems} />
       <VHUCertification />
       <Footer />
       <FloatingWhatsApp />

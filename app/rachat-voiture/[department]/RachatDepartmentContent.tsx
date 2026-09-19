@@ -8,13 +8,13 @@ import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
 import type { DepartmentData, ParentRegionData } from '@/lib/page-data';
 import type { IdfDeptContent } from '@/data/idf-extra-content';
-import type { IdfFaqItem } from '@/data/idf-faq';
+import type { FaqItem } from '@/lib/faq';
 import type { IdfTestimonial } from '@/data/idf-testimonials';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
@@ -27,14 +27,24 @@ interface RachatDepartmentProps {
   isIdf: boolean;
   idfContent: IdfDeptContent | null;
   idfTestimonials: IdfTestimonial[];
-  idfFaqItems: IdfFaqItem[];
+  faqItems?: FaqItem[];
+  /**
+   * True when this department's city pages are indexable. Their links are
+   * then ALL rendered into the HTML (collapsed with CSS, not withheld), so
+   * crawlers can reach every city page instead of only the first 20.
+   */
+  linkAllCities?: boolean;
 }
 
-export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idfContent, idfTestimonials, idfFaqItems }: RachatDepartmentProps) {
+export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idfContent, idfTestimonials, faqItems, linkAllCities = false }: RachatDepartmentProps) {
   const CITIES_PER_PAGE = 20;
   const [visibleCities, setVisibleCities] = useState(CITIES_PER_PAGE);
   const hasMoreCities = dept.cities.length > visibleCities;
   const displayedCities = dept.cities.slice(0, visibleCities);
+  // Rich cards are capped, but when the department's city pages are indexable
+  // every commune also appears in a compact index below, so no city page is
+  // orphaned behind a "Voir plus" button the crawler never clicks.
+  const indexCities = linkAllCities ? dept.cities : [];
 
   return (
     <>
@@ -51,7 +61,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
         {isIdf && (
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-8 sm:mb-10 ml-2">
             <span className="text-xs sm:text-sm font-semibold text-brand-gold/90">
-              Prime à la conversion 2026 — jusqu&apos;à 6 000€
+              Certificat de destruction remis le jour de l&apos;enlèvement
             </span>
           </div>
         )}
@@ -63,7 +73,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
         
         <p className="text-base sm:text-lg md:text-xl text-neutral-600 mb-8 sm:mb-12 leading-relaxed max-w-2xl mx-auto">
           Nous rachetons tous types de véhicules dans le {dept.name} ({dept.code}) :
-          voitures d'occasion, véhicules accidentés, en panne, sans contrôle technique.
+          voitures d&apos;occasion, véhicules accidentés, en panne, sans contrôle technique.
           Paiement cash immédiat. Estimation gratuite.
           06 02 42 73 45.
         </p>
@@ -83,7 +93,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
             06 02 42 73 45
           </a>
           <a 
-            href={`https://wa.me/33602427345?text=Bonjour, je souhaite vendre ma voiture dans le ${dept.name}`}
+            href={whatsappUrl(`Bonjour, je souhaite vendre ma voiture dans le ${dept.name}`)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 px-6 py-4 bg-whatsapp text-white rounded-full font-semibold transition-all hover:bg-whatsapp-hover"
@@ -120,12 +130,12 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
             <div className="space-y-6 text-neutral-600 text-lg leading-relaxed">
               <p className="mb-4">
                 Vous souhaitez vendre rapidement votre voiture dans le département {dept.name} ({dept.code}) ? 
-                Nous rachetons tous types de véhicules au meilleur prix : voitures d'occasion, véhicules accidentés, 
+                Nous rachetons tous types de véhicules au meilleur prix : voitures d&apos;occasion, véhicules accidentés, 
                 voitures en panne, épaves, véhicules sans contrôle technique, etc.
               </p>
               <p className="mb-4">
                 Notre service de rachat de voiture vous garantit une estimation gratuite et transparente, 
-                un paiement immédiat (espèces, chèque ou virement) et l'enlèvement gratuit de votre véhicule 
+                un paiement immédiat (espèces, chèque ou virement) et l&apos;enlèvement gratuit de votre véhicule 
                 partout dans le {dept.name}.
               </p>
               <p>
@@ -199,7 +209,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Épaves et véhicules anciens</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Achat d'épaves et de vieilles voitures, même non roulantes. Paiement selon l'état et les pièces.
+                      Achat d&apos;épaves et de vieilles voitures, même non roulantes. Paiement selon l&apos;état et les pièces.
                     </p>
                   </div>
                 </div>
@@ -214,7 +224,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-16">
-              <span className="inline-block text-brand-gold text-sm font-semibold tracking-wider uppercase mb-4">Zones d'intervention</span>
+              <span className="inline-block text-brand-gold text-sm font-semibold tracking-wider uppercase mb-4">Zones d&apos;intervention</span>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-brand-navy mb-6 tracking-tight">
                 Rachat de voiture dans toutes les villes du {dept.name}
               </h2>
@@ -260,6 +270,32 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                 </p>
               </div>
             )}
+
+            {/*
+              Compact index of every commune in the department. Always in the
+              HTML: the card grid above is capped at 20 and the "Voir plus"
+              button only reveals more client-side, which left the remaining
+              city pages reachable from the sitemap alone.
+            */}
+            {indexCities.length > CITIES_PER_PAGE && (
+              <div className="mt-14 pt-10 border-t border-neutral-200">
+                <h3 className="text-lg font-bold text-brand-navy mb-5">
+                  Toutes les communes du {dept.name} ({dept.code})
+                </h3>
+                {/*
+                  Link styling lives on the <ul> via descendant variants, not on
+                  each <a>. Repeating a 52-character class string across ~900
+                  links cost ~46 KB of HTML — and again in the RSC payload.
+                */}
+                <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm leading-relaxed [&_a]:text-neutral-600 [&_a]:transition-colors [&_a:hover]:text-brand-gold">
+                  {indexCities.map((city) => (
+                    <li key={city.slug}>
+                      <Link href={`/rachat-voiture/${dept.slug}/${city.slug}`}>{city.name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -302,7 +338,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                   <div>
                     <h3 className="text-lg font-bold text-brand-navy mb-2">Estimation gratuite</h3>
                     <p className="text-neutral-600 leading-relaxed text-sm">
-                      Nous évaluons votre véhicule et vous proposons un prix d'achat immédiat, sans engagement.
+                      Nous évaluons votre véhicule et vous proposons un prix d&apos;achat immédiat, sans engagement.
                     </p>
                   </div>
                 </div>
@@ -347,7 +383,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
                   Épaviste {dept.name} ({dept.code})
                 </h3>
                 <p className="text-neutral-600 leading-relaxed text-sm mb-4">
-                  Service d'enlèvement d'épave 100% gratuit dans le {dept.name}. Agréé VHU, certificat de destruction fourni.
+                  Service d&apos;enlèvement d&apos;épave 100% gratuit dans le {dept.name}. Agréé VHU, certificat de destruction fourni.
                 </p>
                 <span className="text-brand-red font-semibold text-sm">
                   Voir le service épaviste →
@@ -417,10 +453,7 @@ export default function RachatDepartmentContent({ dept, parentRegion, isIdf, idf
       )}
 
       {/* FAQ */}
-      {isIdf ? <IdfFaq faqItems={idfFaqItems} service="rachat" /> : <FAQ />}
-
-      {/* Footer */}
-      <Footer />
+      {isIdf ? <IdfFaq faqItems={faqItems} service="rachat" /> : <FAQ items={faqItems} />}
 
       {/* Floating WhatsApp */}
       <FloatingWhatsApp />
