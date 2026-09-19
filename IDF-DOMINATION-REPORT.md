@@ -1,6 +1,6 @@
 # Île-de-France domination — rapport final
 
-**Branche** : `seo/idf-domination` (27 commits, un par tâche) · **Date** : 19 septembre 2026
+**Branche** : `seo/idf-domination` (PR #1, fusionnée sur `main` le 20/09/2026 — 56 commits, un par tâche) · **Date** : 19 septembre 2026
 **Objectif** : faire de l'Île-de-France la priorité éditoriale, technique et de maillage du site sans retirer la couverture nationale (aucune URL modifiée, aucune page désindexée hors décisions listées ci-dessous).
 
 ---
@@ -172,3 +172,184 @@ P1.1, P1.3, P1.5, l'essentiel de P5 (images, redirections, WhatsApp) et les gard
 6. Fournir les `TODO(owner)` (§5) puis passer `verified: true` là où c'est justifié ; compléter l'adresse dans `lib/schema.ts` et créer le GBP (§6).
 7. Surveiller à 4 semaines : impressions/clics sur les requêtes « épaviste + commune IDF » et « rachat voiture + commune IDF » (filtre pays FR, page contient `/ile-de-france` ou un slug de département IDF) ; positions des 16 hubs.
 8. Mettre à jour l'article ZFE et `data/idf-facts.generated.ts` à la promulgation (ou non) du texte sur les ZFE.
+
+---
+
+## 8. Revue indépendante, décisions closes et mise en production (19–20 septembre 2026)
+
+### 8.1 Revue de la PR #1 (`fix(review)`, commit `a090a20`)
+- **Sitemaps `main` → branche** (builds locaux comparés loc par loc, 36 792 → 36 797 URLs avant D3) : −`/cookies` (noindex, P1.4), −`vendee-85/montreuil` ×2 (P1.1), +8 articles IDF. 400 URLs nationales tirées au sort + les 3 retirées : toutes en 200 sur les deux builds ; les seuls canonicals modifiés sont les 32 pages à slug homonyme qui pointaient vers un autre département sur `main` et sont désormais auto-canoniques (P1.1).
+- **Contenu Tier A/B** : aucun placeholder, anglais ou chiffre invérifiable. La relecture de 15 fiches a révélé de vraies erreurs, corrigées : six communes présentées comme membres de la Métropole du Grand Paris (Bezons, Massy, Chilly-Mazarin, Morsang-sur-Orge, Vigneux-sur-Seine, Vélizy) ne le sont pas ; Épinay-sur-Seine, Villeneuve-Saint-Georges et Limeil-Brévannes étaient placées dans la ZFE alors qu'elles sont au-delà de l'A86 ; plusieurs détails routiers non vérifiables retirés (« pont de Villeneuve », A14 « sous » Sartrouville, « tunnel » A86 à Versailles/Vitry, pont de Chatou pour Nanterre, fermetures de quais parisiens, fourrière de Bonneuil pour le 94) ; 5 superficies alignées sur l'INSEE. Les 195 couples population/superficie des intros sont maintenant vérifiés programmatiquement contre le jeu de données.
+- **`proxy.ts`** : les 6 variantes (http, apex, majuscules, slash final, .com, combinées) donnent exactement **un** 308 vers l'URL canonique (test unitaire du proxy ; `next start` local n'honore pas l'en-tête Host).
+- **JSON-LD** : `scripts/validate-jsonld.ts` (propriétés requises des nœuds de résultats enrichis, références `@id` résolues, une seule `FAQPage` et une seule entité business par page) — **0 erreur** sur 5 pages ; l'accueil émettait un second nœud `WebPage` anonyme pour le `speakable`, fusionné dans `#webpage`.
+
+### 8.2 Décisions closes
+| | Décision | Commit |
+|---|---|---|
+| D1 | Bloc `IdfExtraContent` retiré des pages Tier A uniquement (il ne contenait ni lien ni FAQ) ; conservé en Tier B/C | `9b96ca3` |
+| D2 | Paray-Vieille-Poste (INSEE 91479) existe une seule fois, en Essonne ; **301** depuis `/epaviste/val-de-marne-94/paray-vieille-poste` et `/rachat-voiture/val-de-marne-94/paray-vieille-poste`. Audit INSEE ↔ département des 34 923 communes : c'était la **seule** commune IDF mal classée (les deux autres cas, Saint-Barthélemy et Saint-Martin sous 971, sont des COM et restent en l'état). Le générateur dérive désormais le département du code INSEE et non du code postal | `e20c195` |
+| D3 | `PREFECTURE_SLUGS` (`lib/geo-targeting.ts`) construit depuis le COG INSEE 2025 (101 préfectures + 233 sous-préfectures, `scripts/generate-prefectures.ts` → `data/prefectures.generated.ts`), utilisé par `shouldNoIndex` et `shouldIncludeInSitemap` sans autre changement de stratégie. **+209 pages indexables par service (418 au total)** ; 18 473 URLs par service dans les sitemaps ; `lastmod` des familles static/régions/départements/villes fixé au 19/09/2026, date réelle des changements de gabarit | `d1f7091` |
+| Hubs 77 | Index des 507 communes en `<a>` simples (plus de frontière client `next/link`, une classe par lettre, nom + slug seulement) : 355 → **336 Ko** (épaviste) et 321 Ko (rachat). Toujours > 200 Ko : le payload RSC de Next (≈ 188 Ko) reflète l'arbre complet de la page, et le brief impose les 507 liens dans le HTML — laissé tel quel | `93f3d14` |
+
+### 8.3 Mise en production
+- Pré-fusion : `npm run build` (2 857 pages), `seo-check` 94/94, crawl IDF exhaustif 2 598 URLs — 0 erreur, 2 avertissements (poids des hubs 77).
+- PR #1 fusionnée sur `main` par **merge commit** `b548048` (56 commits, historique conservé). Déploiement Vercel production `READY` (statut GitHub `success`, ~5 min).
+
+### 8.4 Vérification de la production (`https://www.lesepavistespro.fr`)
+Crawl production : **2 598 URLs IDF (exhaustif) + 301 URLs nationales** — 0 erreur ; 2 avertissements (hubs 77 > 300 Ko) ; 2 598/2 598 pages IDF en 200, indexables, auto-canoniques ; 0 titre > 60 car., 0 lien cassé, 0 `FAQPage` multiple, 0 `TODO(owner)` rendu ; mots médians 2 848.
+
+| Vérification | Résultat |
+|---|---|
+| `/robots.txt` | aucun `Disallow: /_next/static` ; `Sitemap: https://www.lesepavistespro.fr/sitemap.xml` seul ; **`SemrushBot-SA` (Site Audit) autorisé**, `SemrushBot` (crawler générique) bloqué — choix de P1.3 (remédiation) ; à lever si le crawler Semrush générique doit passer |
+| `/sitemap.xml` | `sitemap-idf.xml` en première position |
+| `/sitemap-idf.xml` | 200, 2 598 URLs ; toutes les URLs échantillonnées 200 + auto-canoniques + sans noindex ; `lastmod` = date de contenu fixe (2026-09-19 pour les pages modifiées par ce chantier, dates de publication pour le blog), pas l'heure de la requête |
+| `/epaviste/seine-saint-denis-93/montreuil` | 200, H1 « Épaviste à Montreuil (93100) … », canonical = URL, `index, follow`, contenu rédigé (`handwritten`) |
+| `/epaviste/hauts-de-seine-92/bagneux` | idem, Bagneux (92220) |
+| `/rachat-voiture/seine-et-marne-77/chelles` | idem, « Rachat de voiture à Chelles (77500) … » |
+| `/epaviste/paris-75/lyon` | **404** |
+| `…/val-de-marne-94/paray-vieille-poste` (×2) | **301** → `…/essonne-91/paray-vieille-poste` |
+| `https://www.lesepavistespro.fr/Epaviste` | 308 → `/epaviste` (1 saut) |
+| `https://www.lesepavistespro.fr/epaviste/` | 308 → `/epaviste` (1 saut) |
+| `http://www.lesepavistespro.fr/epaviste` | 308 → `https://www.lesepavistespro.fr/epaviste` (1 saut) |
+| `https://lesepavistespro.fr/epaviste` (apex) | 307 → `https://www.lesepavistespro.fr/epaviste` (1 saut, redirection de domaine Vercel). ⚠️ Depuis le réseau de test, la plage `64.29.17.0/24` (enregistrement A de l'apex) ne répondait pas ; vérifié via une IP edge Vercel (`216.198.79.1`). À re-tester depuis un autre réseau. |
+| `https://www.lesepavistespro.com/epaviste`, `http://lesepavistespro.com/…` | ⚠️ **Le `.com` n'est pas hébergé sur Vercel** : `lesepavistespro.com` et `www` pointent vers `195.35.49.218` (ancien site, 301 vers une URL `/epaviste-gratuit-en-france-…/`). La consolidation `.com → .fr` de `proxy.ts` ne peut agir que si le domaine est rattaché au projet Vercel — **action propriétaire** : ajouter `lesepavistespro.com` + `www` au projet Vercel (ou une redirection 301 vers `https://www.lesepavistespro.fr/$1` chez l'hébergeur actuel). |
+| Accueil | `<title>` « Épaviste Île-de-France – Enlèvement d'épave gratuit 24h/24 », H1 « Épaviste en Île-de-France : enlèvement d'épave gratuit » |
+| `/rachat-voiture/martinique` | 200, URL, canonical, `index, follow`, H1 et contenu inchangés ; le titre a perdu le suffixe « – Cash immédiat » (61 car. > budget de 60, règle P2.1) |
+
+**Lighthouse mobile (production, depuis le poste de test)** — à lire avec précaution : TTFB mesuré 0,6–0,7 s dont ~0,5 s de DNS + connexion depuis ce réseau, et Chromium a échoué (`NO_FCP` / `PROTOCOL_TIMEOUT`) sur `/epaviste` et `/epaviste/paris-75` ; les scores locaux du même build restent la référence (100 / 96 / 95 / 96 / 95 / 96 / 100). Utiliser PageSpeed Insights (lab Google) pour la mesure officielle.
+
+| Page | Perf | LCP | TBT | CLS |
+|---|---|---|---|---|
+| `/` | 72 | 5,2 s | 140 ms | 0 |
+| `/epaviste` | non mesuré (NO_FCP) | | | |
+| `/epaviste/ile-de-france` | 72 | 5,1 s | 130 ms | 0 |
+| `/epaviste/paris-75` | non mesuré (NO_FCP) | | | |
+| `/epaviste/hauts-de-seine-92/nanterre` | 69 | 5,9 s | 160 ms | 0 |
+| `/rachat-voiture/hauts-de-seine-92/nanterre` | 73 | 4,9 s | 140 ms | 0 |
+| `/blog/certificat-destruction-vhu-obligatoire` | 82 | 4,6 s | 140 ms | 0 |
+
+---
+
+## 9. Search Console — à faire (propriétaire)
+
+1. **Sitemaps** → ajouter :
+   - `https://www.lesepavistespro.fr/sitemap.xml`
+   - `https://www.lesepavistespro.fr/sitemap-idf.xml`
+2. **Inspection d'URL → Demander une indexation**, dans cet ordre :
+
+   Hubs Île-de-France
+   ```
+   https://www.lesepavistespro.fr/epaviste/ile-de-france
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france
+   ```
+   16 pages départementales
+   ```
+   https://www.lesepavistespro.fr/epaviste/paris-75
+   https://www.lesepavistespro.fr/epaviste/seine-et-marne-77
+   https://www.lesepavistespro.fr/epaviste/yvelines-78
+   https://www.lesepavistespro.fr/epaviste/essonne-91
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93
+   https://www.lesepavistespro.fr/epaviste/val-de-marne-94
+   https://www.lesepavistespro.fr/epaviste/val-d-oise-95
+   https://www.lesepavistespro.fr/rachat-voiture/paris-75
+   https://www.lesepavistespro.fr/rachat-voiture/seine-et-marne-77
+   https://www.lesepavistespro.fr/rachat-voiture/yvelines-78
+   https://www.lesepavistespro.fr/rachat-voiture/essonne-91
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93
+   https://www.lesepavistespro.fr/rachat-voiture/val-de-marne-94
+   https://www.lesepavistespro.fr/rachat-voiture/val-d-oise-95
+   ```
+   20 arrondissements de Paris (épaviste)
+   ```
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-1er
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-2e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-3e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-4e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-5e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-6e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-7e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-8e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-9e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-10e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-11e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-12e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-13e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-14e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-15e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-16e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-17e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-18e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-19e
+   https://www.lesepavistespro.fr/epaviste/paris-75/paris-20e
+   ```
+   30 premières communes Tier A hors Paris, par population (épaviste)
+   ```
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93/st-denis
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/boulogne-billancourt
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93/montreuil
+   https://www.lesepavistespro.fr/epaviste/val-d-oise-95/argenteuil
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/nanterre
+   https://www.lesepavistespro.fr/epaviste/val-de-marne-94/vitry-sur-seine
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/asnieres-sur-seine
+   https://www.lesepavistespro.fr/epaviste/val-de-marne-94/creteil
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/colombes
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93/aubervilliers
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93/aulnay-sous-bois
+   https://www.lesepavistespro.fr/epaviste/yvelines-78/versailles
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/courbevoie
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/rueil-malmaison
+   https://www.lesepavistespro.fr/epaviste/val-de-marne-94/champigny-sur-marne
+   https://www.lesepavistespro.fr/epaviste/val-de-marne-94/st-maur-des-fosses
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93/noisy-le-grand
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93/drancy
+   https://www.lesepavistespro.fr/epaviste/val-d-oise-95/cergy
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/levallois-perret
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/issy-les-moulineaux
+   https://www.lesepavistespro.fr/epaviste/essonne-91/evry-courcouronnes
+   https://www.lesepavistespro.fr/epaviste/val-de-marne-94/ivry-sur-seine
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/clichy
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/antony
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93/le-blanc-mesnil
+   https://www.lesepavistespro.fr/epaviste/seine-saint-denis-93/pantin
+   https://www.lesepavistespro.fr/epaviste/val-de-marne-94/villejuif
+   https://www.lesepavistespro.fr/epaviste/hauts-de-seine-92/neuilly-sur-seine
+   https://www.lesepavistespro.fr/epaviste/val-d-oise-95/sarcelles
+   ```
+   Les mêmes 30 en rachat
+   ```
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93/st-denis
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/boulogne-billancourt
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93/montreuil
+   https://www.lesepavistespro.fr/rachat-voiture/val-d-oise-95/argenteuil
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/nanterre
+   https://www.lesepavistespro.fr/rachat-voiture/val-de-marne-94/vitry-sur-seine
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/asnieres-sur-seine
+   https://www.lesepavistespro.fr/rachat-voiture/val-de-marne-94/creteil
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/colombes
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93/aubervilliers
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93/aulnay-sous-bois
+   https://www.lesepavistespro.fr/rachat-voiture/yvelines-78/versailles
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/courbevoie
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/rueil-malmaison
+   https://www.lesepavistespro.fr/rachat-voiture/val-de-marne-94/champigny-sur-marne
+   https://www.lesepavistespro.fr/rachat-voiture/val-de-marne-94/st-maur-des-fosses
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93/noisy-le-grand
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93/drancy
+   https://www.lesepavistespro.fr/rachat-voiture/val-d-oise-95/cergy
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/levallois-perret
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/issy-les-moulineaux
+   https://www.lesepavistespro.fr/rachat-voiture/essonne-91/evry-courcouronnes
+   https://www.lesepavistespro.fr/rachat-voiture/val-de-marne-94/ivry-sur-seine
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/clichy
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/antony
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93/le-blanc-mesnil
+   https://www.lesepavistespro.fr/rachat-voiture/seine-saint-denis-93/pantin
+   https://www.lesepavistespro.fr/rachat-voiture/val-de-marne-94/villejuif
+   https://www.lesepavistespro.fr/rachat-voiture/hauts-de-seine-92/neuilly-sur-seine
+   https://www.lesepavistespro.fr/rachat-voiture/val-d-oise-95/sarcelles
+   ```
+3. **Domaines** : rattacher `lesepavistespro.com` (+ `www`) au projet Vercel pour que la consolidation `.com → .fr` s'applique ; vérifier l'apex `lesepavistespro.fr` depuis un autre réseau (§8.4).
+4. **Google Business Profile** : suivre le §6 — catégorie « Service d'enlèvement d'épaves », zone de service = Paris + les 8 départements, téléphone `06 02 42 73 45`, lien `https://www.lesepavistespro.fr/epaviste/ile-de-france`, horaires et adresse une fois les `TODO(owner)` fournis, description reprise de `getLocalBusinessSchema()`, photos réelles, avis réels uniquement.
+5. À J+7 : contrôler dans Search Console « Pages » que les 418 pages de préfectures/sous-préfectures et les 195 communes Tier A passent en « Indexée » ; relancer `npm run seo-crawl -- https://www.lesepavistespro.fr --idf-only`.
