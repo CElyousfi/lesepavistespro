@@ -550,6 +550,9 @@ async function main() {
 
   const brokenInternalLinks: string[] = [];
   const redirectedInternalLinks: string[] = [];
+  // Legal pages are noindex on purpose and linked from every footer: not a
+  // leak of link equity worth reporting.
+  const NOINDEX_BY_DESIGN = new Set(['/cookies', '/mentions-legales', '/politique-de-confidentialite', '/cgv']);
   const noindexLinkedInternally: string[] = [];
   pages.forEach((p) => {
     p.internalLinks.forEach((l) => {
@@ -557,7 +560,7 @@ async function main() {
       if (!t) return;
       if (t.status >= 400) brokenInternalLinks.push(`${p.path} → ${t.path} (${t.status})`);
       else if (t.status >= 300 && t.status < 400) redirectedInternalLinks.push(`${p.path} → ${t.path} (${t.status})`);
-      if (t.status === 200 && t.noindex) noindexLinkedInternally.push(`${p.path} → ${t.path}`);
+      if (t.status === 200 && t.noindex && !NOINDEX_BY_DESIGN.has(t.path)) noindexLinkedInternally.push(`${p.path} → ${t.path}`);
     });
   });
 
