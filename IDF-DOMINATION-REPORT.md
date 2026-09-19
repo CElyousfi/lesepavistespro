@@ -130,6 +130,8 @@ P1.1, P1.3, P1.5, l'essentiel de P5 (images, redirections, WhatsApp) et les gard
 
 ## 5. `TODO(owner)` — faits métier à fournir
 
+> **À faire en premier :** `lesepavistespro.com` doit être ajouté au projet Vercel (domaine + `www`) pour que la redirection `.com → .fr` fonctionne — aujourd'hui le `.com` pointe encore vers l'ancien hébergeur et le proxy ne le voit jamais.
+
 | Fichier | Fait attendu |
 |---|---|
 | `lib/schema.ts:180` | Adresse postale du siège (rue, CP, ville) — aujourd'hui seul `addressCountry: FR` est affirmé |

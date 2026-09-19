@@ -802,12 +802,14 @@ function checkRobotsRules() {
   );
 
   // Semrush Site Audit must be able to crawl the site.
-  const allowsSemrushSA = /userAgent:\s*['"`]SemrushBot-SA['"`][\s\S]{0,200}?allow:\s*['"`]\//.test(content);
+  const allowsSemrushSA = /userAgent:\s*['"`]SemrushBot-SA['"`][\s\S]{0,200}?allow:\s*['"`]\//.test(content)
+    && /userAgent:\s*['"`]SemrushBot['"`][\s\S]{0,200}?allow:\s*['"`]\//.test(content)
+    && !/userAgent:\s*['"`]SemrushBot['"`],\s*\n\s*disallow:\s*\['\/'\]/.test(content);
   addResult(
     allowsSemrushSA,
     allowsSemrushSA
-      ? '✓ robots.ts allows SemrushBot-SA (Site Audit)'
-      : '✗ robots.ts blocks SemrushBot-SA — Semrush Site Audit cannot crawl the site'
+      ? '✓ robots.ts allows SemrushBot-SA and SemrushBot (Site Audit)'
+      : '✗ robots.ts must allow SemrushBot-SA and SemrushBot — Semrush Site Audit cannot crawl the site'
   );
 
   // Only the sitemap index should be advertised.
