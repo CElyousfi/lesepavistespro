@@ -173,6 +173,10 @@ npm start
 101 departments, 34 923 communes with INSEE code, population and coordinates
 (`npm run enrich-geo` refreshes them from geo.api.gouv.fr). Never edit it by hand;
 resolve a city with `getCityInDepartment(deptSlug, citySlug)`, never by slug alone.
+The department of a commune is the one of its INSEE code (a postal code can straddle two).
+`data/prefectures.generated.ts` (`npm run generate-prefectures`, INSEE COG chef-lieux) lists
+the 101 préfectures and 233 sous-préfectures: `lib/geo-targeting.ts` indexes them and lists
+them in the sitemaps whatever their department.
 
 ### Île-de-France content model
 Île-de-France is the priority market; the rest of France stays indexed.

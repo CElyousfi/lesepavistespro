@@ -20,6 +20,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { getCityInDepartment, getDepartmentBySlug, getRegionBySlug } from '../lib/locations-national';
 import { idfCityContentByDept } from '../data/idf-cities';
+import { prefectures } from '../data/prefectures.generated';
 import { getIdfGuideLinks } from '../lib/internal-linking';
 import { blogPosts } from '../lib/blog-data';
 import { cityLocalData } from '../lib/city-local-data';
@@ -93,6 +94,17 @@ export function checkHardcodedInternalLinks(): InternalLinkResult {
       }
     }
   }
+  // data/prefectures.generated.ts — every chef-lieu resolves, and the 101
+  // préfectures are all present (D3: they are indexed whatever the department).
+  let prefectureCount = 0;
+  for (const [key, entry] of Object.entries(prefectures)) {
+    checked++;
+    const [deptSlug, citySlug] = key.split('/');
+    if (!getCityInDepartment(deptSlug, citySlug)) failures.push(`data/prefectures.generated.ts: "${key}" does not resolve to a city`);
+    if (entry.type === 'prefecture') prefectureCount++;
+  }
+  if (prefectureCount < 101) failures.push(`data/prefectures.generated.ts: only ${prefectureCount} préfecture pages (expected ≥ 101)`);
+
   for (const service of ['epaviste', 'rachat-voiture'] as const) {
     for (const link of getIdfGuideLinks(service)) {
       checked++;

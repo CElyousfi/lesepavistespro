@@ -35,13 +35,13 @@ export function getCanonicalUrl(path: string): string {
  */
 export const CONTENT_UPDATED_AT = {
   /** Homepage, pillars, /zones, legal & informational pages. */
-  static: '2026-09-10',
+  static: '2026-09-19', // homepage rebuilt IDF-first, /contact hours & service area
   /** Region landing pages (épaviste + rachat). */
-  regions: '2026-09-10',
+  regions: '2026-09-19', // IDF region hub, "Aussi en Île-de-France" block, prime badge removed
   /** Department landing pages (épaviste + rachat). */
-  departments: '2026-09-10',
+  departments: '2026-09-19', // IDF department hubs, badge/copy changes on the national template
   /** City pages — templates + local data. */
-  cities: '2026-09-10',
+  cities: '2026-09-19', // IDF city pages, H1/badge/copy changes on the national city template
   /** Image sitemap entries. */
   images: '2026-09-10',
 } as const;

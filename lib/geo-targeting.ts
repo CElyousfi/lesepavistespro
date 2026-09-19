@@ -8,6 +8,19 @@
 
 import { IDF_DEPT_CODES } from './idf';
 import { hasCityLocalData } from './city-local-data';
+import { prefectures } from '../data/prefectures.generated';
+
+/**
+ * Every préfecture and sous-préfecture of France, keyed '<deptSlug>/<citySlug>'
+ * (INSEE COG chef-lieux, see scripts/generate-prefectures.ts). They are the
+ * most-searched town of each department: indexed and in the sitemaps for
+ * both services whatever their department (D3).
+ */
+export const PREFECTURE_SLUGS: ReadonlySet<string> = new Set(Object.keys(prefectures));
+
+export function isPrefecture(deptSlug: string, citySlug: string): boolean {
+  return PREFECTURE_SLUGS.has(`${deptSlug}/${citySlug}`);
+}
 
 // Regions adjacent to Île-de-France — target for business expansion
 export const LIMITROPHE_REGION_SLUGS = [
@@ -49,10 +62,12 @@ export function isIndexedDepartment(deptSlug: string): boolean {
  * Rules:
  * 1. All IDF cities → included
  * 2. All limitrophe region cities → included
- * 3. Other cities → only if they have local content in city-local-data.ts
+ * 3. Préfectures and sous-préfectures → included
+ * 4. Other cities → only if they have local content in city-local-data.ts
  */
 export function shouldIncludeInSitemap(deptSlug: string, citySlug: string): boolean {
   if (isIndexedDepartment(deptSlug)) return true;
+  if (isPrefecture(deptSlug, citySlug)) return true;
   return hasCityLocalData(deptSlug, citySlug);
 }
 
@@ -60,10 +75,12 @@ export function shouldIncludeInSitemap(deptSlug: string, citySlug: string): bool
  * Check if a city page should be noIndex.
  * Rules:
  * 1. IDF/limitrophe department → always index
- * 2. Other department with city-local-data → index
- * 3. Other department without city-local-data → noIndex
+ * 2. Préfecture or sous-préfecture → index
+ * 3. Other department with city-local-data → index
+ * 4. Other department without city-local-data → noIndex
  */
 export function shouldNoIndex(deptSlug: string, citySlug: string): boolean {
   if (isIndexedDepartment(deptSlug)) return false;
+  if (isPrefecture(deptSlug, citySlug)) return false;
   return !hasCityLocalData(deptSlug, citySlug);
 }

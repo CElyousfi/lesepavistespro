@@ -32,6 +32,11 @@ const ARR_URL = (dept: string) =>
 const CACHE = path.join(process.cwd(), 'seo-audit', 'communes-geo.json');
 const DATA_FILE = path.join(process.cwd(), 'lib', 'locations-national.ts');
 const DRY_RUN = process.argv.includes('--dry-run');
+/** '<deptCode>/<slug>' → INSEE code, for communes no heuristic can match. */
+const MANUAL_INSEE: Record<string, string> = {
+  '58/chateau-chinon': '58062', // Château-Chinon (Ville)
+};
+
 const IDF = new Set(['75', '77', '78', '91', '92', '93', '94', '95']);
 
 interface Commune {
@@ -97,6 +102,7 @@ async function main() {
   const { communes, arrondissements } = await loadCommunes();
 
   const byDeptPostalName = new Map<string, Commune>();
+  const byInsee = new Map<string, Commune>(communes.map(c => [c.code, c] as const));
   const byDeptName = new Map<string, Commune[]>();
   const byDeptPostal = new Map<string, Commune[]>();
   const byPostal = new Map<string, Commune[]>();
@@ -138,8 +144,13 @@ async function main() {
     const key = normalise(name);
 
     let official: Commune | undefined;
+    // Names the La Poste file flattens beyond recognition ("Château-Chinon
+    // (Ville)" and "(Campagne)" share 58120; La Poste writes the former as
+    // plain "Chateau Chinon"). Resolved by INSEE code.
+    const manual = MANUAL_INSEE[`${currentDept}/${slug}`];
+    if (manual) official = byInsee.get(manual);
     const arrKey = arrondissementKey(slug);
-    if (arrKey) official = arrByKey.get(arrKey);
+    if (!official && arrKey) official = arrByKey.get(arrKey);
     if (!official) official = byDeptPostalName.get(`${currentDept}|${postalCode}|${key}`);
     if (!official) {
       const list = byDeptName.get(`${currentDept}|${key}`);

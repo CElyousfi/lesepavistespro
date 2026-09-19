@@ -6021,7 +6021,7 @@ export const regions: Region[] = [
       { name: "Chantenay-Saint-Imbert", slug: "chantenay-st-imbert", postalCode: "58240", insee: "58057", population: 1073, lat: 46.7394, lng: 3.1681 },
       { name: "Charrin", slug: "charrin", postalCode: "58300", insee: "58060", population: 605, lat: 46.7993, lng: 3.599 },
       { name: "Chasnay", slug: "chasnay", postalCode: "58350", insee: "58061", population: 128, lat: 47.2351, lng: 3.1738 },
-      { name: "Chateau Chinon", slug: "chateau-chinon", postalCode: "58120" },
+      { name: "Chateau Chinon", slug: "chateau-chinon", postalCode: "58120", insee: "58062", population: 1770, lat: 47.066, lng: 3.9261 },
       { name: "Château-Chinon (Campagne)", slug: "chateau-chinon-campagne", postalCode: "58120", insee: "58063", population: 554, lat: 47.0559, lng: 3.9408 },
       { name: "Châteauneuf-Val-de-Bargis", slug: "chateauneuf-val-de-bargis", postalCode: "58350", insee: "58064", population: 499, lat: 47.2807, lng: 3.2129 },
       { name: "Châtillon-en-Bazois", slug: "chatillon-en-bazois", postalCode: "58110", insee: "58065", population: 795, lat: 47.0554, lng: 3.6546 },
