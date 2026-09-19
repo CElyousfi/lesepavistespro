@@ -16,7 +16,6 @@ import { whatsappUrl } from '@/lib/whatsapp';
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
@@ -349,10 +348,6 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
 
       {/* FAQ */}
       {isIdf ? <IdfFaq faqItems={faqItems} service="epaviste" /> : <FAQ items={faqItems} />}
-
-
-      {/* Footer */}
-      <Footer />
 
       {/* Floating WhatsApp */}
       <FloatingWhatsApp />

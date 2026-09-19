@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { List, X, Phone, WhatsappLogo, EnvelopeSimple } from '@phosphor-icons/react';
+import { List, X, Phone, WhatsappLogo, EnvelopeSimple, CaretDown } from '@phosphor-icons/react';
 import Button from './Button';
 import { trackCallClick, trackWhatsAppClick } from '@/lib/analytics';
 import MobileServiceMenu from './MobileServiceMenu';
 import { whatsappUrl } from '@/lib/whatsapp';
+import { IDF_NAV_DEPARTMENTS } from './IdfNav';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,6 +54,36 @@ const Header = () => {
               <Link href="/rachat-voiture" className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-navy rounded-full hover:bg-neutral-100 transition-all">
                 Rachat
               </Link>
+              {/* Île-de-France dropdown — CSS hover/focus, links are in the HTML */}
+              <div className="relative group">
+                <Link
+                  href="/epaviste/ile-de-france"
+                  className="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-navy rounded-full hover:bg-neutral-100 transition-all"
+                  aria-haspopup="true"
+                >
+                  Île-de-France <CaretDown size={12} weight="bold" />
+                </Link>
+                <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 hidden group-hover:block group-focus-within:block z-50">
+                  <div className="w-[36rem] bg-white rounded-2xl border border-neutral-200 shadow-xl p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <Link href="/epaviste/ile-de-france" className="text-sm font-semibold text-brand-red hover:underline">Épaviste Île-de-France</Link>
+                      <Link href="/rachat-voiture/ile-de-france" className="text-sm font-semibold text-brand-gold hover:underline">Rachat voiture Île-de-France</Link>
+                    </div>
+                    <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5">
+                      {IDF_NAV_DEPARTMENTS.map((d) => (
+                        <li key={d.slug} className="flex items-center justify-between text-sm">
+                          <Link href={`/epaviste/${d.slug}`} className="text-brand-navy hover:text-brand-red font-medium">
+                            {d.name} ({d.code})
+                          </Link>
+                          <Link href={`/rachat-voiture/${d.slug}`} className="text-xs text-neutral-500 hover:text-brand-gold">
+                            rachat
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
               <Link href="/blog" className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-navy rounded-full hover:bg-neutral-100 transition-all">
                 Conseils
               </Link>

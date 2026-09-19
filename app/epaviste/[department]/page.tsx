@@ -15,6 +15,8 @@ import { getIdfDeptContent, getIdfDeptHub, idfRegionContent } from '@/data/idf-e
 import { getIdfGuideLinks } from '@/lib/internal-linking';
 import IdfDepartmentPage from '@/components/IdfDepartmentPage';
 import IdfRegionPage from '@/components/IdfRegionPage';
+import Footer from '@/components/Footer';
+import AlsoInIdf from '@/components/AlsoInIdf';
 import { idfEpavisteFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept, getAllIdfTestimonials } from '@/data/idf-testimonials';
 import DepartmentClientPage from './DepartmentClient';
@@ -130,6 +132,9 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
           idfTestimonials={idfTestimonials}
           faqItems={regionFaqItems}
         />
+        {/* Non-IDF pages link both IDF hubs once, contextually (P2.3). */}
+        <AlsoInIdf context={`en ${region.name}`} />
+        <Footer />
       </>
     );
   }
@@ -214,6 +219,8 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
         // otherwise it is orphaned (reachable only from the sitemap).
         linkAllCities={isIndexedDepartment(dept.slug)}
       />
+      <AlsoInIdf context={`dans le ${dept.name}`} />
+      <Footer />
     </>
   );
 }

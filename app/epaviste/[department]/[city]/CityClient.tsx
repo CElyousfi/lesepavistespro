@@ -18,7 +18,6 @@ import type { FaqItem } from '@/lib/faq';
 const FAQ = dynamic(() => import('@/components/FAQ'), { ssr: true });
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true });
 const ConversionForm = dynamic(() => import('@/components/ConversionForm'), { ssr: true });
-const Footer = dynamic(() => import('@/components/Footer'), { ssr: true });
 const FloatingWhatsApp = dynamic(() => import('@/components/FloatingWhatsApp'), { ssr: false });
 const IdfInternalLinks = dynamic(() => import('@/components/IdfInternalLinks'), { ssr: true });
 const IdfExtraContent = dynamic(() => import('@/components/IdfExtraContent'), { ssr: true });
@@ -34,6 +33,8 @@ interface CityEpavisteClientProps {
   idfDeptTestimonials?: IdfTestimonial[];
   idfDeptContent?: IdfDeptContent | null;
   faqItems?: FaqItem[];
+  /** Two guides (blog posts) relevant to this service — IDF pages only. */
+  guides?: Array<{ title: string; href: string }>;
 }
 
 export default function CityEpavisteClient({
@@ -44,6 +45,7 @@ export default function CityEpavisteClient({
   idfDeptTestimonials = [],
   idfDeptContent = null,
   faqItems = [],
+  guides = [],
 }: CityEpavisteClientProps) {
   // Neighbours are pre-selected server-side (current city already excluded).
   const nearbyCities = department.nearbyCities.slice(0, 6);
@@ -58,7 +60,8 @@ export default function CityEpavisteClient({
           <Breadcrumb 
             items={[
               { label: 'Épaviste', href: '/epaviste' },
-              { label: department.name, href: `/epaviste/${department.slug}` },
+              ...(isIdf ? [{ label: 'Île-de-France', href: '/epaviste/ile-de-france' }] : []),
+              { label: `${department.name} (${department.code})`, href: `/epaviste/${department.slug}` },
               { label: city.name }
             ]}
           />
@@ -284,7 +287,7 @@ export default function CityEpavisteClient({
                 {nearbyCities.map((nearbyCity) => (
                   <Link
                     key={nearbyCity.slug}
-                    href={`/epaviste/${department.slug}/${nearbyCity.slug}`}
+                    href={`/epaviste/${nearbyCity.deptSlug ?? department.slug}/${nearbyCity.slug}`}
                     className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-red/30 hover:shadow-md transition-all duration-300 group"
                   >
                     <MapPin size={18} weight="bold" className="text-brand-red flex-shrink-0" />
@@ -355,6 +358,41 @@ export default function CityEpavisteClient({
               </Link>
             </div>
 
+            {/* IDF: department, region and two guides (P2.3) */}
+            {isIdf && (
+              <div className="mb-8 sm:mb-12 grid sm:grid-cols-2 gap-4">
+                <div className="p-5 bg-white rounded-2xl border border-neutral-200">
+                  <h3 className="text-sm font-bold text-brand-navy mb-3">Autour de {city.name}</h3>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <Link href={`/epaviste/${department.slug}`} className="text-neutral-700 hover:text-brand-red font-medium">
+                        Épaviste {department.name} ({department.code})
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/epaviste/ile-de-france" className="text-neutral-700 hover:text-brand-red font-medium">
+                        Épaviste Île-de-France
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                {guides.length > 0 && (
+                  <div className="p-5 bg-white rounded-2xl border border-neutral-200">
+                    <h3 className="text-sm font-bold text-brand-navy mb-3">Guides utiles</h3>
+                    <ul className="space-y-2 text-sm">
+                      {guides.map((g) => (
+                        <li key={g.href}>
+                          <Link href={g.href} className="text-neutral-700 hover:text-brand-red underline-offset-4 hover:underline">
+                            {g.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Neighboring Cities */}
             {department.nearbyCities.length > 0 && (
               <div>
@@ -365,7 +403,7 @@ export default function CityEpavisteClient({
                   {department.nearbyCities.map((neighborCity) => (
                       <Link
                         key={neighborCity.slug}
-                        href={`/epaviste/${department.slug}/${neighborCity.slug}`}
+                        href={`/epaviste/${neighborCity.deptSlug ?? department.slug}/${neighborCity.slug}`}
                         className="flex items-center gap-3 p-4 bg-white rounded-xl border border-neutral-200 hover:border-brand-red/30 hover:shadow-md transition-all duration-300 group"
                       >
                         <MapPin size={18} weight="bold" className="text-brand-red flex-shrink-0" />
@@ -417,9 +455,6 @@ export default function CityEpavisteClient({
       ) : (
         <FAQ items={faqItems} />
       )}
-
-      {/* Footer */}
-      <Footer />
 
       {/* Floating WhatsApp */}
       <FloatingWhatsApp />

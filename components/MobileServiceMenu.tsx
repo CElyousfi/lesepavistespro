@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { X, Truck, CurrencyEur, Phone, WhatsappLogo } from '@phosphor-icons/react';
 import { whatsappUrl } from '@/lib/whatsapp';
+import { IDF_NAV_DEPARTMENTS } from './IdfNav';
 
 interface MobileServiceMenuProps {
   isOpen: boolean;
@@ -38,6 +39,7 @@ export default function MobileServiceMenu({ isOpen, onClose }: MobileServiceMenu
             { href: '/', label: 'Accueil' },
             { href: '/epaviste', label: 'Enlèvement' },
             { href: '/rachat-voiture', label: 'Rachat' },
+            { href: '/epaviste/ile-de-france', label: 'Île-de-France' },
             { href: '/blog', label: 'Conseils' },
             { href: '/faq', label: 'FAQ' },
             { href: '/contact', label: 'Contact' },
@@ -51,6 +53,23 @@ export default function MobileServiceMenu({ isOpen, onClose }: MobileServiceMenu
               {link.label}
             </Link>
           ))}
+        </div>
+
+        {/* Île-de-France departments */}
+        <div className="px-6 pb-6">
+          <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-3 px-1">Île-de-France</p>
+          <ul className="grid grid-cols-2 gap-1">
+            {IDF_NAV_DEPARTMENTS.map((d) => (
+              <li key={d.slug} className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-neutral-50 text-sm">
+                <Link href={`/epaviste/${d.slug}`} onClick={onClose} className="text-brand-navy font-medium">
+                  {d.name} ({d.code})
+                </Link>
+                <Link href={`/rachat-voiture/${d.slug}`} onClick={onClose} className="text-xs text-neutral-500">
+                  rachat
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Services */}

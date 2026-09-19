@@ -28,6 +28,13 @@ const WATCHED_FILES = [
   'components/IdfInternalLinks.tsx',
   'components/Coverage.tsx',
   'components/Footer.tsx',
+  'components/IdfNav.ts',
+  'components/Header.tsx',
+  'components/MobileServiceMenu.tsx',
+  'components/AlsoInIdf.tsx',
+  'components/IdfCoverage.tsx',
+  'components/IdfDepartmentPage.tsx',
+  'components/IdfRegionPage.tsx',
   'lib/internal-linking.ts',
   'app/contact/page.tsx',
 ];

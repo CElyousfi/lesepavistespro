@@ -6,11 +6,15 @@ import { getBreadcrumbData, getCityServiceData, getWebPageData } from '@/lib/str
 import { buildFaqPage, getCityFaqItems, genericFaqItems, type FaqItem } from '@/lib/faq';
 import { getCityLocalData } from '@/lib/city-local-data';
 import { isIdfDepartment } from '@/lib/idf';
+import { getNearestIdfCities } from '@/lib/idf-cities';
+import { getIdfGuideLinks } from '@/lib/internal-linking';
 import { shouldNoIndex } from '@/lib/geo-targeting';
 import { getIdfTestimonialsByDept } from '@/data/idf-testimonials';
 import { getIdfDeptContent } from '@/data/idf-extra-content';
 import { idfEpavisteFaq } from '@/data/idf-faq';
 import CityEpavisteClient from './CityClient';
+import Footer from '@/components/Footer';
+import AlsoInIdf from '@/components/AlsoInIdf';
 
 // Allow on-demand rendering for cities not pre-built
 export const dynamicParams = true;
@@ -92,8 +96,11 @@ export default async function CityEpavistePage({
   const isIdf = isIdfDepartment(department.slug);
 
   const cityUrl = `https://www.lesepavistespro.fr/epaviste/${department.slug}/${city.slug}`;
+  // IDF cities carry the region level: Accueil › Épaviste › Île-de-France › Dept (code) › Ville.
   const breadcrumbData = getBreadcrumbData([
+    { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
     { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
+    ...(isIdf ? [{ name: 'Île-de-France', url: 'https://www.lesepavistespro.fr/epaviste/ile-de-france' }] : []),
     { name: `${department.name} (${department.code})`, url: `https://www.lesepavistespro.fr/epaviste/${department.slug}` },
     { name: city.name, url: cityUrl }
   ]);
@@ -136,11 +143,21 @@ export default async function CityEpavistePage({
     code: department.code,
     slug: department.slug,
     cityCount: department.cities.length,
-    nearbyCities: department.cities
-      .filter(c => c.slug !== city.slug)
-      .slice(0, NEARBY_LIMIT)
-      .map(c => ({ name: c.name, slug: c.slug, postalCode: c.postalCode })),
+    // IDF: the geographically nearest communes, any IDF department (P2.3).
+    // Elsewhere: same-department neighbours in data order.
+    nearbyCities: isIdf
+      ? getNearestIdfCities(department.slug, city.slug, NEARBY_LIMIT).map(c => ({
+          name: c.name,
+          slug: c.slug,
+          postalCode: c.postalCode,
+          deptSlug: c.deptSlug,
+        }))
+      : department.cities
+          .filter(c => c.slug !== city.slug)
+          .slice(0, NEARBY_LIMIT)
+          .map(c => ({ name: c.name, slug: c.slug, postalCode: c.postalCode })),
   };
+  const guides = isIdf ? getIdfGuideLinks('epaviste').map(g => ({ title: g.text, href: g.href })) : [];
 
   return (
     <>
@@ -153,7 +170,11 @@ export default async function CityEpavistePage({
         idfDeptTestimonials={idfDeptTestimonials}
         idfDeptContent={idfDeptContent}
         faqItems={faqItems}
+        guides={guides}
       />
+      {/* Non-IDF pages link both IDF hubs once, contextually (P2.3). */}
+      {!isIdf && <AlsoInIdf context={`à ${city.name}`} />}
+      <Footer />
     </>
   );
 }

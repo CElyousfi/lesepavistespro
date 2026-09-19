@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AlsoInIdf from '@/components/AlsoInIdf';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { Clock, User, ArrowLeft, Phone } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
@@ -283,6 +284,8 @@ export default async function BlogPost({ params }: Props) {
       </main>
 
       <VHUCertification />
+      {/* Non-IDF posts link both IDF hubs once (P2.3); IDF posts already do in their body. */}
+      {post.region !== 'idf' && <AlsoInIdf />}
       <Footer />
       <FloatingWhatsApp />
     </>

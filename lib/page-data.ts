@@ -9,6 +9,8 @@ export interface CityData {
   name: string;
   slug: string;
   postalCode: string;
+  /** Set when the city is in another department (IDF nearest-neighbour links). */
+  deptSlug?: string;
 }
 
 export interface DepartmentData {
