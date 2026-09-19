@@ -655,7 +655,7 @@ function checkIdfLinkRules() {
   log('\n🕸️  Checking Île-de-France internal-linking rules...', colors.blue);
   const read = (rel: string) => fs.readFileSync(path.join(process.cwd(), rel), 'utf-8');
   const cityPage = read('components/IdfCityPage.tsx');
-  const cityOk = !cityPage.includes("'use client'") && /nearby/i.test(cityPage) && cityPage.includes('guides.map') && cityPage.includes('/ile-de-france`');
+  const cityOk = !cityPage.includes("'use client'") && cityPage.includes('city.nearest.map') && cityPage.includes('guides.map') && cityPage.includes('/ile-de-france`');
   addResult(cityOk, cityOk ? '✓ IdfCityPage is a server component linking nearest communes, department, region and guides' : '✗ IdfCityPage must stay a server component and render the nearby communes, the region hub link and the guides');
   const footer = read('components/Footer.tsx');
   const footerOk = !footer.includes("'use client'") && footer.includes('getIdfDepartments') && footer.includes('getTopIdfCities');
