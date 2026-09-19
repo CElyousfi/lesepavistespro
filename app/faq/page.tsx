@@ -10,7 +10,7 @@ import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
     title: "FAQ – Enlèvement d'épave & rachat",
-    description: 'Toutes les réponses à vos questions sur l\'enlèvement d\'épave gratuit, les documents à fournir, la prime à la conversion et le rachat de voiture.',
+    description: 'Toutes les réponses à vos questions sur l\'enlèvement d\'épave gratuit, les documents à fournir, le certificat de destruction et le rachat de voiture.',
     alternates: {
         canonical: 'https://www.lesepavistespro.fr/faq',
     },

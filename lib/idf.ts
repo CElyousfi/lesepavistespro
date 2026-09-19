@@ -35,3 +35,35 @@ export const IDF_STATS = [
   { number: '24h/24', label: 'Disponibilité', description: 'Service disponible 7j/7 en Île-de-France.' },
   { number: '100%', label: 'Gratuit', description: 'Enlèvement d\'épave sans frais en IDF.' },
 ];
+
+/** "à Paris", "dans les Hauts-de-Seine"… — locative phrase per department code. */
+export const IDF_DEPT_LOCATIVE: Record<string, string> = {
+  '75': 'à Paris',
+  '77': 'en Seine-et-Marne',
+  '78': 'dans les Yvelines',
+  '91': 'en Essonne',
+  '92': 'dans les Hauts-de-Seine',
+  '93': 'en Seine-Saint-Denis',
+  '94': 'dans le Val-de-Marne',
+  '95': "dans le Val-d'Oise",
+};
+
+/** "de Paris", "des Hauts-de-Seine"… — genitive phrase per department code. */
+export const IDF_DEPT_GENITIVE: Record<string, string> = {
+  '75': 'de Paris',
+  '77': 'de Seine-et-Marne',
+  '78': 'des Yvelines',
+  '91': "de l'Essonne",
+  '92': 'des Hauts-de-Seine',
+  '93': 'de Seine-Saint-Denis',
+  '94': 'du Val-de-Marne',
+  '95': "du Val-d'Oise",
+};
+
+export function idfLocative(deptCode: string, fallbackName: string): string {
+  return IDF_DEPT_LOCATIVE[deptCode] ?? `dans le ${fallbackName}`;
+}
+
+export function idfGenitive(deptCode: string, fallbackName: string): string {
+  return IDF_DEPT_GENITIVE[deptCode] ?? `du ${fallbackName}`;
+}

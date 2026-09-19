@@ -44,8 +44,8 @@ export const genericFaqItems: FaqItem[] = [
     answer: 'Nous intervenons généralement sous 24 à 48h après votre demande. En urgence, nous pouvons intervenir sous 2h en région parisienne. L’enlèvement lui-même prend environ 30 minutes. Vous recevez le certificat de destruction sous 15 jours.',
   },
   {
-    question: 'Qu’est-ce que la prime à la conversion ?',
-    answer: 'C’est une aide gouvernementale pouvant atteindre plusieurs milliers d’euros si vous mettez votre vieille voiture à la casse et achetez un véhicule propre. Nous vous fournissons le certificat de destruction nécessaire pour en bénéficier.',
+    question: 'La prime à la conversion existe-t-elle encore ?',
+    answer: 'Non : la prime à la conversion nationale a été supprimée le 2 décembre 2024. D’autres aides à l’achat d’un véhicule propre existent (coup de pouce CEE pour l’électrique, aides locales), avec leurs propres conditions. Le certificat de destruction que nous vous remettons reste le justificatif officiel de la mise au rebut de votre ancien véhicule.',
   },
   {
     question: 'Que devient mon véhicule après l’enlèvement ?',

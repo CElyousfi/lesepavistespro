@@ -61,7 +61,7 @@ export default function RegionClientPage({ region, isIdf, idfRegionContent, idfT
         {isIdf && (
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-gold/10 border border-brand-gold/20 mb-8 sm:mb-10 ml-2">
             <span className="text-xs sm:text-sm font-semibold text-brand-gold/90">
-              Prime à la conversion 2026 — jusqu&apos;à 6 000€
+              Certificat de destruction remis le jour de l&apos;enlèvement
             </span>
           </div>
         )}

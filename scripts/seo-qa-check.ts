@@ -534,6 +534,37 @@ function checkHomepageIdfPriority() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK (P2.2): IDF hubs — 8 department hubs of 400+ unique words, wired
+// into both services' routes; non-IDF departments keep the national template
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkIdfHubs() {
+  log('\n🏛️  Checking Île-de-France hubs...', colors.blue);
+  const src = fs.readFileSync(path.join(process.cwd(), 'data/idf-extra-content.ts'), 'utf-8');
+  const codes = ['75', '77', '78', '91', '92', '93', '94', '95'];
+  const hubCodes = [...src.matchAll(/^    deptCode: '(\d{2})',\n    prefecture:/gm)].map(m => m[1]);
+  const allHubs = codes.every(c => hubCodes.includes(c));
+  addResult(allHubs, allHubs ? '✓ 8 IDF department hubs defined' : `✗ Missing IDF hubs for ${codes.filter(c => !hubCodes.includes(c)).join(', ')}`);
+
+  // Word count per hub (prose fields only), from the source text.
+  const hubBlocks = src.split(/^  \{\n    deptCode: '/m).slice(1).filter(b => /^\d{2}',\n    prefecture: '/.test(b));
+  for (const block of hubBlocks) {
+    const code = block.slice(0, 2);
+    const prose = [...block.matchAll(/`([^`]*)`/g)].map(m => m[1]).join(' ');
+    const words = prose.split(/\s+/).filter(Boolean).length;
+    addResult(words >= 400, `${words >= 400 ? '✓' : '✗'} IDF hub ${code}: ${words} words (min 400)`);
+  }
+
+  for (const route of ['app/epaviste/[department]/page.tsx', 'app/rachat-voiture/[department]/page.tsx']) {
+    const content = fs.readFileSync(path.join(process.cwd(), route), 'utf-8');
+    const wired = content.includes('<IdfDepartmentPage') && content.includes('<IdfRegionPage') && content.includes('isIdf');
+    addResult(wired, wired ? `✓ ${route} renders IdfDepartmentPage / IdfRegionPage for IDF only` : `✗ ${route} must render the IDF hubs for IDF departments/region`);
+  }
+  const index = fs.readFileSync(path.join(process.cwd(), 'components/IdfCommuneIndex.tsx'), 'utf-8');
+  const linksInHtml = index.includes('<details') && !index.includes("'use client'");
+  addResult(linksInHtml, linksInHtml ? '✓ Commune index is server-rendered with <details> (all links in HTML)' : '✗ Commune index must be a server component using <details>, never a client-side "Voir plus"');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CHECK 16: Sitemap pruning implemented
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function checkSitemapPruning() {
@@ -1119,6 +1150,7 @@ function runAllChecks() {
     checkBrandSchema();
     checkNoFabricatedRatings();
     checkHomepageIdfPriority();
+  checkIdfHubs();
     checkSitemapPruning();
     checkDomainRedirect();
     // ── Audit remediation guardrails (see SEO-REMEDIATION-REPORT.md) ──

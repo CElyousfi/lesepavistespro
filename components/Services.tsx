@@ -28,8 +28,8 @@ const services = [
   },
   {
     icon: Recycle,
-    title: 'Prime à la conversion',
-    description: 'Conseils et accompagnement pour bénéficier de la prime gouvernementale. Attestation de destruction fournie.',
+    title: 'Certificat de destruction',
+    description: 'Remis le jour de l’enlèvement : il met fin à votre responsabilité et sert de justificatif pour les aides à l’achat d’un véhicule propre.',
   },
 ];
 

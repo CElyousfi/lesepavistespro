@@ -11,7 +11,10 @@ import {
 import { buildFaqPage, genericFaqItems, type FaqItem } from '@/lib/faq';
 import { isIdfDepartment, isIdfRegion } from '@/lib/idf';
 import { isIndexedDepartment } from '@/lib/geo-targeting';
-import { getIdfDeptContent, idfRegionContent } from '@/data/idf-extra-content';
+import { getIdfDeptContent, getIdfDeptHub, idfRegionContent } from '@/data/idf-extra-content';
+import { getIdfGuideLinks } from '@/lib/internal-linking';
+import IdfDepartmentPage from '@/components/IdfDepartmentPage';
+import IdfRegionPage from '@/components/IdfRegionPage';
 import { idfEpavisteFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept, getAllIdfTestimonials } from '@/data/idf-testimonials';
 import DepartmentClientPage from './DepartmentClient';
@@ -97,6 +100,23 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
       })),
     };
 
+    // Île-de-France: dedicated server-rendered hub (P2.2).
+    if (isIdf) {
+      return (
+        <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
+          <IdfRegionPage
+            service="epaviste"
+            faqItems={regionFaqItems}
+            guides={getIdfGuideLinks('epaviste').map(g => ({ title: g.text, href: g.href }))}
+          />
+        </>
+      );
+    }
+
     return (
       <>
         <script
@@ -124,10 +144,12 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
   const idfTestimonials = isIdf ? getIdfTestimonialsByDept(dept.code) : [];
 
   const deptUrl = `https://www.lesepavistespro.fr/epaviste/${dept.slug}`;
+  // IDF departments get the region level in the trail: Accueil › Épaviste › Île-de-France › Dept.
   const breadcrumbData = getBreadcrumbData([
     { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
     { name: 'Épaviste', url: 'https://www.lesepavistespro.fr/epaviste' },
-    { name: `${dept.name}`, url: `https://www.lesepavistespro.fr/epaviste/${dept.slug}` },
+    ...(isIdf ? [{ name: 'Île-de-France', url: 'https://www.lesepavistespro.fr/epaviste/ile-de-france' }] : []),
+    { name: `${dept.name} (${dept.code})`, url: `https://www.lesepavistespro.fr/epaviste/${dept.slug}` },
   ]);
   const deptFaqItems: FaqItem[] = isIdf ? idfEpavisteFaq : genericFaqItems;
   const deptFaqPage = buildFaqPage(deptFaqItems);
@@ -153,6 +175,27 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
     cities: dept.cities.map(c => ({ name: c.name, slug: c.slug, postalCode: c.postalCode })),
   };
   const parentRegionData = parentRegion ? { name: parentRegion.name, slug: parentRegion.slug } : null;
+
+  // Île-de-France: the dedicated server-rendered hub (P2.2). Non-IDF
+  // departments keep the national template below, untouched.
+  const hub = isIdf ? getIdfDeptHub(dept.code) : undefined;
+  if (isIdf && hub) {
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        <IdfDepartmentPage
+          service="epaviste"
+          dept={deptData}
+          hub={hub}
+          faqItems={deptFaqItems}
+          guides={getIdfGuideLinks('epaviste').map(g => ({ title: g.text, href: g.href }))}
+        />
+      </>
+    );
+  }
 
   return (
     <>
