@@ -414,8 +414,10 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
         </section>
       )}
 
-      {/* Department-level content (existing sections) */}
-      {deptContent && (
+      {/* Department-level content (legacy sections) — Tier B/C only: the
+          hand-written Tier A text supersedes it (D1). It carried no links
+          and no FAQ, so nothing is lost on Tier A pages. */}
+      {deptContent && city.tier !== 'A' && (
         <IdfExtraContent deptContent={deptContent} testimonials={[]} service={isRachat ? 'rachat' : 'epaviste'} locationName={`${name} (${ref.deptName})`} pageSlug={ref.slug} />
       )}
       <IdfInternalLinks service={service} currentDeptSlug={ref.deptSlug} currentCitySlug={ref.slug} />
