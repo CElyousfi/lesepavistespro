@@ -21536,7 +21536,6 @@ export const regions: Region[] = [
       { name: "Noiseau", slug: "noiseau", postalCode: "94880", insee: "94053", population: 4628, lat: 48.7757, lng: 2.556 },
       { name: "Orly", slug: "orly", postalCode: "94310", insee: "94054", population: 24658, lat: 48.7402, lng: 2.403 },
       { name: "Ormesson-sur-Marne", slug: "ormesson-sur-marne", postalCode: "94490", insee: "94055", population: 10977, lat: 48.7873, lng: 2.5371 },
-      { name: "Paray-Vieille-Poste", slug: "paray-vieille-poste", postalCode: "94390", insee: "91479", population: 8202, lat: 48.7239, lng: 2.3577 },
       { name: "Périgny", slug: "perigny-sur-yerres", postalCode: "94520", insee: "94056", population: 2724, lat: 48.6974, lng: 2.562 },
       { name: "Rungis", slug: "rungis", postalCode: "94150", insee: "94065", population: 5611, lat: 48.7493, lng: 2.3499 },
       { name: "Santeny", slug: "santeny", postalCode: "94440", insee: "94070", population: 3913, lat: 48.7362, lng: 2.5771 },

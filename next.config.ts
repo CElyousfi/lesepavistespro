@@ -97,6 +97,19 @@ const nextConfig: NextConfig = {
       // NB: trailing-slash / www / https / lowercase canonicalisation lives in
       // proxy.ts, which resolves all of them in a SINGLE 308. Duplicating the
       // trailing-slash rule here produced multi-hop redirect chains.
+      // D2 — Paray-Vieille-Poste (INSEE 91479) is in the Essonne; the La Poste
+      // postal code 94390 had also filed it under the Val-de-Marne. One URL
+      // per commune, in its own department.
+      {
+        source: '/epaviste/val-de-marne-94/paray-vieille-poste',
+        destination: '/epaviste/essonne-91/paray-vieille-poste',
+        statusCode: 301,
+      },
+      {
+        source: '/rachat-voiture/val-de-marne-94/paray-vieille-poste',
+        destination: '/rachat-voiture/essonne-91/paray-vieille-poste',
+        statusCode: 301,
+      },
       // Common typos / old URLs
       {
         source: '/home',

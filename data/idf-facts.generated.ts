@@ -1100,7 +1100,6 @@ export const idfCommuneFacts: Record<string, IdfCommuneFacts> = {
   'val-de-marne-94/noiseau': { epci: "Métropole du Grand Paris", surfaceKm2: 4.6, zfe: false },
   'val-de-marne-94/orly': { epci: "Métropole du Grand Paris", surfaceKm2: 6.7, zfe: false },
   'val-de-marne-94/ormesson-sur-marne': { epci: "Métropole du Grand Paris", surfaceKm2: 3.4, zfe: false },
-  'val-de-marne-94/paray-vieille-poste': { epci: "Métropole du Grand Paris", surfaceKm2: 6, zfe: false },
   'val-de-marne-94/perigny-sur-yerres': { epci: "Métropole du Grand Paris", surfaceKm2: 2.8, zfe: false },
   'val-de-marne-94/rungis': { epci: "Métropole du Grand Paris", surfaceKm2: 4.2, zfe: true },
   'val-de-marne-94/santeny': { epci: "Métropole du Grand Paris", surfaceKm2: 10, zfe: false },

@@ -202,6 +202,15 @@ function getCitySlug(cityName: string, deptCode: string): string {
   return toSlug(cityName);
 }
 
+// Department code from an INSEE commune code (2A/2B for Corsica, 3 digits overseas).
+function getDeptCodeFromInsee(insee: string): string {
+  if (!insee || insee.length !== 5) return '';
+  const p2 = insee.substring(0, 2);
+  if (p2 === '2A' || p2 === '2B') return p2;
+  if (p2 === '97') { const p3 = insee.substring(0, 3); return DEPARTMENT_NAMES[p3] ? p3 : ''; }
+  return DEPARTMENT_NAMES[p2] ? p2 : '';
+}
+
 // Get department code from postal code
 function getDeptCodeFromPostal(postalCode: string): string {
   if (!postalCode || postalCode.length < 2) return '';
@@ -329,7 +338,12 @@ async function main() {
     
     if (!communeName || !postalCode) { skipped++; continue; }
     
-    const deptCode = getDeptCodeFromPostal(postalCode);
+    // The department is the one of the INSEE code, never of the postal code:
+    // a commune whose postal codes straddle two departments (Paray-Vieille-
+    // Poste, 91479, served by 91550 and 94390) must exist once, in its own
+    // department. Postal prefix is only a fallback when INSEE is missing or
+    // is not a department we know (COM such as 977/978 stay under 971).
+    const deptCode = getDeptCodeFromInsee(inseeCode) || getDeptCodeFromPostal(postalCode);
     if (!deptCode || !DEPARTMENT_NAMES[deptCode]) { skipped++; continue; }
     
     if (!deptCities.has(deptCode)) {
