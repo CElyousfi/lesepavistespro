@@ -247,7 +247,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: CHARLETY,
     acces: [
-      "Le 5e arrondissement est dans la zone à faibles émissions du Grand Paris. Le quartier de la Sorbonne et de la rue Mouffetard compte de nombreuses rues piétonnes ou à circulation restreinte, et la vitesse est limitée à 30 km/h ; les quais de la rive gauche sont fermés aux voitures sur une partie de leur longueur. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 5e arrondissement est dans la zone à faibles émissions du Grand Paris. Le quartier de la Sorbonne et de la rue Mouffetard compte de nombreuses rues piétonnes ou à circulation restreinte, et la vitesse est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
       "Nous accédons par le boulevard Saint-Germain, le boulevard Saint-Michel, la rue Monge, la rue des Écoles ou le quai Saint-Bernard, et nous treuillons depuis les rues étroites du haut de l'arrondissement. Les parkings en ouvrage ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la surface.",
     ],
     faqEpaviste: [
@@ -257,6 +257,7 @@ export const cities: IdfCityContentMap = {
       { question: "L'enlèvement est-il gratuit dans le 5e, y compris en sous-sol ?", answer: "Oui, pour tout véhicule complet, parking en ouvrage, cour ou rue. Le certificat de destruction est remis sans frais." },
       { question: "Quels documents préparer ?", answer: "Carte grise barrée et signée « cédé pour destruction », pièce d'identité, certificat de situation administrative de moins de 15 jours. Nous remplissons la déclaration de cession sur place." },
       { question: "Je ne suis pas à Paris, un proche peut-il vous recevoir dans le 5e ?", answer: "Oui, avec une procuration signée et la copie de votre pièce d'identité. Le certificat de destruction vous est ensuite transmis." },
+      { question: "Ma voiture est dans un parking en ouvrage du Quartier latin, faut-il régler les frais de stationnement avant l'enlèvement ?", answer: "Oui, les frais dus à l'exploitant restent à votre charge jusqu'au jour de la sortie ; nous coordonnons le créneau avec lui et l'enlèvement lui-même reste gratuit pour un véhicule complet." },
     ],
     rachatIntro: [
       "Dans le 5e arrondissement, la voiture sert peu : le quartier se parcourt à pied et en métro, et le stationnement en ouvrage coûte cher. Nous y rachetons surtout des citadines et compactes à faible kilométrage, des véhicules familiaux vieillissants et des voitures immobilisées dans un parking après une panne ou un contrôle technique refusé.",
@@ -290,7 +291,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: LOUVRE,
     acces: [
-      "Le 6e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse y est limitée à 30 km/h et les quais de la rive gauche sont fermés aux voitures sur une partie de leur longueur. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation ; pour un véhicule qui ne roule plus, le certificat de destruction règle définitivement la question.",
+      "Le 6e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse y est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation ; pour un véhicule qui ne roule plus, le certificat de destruction règle définitivement la question.",
       "Les parkings en ouvrage du secteur (Saint-Sulpice, Saint-Germain-des-Prés, Marché Saint-Germain, Montparnasse) ont en général une hauteur libre de 1,90 m : nous y intervenons avec un plateau bas ou nous remontons le véhicule au treuil jusqu'à la rue. Les axes d'accès sont le boulevard Saint-Germain, la rue de Rennes, le boulevard Raspail, la rue de Vaugirard et le boulevard du Montparnasse.",
     ],
     faqEpaviste: [
@@ -332,7 +333,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: FOCH,
     acces: [
-      "Le 7e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, les quais de la rive gauche sont fermés aux voitures sur une partie de leur longueur, et les abords de l'Assemblée nationale, des Invalides et de la Tour Eiffel font l'objet de fermetures ponctuelles. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 7e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, les quais de la rive gauche sont piétons entre le pont de l'Alma et le musée d'Orsay, et les abords de l'Assemblée nationale, des Invalides et de la Tour Eiffel font l'objet de fermetures ponctuelles. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
       "Nous accédons par le boulevard Saint-Germain, la rue de Sèvres, l'avenue de Breteuil, l'avenue de Suffren ou le quai d'Orsay (portion ouverte). Les parkings des résidences ont en général une hauteur libre de 1,90 m ; les cours d'hôtels particuliers se travaillent au treuil jusqu'à la rue.",
     ],
     faqEpaviste: [
@@ -499,7 +500,7 @@ export const cities: IdfCityContentMap = {
     intro: [
       "Le 11e arrondissement — Bastille, Oberkampf, Voltaire, Charonne, Nation — est le plus dense de Paris : environ 138 000 habitants sur 3,7 km². Le bâti mêle immeubles haussmanniens, anciens faubourgs d'artisans avec cours et passages (rue de Charonne, rue du Faubourg-Saint-Antoine, passage du Chantier) et résidences des années 1970–1990 autour de la Roquette et de Bastille, qui disposent de parkings souterrains.",
       "Enlever une épave dans le 11e, c'est le plus souvent aller la chercher au fond d'une cour d'ancien atelier ou dans le parking d'une résidence. Nous venons avec un plateau court et un treuil, nous coordonnons l'accès avec le gardien ou le syndic, et nous chargeons sur les axes du quartier : boulevard Voltaire, boulevard Richard-Lenoir, avenue Parmentier, rue de la Roquette.",
-      "Le marché du boulevard Richard-Lenoir (jeudi et dimanche) et les fermetures dominicales du quartier Bastille (« Paris Respire ») conditionnent les créneaux : nous programmons l'intervention en dehors de ces moments, tôt le matin en semaine de préférence.",
+      "Le marché du boulevard Richard-Lenoir (jeudi et dimanche) conditionne les créneaux : nous programmons l'intervention en dehors de ces moments, tôt le matin en semaine de préférence.",
     ],
     situations: [
       { title: 'Voiture au fond d\'une cour du faubourg Saint-Antoine', text: "Les anciens passages d'artisans ont des cours longues et étroites derrière une porte cochère. Nous mesurons le passage, treuillons le véhicule jusqu'au trottoir et le chargeons sur le plateau, tôt le matin avant l'ouverture des ateliers et des commerces." },
@@ -509,7 +510,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: PANTIN,
     acces: [
-      "Le 11e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, plusieurs rues autour d'Oberkampf et de Bastille sont fermées le dimanche, et le boulevard Richard-Lenoir accueille un marché deux fois par semaine. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 11e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, et le boulevard Richard-Lenoir accueille un marché deux fois par semaine. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
       "Nous accédons par le boulevard Voltaire, le boulevard de Ménilmontant, l'avenue de la République, la rue du Faubourg-Saint-Antoine ou le boulevard Beaumarchais ; les parkings de résidence ont en général une hauteur libre de 1,90 m, ce qui impose un plateau bas ou un treuillage jusqu'à la rue.",
     ],
     faqEpaviste: [
@@ -535,6 +536,7 @@ export const cities: IdfCityContentMap = {
       { question: "Ma voiture est garée dans la rue en stationnement résidentiel, pouvez-vous venir la chercher ?", answer: "Oui, nous chargeons depuis la rue sur un arrêt minute ; si elle ne démarre plus, le treuil du plateau suffit. Évitez les jours de marché du boulevard Richard-Lenoir." },
       { question: "Rachetez-vous les scooters et motos dans le 11e ?", answer: "Oui, deux-roues compris : estimation sur photos et carte grise, enlèvement le jour du paiement." },
       { question: "Combien de temps prend un rachat dans le 11e ?", answer: "L'estimation est faite dans la journée ; l'enlèvement et le paiement suivent sur rendez-vous, en général sous 24 à 48 h. Sur place, comptez une trentaine de minutes." },
+      { question: "Ma voiture est au fond d'une cour d'ancien atelier rue de Charonne, le rachat est-il possible sans la sortir moi-même ?", answer: "Oui : nous la treuillons depuis la cour jusqu'à la rue le jour du rachat, sans supplément, après vérification des documents et paiement par virement." },
     ],
     sources: PARIS_SOURCES,
   },
@@ -597,7 +599,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: CHARLETY,
     acces: [
-      "Le 13e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes et les quais de la rive gauche sont fermés aux voitures sur une partie de leur longueur. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 13e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
       "Nous accédons par l'avenue d'Italie, le boulevard Vincent-Auriol, l'avenue de Choisy, la rue de Tolbiac, le boulevard Masséna ou, depuis le périphérique, par les portes d'Italie, de Choisy et d'Ivry. Les parkings des grands ensembles exigent souvent un badge : nous demandons l'accès au gardien à l'avance.",
     ],
     faqEpaviste: [
@@ -608,6 +610,7 @@ export const cities: IdfCityContentMap = {
       { question: "L'enlèvement est-il gratuit dans le 13e, y compris en sous-sol de grand ensemble ?", answer: "Oui, pour tout véhicule complet, quel que soit le niveau. Le certificat de destruction est remis sans frais." },
       { question: "Quels documents préparer pour faire détruire une voiture dans le 13e ?", answer: "Carte grise barrée et signée « cédé pour destruction », pièce d'identité, certificat de situation administrative de moins de 15 jours. Nous remplissons la déclaration de cession sur place." },
       { question: "Je suis bailleur ou syndic dans le 13e, comment faire enlever un véhicule abandonné ?", answer: "Identifiez le titulaire, mettez-le en demeure, puis engagez la procédure d'abandon ; dès que le droit d'enlever est établi, nous intervenons gratuitement, plusieurs véhicules à la fois si nécessaire." },
+      { question: "Les rampes des parkings des Olympiades sont longues et étroites, est-ce un problème ?", answer: "Non, c'est notre quotidien dans le 13e : un opérateur au volant dirige et freine pendant que le treuil remonte la voiture palier par palier ; nous prévenons le gardien pour que la rampe reste libre le temps de la manœuvre." },
     ],
     rachatIntro: [
       "Dans le 13e, une grande partie des voitures dorment dans les parkings des tours et des dalles — Olympiades, Masséna, Tolbiac, Italie — où un véhicule qui ne sert plus finit par coûter un abonnement pour rien. Nous rachetons ces voitures là où elles sont : citadines de seconde main, berlines familiales kilométrées, véhicules Crit'Air 3 que le propriétaire n'utilise plus depuis les restrictions.",
@@ -685,7 +688,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: FOCH,
     acces: [
-      "Le 15e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les quais de la rive gauche sont fermés aux voitures sur une partie de leur longueur, et les abords de la porte de Versailles sont filtrés pendant les salons. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 15e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, et les abords de la porte de Versailles sont filtrés pendant les salons ; les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
       "Nous accédons par la rue de Vaugirard, la rue de la Convention, le boulevard de Grenelle, l'avenue Émile-Zola, le boulevard Lefebvre ou, depuis le périphérique, par les portes de Versailles, de Sèvres et de Saint-Cloud. Les parkings de copropriété ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la rue.",
     ],
     faqEpaviste: [
@@ -861,7 +864,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: PANTIN,
     acces: [
-      "Le 19e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les quais du bassin de la Villette sont fermés aux voitures le dimanche et les abords du parc de la Villette sont filtrés les soirs d'événement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 19e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les abords du parc de la Villette sont filtrés les soirs d'événement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
       "Nous accédons par l'avenue de Flandre, l'avenue Jean-Jaurès, la rue de Crimée, le boulevard de la Villette, la rue Manin ou, depuis le périphérique, par les portes de Pantin, de la Villette, d'Aubervilliers et des Lilas. Les parkings des grands ensembles exigent un badge : nous demandons l'accès au gardien ou au bailleur à l'avance.",
     ],
     faqEpaviste: [

@@ -14,7 +14,7 @@ import ScrollAnimation from '@/components/ScrollAnimation';
 import VHUCertification from '@/components/VHUCertification';
 import { getHomeStructuredData } from '@/lib/structured-data';
 import { generateHomeMeta } from '@/lib/seo';
-import { getEpaveRemovalHowToSchema, getSpeakableSchema } from '@/lib/schema';
+import { getEpaveRemovalHowToSchema } from '@/lib/schema';
 import { regions as allRegions } from '@/lib/locations-complete';
 import { IDF_REGION_SLUG } from '@/lib/idf';
 import { getIdfDepartments, getTopIdfCities } from '@/lib/idf-cities';
@@ -28,7 +28,6 @@ const TOP_IDF_CITIES = 16;
 export default function Home() {
   const structuredData = getHomeStructuredData();
   const howToSchema = getEpaveRemovalHowToSchema();
-  const speakableSchema = getSpeakableSchema('https://www.lesepavistespro.fr/');
 
   // Île-de-France first — everything below is derived from the dataset, so a
   // renamed or re-slugged commune can never leave a dead link on the homepage.
@@ -77,10 +76,6 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableSchema) }}
       />
 
       <div className="min-h-screen bg-white">

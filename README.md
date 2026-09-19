@@ -200,6 +200,7 @@ it is then listed in `sitemap-idf.xml`). Dates must be real.
 - `npm run seo-crawl -- --idf-only` — crawls every Île-de-France URL from the sitemaps
   (titles, links, schema, leaked `TODO(owner)`); reports in `seo-audit/`.
 - `npx tsx scripts/lighthouse-run.ts <baseUrl> --label=<label>` — mobile Core Web Vitals.
+- `npx tsx scripts/validate-jsonld.ts <baseUrl> [/path …]` — structural JSON-LD validation (required properties, @id references, one FAQPage / business node per page).
 
 ## 🤝 Support
 

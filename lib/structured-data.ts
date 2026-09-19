@@ -54,6 +54,9 @@ export function getHomeStructuredData() {
       about: providerRef,
       inLanguage: 'fr-FR',
       primaryImageOfPage: { '@type': 'ImageObject', url: `${SITE_URL}/images/og-default.jpg` },
+      // Speakable lives on the page's one WebPage node — a second, anonymous
+      // WebPage for the same URL would be a competing definition.
+      speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.speakable'] },
     },
   ];
 }

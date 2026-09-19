@@ -74,7 +74,7 @@ export const cities: IdfCityContentMap = {
     ],
     acces: [
       "Nanterre est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation : renseignez-vous avant de rouler avec un véhicule ancien, ou faites-le enlever gratuitement s'il ne sert plus.",
-      "L'accès se fait par l'A86 (sorties Nanterre-Centre, Nanterre-Université), l'A14, le pont de Chatou, la D913 (avenue Joliot-Curie) ou le boulevard de la Seine. Les parkings de bailleurs exigent un badge, ceux de La Défense une autorisation : nous les demandons à l'avance. Pour un véhicule enlevé par la fourrière à Nanterre, le commissariat ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
+      "L'accès se fait par l'A86 (sorties Nanterre-Centre, Nanterre-Université), l'A14, la D913 (avenue Joliot-Curie) ou le boulevard de la Seine. Les parkings de bailleurs exigent un badge, ceux de La Défense une autorisation : nous les demandons à l'avance. Pour un véhicule enlevé par la fourrière à Nanterre, le commissariat ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
       { question: "Pouvez-vous enlever une voiture sur la dalle d'une résidence du parc André-Malraux ?", answer: "Oui. Nous convenons de l'accès avec le gardien ou le bailleur, venons avec un plateau bas, un treuil et un chariot, et remontons le véhicule jusqu'au pied de l'immeuble avant de le charger." },
