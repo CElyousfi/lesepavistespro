@@ -136,7 +136,7 @@ export default function ContactPage() {
                                                 rel="noopener noreferrer"
                                                 className="text-xl font-bold text-brand-navy hover:text-whatsapp transition-colors block"
                                             >
-                                                +33 6 02 42 73 45
+                                                06 02 42 73 45
                                             </a>
                                         </div>
                                     </div>
@@ -160,14 +160,17 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <h3 className="font-bold text-brand-navy mb-2">Horaires</h3>
+                                            {/* TODO(owner): confirm the real opening hours. The whole site, the
+                                                #business schema (00:00–23:59) and the hero claim 24h/24, 7j/7;
+                                                this block used to say 08h–20h / 09h–19h, which contradicted it. */}
                                             <ul className="space-y-1">
                                                 <li className="flex justify-between w-full min-w-[200px] text-neutral-500 text-sm">
-                                                    <span>Lundi - Samedi</span>
-                                                    <span className="font-semibold text-brand-navy">08h - 20h</span>
+                                                    <span>Lundi - Dimanche</span>
+                                                    <span className="font-semibold text-brand-navy">24h/24</span>
                                                 </li>
                                                 <li className="flex justify-between w-full min-w-[200px] text-neutral-500 text-sm">
-                                                    <span>Dimanche</span>
-                                                    <span className="font-semibold text-brand-navy">09h - 19h</span>
+                                                    <span>Zone principale</span>
+                                                    <span className="font-semibold text-brand-navy">Île-de-France</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -335,10 +338,12 @@ export default function ContactPage() {
                 <section className="bg-brand-surface py-16 border-t border-neutral-200">
                     <div className="container mx-auto px-4 text-center">
                         <h2 className="text-2xl font-bold text-brand-navy mb-4">
-                            Zone d&apos;Intervention
+                            Zone d&apos;intervention : Paris et l&apos;Île-de-France
                         </h2>
                         <p className="text-neutral-600 max-w-2xl mx-auto mb-12">
-                            Nous intervenons gratuitement partout en France pour l&apos;enlèvement d&apos;épaves.
+                            Paris et les 8 départements d&apos;Île-de-France sont notre zone principale d&apos;intervention
+                            pour l&apos;enlèvement d&apos;épave gratuit et le rachat de voiture ; nous intervenons aussi
+                            partout en France.
                         </p>
 
                         <div className="rounded-2xl overflow-hidden h-[400px] md:h-[500px] w-full max-w-6xl mx-auto border border-neutral-200 shadow-sm">

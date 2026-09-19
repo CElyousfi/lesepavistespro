@@ -356,7 +356,7 @@ export default function PolitiqueConfidentialitePage() {
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">💬 WhatsApp :</span>
-                        <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">+33 6 02 42 73 45</a>
+                        <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors">06 02 42 73 45</a>
                       </li>
                       <li className="flex items-center gap-3">
                         <span className="font-semibold min-w-[100px]">🕐 Disponibilité :</span>
