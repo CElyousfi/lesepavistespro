@@ -55,3 +55,4 @@ seo-audit/
 
 # Unrelated client exports occasionally dropped in the repo root
 /Audit de cotisations sociales*.html
+.worktrees/
