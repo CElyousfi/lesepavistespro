@@ -7,9 +7,9 @@ import { getSiteUrl } from '@/lib/site';
  * Rules of engagement:
  * - Rendering resources (/_next/static, /_next/webpack, /_next/image) are NEVER
  *   disallowed: Google needs the CSS/JS to render the page it is ranking.
- * - SemrushBot-SA (Site Audit) is allowed so the site can be audited; the
- *   backlink/discovery crawler (plain SemrushBot) stays blocked to save crawl
- *   budget. Other parasitic SEO crawlers stay blocked.
+ * - SemrushBot-SA (Site Audit) and the generic SemrushBot are allowed: the
+ *   owner runs Semrush Site Audit on this site (S2.0). Other parasitic SEO
+ *   crawlers (AhrefsBot, MJ12bot, DotBot…) stay blocked to save crawl budget.
  * - Only the sitemap INDEX is listed; it points to every child sitemap.
  */
 export default function robots(): MetadataRoute.Robots {
@@ -65,19 +65,21 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: 'LinkedInBot',
         allow: '/',
       },
-      // Semrush Site Audit — allowed so we can audit our own site.
+      // Semrush — Site Audit and the generic crawler, allowed so we can audit
+      // our own site (S2.0).
       {
         userAgent: 'SemrushBot-SA',
+        allow: '/',
+        disallow: PRIVATE_PATHS,
+      },
+      {
+        userAgent: 'SemrushBot',
         allow: '/',
         disallow: PRIVATE_PATHS,
       },
       // Block parasitic SEO tool bots (waste crawl budget, no SEO benefit)
       {
         userAgent: 'AhrefsBot',
-        disallow: ['/'],
-      },
-      {
-        userAgent: 'SemrushBot',
         disallow: ['/'],
       },
       {

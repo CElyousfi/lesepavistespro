@@ -130,6 +130,8 @@ P1.1, P1.3, P1.5, l'essentiel de P5 (images, redirections, WhatsApp) et les gard
 
 ## 5. `TODO(owner)` — faits métier à fournir
 
+> **À faire en premier :** `lesepavistespro.com` doit être ajouté au projet Vercel (domaine + `www`) pour que la redirection `.com → .fr` fonctionne — aujourd'hui le `.com` pointe encore vers l'ancien hébergeur et le proxy ne le voit jamais.
+
 | Fichier | Fait attendu |
 |---|---|
 | `lib/schema.ts:180` | Adresse postale du siège (rue, CP, ville) — aujourd'hui seul `addressCountry: FR` est affirmé |
@@ -353,3 +355,98 @@ Crawl production : **2 598 URLs IDF (exhaustif) + 301 URLs nationales** — 0 er
 3. **Domaines** : rattacher `lesepavistespro.com` (+ `www`) au projet Vercel pour que la consolidation `.com → .fr` s'applique ; vérifier l'apex `lesepavistespro.fr` depuis un autre réseau (§8.4).
 4. **Google Business Profile** : suivre le §6 — catégorie « Service d'enlèvement d'épaves », zone de service = Paris + les 8 départements, téléphone `06 02 42 73 45`, lien `https://www.lesepavistespro.fr/epaviste/ile-de-france`, horaires et adresse une fois les `TODO(owner)` fournis, description reprise de `getLocalBusinessSchema()`, photos réelles, avis réels uniquement.
 5. À J+7 : contrôler dans Search Console « Pages » que les 418 pages de préfectures/sous-préfectures et les 195 communes Tier A passent en « Indexée » ; relancer `npm run seo-crawl -- https://www.lesepavistespro.fr --idf-only`.
+
+---
+
+## 10. Sprint 2 — intentions IDF, signaux de confiance, monitoring (20 septembre 2026, branche `seo/idf-sprint-2`)
+
+### 10.1 Ce qui a été ajouté
+
+| Tâche | Commit | Résultat |
+|---|---|---|
+| S2.0 | `f2f4a53` | `robots.txt` : `SemrushBot` (générique) autorisé en plus de `SemrushBot-SA` ; AhrefsBot / MJ12bot / DotBot toujours bloqués. Ligne « .com → Vercel » en tête du §5. |
+| — | `fcc7195` | **Correction factuelle ZFE 2026** (99 phrases, 7 fichiers) : la suppression des ZFE votée au printemps 2026 a été **censurée par le Conseil constitutionnel** (décision n° 2026-903 DC du 21 mai 2026) ; période pédagogique sans verbalisation jusqu'au 31 décembre 2026 ; liste officielle des 77 communes (Paris + 59 entières + 17 partielles, dont Clamart et Villeneuve-la-Garenne ajoutées). Sources dans `scripts/generate-idf-facts.ts`. |
+| S2.1 | `65fe718`, `cb400ef` | **23 pages « situation » Île-de-France** : 13 épaviste (`/epaviste/ile-de-france/<slug>`) + 10 rachat (`/rachat-voiture/ile-de-france/<slug>`), 1 181 à 1 400 mots rendus, 6 FAQ, `Service` + `FAQPage` + `BreadcrumbList`, liens vers les 2 hubs, les 8 départements, le service frère, 3 communes Tier A et les autres situations. Ajoutées à `sitemap-idf.xml`, aux hubs (« Situations particulières »), aux pages départementales et au footer (6 épaviste). Chaque affirmation juridique cite sa source (service-public.gouv.fr, Légifrance, MGP, Conseil constitutionnel) dans `data/idf-intents.ts` (`INTENT_SOURCES`). Aucun prix hors « gratuit ». Garde-fou : `checkIdfIntents()` dans `seo-check`. |
+| S2.2 | `b88923e`, `44c0861` | **Profondeur Tier B** — audit avant : 0 page sous 500 mots, 4–6 faits locaux par page. Ajout d'un fait vérifiable supplémentaire : la **desserte ferroviaire** (Île-de-France Mobilités, open data ODbL, 1 240 gares → 343 communes via geo.api.gouv.fr), `data/idf-transport.generated.ts`, une phrase par service. 107 des 201 communes Tier B portent ce fait (les 94 autres n'ont pas de gare). |
+| S2.3 | `727d2a4`, `e6c3fb6` | **`/avis`** : ce que le client peut attendre, comment ça se passe, CTA « Laisser un avis » **caché tant que `GBP_REVIEW_URL` est vide** (`lib/reviews.ts`, `TODO(owner)`) — la page explique que les avis sont recueillis via Google. Liste « Avis vérifiés » alimentée par `data/idf-testimonials.ts` (`verified: true` uniquement ; vide aujourd'hui, texte honnête). Aucune note, aucun compteur, aucun avis inventé. Variante `/avis?src=sms` et `?src=whatsapp`. Événement GA4 `review_cta_click`. Lien depuis le footer et la barre de confiance des heros IDF. |
+| S2.4 | `d749070` | **Attribution** : paramètre `intent` + `page_type: 'intent'` sur tous les événements des pages situation ; `form_start` passe par `trackFormStart()` et porte les mêmes paramètres que les autres conversions ; champs cachés `pagePath` / `landingPath` / `intent` dans le formulaire (`lib/lead-attribution.ts`) → bloc **« Provenance »** dans l'e-mail Resend (HTML + texte). Destinataires et fournisseur inchangés. Script `npm run verify-ga4` (Chrome headless, `gtag` remplacé par un enregistreur). |
+| S2.5 | `a645c38` | **Monitoring** : `scripts/seo-monitor.ts` + `.github/workflows/seo-monitor.yml` (lundi 06:00 Europe/Paris + déclenchement manuel) et `pr-check.yml` (tsc + seo-check + build sur chaque PR vers `main`). |
+
+### 10.2 Tier B — avant / après (201 communes, `npx tsx scripts/idf-content-similarity.ts`)
+
+| Service | Mots uniques min · p50 · max — avant | — après | Jaccard max — avant | — après | Pages < 500 mots |
+|---|---|---|---|---|---|
+| épaviste B | 576 · 623 · 674 | 576 · 642 · 714 | 0,560 | **0,542** | 0 → 0 |
+| rachat B | 514 · 558 · 608 | 521 · 580 · 659 | 0,516 | **0,516** | 0 → 0 |
+
+Objectif tenu : 100 % des Tier B ≥ 500 mots, similarité max < 0,60. Tier A non touché (hors correction ZFE).
+
+### 10.3 Événements GA4 — noms réels et paramètres (vérifiés sur le build de production, `npm run verify-ga4`)
+
+Le brief nomme `call_click` / `whatsapp_click` / `form_submit` ; les noms **déjà en production** (et conservés pour ne pas casser l'historique GA4) sont :
+
+| Brief | Nom réel de l'événement | Paramètres vérifiés |
+|---|---|---|
+| `call_click` | `click_call` | `service`, `department_slug`, `city_slug`, `is_idf`, `intent`, `page_type`, `traffic_source` |
+| `whatsapp_click` | `click_whatsapp` | idem |
+| `form_start` | `form_start` | idem + `form_service`, `page_path` |
+| `form_submit` | `lead_form_submit` | idem |
+
+Vérification : 5 pages (2 situations, 1 commune IDF, 1 département IDF, 1 commune hors IDF) × 4 événements = 20/20 ✅, et les champs `pagePath` / `landingPath` / `intent` arrivent bien dans le POST `/api/contact` (5/5). La même vérification tourne chaque semaine contre la production dans le workflow (étape informative). Depuis ce poste, la production n'a pas pu être chargée dans Chrome headless (délais réseau > 90 s sur le HTML, cf. §8.4) ; le premier run GitHub Actions fera foi.
+
+### 10.4 Flux d'avis — message prêt à envoyer (SMS / WhatsApp)
+
+À envoyer après l'enlèvement ou le paiement, une fois `GBP_REVIEW_URL` renseigné (tant qu'il est vide, la page explique la démarche sans bouton) :
+
+> Bonjour [Prénom], merci d'avoir fait appel aux Épavistes Pro pour votre [véhicule] à [commune]. Si tout s'est bien passé, un avis Google nous aide vraiment : https://www.lesepavistespro.fr/avis?src=sms — ça prend une minute. Bonne journée, l'équipe Les Épavistes Pro · 06 02 42 73 45
+
+Variante WhatsApp : même texte avec `?src=whatsapp`. Le paramètre `src` alimente `review_src` dans l'événement `review_cta_click`.
+
+### 10.5 Monitoring hebdomadaire — ce que fait le job
+
+1. Crawl production : **toutes** les URL Île-de-France + échantillon national de 300 URL (`seo-crawl --idf-only --limit=300`).
+2. `validate-jsonld` sur 10 pages de référence.
+3. Test de redirection sur 6 variantes (http, apex, majuscules, slash final, `.com`) : exactement un saut vers l'URL canonique.
+4. `robots.txt` (Googlebot autorisé, `/_next/static` jamais bloqué, `/api/` bloqué, Semrush autorisé, index de sitemaps listé) + index de sitemaps (200, nombre d'enfants stable).
+5. Lighthouse mobile sur 6 pages : budgets perf ≥ 90, LCP ≤ 2,5 s, CLS ≤ 0,1 — un dépassement est un avertissement, une **erreur au 2ᵉ run consécutif**.
+
+Toute erreur fait échouer le job et ouvre (ou met à jour) l'issue **« SEO regression <date> »** (label `seo-regression`) ; le run vert suivant la ferme. Seul le résumé `seo-audit/monitor/<date>.json` est commité sur `main` ; le rapport de crawl complet part en artefact (90 jours). Les variantes `.com` restent des **avertissements** tant que le domaine n'est pas rattaché à Vercel (aujourd'hui `www.lesepavistespro.com` répond 301 → `https://lesepavistespro.com/` servi par un **LiteSpeed** — l'ancien hébergeur — et `/rachat-voiture/` y renvoie 404).
+
+Répétition locale (build de production, sans CDN) : crawl 2 922 pages, 0 erreur ; JSON-LD 10/10 ; robots 7/7 ; Lighthouse local LCP 3,1–3,6 s sous throttling simulé 4G — la valeur qui compte est celle mesurée sur Vercel par le premier run (voir §8.4 pour les mesures antérieures).
+
+### 10.6 Liste propriétaire mise à jour
+
+| # | À faire | Où |
+|---|---|---|
+| 1 | **Rattacher `lesepavistespro.com` (+ `www`) au projet Vercel** — le `.com` pointe encore vers l'ancien hébergeur (LiteSpeed) ; sans cela la consolidation `.com → .fr` n'existe pas | Vercel → Domains |
+| 2 | **URL d'avis Google Business Profile** (bouton « Laisser un avis » sur `/avis`) | `lib/reviews.ts` → `GBP_REVIEW_URL` |
+| 3 | Faits métier toujours vides (adresse, SIRET, année de création, horaires, effectif, délai de rappel, clients servis, validité de l'agrément VHU) — tous les garde-fous et textes de repli restent en place | §5 |
+| 4 | Recommandation : dans GitHub → Settings → Branches, exiger le check **« PR check »** sur `main` | GitHub |
+| 5 | **Search Console → Inspection d'URL → Demander une indexation** pour les 24 nouvelles pages ci-dessous (le sitemap `sitemap-idf.xml` les contient déjà) | Search Console |
+
+```
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/sans-carte-grise
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/parking-souterrain
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/voiture-brulee
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/vehicule-gage
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/succession-deces
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/voiture-abandonnee-voie-publique
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/fourriere
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/utilitaire-camionnette
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/moto-scooter
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/camping-car
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/vehicule-accidente
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/epave-entreprise-flotte
+   https://www.lesepavistespro.fr/epaviste/ile-de-france/zfe-vieux-vehicule
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/sans-controle-technique
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/voiture-accidentee
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/moteur-hs
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/boite-de-vitesses-hs
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/voiture-en-panne
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/fort-kilometrage
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/utilitaire
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/voiture-non-roulante
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/succession
+   https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/vehicule-gage
+   https://www.lesepavistespro.fr/avis
+```

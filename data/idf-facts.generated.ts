@@ -2,7 +2,7 @@
 // Public facts per Île-de-France commune (key: '<deptSlug>/<citySlug>').
 // Sources: geo.api.gouv.fr (INSEE COG: EPCI, surface) ; Métropole du Grand
 // Paris — périmètre ZFE (communes situées à l'intérieur de l'A86).
-// Generated: 2026-09-19
+// Generated: 2026-09-20
 
 export interface IdfCommuneFacts {
   /** Intercommunalité (EPCI) name, e.g. "Métropole du Grand Paris". */
@@ -1003,7 +1003,7 @@ export const idfCommuneFacts: Record<string, IdfCommuneFacts> = {
   'hauts-de-seine-92/chatenay-malabry': { epci: "Métropole du Grand Paris", surfaceKm2: 6.4, zfe: true },
   'hauts-de-seine-92/chatillon': { epci: "Métropole du Grand Paris", surfaceKm2: 2.9, zfe: true },
   'hauts-de-seine-92/chaville': { epci: "Métropole du Grand Paris", surfaceKm2: 3.6, zfe: true },
-  'hauts-de-seine-92/clamart': { epci: "Métropole du Grand Paris", surfaceKm2: 8.8, zfe: false },
+  'hauts-de-seine-92/clamart': { epci: "Métropole du Grand Paris", surfaceKm2: 8.8, zfe: true },
   'hauts-de-seine-92/clichy': { epci: "Métropole du Grand Paris", surfaceKm2: 3.1, zfe: true },
   'hauts-de-seine-92/colombes': { epci: "Métropole du Grand Paris", surfaceKm2: 7.8, zfe: true },
   'hauts-de-seine-92/courbevoie': { epci: "Métropole du Grand Paris", surfaceKm2: 4.2, zfe: true },
@@ -1029,7 +1029,7 @@ export const idfCommuneFacts: Record<string, IdfCommuneFacts> = {
   'hauts-de-seine-92/vanves': { epci: "Métropole du Grand Paris", surfaceKm2: 1.6, zfe: true },
   'hauts-de-seine-92/vaucresson': { epci: "Métropole du Grand Paris", surfaceKm2: 3.1, zfe: true },
   'hauts-de-seine-92/ville-d-avray': { epci: "Métropole du Grand Paris", surfaceKm2: 3.7, zfe: true },
-  'hauts-de-seine-92/villeneuve-la-garenne': { epci: "Métropole du Grand Paris", surfaceKm2: 3.2, zfe: false },
+  'hauts-de-seine-92/villeneuve-la-garenne': { epci: "Métropole du Grand Paris", surfaceKm2: 3.2, zfe: true },
   'seine-saint-denis-93/aubervilliers': { epci: "Métropole du Grand Paris", surfaceKm2: 5.8, zfe: true },
   'seine-saint-denis-93/aulnay-sous-bois': { epci: "Métropole du Grand Paris", surfaceKm2: 16.2, zfe: false },
   'seine-saint-denis-93/bagnolet': { epci: "Métropole du Grand Paris", surfaceKm2: 2.6, zfe: true },

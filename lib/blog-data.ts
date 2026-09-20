@@ -2209,9 +2209,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "zfe-grand-paris-vieille-voiture-que-faire",
+    // Sources: metropolegrandparis.fr/fr/la-zone-faibles-emissions-metropolitaine (02/01/2026, communes_zfe.pdf),
+    // conseil-constitutionnel.fr/decision/2026/2026903DC.htm (21 mai 2026, art. 37 censuré).
     seoTitle: "ZFE Grand Paris : que faire de sa vieille voiture ?",
     title: "ZFE du Grand Paris : périmètre, vignettes Crit'Air et que faire de sa vieille voiture",
-    excerpt: "Quelles communes sont dans la ZFE du Grand Paris, quelles vignettes Crit'Air sont concernées, où en est la réglementation en 2026, et quelles options pour une voiture qui ne peut plus circuler.",
+    excerpt: "Quelles communes sont dans la ZFE du Grand Paris, quelles vignettes Crit'Air sont concernées, pourquoi la ZFE reste en vigueur en 2026 (censure de sa suppression) sans verbalisation jusqu'à fin 2026, et quelles options pour une vieille voiture.",
     seoDescription: "ZFE Grand Paris : périmètre de l'A86, vignettes Crit'Air visées, réglementation 2026 et options pour une vieille voiture : vente ou enlèvement gratuit.",
     category: "Réglementation",
     date: "2026-09-19",
@@ -2224,7 +2226,7 @@ export const blogPosts: BlogPost[] = [
       <p>La <strong>zone à faibles émissions mobilité</strong> (ZFE-m) de la Métropole du Grand Paris est un périmètre dans lequel la circulation des véhicules les plus anciens, identifiés par leur <strong>vignette Crit'Air</strong>, est restreinte à certaines heures. Elle a été mise en place progressivement à partir de 2019, d'abord pour les véhicules non classés et Crit'Air 5, puis Crit'Air 4, et depuis le 1er janvier 2025 pour les <strong>Crit'Air 3</strong> (essence d'avant 2006, diesel d'avant 2011).</p>
 
       <h2>Le périmètre : les communes à l'intérieur de l'A86</h2>
-      <p>La ZFE couvre <strong>Paris et les communes situées à l'intérieur de l'autoroute A86</strong>, l'A86 elle-même restant hors périmètre. Cela représente, outre les 20 arrondissements, une trentaine de communes des Hauts-de-Seine, une quinzaine en Seine-Saint-Denis et une vingtaine dans le Val-de-Marne : Boulogne-Billancourt, Nanterre, Saint-Denis, Montreuil, Vitry-sur-Seine ou Créteil en font partie ; Argenteuil, Versailles, Massy ou Chelles n'en font pas partie, même lorsqu'elles appartiennent à la Métropole.</p>
+      <p>La ZFE couvre <strong>Paris et les communes situées à l'intérieur de l'autoroute A86</strong>, l'A86 elle-même restant hors périmètre. La liste officielle de la Métropole compte <strong>77 communes</strong> : Paris, 59 communes entièrement incluses (Boulogne-Billancourt, Nanterre, Saint-Denis, Ivry, Vincennes…) et 17 communes partiellement incluses parce que l'A86 les traverse (Montreuil, Créteil, Vitry-sur-Seine, Colombes, Clamart, Bobigny…). Argenteuil, Versailles, Massy ou Chelles n'en font pas partie, même lorsqu'elles appartiennent à la Métropole.</p>
       <p>Sur chacune de nos pages de commune d'Île-de-France, la section « Accès et ZFE » indique si la ville est dans le périmètre ou non : voyez par exemple <a href="/epaviste/hauts-de-seine-92" title="Épaviste dans les Hauts-de-Seine">nos communes des Hauts-de-Seine</a>.</p>
 
       <h2>Quelles vignettes sont concernées, et quand ?</h2>
@@ -2236,8 +2238,8 @@ export const blogPosts: BlogPost[] = [
       <p>Des dérogations existent (véhicules de collection, personnes handicapées, certains professionnels, « pass ZFE » de 24 jours par an…) ; renseignez-vous sur le site de la Métropole du Grand Paris.</p>
 
       <h2>Où en est-on en 2026 ?</h2>
-      <p>La réglementation des ZFE est en plein mouvement. Pour le Grand Paris, les <strong>sanctions visant les Crit'Air 3 n'étaient pas appliquées en 2025</strong> (période dite pédagogique) et leur mise en œuvre pour 2026 a été suspendue ; au niveau national, le Parlement a adopté au printemps 2026 un texte prévoyant la <strong>suppression de l'obligation de ZFE</strong>, dont l'entrée en vigueur dépend de sa promulgation et de ses décrets d'application. Autrement dit : les panneaux sont là, les règles existent, mais leur application concrète aux particuliers reste incertaine.</p>
-      <p><em>Nous mettons cet article à jour au fil des annonces officielles ; vérifiez toujours la situation du jour sur le site de la Métropole du Grand Paris avant de prendre une décision.</em></p>
+      <p>Deux choses sont acquises. D'abord, la <strong>ZFE reste en vigueur</strong> : la suppression des zones à faibles émissions votée par le Parlement au printemps 2026, dans la loi de simplification de la vie économique, a été <strong>censurée par le Conseil constitutionnel le 21 mai 2026</strong> (décision n° 2026-903 DC), pour un motif de procédure. Ensuite, pour le Grand Paris, la Métropole a prolongé la <strong>période pédagogique</strong> : jusqu'au 31 décembre 2026, les contrôles restent « ponctuels et informatifs », sans verbalisation des Crit'Air 3. Les restrictions existent donc bien, mais ne sont pas sanctionnées cette année ; le calendrier 2027 sera fixé par la Métropole.</p>
+      <p><em>Sources : Métropole du Grand Paris (page ZFE mise à jour le 2 janvier 2026), Conseil constitutionnel (décision 2026-903 DC). Nous mettons cet article à jour au fil des annonces officielles ; vérifiez toujours la situation du jour avant de prendre une décision.</em></p>
 
       <h2>Que faire d'une voiture Crit'Air 3, 4 ou 5 en Île-de-France ?</h2>
       <h3>1. La garder et l'utiliser hors du périmètre</h3>

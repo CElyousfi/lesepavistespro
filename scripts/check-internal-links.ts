@@ -51,6 +51,7 @@ const STATIC_ROUTES = new Set([
   '/blog',
   '/contact',
   '/faq',
+  '/avis',
   '/conformite-vhu',
   '/documents',
   '/guides/rachat-sans-ct',

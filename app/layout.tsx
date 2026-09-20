@@ -132,6 +132,7 @@ export default function RootLayout({
                 page_path: window.location.pathname,
                 send_page_view: true
               });
+              try { if (!sessionStorage.getItem('lead_landing_path')) sessionStorage.setItem('lead_landing_path', location.pathname + location.search); } catch (e) {}
             `,
           }}
         />

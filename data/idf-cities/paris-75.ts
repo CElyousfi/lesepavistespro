@@ -79,7 +79,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: LOUVRE,
     acces: [
-      "Le 1er arrondissement est entièrement dans la zone à faibles émissions du Grand Paris et dans le périmètre « Paris Centre », où la circulation de transit est limitée et où de nombreuses rues (quartier des Halles, Montorgueil côté 2e, abords du Palais-Royal) sont piétonnes ou en zone de rencontre. Les sanctions ZFE visant les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation ; pour un véhicule qui ne roule plus, le certificat de destruction règle la question définitivement.",
+      "Le 1er arrondissement est entièrement dans la zone à faibles émissions du Grand Paris et dans le périmètre « Paris Centre », où la circulation de transit est limitée et où de nombreuses rues (quartier des Halles, Montorgueil côté 2e, abords du Palais-Royal) sont piétonnes ou en zone de rencontre. Les sanctions ZFE visant les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne roule plus, le certificat de destruction règle la question définitivement.",
       "Les parkings en ouvrage du secteur (Forum des Halles, Louvre-Samaritaine, Saint-Honoré, Vendôme, Bourse) imposent en général une hauteur libre de 1,90 m : nous y intervenons avec un plateau bas ou nous remontons le véhicule au treuil jusqu'à la rue. Comme la vitesse est limitée à 30 km/h et que les voies sur berges sont fermées aux voitures, l'accès se fait par la rue de Rivoli (portion ouverte), le quai de la Mégisserie ou la rue du Louvre.",
     ],
     faqEpaviste: [
@@ -119,7 +119,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: LOUVRE,
     acces: [
-      "Le 2e arrondissement est dans la zone à faibles émissions du Grand Paris et dans le secteur « Paris Centre ». Le quartier Montorgueil–Saint-Denis est piéton, la rue Réaumur et les Grands Boulevards concentrent le trafic, et la vitesse est limitée à 30 km/h partout. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 2e arrondissement est dans la zone à faibles émissions du Grand Paris et dans le secteur « Paris Centre ». Le quartier Montorgueil–Saint-Denis est piéton, la rue Réaumur et les Grands Boulevards concentrent le trafic, et la vitesse est limitée à 30 km/h partout. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Sans parking privé dans la plupart des immeubles, les véhicules à enlever sont en ouvrage (Bourse, Pyramides, Grands Boulevards, Saint-Honoré côté 1er) ou dans une cour. Nous demandons systématiquement la hauteur de la rampe et le niveau du véhicule ; le chargement se fait en surface, sur un arrêt minute autorisé le temps de l'opération.",
     ],
     faqEpaviste: [
@@ -161,7 +161,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: LOUVRE,
     acces: [
-      "Le 3e arrondissement est dans la zone à faibles émissions du Grand Paris et dans le secteur « Paris Centre » : circulation de transit limitée, nombreuses rues piétonnes ou en zone de rencontre, vitesse limitée à 30 km/h. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 3e arrondissement est dans la zone à faibles émissions du Grand Paris et dans le secteur « Paris Centre » : circulation de transit limitée, nombreuses rues piétonnes ou en zone de rencontre, vitesse limitée à 30 km/h. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "L'accès au Marais se fait par la rue de Turbigo, la rue Réaumur, le boulevard Beaumarchais ou la rue de Bretagne ; les rues transversales sont étroites et souvent en sens unique. Nous repérons l'itinéraire du plateau à l'avance et prévoyons le treuillage jusqu'à l'axe le plus proche lorsque la rue elle-même n'est pas accessible.",
     ],
     faqEpaviste: [
@@ -204,7 +204,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: LOUVRE,
     acces: [
-      "Le 4e arrondissement est dans la zone à faibles émissions du Grand Paris et dans le secteur « Paris Centre » : transit limité, rues piétonnes ou en zone de rencontre, 30 km/h partout, voies sur berges fermées aux voitures côté rive droite. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 4e arrondissement est dans la zone à faibles émissions du Grand Paris et dans le secteur « Paris Centre » : transit limité, rues piétonnes ou en zone de rencontre, 30 km/h partout, voies sur berges fermées aux voitures côté rive droite. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "L'accès se fait par la rue de Rivoli (portion ouverte), la rue Saint-Antoine, le boulevard Henri-IV, le quai des Célestins ou le boulevard de Sébastopol. Sur les îles et dans le Marais, nous prévoyons le treuillage jusqu'à l'axe accessible le plus proche et un arrêt minute du plateau le temps du chargement.",
     ],
     faqEpaviste: [
@@ -247,7 +247,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: CHARLETY,
     acces: [
-      "Le 5e arrondissement est dans la zone à faibles émissions du Grand Paris. Le quartier de la Sorbonne et de la rue Mouffetard compte de nombreuses rues piétonnes ou à circulation restreinte, et la vitesse est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 5e arrondissement est dans la zone à faibles émissions du Grand Paris. Le quartier de la Sorbonne et de la rue Mouffetard compte de nombreuses rues piétonnes ou à circulation restreinte, et la vitesse est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par le boulevard Saint-Germain, le boulevard Saint-Michel, la rue Monge, la rue des Écoles ou le quai Saint-Bernard, et nous treuillons depuis les rues étroites du haut de l'arrondissement. Les parkings en ouvrage ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la surface.",
     ],
     faqEpaviste: [
@@ -291,7 +291,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: LOUVRE,
     acces: [
-      "Le 6e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse y est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation ; pour un véhicule qui ne roule plus, le certificat de destruction règle définitivement la question.",
+      "Le 6e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse y est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne roule plus, le certificat de destruction règle définitivement la question.",
       "Les parkings en ouvrage du secteur (Saint-Sulpice, Saint-Germain-des-Prés, Marché Saint-Germain, Montparnasse) ont en général une hauteur libre de 1,90 m : nous y intervenons avec un plateau bas ou nous remontons le véhicule au treuil jusqu'à la rue. Les axes d'accès sont le boulevard Saint-Germain, la rue de Rennes, le boulevard Raspail, la rue de Vaugirard et le boulevard du Montparnasse.",
     ],
     faqEpaviste: [
@@ -333,7 +333,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: FOCH,
     acces: [
-      "Le 7e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, les quais de la rive gauche sont piétons entre le pont de l'Alma et le musée d'Orsay, et les abords de l'Assemblée nationale, des Invalides et de la Tour Eiffel font l'objet de fermetures ponctuelles. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 7e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, les quais de la rive gauche sont piétons entre le pont de l'Alma et le musée d'Orsay, et les abords de l'Assemblée nationale, des Invalides et de la Tour Eiffel font l'objet de fermetures ponctuelles. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par le boulevard Saint-Germain, la rue de Sèvres, l'avenue de Breteuil, l'avenue de Suffren ou le quai d'Orsay (portion ouverte). Les parkings des résidences ont en général une hauteur libre de 1,90 m ; les cours d'hôtels particuliers se travaillent au treuil jusqu'à la rue.",
     ],
     faqEpaviste: [
@@ -377,7 +377,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: FOCH,
     acces: [
-      "Le 8e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, et les Champs-Élysées, la place de la Concorde et les abords de l'Élysée sont régulièrement fermés pour des événements ou des raisons de sécurité. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 8e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, et les Champs-Élysées, la place de la Concorde et les abords de l'Élysée sont régulièrement fermés pour des événements ou des raisons de sécurité. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par le boulevard Haussmann, le boulevard Malesherbes, l'avenue de Friedland, l'avenue George-V ou la rue La Boétie. Les parkings en ouvrage ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la surface ; les parkings de bureaux exigent souvent une autorisation d'accès que nous demandons à l'avance.",
     ],
     faqEpaviste: [
@@ -421,7 +421,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: POUCHET,
     acces: [
-      "Le 9e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h et plusieurs rues (secteur Martyrs, abords des grands magasins en période de fêtes) sont fermées ou filtrées ponctuellement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 9e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h et plusieurs rues (secteur Martyrs, abords des grands magasins en période de fêtes) sont fermées ou filtrées ponctuellement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par le boulevard Haussmann, la rue La Fayette, la rue de Châteaudun, la rue de Clichy ou le boulevard de Clichy ; les parkings en ouvrage ont en général une hauteur libre de 1,90 m, ce qui impose un plateau bas ou un treuillage jusqu'à la surface.",
     ],
     faqEpaviste: [
@@ -466,7 +466,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: PANTIN,
     acces: [
-      "Le 10e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, les quais du canal Saint-Martin sont fermés aux voitures le dimanche et les abords des gares sont réservés en partie aux taxis et aux bus. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 10e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, les quais du canal Saint-Martin sont fermés aux voitures le dimanche et les abords des gares sont réservés en partie aux taxis et aux bus. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par le boulevard de Magenta, le boulevard de Strasbourg, la rue La Fayette, la rue du Faubourg-Saint-Martin ou le quai de Valmy (hors dimanche). Les parkings en ouvrage ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la surface.",
     ],
     faqEpaviste: [
@@ -510,7 +510,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: PANTIN,
     acces: [
-      "Le 11e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, et le boulevard Richard-Lenoir accueille un marché deux fois par semaine. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 11e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, et le boulevard Richard-Lenoir accueille un marché deux fois par semaine. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par le boulevard Voltaire, le boulevard de Ménilmontant, l'avenue de la République, la rue du Faubourg-Saint-Antoine ou le boulevard Beaumarchais ; les parkings de résidence ont en général une hauteur libre de 1,90 m, ce qui impose un plateau bas ou un treuillage jusqu'à la rue.",
     ],
     faqEpaviste: [
@@ -555,7 +555,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: CHARLETY,
     acces: [
-      "Le 12e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les quais de Bercy sont fermés aux voitures le dimanche et les abords de l'Accor Arena sont filtrés les soirs d'événement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 12e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les quais de Bercy sont fermés aux voitures le dimanche et les abords de l'Accor Arena sont filtrés les soirs d'événement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par l'avenue Daumesnil, le boulevard Diderot, le boulevard de Bercy, la rue de Charenton, le cours de Vincennes ou, depuis l'est, par la porte de Bercy (A4) et la porte Dorée. Les parkings de résidence ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la rue.",
     ],
     faqEpaviste: [
@@ -599,7 +599,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: CHARLETY,
     acces: [
-      "Le 13e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 13e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par l'avenue d'Italie, le boulevard Vincent-Auriol, l'avenue de Choisy, la rue de Tolbiac, le boulevard Masséna ou, depuis le périphérique, par les portes d'Italie, de Choisy et d'Ivry. Les parkings des grands ensembles exigent souvent un badge : nous demandons l'accès au gardien à l'avance.",
     ],
     faqEpaviste: [
@@ -644,7 +644,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: CHARLETY,
     acces: [
-      "Le 14e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes et plusieurs rues autour de la rue Daguerre et du parc Montsouris sont piétonnes ou fermées le dimanche. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 14e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes et plusieurs rues autour de la rue Daguerre et du parc Montsouris sont piétonnes ou fermées le dimanche. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par l'avenue du Général-Leclerc, le boulevard Brune, la rue d'Alésia, le boulevard Raspail, la rue de Vaugirard ou, depuis le périphérique, par les portes d'Orléans et de Vanves. Les parkings de résidence ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la rue.",
     ],
     faqEpaviste: [
@@ -688,7 +688,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: FOCH,
     acces: [
-      "Le 15e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, et les abords de la porte de Versailles sont filtrés pendant les salons ; les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 15e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, et les abords de la porte de Versailles sont filtrés pendant les salons ; les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par la rue de Vaugirard, la rue de la Convention, le boulevard de Grenelle, l'avenue Émile-Zola, le boulevard Lefebvre ou, depuis le périphérique, par les portes de Versailles, de Sèvres et de Saint-Cloud. Les parkings de copropriété ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la rue.",
     ],
     faqEpaviste: [
@@ -732,7 +732,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: FOCH,
     acces: [
-      "Le 16e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les voies du bois de Boulogne sont en partie fermées aux voitures et les abords du Parc des Princes et de Roland-Garros sont filtrés les jours d'événement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 16e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les voies du bois de Boulogne sont en partie fermées aux voitures et les abords du Parc des Princes et de Roland-Garros sont filtrés les jours d'événement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par l'avenue de Versailles, l'avenue Mozart, la rue de la Pompe, l'avenue Victor-Hugo, l'avenue Kléber ou, depuis le périphérique et l'A13, par les portes d'Auteuil, de Saint-Cloud, de Passy et Dauphine. Les parkings d'immeubles ont en général une hauteur libre de 1,90 m et un gardien : nous demandons l'accès à l'avance.",
     ],
     faqEpaviste: [
@@ -776,7 +776,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: POUCHET,
     acces: [
-      "Le 17e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes et les abords du Palais des Congrès sont filtrés pendant les grands salons. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 17e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes et les abords du Palais des Congrès sont filtrés pendant les grands salons. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par l'avenue de Clichy, l'avenue de Saint-Ouen, le boulevard Pereire, l'avenue des Ternes, la rue de Courcelles ou, depuis le périphérique, par les portes Maillot, de Champerret, d'Asnières et de Clichy. Les parkings d'immeubles ont en général une hauteur libre de 1,90 m ; les parkings récents des Batignolles exigent un badge que nous demandons à l'avance.",
     ],
     faqEpaviste: [
@@ -820,7 +820,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: POUCHET,
     acces: [
-      "Le 18e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, la butte Montmartre est en grande partie en zone de rencontre ou piétonne (secteur Abbesses–Tertre) et le boulevard Barbès est saturé en journée. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 18e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, la butte Montmartre est en grande partie en zone de rencontre ou piétonne (secteur Abbesses–Tertre) et le boulevard Barbès est saturé en journée. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par le boulevard de Clichy, la rue Ordener, la rue Marcadet, le boulevard Ney, la rue de la Chapelle ou, depuis le périphérique et l'A1, par les portes de la Chapelle, de Clignancourt et de Saint-Ouen. Sur la butte, nous prévoyons un point de chargement en bas de pente et un treuillage depuis la rue étroite.",
     ],
     faqEpaviste: [
@@ -864,7 +864,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: PANTIN,
     acces: [
-      "Le 19e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les abords du parc de la Villette sont filtrés les soirs d'événement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 19e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h hors grands axes, les abords du parc de la Villette sont filtrés les soirs d'événement. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par l'avenue de Flandre, l'avenue Jean-Jaurès, la rue de Crimée, le boulevard de la Villette, la rue Manin ou, depuis le périphérique, par les portes de Pantin, de la Villette, d'Aubervilliers et des Lilas. Les parkings des grands ensembles exigent un badge : nous demandons l'accès au gardien ou au bailleur à l'avance.",
     ],
     faqEpaviste: [
@@ -908,7 +908,7 @@ export const cities: IdfCityContentMap = {
     ],
     fourriere: PANTIN,
     acces: [
-      "Le 20e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, plusieurs rues de Belleville et de Ménilmontant sont en zone de rencontre, et les abords de la porte de Montreuil sont saturés les jours de puces. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation.",
+      "Le 20e arrondissement est dans la zone à faibles émissions du Grand Paris ; la vitesse est limitée à 30 km/h, plusieurs rues de Belleville et de Ménilmontant sont en zone de rencontre, et les abords de la porte de Montreuil sont saturés les jours de puces. Les sanctions ZFE pour les Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur.",
       "Nous accédons par le boulevard de Ménilmontant, l'avenue Gambetta, la rue de Bagnolet, le cours de Vincennes, le boulevard Davout ou, depuis le périphérique et l'A3, par les portes de Bagnolet, de Montreuil, de Vincennes et des Lilas. Sur les rues en pente, nous prévoyons un point de chargement en bas et un treuillage depuis l'emplacement.",
     ],
     faqEpaviste: [

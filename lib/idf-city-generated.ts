@@ -16,6 +16,7 @@ import type { IdfCityRef } from './idf-cities';
 import type { IdfCommuneFacts } from '@/data/idf-facts.generated';
 import type { IdfDeptHub } from '@/data/idf-extra-content';
 import type { IdfCitySituation } from '@/data/idf-cities/types';
+import type { IdfTransportLine } from '@/data/idf-transport.generated';
 import { idfLocative, idfGenitive } from './idf';
 
 export interface GeneratedCityContent {
@@ -38,6 +39,58 @@ export interface GeneratorInput {
   hub: IdfDeptHub;
   nearest: Array<{ name: string; distanceKm: number; deptCode: string }>;
   distanceToParisKm: number | null;
+  /** Rail lines serving the commune (IDFM open data), empty when none. */
+  transport?: IdfTransportLine[];
+}
+
+/** "RER D" → "le RER D", "TRAIN J" → "la ligne J du Transilien", "METRO 13" → "la ligne 13 du métro", "TRAM 5" → "le tramway T5". */
+function formatLine(l: IdfTransportLine): string {
+  const [kind, id] = l.line.split(' ');
+  switch (kind) {
+    case 'RER': return `le RER ${id}`;
+    case 'TRAIN': return `la ligne ${id} du Transilien`;
+    case 'METRO': return `la ligne ${id} du métro`;
+    case 'TRAM': return `le tramway T${id}`;
+    default: return l.line;
+  }
+}
+
+/** "de Enghien" → "d'Enghien", "de Évry" → "d'Évry" (elision before a vowel or mute h). */
+function deName(name: string): string {
+  return /^[aeiouyàâäéèêëïîôöùûüh]/i.test(name) ? `d'${name}` : `de ${name}`;
+}
+
+function joinFr(items: string[]): string {
+  return items.join(', ').replace(/, ([^,]*)$/, ' et $1');
+}
+
+/** Rachat-side variant of the transport fact (different wording, same source). */
+export function rachatTransportSentence(city: IdfCityRef, transport: IdfTransportLine[] | undefined, seed: string): string | null {
+  const lines = (transport ?? []).filter(l => !l.line.startsWith('VAL')).slice(0, 4);
+  if (!lines.length) return null;
+  const lineText = joinFr(lines.map(formatLine));
+  const station = lines[0].station;
+  const variants = [
+    `Avec ${lineText} à la gare ${deName(station)}, beaucoup de ménages ${deName(city.name)} n'ont plus qu'un usage occasionnel de leur voiture : c'est cette voiture-là, peu kilométrée mais vieillissante, que nous rachetons le plus souvent, avant qu'elle ne coûte un contrôle technique de plus.`,
+    `Le rendez-vous peut aussi se fixer sur le parking de la gare ${deName(station)} (${lineText}) avant votre train : vérification, paiement et chargement prennent une trentaine de minutes.`,
+    `${city.name} est reliée à Paris par ${lineText} ; les voitures que nous y reprenons sont souvent des secondes voitures qui dorment près de la gare ${deName(station)}, entretenues mais peu utilisées, et notre offre en tient compte.`,
+  ];
+  return pick(variants, seed, 16);
+}
+
+/** One verifiable sentence about the commune's rail service, or null. */
+export function transportSentence(city: IdfCityRef, transport: IdfTransportLine[] | undefined, seed: string): string | null {
+  const lines = (transport ?? []).filter(l => !l.line.startsWith('VAL')).slice(0, 4);
+  if (!lines.length) return null;
+  const lineText = joinFr(lines.map(formatLine));
+  const stations = Array.from(new Set(lines.map(l => l.station))).slice(0, 3);
+  const stationText = stations.length === 1 ? `gare ${deName(stations[0])}` : `gares ${deName(joinFr(stations))}`;
+  const variants = [
+    `${city.name} est desservie par ${lineText} (${stationText}) : beaucoup d'habitants n'utilisent plus leur voiture au quotidien, et c'est souvent une seconde voiture immobilisée depuis des mois que l'on nous demande d'enlever.`,
+    `Côté transports, ${lineText} dessert la commune (${stationText}), ce qui explique le nombre de voitures qui restent des semaines au parking ou dans la rue sans bouger.`,
+    `La commune est reliée à Paris par ${lineText} (${stationText}) ; les abords de la gare concentrent les véhicules laissés trop longtemps en stationnement, et donc les mises en fourrière.`,
+  ];
+  return pick(variants, seed, 15);
 }
 
 /** Deterministic hash → index. */
@@ -117,9 +170,9 @@ const NEAREST_SENTENCES = [
 ];
 
 const ZFE_IN = [
-  (c: IdfCityRef) => `Comme toutes les communes situées à l'intérieur de l'A86, ${c.name} fait partie du périmètre ZFE du Grand Paris. En 2026, les sanctions visant les Crit'Air 3 sont suspendues et une loi votée en avril prévoit la suppression des ZFE, en attente de promulgation : renseignez-vous avant de rouler avec un véhicule ancien, ou faites-le enlever gratuitement s'il ne sert plus.`,
-  (c: IdfCityRef) => `${c.name} est située à l'intérieur de l'A86, donc dans le périmètre de la zone à faibles émissions du Grand Paris ; les sanctions pour les Crit'Air 3 ont été suspendues pour 2026 et la suppression des ZFE a été votée en avril 2026, sous réserve de promulgation. Un véhicule ancien qui ne circule plus reste une charge : l'enlèvement gratuit avec certificat de destruction y met fin.`,
-  (c: IdfCityRef) => `Située dans le périmètre ZFE de la Métropole du Grand Paris (à l'intérieur de l'A86), ${c.name} est concernée par les restrictions Crit'Air, dont le calendrier est incertain en 2026 (sanctions suspendues, suppression votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, le certificat de destruction reste la sortie la plus simple.`,
+  (c: IdfCityRef) => `Comme toutes les communes situées à l'intérieur de l'A86, ${c.name} fait partie du périmètre ZFE du Grand Paris. En 2026, les sanctions visant les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; renseignez-vous avant de rouler avec un véhicule ancien, ou faites-le enlever gratuitement s'il ne sert plus.`,
+  (c: IdfCityRef) => `${c.name} est située à l'intérieur de l'A86, donc dans le périmètre de la zone à faibles émissions du Grand Paris ; les sanctions pour les Crit'Air 3 ont été suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Un véhicule ancien qui ne circule plus reste une charge : l'enlèvement gratuit avec certificat de destruction y met fin.`,
+  (c: IdfCityRef) => `Située dans le périmètre ZFE de la Métropole du Grand Paris (à l'intérieur de l'A86), ${c.name} est concernée par les restrictions Crit'Air, dont le calendrier a évolué en 2026 (sanctions suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, le certificat de destruction reste la sortie la plus simple.`,
 ];
 const ZFE_OUT = [
   (c: IdfCityRef) => `Aucune restriction ZFE ne s'applique à ${c.name} : la commune est hors du périmètre de la Métropole du Grand Paris délimité par l'A86. Reste la règle valable partout en France pour un véhicule hors d'usage — le confier à un centre VHU agréé, qui délivre le certificat de destruction et déclare la cession, ce qui met fin à l'assurance et à la carte grise.`,
@@ -210,7 +263,7 @@ const FAQ_R_POOL: Array<(c: IdfCityRef) => FaqItem> = [
   c => ({ question: `Combien de temps prend un rachat à ${c.name} ?`, answer: `L'estimation est faite dans la journée sur photos et carte grise ; l'enlèvement et le paiement suivent sur rendez-vous, souvent sous 24 à 48 h à ${c.name}. Sur place, comptez une trentaine de minutes.` }),
 ];
 
-export function generateIdfCityContent({ city, facts, nearest, distanceToParisKm }: GeneratorInput): GeneratedCityContent {
+export function generateIdfCityContent({ city, facts, nearest, distanceToParisKm, transport }: GeneratorInput): GeneratedCityContent {
   const seed = `${city.deptSlug}/${city.slug}`;
   const density = densityClass(city.population, facts?.surfaceKm2 ?? null);
   const nearestList = nearest
@@ -232,6 +285,11 @@ export function generateIdfCityContent({ city, facts, nearest, distanceToParisKm
     specific++;
   }
   intro.push(p1.join(' '));
+  const transportText = transportSentence(city, transport, seed);
+  if (transportText) {
+    intro.push(transportText);
+    specific++;
+  }
   intro.push(pick(DENSITY_HOUSING[density], seed, 4));
 
   const situations = pickMany(SITUATION_POOL, seed, 4, 5).map(f => f(city));
@@ -251,6 +309,8 @@ export function generateIdfCityContent({ city, facts, nearest, distanceToParisKm
     pick(RACHAT_INTRO, seed, 9)(city, distanceToParisKm),
     `${pick(RACHAT_SECOND, seed, 10)(city, facts)} ${pick(RACHAT_PICKUP[density], seed, 14)}`,
   ];
+  const rachatTransport = rachatTransportSentence(city, transport, seed);
+  if (rachatTransport) rachatIntro.push(rachatTransport);
   const faqRachat = pickMany(FAQ_R_POOL, seed, 5, 11).map(f => f(city));
 
   return { intro, situations, rachatSituations, acces, fourriere, faqEpaviste, rachatIntro, faqRachat, specificSentences: specific };

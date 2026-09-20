@@ -57,18 +57,19 @@ function hasConvertedBefore(event: string): boolean {
 
 interface EnrichedEventParams {
   traffic_source: TrafficSource;
-  page_type?: 'city' | 'department' | 'service' | 'home' | 'other';
+  page_type?: 'city' | 'department' | 'service' | 'home' | 'intent' | 'other';
   location_slug?: string;
   is_repeat_intent: boolean;
   [key: string]: unknown;
 }
 
-function getPageType(): 'city' | 'department' | 'service' | 'home' | 'other' {
+function getPageType(): 'city' | 'department' | 'service' | 'home' | 'intent' | 'other' {
   if (typeof window === 'undefined') return 'other';
   
   const path = window.location.pathname;
   
   if (path === '/') return 'home';
+  if (path.match(/^\/(epaviste|rachat-voiture)\/ile-de-france\/[^/]+$/)) return 'intent';
   if (path.match(/\/epaviste\/[^/]+\/[^/]+/) || path.match(/\/rachat-voiture\/[^/]+\/[^/]+/)) return 'city';
   if (path.match(/\/epaviste\/[^/]+$/) || path.match(/\/rachat-voiture\/[^/]+$/)) return 'department';
   if (path.match(/\/epaviste$/) || path.match(/\/rachat-voiture$/)) return 'service';
@@ -93,17 +94,20 @@ function getLocationSlug(): string | undefined {
  * Service / department / city split of the current location page, plus an
  * Île-de-France flag — so GA4 can segment IDF conversions by commune (P4.3).
  */
-function getGeoParams(): { service?: 'epaviste' | 'rachat-voiture'; department_slug?: string; city_slug?: string; is_idf: boolean } {
+function getGeoParams(): { service?: 'epaviste' | 'rachat-voiture'; department_slug?: string; city_slug?: string; intent?: string; is_idf: boolean } {
   if (typeof window === 'undefined') return { is_idf: false };
   const match = window.location.pathname.match(/^\/(epaviste|rachat-voiture)\/([^/]+)(?:\/([^/]+))?/);
   if (!match) return { is_idf: false };
   const [, service, second, third] = match;
   const isRegion = second === IDF_REGION_SLUG;
   const department_slug = isRegion ? undefined : second;
+  // /{service}/ile-de-france/<intent> is a situation page (S2.1), not a city.
+  const intent = isRegion && third ? third : undefined;
   return {
     service: service as 'epaviste' | 'rachat-voiture',
     department_slug,
-    city_slug: third || undefined,
+    city_slug: intent ? undefined : third || undefined,
+    intent,
     is_idf: isRegion || IDF_DEPT_SLUGS.includes(second),
   };
 }
@@ -176,11 +180,33 @@ export const trackWhatsAppClick = (location?: string) => {
   recordConversion(eventName);
 };
 
+/** /avis → "Laisser un avis" (Google Business Profile). `src` = how the client got there (sms, whatsapp, site). */
+export const trackReviewCtaClick = (src: string) => {
+  event('review_cta_click', enrichEventParams({
+    event_category: 'engagement',
+    event_label: src || 'site',
+    review_src: src || 'site',
+    is_repeat_intent: false,
+  }));
+};
+
 /** Sticky mobile bar → "Devis" (scroll to the form). */
 export const trackStickyDevisClick = () => {
   event('click_devis_sticky', enrichEventParams({
     event_category: 'engagement',
     event_label: 'mobile_sticky',
+    is_repeat_intent: hasConvertedBefore('lead_form_submit'),
+  }));
+};
+
+/**
+ * First interaction with the lead form. Same geo params as the other
+ * conversion events (service, department_slug, city_slug, is_idf, intent).
+ */
+export const trackFormStart = (extra: Record<string, unknown> = {}) => {
+  event('form_start', enrichEventParams({
+    event_category: 'engagement',
+    ...extra,
     is_repeat_intent: hasConvertedBefore('lead_form_submit'),
   }));
 };

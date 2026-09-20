@@ -23,7 +23,7 @@ export const idfEpavisteFaq: IdfFaqItem[] = [
   },
   {
     question: "Mon véhicule est concerné par la ZFE-m du Grand Paris, que faire ?",
-    answer: "La ZFE du Grand Paris couvre Paris et les communes situées à l'intérieur de l'A86. Son calendrier est incertain en 2026 : les sanctions pour les Crit'Air 3 ont été suspendues et une loi votée en avril 2026 prévoit la suppression des ZFE, sous réserve de promulgation. Si votre véhicule ancien ne circule plus, nous l'enlevons gratuitement avec certificat de destruction, ce qui met fin à l'assurance et aux obligations liées à la carte grise.",
+    answer: "La ZFE du Grand Paris couvre Paris et les communes situées à l'intérieur de l'A86. Son calendrier a évolué en 2026 : les sanctions pour les Crit'Air 3 ont été suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Si votre véhicule ancien ne circule plus, nous l'enlevons gratuitement avec certificat de destruction, ce qui met fin à l'assurance et aux obligations liées à la carte grise.",
   },
   {
     question: "Quels documents sont nécessaires pour faire enlever une épave en IDF ?",

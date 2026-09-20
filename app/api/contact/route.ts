@@ -51,6 +51,33 @@ interface LeadFormData {
   leadRegionTag?: string;
   /** Honeypot — a filled value means a bot. */
   website?: string;
+  // Page attribution (S2.4) — set by ConversionForm from lib/lead-attribution
+  /** Path of the page the form was submitted from. */
+  pagePath?: string;
+  /** First path of the session. */
+  landingPath?: string;
+  /** Situation slug on /{service}/ile-de-france/<intent> pages. */
+  intent?: string;
+}
+
+/** Paths come from the browser: keep URL characters only, cap the length. */
+function cleanPath(value: unknown): string {
+  if (typeof value !== 'string') return '';
+  return value.replace(/[^\w\-./?=&%~+]/g, '').slice(0, 200);
+}
+
+/** Origin of the lead, for the email's "Provenance" block. */
+function describeAttribution(formData: LeadFormData) {
+  const pagePath = cleanPath(formData.pagePath);
+  const landingPath = cleanPath(formData.landingPath);
+  const intent = cleanPath(formData.intent);
+  const idf = /^\/(epaviste|rachat-voiture)\/(ile-de-france|paris-75|seine-et-marne-77|yvelines-78|essonne-91|hauts-de-seine-92|seine-saint-denis-93|val-de-marne-94|val-d-oise-95)(\/|$)/;
+  return {
+    pagePath,
+    landingPath,
+    intent,
+    isIdf: idf.test(pagePath) || idf.test(landingPath),
+  };
 }
 
 // HTML Email Template — mirrors website design system exactly
@@ -64,6 +91,7 @@ function generateEmailHTML(formData: LeadFormData) {
   const etatText = formData.etat === 'roulante' ? '#166534' : formData.etat === 'non-roulante' ? '#92400e' : '#991b1b';
   const dateStr = new Date().toLocaleString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   const whatsappLink = whatsappUrl(`Bonjour, suite à la demande de ${formData.prenom} (${formData.phone}) pour ${serviceName} - ${formData.marque} ${formData.modele}`);
+  const attribution = describeAttribution(formData);
 
   // Helper for data rows
   // A missing optional field renders as an em dash rather than "undefined".
@@ -238,6 +266,25 @@ function generateEmailHTML(formData: LeadFormData) {
           </tr>
 
           <!-- ══════════════════════════════════ -->
+          <!-- PROVENANCE (page attribution)     -->
+          <!-- ══════════════════════════════════ -->
+          ${attribution.pagePath ? `
+          <tr>
+            <td style="padding: 28px 40px 0 40px;">
+              <p style="margin: 0 0 16px 0; color: ${serviceAccent}; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">
+                Provenance
+              </p>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #e5e5e5; border-radius: 16px; overflow: hidden;">
+                ${dataRow('Page du formulaire', `<a href="https://www.lesepavistespro.fr${attribution.pagePath}" style="color: #142641;">${attribution.pagePath}</a>`, false)}
+                ${dataRow('Page d’arrivée', attribution.landingPath === attribution.pagePath ? 'La même' : `<a href="https://www.lesepavistespro.fr${attribution.landingPath}" style="color: #142641;">${attribution.landingPath}</a>`, true)}
+                ${attribution.intent ? dataRow('Situation', attribution.intent, false) : ''}
+                ${dataRow('Île-de-France', attribution.isIdf ? '<span style="color: #166534; font-weight: 700;">Oui — page IDF</span>' : 'Non', attribution.intent ? true : false)}
+              </table>
+            </td>
+          </tr>
+          ` : ''}
+
+          <!-- ══════════════════════════════════ -->
           <!-- MESSAGE (optional)                -->
           <!-- ══════════════════════════════════ -->
           ${formData.message ? `
@@ -409,6 +456,8 @@ export async function POST(request: Request) {
     // Generate HTML email
     const emailHTML = generateEmailHTML(formData);
 
+    const attribution = describeAttribution(formData);
+
     // Plain text version for email clients that don't support HTML
     const emailText = `
 Nouvelle demande de devis - Les Épavistes Pro
@@ -435,6 +484,13 @@ LOCALISATION
 Code postal: ${formData.codePostal}
 Ville: ${formData.ville || 'Non renseignée'}
 Sous-sol/Parking: ${formData.sousSol ? 'Oui' : 'Non'}
+
+PROVENANCE
+----------
+Page du formulaire: ${attribution.pagePath || 'Non renseignée'}
+Page d'arrivée: ${attribution.landingPath || 'Non renseignée'}
+Situation: ${attribution.intent || '—'}
+Île-de-France: ${attribution.isIdf ? 'Oui' : 'Non'}
 
 Date: ${new Date().toLocaleString('fr-FR')}
     `;

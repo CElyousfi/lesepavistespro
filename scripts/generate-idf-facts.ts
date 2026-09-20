@@ -27,18 +27,27 @@ interface ApiCommune {
 /**
  * Communes inside the ZFE perimeter of the Métropole du Grand Paris (inside
  * the A86), as published by the Métropole and relayed by Crit'Air guides.
- * Sources: metropolegrandparis.fr (FAQ ZFE) ; lavignettecritair.fr/zfe/paris/villes-grand-paris.
- * TODO(owner): re-verify against metropolegrandparis.fr before publishing —
- * a law abolishing ZFEs was voted in April 2026 and awaits promulgation.
+ * Source: Métropole du Grand Paris, « Communes comprises dans la ZFE-m »
+ * (metropolegrandparis.fr/sites/default/files/media/document/communes_zfe.pdf,
+ * page ZFE mise à jour le 02/01/2026) — 77 communes: Paris + 59 wholly inside
+ * + 17 partially inside (Bobigny, Bondy, Champigny, Châtenay-Malabry, Choisy,
+ * Clamart, Colombes, Créteil, Drancy, Gennevilliers, Maisons-Alfort, Montreuil,
+ * Rosny, Rungis, Thiais, Villeneuve-la-Garenne, Vitry). Pierrefitte-sur-Seine
+ * merged into Saint-Denis on 1 Jan 2025. Status 2026: restrictions Crit'Air
+ * 3/4/5 in force, no verbalisation until 31 Dec 2026 (période pédagogique);
+ * the abolition voted by Parliament was censured by the Conseil
+ * constitutionnel (décision n° 2026-903 DC du 21 mai 2026).
+ * TODO(owner): re-check the PDF and the 2027 verbalisation calendar each January.
  */
 const ZFE_COMMUNES: Record<string, string[]> = {
   '75': ['Paris'],
   '92': [
     'Antony', 'Asnières-sur-Seine', 'Bagneux', 'Bois-Colombes', 'Boulogne-Billancourt', 'Bourg-la-Reine',
-    'Châtenay-Malabry', 'Châtillon', 'Chaville', 'Clichy', 'Colombes', 'Courbevoie', 'Fontenay-aux-Roses',
+    'Châtenay-Malabry', 'Châtillon', 'Chaville', 'Clamart', 'Clichy', 'Colombes', 'Courbevoie', 'Fontenay-aux-Roses',
     'Garches', 'Gennevilliers', 'Issy-les-Moulineaux', 'La Garenne-Colombes', 'Le Plessis-Robinson',
     'Levallois-Perret', 'Malakoff', 'Marnes-la-Coquette', 'Meudon', 'Montrouge', 'Nanterre', 'Neuilly-sur-Seine',
     'Puteaux', 'Rueil-Malmaison', 'Saint-Cloud', 'Sceaux', 'Sèvres', 'Suresnes', 'Vanves', 'Vaucresson', "Ville-d'Avray",
+    'Villeneuve-la-Garenne',
   ],
   '93': [
     'Aubervilliers', 'Bagnolet', 'Bobigny', 'Bondy', 'Drancy', "L'Île-Saint-Denis", 'La Courneuve',

@@ -211,6 +211,35 @@ export function getCityServiceData(
   };
 }
 
+/**
+ * Service offered across Île-de-France for one situation (S2.1 intent pages):
+ * the region and its 8 departments as areaServed, provider → #business.
+ */
+export function getIdfIntentServiceData(
+  name: string,
+  description: string,
+  url: string,
+  service: ServiceKind,
+  deptNames: string[]
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    description,
+    serviceType: SERVICE_TYPE[service],
+    url,
+    provider: providerRef,
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Île-de-France' },
+      ...deptNames.map((n) => ({ '@type': 'AdministrativeArea', name: n })),
+    ],
+    ...(service === 'epaviste'
+      ? { offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' } }
+      : {}),
+  };
+}
+
 /** WebPage node tying a URL to the site and the business entity. */
 export function getWebPageData(url: string, name: string, description?: string) {
   return {

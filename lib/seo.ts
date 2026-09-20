@@ -323,3 +323,20 @@ export function generateRachatRegionMeta(regionName: string, regionSlug: string)
     path: `/rachat-voiture/${regionSlug}`,
   });
 }
+
+/**
+ * Île-de-France situation page (S2.1) — /{service}/ile-de-france/{intent}.
+ * The SERP title is the intent's own metaTitle (≤ 60 chars, brand appended).
+ */
+export function generateIdfIntentMeta(
+  service: 'epaviste' | 'rachat-voiture',
+  slug: string,
+  metaTitle: string,
+  description: string
+): Metadata {
+  return generateMeta({
+    title: metaTitle,
+    description,
+    path: `/${service}/ile-de-france/${slug}`,
+  });
+}

@@ -30,7 +30,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Véhicule déjà à la fourrière de La Courneuve', text: "Si votre voiture a été conduite à la fourrière de La Courneuve (92 avenue Jean-Mermoz) et que sa valeur ne justifie pas les frais, nous pouvons organiser sa destruction directement depuis la fourrière avec votre mandat écrit." },
     ],
     acces: [
-      "Saint-Denis est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Saint-Denis est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A1 (sorties Saint-Denis–Stade de France, Saint-Denis-Centre), l'A86 (sortie Saint-Denis–Pleyel), la porte de la Chapelle ou l'avenue du Président-Wilson. Les parkings de bailleurs exigent un badge que nous demandons au gardien ; les sites d'entreprise un accueil. Pour un véhicule mis en fourrière, le commissariat de Saint-Denis ou la police municipale indique le lieu de garde et délivre l'autorisation de sortie ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -74,7 +74,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Véhicule enlevé rue de Paris ou boulevard de Chanzy', text: "Les grands axes du Bas-Montreuil sont surveillés et une voiture ventouse est vite mise en fourrière. Si la vôtre ne vaut pas les frais, nous organisons sa destruction depuis la fourrière avec votre mandat écrit." },
     ],
     acces: [
-      "Montreuil est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Montreuil est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par la porte de Montreuil, la porte de Bagnolet (A3), l'A86 (sortie Montreuil–Rosny) ou la rue de Paris. Les cours du Bas-Montreuil se travaillent au treuil, les rues du Haut-Montreuil imposent un plateau court. Pour un véhicule mis en fourrière, le commissariat de Montreuil ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -119,7 +119,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture abandonnée le long du canal', text: "Les quais du canal Saint-Denis voient régulièrement des véhicules abandonnés. Si vous en êtes propriétaire, nous intervenons sur rendez-vous ; s'il s'agit d'un tiers, nous vous expliquons la procédure de signalement à la police." },
     ],
     acces: [
-      "Aubervilliers est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Aubervilliers est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par la porte d'Aubervilliers, la porte de la Villette, l'A86 (sortie Aubervilliers) ou l'avenue Jean-Jaurès (ex-N2). Les parkings de bailleurs exigent un badge que nous demandons au gardien ; les cours d'immeubles anciens se travaillent au treuil. Pour un véhicule mis en fourrière, le commissariat d'Aubervilliers ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -252,7 +252,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Utilitaire d\'artisan en fin de vie', text: "Drancy compte de nombreux artisans. Sur mandat de l'entreprise (Kbis, pouvoir), nous enlevons gratuitement la camionnette hors d'usage ou la rachetons si elle a encore de la valeur." },
     ],
     acces: [
-      "Drancy est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Drancy est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A86 (sortie Drancy), l'A1 ou l'A3 via Le Bourget et Bobigny, ou l'avenue Henri-Barbusse (D30). Les rues pavillonnaires imposent un plateau court ; les parkings de bailleurs exigent un badge. Pour un véhicule mis en fourrière, le commissariat de Drancy ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -342,7 +342,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de fonction dans un parking de bureaux des Grands Moulins', text: "Les sièges installés dans les bâtiments reconvertis ont des parkings à accès contrôlé. Sur mandat de la société (Kbis, pouvoir), nous demandons l'autorisation, remontons le véhicule et établissons la cession pour destruction ou une offre de rachat." },
     ],
     acces: [
-      "Pantin est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Pantin est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par la porte de Pantin, la porte de la Villette, l'A86 (sortie Bobigny–Pantin) ou l'avenue Jean-Lolive. Les parkings de résidence ont une hauteur libre d'environ 1,90 m ; les cours d'ateliers se travaillent au treuil. Pour un véhicule mis en fourrière à Pantin, le commissariat ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -388,7 +388,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Utilitaire d\'entreprise dans une zone d\'activité', text: "Sur mandat de la société (Kbis, pouvoir), nous enlevons gratuitement les véhicules hors d'usage ou rachetons ceux qui ont encore de la valeur, plusieurs en une visite." },
     ],
     acces: [
-      "Bobigny est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Bobigny est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A86 (sorties Bobigny–Centre, Bobigny–Drancy), l'ex-N3 (avenue Paul-Vaillant-Couturier) ou la rue de Paris depuis Pantin. Les parkings de bailleurs exigent un badge que nous demandons au gardien ; la cité-jardin impose un plateau court. Pour un véhicule mis en fourrière, le commissariat de Bobigny ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -433,7 +433,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Véhicules ventouses sur une dalle du Cordon', text: "Après la mise en demeure des titulaires et la procédure d'abandon menée par le bailleur, nous enlevons les véhicules en tournée, avec un certificat de destruction chacun." },
     ],
     acces: [
-      "Saint-Ouen-sur-Seine est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Saint-Ouen-sur-Seine est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par la porte de Saint-Ouen, la porte de Clignancourt, le pont de Saint-Ouen depuis Clichy ou l'A86 via Saint-Denis. Les parkings des Docks exigent un badge ; les cours d'ateliers se travaillent au treuil. Pour un véhicule mis en fourrière, le commissariat de Saint-Ouen ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -570,7 +570,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Utilitaire d\'une entreprise de la zone des Vosges ou de la route d\'Aulnay', text: "Sur mandat de la société (Kbis, pouvoir), nous enlevons gratuitement les véhicules hors d'usage ou rachetons ceux qui ont encore une valeur de pièces, plusieurs en une visite." },
     ],
     acces: [
-      "Bondy est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; en 2026 les sanctions Crit'Air 3 sont suspendues et la suppression des ZFE, votée en avril, attend sa promulgation. Un véhicule qui ne roule plus n'a pas à attendre ce calendrier : le certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Bondy est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; en 2026 les sanctions Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Un véhicule qui ne roule plus n'a pas à attendre ce calendrier : le certificat de destruction met fin à l'assurance et à la carte grise.",
       "On accède par l'A3 (sortie Bondy), l'A86 (sortie Bondy–Centre), l'avenue Gallieni (ex-N3) ou la route de Villemomble. Les parkings de bailleurs demandent un badge ; les rues pavillonnaires un plateau court. Pour un véhicule mis en fourrière, le commissariat de Bondy ou la police municipale indique le lieu de garde et délivre l'autorisation de sortie ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -661,7 +661,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de banlieusard qui prend le RER E', text: "Beaucoup de Rosnéens vont à Paris en RER et laissent une voiture qu'ils n'utilisent plus. Nous l'enlevons gratuitement ou la rachetons si elle a de la valeur, tôt le matin ou le week-end." },
     ],
     acces: [
-      "Rosny-sous-Bois est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Rosny-sous-Bois est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "On accède par l'A86 (sortie Rosny-sous-Bois), l'A3 (sortie Rosny–Bois-Perrier), le boulevard Gabriel-Péri ou l'avenue du Général-de-Gaulle depuis Villemomble. Les parkings de bailleurs demandent un badge ; les rues du plateau d'Avron un plateau court. Pour un véhicule mis en fourrière, le commissariat de Rosny-sous-Bois ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -708,7 +708,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture abandonnée en lisière du parc Georges-Valbon', text: "Les abords du parc voient des véhicules abandonnés. Si vous en êtes propriétaire, nous intervenons sur rendez-vous ; s'il s'agit d'un tiers, nous vous expliquons la procédure de signalement." },
     ],
     acces: [
-      "La Courneuve est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; en 2026 les sanctions Crit'Air 3 sont suspendues et la suppression des ZFE, votée en avril, attend sa promulgation. Pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "La Courneuve est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; en 2026 les sanctions Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A1 (sortie La Courneuve), l'A86 (sortie La Courneuve–Centre), l'avenue Paul-Vaillant-Couturier (ex-N186) ou la rue de Saint-Denis. Les parkings de bailleurs demandent un badge. Pour un véhicule mis en fourrière, le commissariat de La Courneuve ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser — et une partie des véhicules se trouve à la fourrière de l'avenue Jean-Mermoz.",
     ],
     faqEpaviste: [
@@ -753,7 +753,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Utilitaire d\'entreprise près du canal ou de l\'A86', text: "Sur mandat de la société (Kbis, pouvoir), nous enlevons gratuitement les véhicules hors d'usage ou rachetons ceux qui ont encore une valeur de pièces." },
     ],
     acces: [
-      "Noisy-le-Sec est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Un véhicule hors d'usage n'a pas à attendre : le certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Noisy-le-Sec est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Un véhicule hors d'usage n'a pas à attendre : le certificat de destruction met fin à l'assurance et à la carte grise.",
       "On accède par l'A86 (sortie Noisy-le-Sec), l'A3 via Bondy, la rue Jean-Jaurès ou l'avenue Gallieni depuis Romainville. Les parkings de bailleurs demandent un badge ; les rues pavillonnaires un plateau court. Pour un véhicule mis en fourrière, le commissariat de Noisy-le-Sec ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -800,7 +800,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de fonction dans un parking de bureaux de la porte de Bagnolet', text: "Les immeubles de bureaux près de l'échangeur ont des parkings à accès contrôlé. Sur mandat de la société (Kbis, pouvoir), nous demandons l'autorisation, remontons le véhicule et établissons la cession pour destruction ou une offre de rachat." },
     ],
     acces: [
-      "Bagnolet est à l'intérieur de l'A86, dans le périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Bagnolet est à l'intérieur de l'A86, dans le périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "On accède par la porte de Bagnolet (A3, périphérique), la rue de Paris depuis Montreuil ou l'avenue de la République depuis Les Lilas. Les rues en pente imposent un plateau court ; les dalles demandent un badge. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Bagnolet indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1077,7 +1077,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture laissée près d\'une nouvelle station de la ligne 11', text: "Depuis l'ouverture des stations, des voitures restent des semaines en stationnement autour. Si la vôtre a été mise en fourrière et que sa valeur ne justifie pas les frais, nous organisons sa destruction depuis la fourrière avec votre mandat." },
     ],
     acces: [
-      "Romainville est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Romainville est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "On accède par l'A3 (sortie Romainville), l'A86 via Noisy-le-Sec, la rue de Paris depuis Les Lilas ou l'avenue Gaston-Roussel. Les parkings de bailleurs demandent un badge ; les rues des hauteurs un plateau court. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Romainville indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1305,7 +1305,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Véhicule mis en fourrière par la police municipale', text: "Aux Lilas, une voiture ventouse en surface est enlevée rapidement. Si la vôtre a été mise en fourrière et que sa valeur ne justifie pas les frais, nous organisons sa destruction depuis la fourrière avec votre mandat écrit." },
     ],
     acces: [
-      "Les Lilas sont à l'intérieur de l'A86, dans le périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Les Lilas sont à l'intérieur de l'A86, dans le périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "On accède par la porte des Lilas, la rue de Paris depuis Romainville ou le boulevard de la Liberté ; la ville est en zone 30. Les parkings de résidence ont une hauteur libre d'environ 1,90 m et souvent un badge. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale des Lilas indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [

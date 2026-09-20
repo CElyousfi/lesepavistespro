@@ -30,7 +30,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de fonction oubliée dans un parking d\'entreprise', text: "Boulogne concentre des sièges de médias et d'entreprises, avec des parkings où une voiture de fonction reste parfois après le départ d'un salarié. Nous intervenons sur mandat de la société (Kbis, pouvoir du signataire) pour l'enlever gratuitement ou la racheter." },
     ],
     acces: [
-      "Boulogne-Billancourt est entièrement à l'intérieur de l'A86, donc dans le périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air est incertain en 2026 : sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation. Pour un véhicule qui ne roule plus, la question est réglée par le certificat de destruction que nous remettons le jour de l'enlèvement.",
+      "Boulogne-Billancourt est entièrement à l'intérieur de l'A86, donc dans le périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air a évolué en 2026 : sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, la question est réglée par le certificat de destruction que nous remettons le jour de l'enlèvement.",
       "L'accès se fait par la porte de Saint-Cloud (D1 / avenue Édouard-Vaillant), la porte d'Auteuil (route de la Reine), le pont de Sèvres (N118, D910) ou les quais de Seine ; la ville est en zone 30 sur la plupart de ses rues. Les parkings d'immeubles ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la rue. Pour un véhicule enlevé par la fourrière, adressez-vous au commissariat de Boulogne-Billancourt ou au téléservice national pour connaître le lieu de garde.",
     ],
     faqEpaviste: [
@@ -73,7 +73,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Véhicule ventouse dans un quartier pavillonnaire', text: "Vers le mont Valérien et la limite de Rueil, les voitures abandonnées devant un pavillon ou dans une allée sont fréquentes. Si vous en êtes propriétaire, nous intervenons sur rendez-vous ; s'il s'agit d'un tiers, nous vous expliquons la procédure de signalement à la police municipale." },
     ],
     acces: [
-      "Nanterre est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation : renseignez-vous avant de rouler avec un véhicule ancien, ou faites-le enlever gratuitement s'il ne sert plus.",
+      "Nanterre est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; renseignez-vous avant de rouler avec un véhicule ancien, ou faites-le enlever gratuitement s'il ne sert plus.",
       "L'accès se fait par l'A86 (sorties Nanterre-Centre, Nanterre-Université), l'A14, la D913 (avenue Joliot-Curie) ou le boulevard de la Seine. Les parkings de bailleurs exigent un badge, ceux de La Défense une autorisation : nous les demandons à l'avance. Pour un véhicule enlevé par la fourrière à Nanterre, le commissariat ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -116,7 +116,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Scooter ou moto abandonné près de la gare', text: "Autour de la gare d'Asnières et de Bécon, les deux-roues abandonnés sont fréquents. Dès lors que le véhicule est identifiable, l'enlèvement est gratuit et le certificat de destruction est remis comme pour une voiture." },
     ],
     acces: [
-      "Asnières-sur-Seine est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation) ; pour un véhicule qui ne circule plus, le certificat de destruction met fin à la question.",
+      "Asnières-sur-Seine est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air a évolué en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur) ; pour un véhicule qui ne circule plus, le certificat de destruction met fin à la question.",
       "L'accès se fait par l'A86 (sortie Asnières–Gennevilliers), le pont d'Asnières depuis Clichy, l'avenue d'Argenteuil (D909) ou le quai Aulagnier. Les parkings d'immeubles ont en général une hauteur libre de 1,90 m : plateau bas ou treuillage jusqu'à la rue. Pour un véhicule enlevé par la fourrière, le commissariat d'Asnières ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -159,7 +159,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de commerçant ou d\'artisan en fin de vie', text: "Les utilitaires des artisans et des commerces de la rue Saint-Denis ou de la zone d'activité de la Petite-Garenne sont enlevés sur mandat de l'entreprise (Kbis, pouvoir), avec les documents de cession adaptés, ou rachetés s'ils ont encore de la valeur." },
     ],
     acces: [
-      "Colombes est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne roule plus, l'enlèvement gratuit avec certificat de destruction règle définitivement la question.",
+      "Colombes est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne roule plus, l'enlèvement gratuit avec certificat de destruction règle définitivement la question.",
       "L'accès se fait par l'A86 (sorties Colombes-Centre, Colombes–Le Petit-Colombes), le boulevard Charles-de-Gaulle (D986), l'avenue de Stalingrad ou le pont de Bezons. Les rues pavillonnaires sont souvent étroites et en sens unique : nous prévoyons un plateau court. Pour un véhicule enlevé par la fourrière, le commissariat de Colombes ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -202,7 +202,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture ventouse signalée par un syndic du Faubourg-de-l\'Arche', text: "Dans les copropriétés récentes du Faubourg-de-l'Arche, un véhicule abandonné bloque une place vendue ou louée. Après la mise en demeure du titulaire et la procédure d'abandon, nous enlevons gratuitement le véhicule et remettons le certificat de destruction au syndic." },
     ],
     acces: [
-      "Courbevoie est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Courbevoie est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par la N13 et le pont de Neuilly, l'A14, l'A86 (sortie La Défense–Courbevoie), le boulevard circulaire de La Défense ou le boulevard de Verdun. Les parkings d'entreprise et les parkings publics exigent une autorisation que nous demandons à l'avance ; les parkings de résidence ont en général une hauteur libre de 1,90 m. Pour un véhicule enlevé par la fourrière, le commissariat de Courbevoie ou la police municipale vous indique le lieu de garde, et le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -245,7 +245,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de fonction d\'une entreprise de Rueil 2000', text: "Les sièges installés autour de la gare ont des parkings d'entreprise où une voiture de fonction reste parfois après le départ d'un salarié. Nous intervenons sur mandat de la société (Kbis, pouvoir) pour l'enlever gratuitement ou la racheter." },
     ],
     acces: [
-      "Rueil-Malmaison est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Rueil-Malmaison est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A86 (sorties Rueil-Centre, Rueil 2000), l'A14, la D913 depuis Nanterre, le pont de Chatou ou la D186 depuis Saint-Cloud. Les rues pavillonnaires du Plateau et de Buzenval imposent un plateau court ; les parkings de résidence ont en général une hauteur libre de 1,90 m. Pour un véhicule enlevé par la fourrière, le commissariat de Rueil-Malmaison ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -288,7 +288,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Véhicule mis en fourrière par la police municipale', text: "À Levallois, une voiture ventouse en surface est enlevée rapidement. Si la vôtre a été mise en fourrière et que sa valeur ne justifie pas les frais, nous organisons sa destruction depuis la fourrière avec votre mandat écrit." },
     ],
     acces: [
-      "Levallois-Perret est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation) ; pour un véhicule qui ne circule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Levallois-Perret est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air a évolué en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur) ; pour un véhicule qui ne circule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par la porte de Champerret, la porte d'Asnières, le pont de Levallois ou le quai Michelet ; la ville est en zone 30. Les parkings ont en général une hauteur libre de 1,90 m et un badge : plateau bas, treuillage jusqu'à la rue, accès demandé à l'avance. Pour un véhicule enlevé par la fourrière, le commissariat de Levallois ou la police municipale vous indique le lieu de garde, et le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -331,7 +331,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Véhicule ventouse dans le centre ancien', text: "Autour de la mairie et de la rue du Général-Leclerc, une voiture abandonnée en surface est rapidement mise en fourrière par la police municipale. Si la vôtre ne vaut pas les frais, nous organisons sa destruction depuis la fourrière avec votre mandat." },
     ],
     acces: [
-      "Issy-les-Moulineaux est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, l'enlèvement gratuit avec certificat de destruction règle définitivement la question.",
+      "Issy-les-Moulineaux est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, l'enlèvement gratuit avec certificat de destruction règle définitivement la question.",
       "L'accès se fait par la porte de Versailles, la porte de Sèvres, le pont d'Issy, le quai de la Bataille-de-Stalingrad ou la D7 depuis Meudon. Les parkings de résidence et d'entreprise ont en général une hauteur libre de 1,90 m et un badge : nous demandons l'accès à l'avance. Pour un véhicule enlevé par la fourrière, le commissariat d'Issy-les-Moulineaux ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -374,7 +374,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Confusion avec la préfourrière Pouchet', text: "Beaucoup d'automobilistes pensent qu'une voiture enlevée à Clichy se trouve à Pouchet : ce n'est pas le cas, la préfourrière Pouchet ne reçoit que les véhicules enlevés dans Paris. Pour Clichy, adressez-vous au commissariat ; si le véhicule ne vaut pas les frais, nous organisons sa destruction depuis la fourrière avec votre mandat." },
     ],
     acces: [
-      "Clichy est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Clichy est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par la porte de Clichy, la porte Pouchet, le pont de Clichy depuis Asnières ou le boulevard Jean-Jaurès (D912). Les parkings de résidence ont en général une hauteur libre de 1,90 m ; les cours d'immeubles anciens se travaillent au treuil. Pour un véhicule enlevé par la fourrière à Clichy, le commissariat ou la police municipale vous indique le lieu de garde, et le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -417,7 +417,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Succession dans une maison d\'Antony', text: "Nous intervenons souvent pour la voiture d'un parent décédé, restée au garage : avec l'attestation des héritiers et une pièce d'identité, nous établissons la cession pour destruction et fixons un rendez-vous rapide, ou nous proposons un rachat si la voiture a de la valeur." },
     ],
     acces: [
-      "Antony est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation) ; pour un véhicule qui ne circule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Antony est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air a évolué en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur) ; pour un véhicule qui ne circule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par l'A86 (sortie Antony–Croix-de-Berny), la N20 (avenue Aristide-Briand), l'A10 depuis le sud ou la D920. Les rues pavillonnaires sont souvent étroites : nous prévoyons un plateau court ; les parkings de résidence ont en général une hauteur libre de 1,90 m. Pour un véhicule enlevé par la fourrière, le commissariat d'Antony ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -460,7 +460,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Succession et voiture de collection fatiguée', text: "À Neuilly, nous récupérons souvent la voiture d'un parent décédé, parfois un modèle ancien qui a de la valeur : nous disons honnêtement si un rachat est possible ou si l'enlèvement gratuit avec certificat de destruction est la bonne solution, et nous établissons la cession avec l'attestation des héritiers." },
     ],
     acces: [
-      "Neuilly-sur-Seine est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle définitivement la question.",
+      "Neuilly-sur-Seine est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle définitivement la question.",
       "L'accès se fait par la porte Maillot, le pont de Neuilly, le boulevard Bineau depuis Levallois ou le boulevard Maurice-Barrès le long du bois. Les parkings d'immeubles ont en général une hauteur libre de 1,90 m et un gardien ; les villas privées exigent une autorisation. Pour un véhicule enlevé par la fourrière, le commissariat de Neuilly-sur-Seine ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -503,14 +503,14 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture abandonnée en lisière de forêt', text: "Les voies qui bordent la forêt de Meudon voient régulièrement des véhicules abandonnés. Si vous en êtes propriétaire, nous intervenons sur rendez-vous ; s'il s'agit d'un tiers, nous vous expliquons la procédure de signalement à la police municipale." },
     ],
     acces: [
-      "Clamart ne fait pas partie du périmètre de la zone à faibles émissions du Grand Paris, délimité par l'A86 : aucune restriction Crit'Air locale ne s'y applique. Reste la règle valable partout pour un véhicule hors d'usage — le confier à un centre VHU agréé, seul habilité à délivrer le certificat de destruction et à déclarer la cession, ce qui met fin à l'assurance et à la carte grise.",
+      "Clamart est traversée par l'A86 et figure, pour sa partie située à l'intérieur, dans la liste officielle des communes de la zone à faibles émissions du Grand Paris (commune « partiellement incluse »). En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Reste la règle valable partout pour un véhicule hors d'usage — le confier à un centre VHU agréé, seul habilité à délivrer le certificat de destruction et à déclarer la cession, ce qui met fin à l'assurance et à la carte grise.",
       "L'accès se fait par la N118 (sortie Clamart), la D906 depuis la porte de Châtillon, la D2 depuis Meudon ou la route du Pavé-Blanc. Les rues du centre ancien imposent un plateau court ; les parkings de résidence ont en général une hauteur libre de 1,90 m. Pour un véhicule enlevé par la fourrière, le commissariat de Clamart ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
       { question: "Pouvez-vous enlever une voiture dans une rue étroite et en pente du vieux Clamart ?", answer: "Oui. Nous venons avec un plateau court, sécurisons le véhicule et le treuillons jusqu'au point de chargement. Envoyez une photo de la rue et de l'emplacement pour que nous préparions l'intervention." },
       { question: "Quel délai pour un enlèvement d'épave à Clamart ?", answer: "Clamart est à 10 km du centre de Paris, sur la N118 : nous intervenons sous 2 h en journée, sur un créneau convenu. Appelez le 06 02 42 73 45." },
       { question: "Ma voiture a été enlevée à Clamart, où est-elle ?", answer: "Demandez au commissariat de Clamart ou à la police municipale, qui délivrent l'autorisation de sortie, ou consultez le téléservice du ministère de l'Intérieur. Si le véhicule ne vaut pas les frais, nous pouvons organiser sa destruction depuis la fourrière avec votre mandat." },
-      { question: "Clamart est-elle concernée par la ZFE ?", answer: "Non, la commune est en dehors du périmètre délimité par l'A86. Cela ne change rien à l'obligation de confier un véhicule hors d'usage à un centre VHU agréé, ni à la gratuité de notre enlèvement." },
+      { question: "Clamart est-elle concernée par la ZFE ?", answer: "En partie : la Métropole du Grand Paris classe Clamart parmi les communes partiellement incluses dans le périmètre, la limite étant l'A86 qui traverse la commune. Cela ne change rien à l'obligation de confier un véhicule hors d'usage à un centre VHU agréé, ni à la gratuité de notre enlèvement." },
       { question: "L'enlèvement est-il gratuit à Clamart, y compris dans un parking de bailleur ?", answer: "Oui, pour tout véhicule complet, quel que soit l'accès. Le certificat de destruction est remis sans frais." },
       { question: "Quels documents préparer pour faire détruire ma voiture à Clamart ?", answer: "Carte grise barrée et signée « cédé pour destruction », pièce d'identité, certificat de situation administrative de moins de 15 jours. Nous remplissons la déclaration de cession sur place." },
       { question: "Un véhicule est abandonné dans le parking de notre copropriété du Panorama, que faire ?", answer: "Le syndic identifie le titulaire et le met en demeure ; sans réponse, une procédure d'abandon ou une décision de justice permet l'enlèvement. Nous intervenons gratuitement dès que ce droit est établi." },
@@ -518,12 +518,12 @@ export const cities: IdfCityContentMap = {
     rachatIntro: [
       "À Clamart, les voitures que nous rachetons sont surtout des berlines et monospaces familiaux garés devant les pavillons ou dans les parkings des résidences, des citadines de second véhicule, des voitures de parents âgés restées au garage et des véhicules immobilisés après une panne ou un contrôle technique refusé.",
       "Envoyez la carte grise et des photos, nous répondons dans la journée avec une offre ferme. Le jour convenu, le plateau vient devant le pavillon ou dans le parking de la résidence, nous vérifions les documents, nous payons par virement immédiat et nous chargeons, même si la voiture ne démarre plus.",
-      "Clamart étant hors ZFE, les voitures Crit'Air 3 ou 4 y circulent encore : elles gardent une valeur d'usage local en plus de leur valeur à l'export, et nous en tenons compte dans l'offre.",
+      "Clamart étant partiellement dans la ZFE, une voiture Crit'Air 3 ou 4 y perd une partie de son usage quotidien (période pédagogique sans verbalisation jusqu'à fin 2026) ; elle garde sa valeur à l'export et pour la grande couronne, et nous en tenons compte dans l'offre.",
       "Une voiture restée dehors plusieurs hivers, incomplète ou corrodée n'a en général plus de valeur : nous le disons dès l'estimation et proposons l'enlèvement gratuit avec certificat de destruction.",
     ],
     faqRachat: [
       { question: "Combien vaut ma berline de 10 ans garée au garage à Clamart ?", answer: "Cela dépend du modèle, du kilométrage, de l'entretien et de l'état ; envoyez la carte grise, le carnet d'entretien et des photos, l'offre est ferme dans la journée." },
-      { question: "Ma voiture Crit'Air 3 a-t-elle plus de valeur à Clamart qu'à Paris ?", answer: "Elle garde une valeur d'usage local puisque Clamart est hors ZFE, en plus de sa valeur à l'export ; nous en tenons compte dans l'offre." },
+      { question: "Ma voiture Crit'Air 3 a-t-elle plus de valeur à Clamart qu'à Paris ?", answer: "Pas vraiment : Clamart est en partie dans le périmètre ZFE, comme Paris. Sa valeur tient surtout à l'export et aux acheteurs de grande couronne ; nous en tenons compte dans l'offre." },
       { question: "La voiture est dans un garage au bout d'une rue en pente, est-ce un problème ?", answer: "Non : nous venons avec un plateau court et treuillons la voiture jusqu'au point de chargement. Envoyez une photo de la rue, l'enlèvement est compris dans l'offre." },
       { question: "Je vends la voiture d'un parent qui ne conduit plus, quels documents ?", answer: "Une procuration signée par le titulaire et la copie de sa pièce d'identité (ou l'attestation des héritiers en cas de succession), la carte grise et un certificat de situation administrative récent." },
       { question: "Payez-vous le jour même ?", answer: "Oui, par virement immédiat le jour de l'enlèvement, après vérification du véhicule et des documents." },
@@ -546,7 +546,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture abandonnée dans un quartier pavillonnaire du Village', text: "Dans les rues pavillonnaires, une voiture immobilisée depuis des années dans une allée se sort au treuil long jusqu'au plateau ; envoyez une photo du portail et de l'emplacement pour que nous préparions l'intervention." },
     ],
     acces: [
-      "Gennevilliers est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Gennevilliers est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A86 (sorties Gennevilliers-Centre, Le Luth), l'A15, le pont d'Épinay ou l'avenue Gabriel-Péri (D19). Les sites du port et des zones d'activité exigent souvent un badge ou un accueil : nous convenons de l'heure avec le responsable. Pour un véhicule enlevé par la fourrière, le commissariat de Gennevilliers ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -589,7 +589,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Véhicule ventouse en surface', text: "À Suresnes, la police municipale met rapidement en fourrière les voitures abandonnées en surface. Si la vôtre a été enlevée et que sa valeur ne justifie pas les frais, nous organisons sa destruction depuis la fourrière avec votre mandat écrit." },
     ],
     acces: [
-      "Suresnes est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation) ; pour un véhicule qui ne circule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Suresnes est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. Le calendrier des restrictions Crit'Air a évolué en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur) ; pour un véhicule qui ne circule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par le pont de Suresnes depuis le bois de Boulogne, l'A86 (sortie Suresnes–Nanterre), le boulevard Henri-Sellier depuis Puteaux ou la D7 le long de la Seine. Les rues des hauteurs imposent un plateau court ; les parkings de résidence ont en général une hauteur libre de 1,90 m. Pour un véhicule enlevé par la fourrière, le commissariat de Suresnes ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -632,7 +632,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Succession dans une propriété du vieux Meudon', text: "Nous intervenons souvent pour la voiture d'un parent décédé, restée au garage d'une maison familiale : avec l'attestation des héritiers et une pièce d'identité, nous établissons la cession pour destruction ou proposons un rachat si la voiture a de la valeur." },
     ],
     acces: [
-      "Meudon est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Meudon est à l'intérieur de l'A86 et fait partie du périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par la N118 (sorties Meudon-la-Forêt, Vélizy), la D7 le long de la Seine, le pont de Sèvres ou la route des Gardes depuis Sèvres. Les rues des coteaux imposent un plateau court et un repérage ; les parkings de résidence ont en général une hauteur libre de 1,90 m. Pour un véhicule enlevé par la fourrière, le commissariat de Meudon ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -675,7 +675,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Scooter ou moto abandonné près du métro', text: "Autour des stations de la ligne 4, les deux-roues abandonnés sont fréquents. Dès lors que le véhicule est identifiable et que le droit de le faire enlever est établi, l'enlèvement est gratuit et le certificat de destruction est remis comme pour une voiture." },
     ],
     acces: [
-      "Montrouge est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle définitivement la question.",
+      "Montrouge est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle définitivement la question.",
       "L'accès se fait par la porte d'Orléans, la porte de Montrouge, la porte de Châtillon ou l'avenue Aristide-Briand ; la ville est en zone 30. Les parkings ont en général une hauteur libre de 1,90 m et un badge : plateau bas, treuillage jusqu'à la rue, accès demandé à l'avance. Pour un véhicule enlevé par la fourrière, le commissariat de Montrouge ou la police municipale vous indique le lieu de garde, et le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -718,7 +718,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture d\'un chantier ou d\'une entreprise du secteur de la gare', text: "Les chantiers et nouvelles résidences autour de Bagneux–Lucie-Aubrac laissent parfois des véhicules d'entreprise immobilisés. Nous intervenons sur mandat de la société (Kbis, pouvoir) pour les enlever gratuitement ou les racheter." },
     ],
     acces: [
-      "Bagneux est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues et la suppression des ZFE a été votée en avril, sous réserve de promulgation ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Bagneux est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris. En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule qui ne sert plus, l'enlèvement gratuit avec certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A86 (sortie Châtillon–Bagneux), la N20 depuis Montrouge, la D920 ou la D77 depuis Cachan. Les parkings de bailleurs exigent un badge que nous demandons au gardien ; les rues du centre ancien imposent un plateau court. Pour un véhicule enlevé par la fourrière, le commissariat de Bagneux ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -761,7 +761,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Résidence des Bergères : voiture d\'un résident parti', text: "Un locataire a déménagé en laissant sa voiture au niveau -1. Après identification du titulaire par le syndic et mise en demeure, la procédure d'abandon permet l'enlèvement ; nous intervenons dès que ce droit est établi." },
     ],
     acces: [
-      "Puteaux est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3, suppression des ZFE votée en avril 2026 sous réserve de promulgation). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle définitivement la question.",
+      "Puteaux est à l'intérieur de l'A86, dans le périmètre de la zone à faibles émissions du Grand Paris ; le calendrier des restrictions Crit'Air est incertain en 2026 (sanctions suspendues pour les Crit'Air 3 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur). Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle définitivement la question.",
       "L'accès se fait par le pont de Neuilly (N13), le pont de Puteaux depuis le bois de Boulogne, l'A14, le boulevard circulaire ou le quai De Dion-Bouton. Les parkings de La Défense exigent une autorisation que nous demandons à l'avance ; les parkings de résidence ont en général une hauteur libre de 1,90 m. Pour un véhicule enlevé par la fourrière, le commissariat de Puteaux ou la police municipale vous indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet aussi de le localiser.",
     ],
     faqEpaviste: [
@@ -804,7 +804,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de parent âgé au garage depuis des années', text: "Beaucoup de Châtillonnais gardent la voiture d'un parent qui ne conduit plus. Avec une procuration (ou l'attestation des héritiers), nous l'enlevons ou la rachetons sans que le titulaire ait à se déplacer." },
     ],
     acces: [
-      "Châtillon est à l'intérieur de l'A86, donc dans le périmètre ZFE du Grand Paris ; en 2026 les sanctions Crit'Air 3 sont suspendues et la suppression des ZFE, votée en avril, attend sa promulgation. Un véhicule qui ne roule plus n'a pas à attendre ce calendrier : le certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Châtillon est à l'intérieur de l'A86, donc dans le périmètre ZFE du Grand Paris ; en 2026 les sanctions Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Un véhicule qui ne roule plus n'a pas à attendre ce calendrier : le certificat de destruction met fin à l'assurance et à la carte grise.",
       "On accède à la ville par la porte de Châtillon, l'A86 (sortie Châtillon) ou la D906 depuis Clamart. Les rues pavillonnaires sont étroites et souvent en sens unique — plateau court obligatoire — et les parkings récents ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent pour Châtillon ou la police municipale indique le lieu de garde et délivre l'autorisation de sortie ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -847,7 +847,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Étudiant parti, voiture restée près du campus', text: "Les résidences étudiantes du secteur voient des voitures laissées par des étudiants partis à l'étranger. Avec une procuration et la copie de la pièce d'identité du titulaire, nous enlevons le véhicule et lui envoyons le certificat." },
     ],
     acces: [
-      "Châtenay-Malabry fait partie des communes situées à l'intérieur de l'A86, donc du périmètre ZFE du Grand Paris. Le calendrier des restrictions Crit'Air est suspendu pour 2026 et la suppression des ZFE, votée en avril 2026, attend sa promulgation ; pour un véhicule hors d'usage, l'enlèvement gratuit avec certificat de destruction reste la sortie la plus simple quelle que soit l'issue.",
+      "Châtenay-Malabry fait partie des communes situées à l'intérieur de l'A86, donc du périmètre ZFE du Grand Paris. Le calendrier des restrictions Crit'Air a évolué en 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; pour un véhicule hors d'usage, l'enlèvement gratuit avec certificat de destruction reste la sortie la plus simple quelle que soit l'issue.",
       "L'accès se fait par l'A86 (Croix-de-Berny), la D986 (avenue de la Division-Leclerc) depuis Sceaux ou la D63 depuis Le Plessis-Robinson. Les rues des coteaux imposent un plateau court ; les parkings de LaVallée ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Châtenay-Malabry indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -892,7 +892,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Scooter abandonné près du métro', text: "Les stations de la ligne 13 attirent les deux-roues abandonnés. Dès lors que le véhicule est identifiable et que le droit de le faire enlever est établi, l'enlèvement est gratuit et le certificat de destruction est remis comme pour une voiture." },
     ],
     acces: [
-      "Malakoff est à l'intérieur de l'A86, dans le périmètre ZFE du Grand Paris ; les sanctions Crit'Air 3 sont suspendues pour 2026 et la suppression des ZFE, votée en avril 2026, attend sa promulgation. Un véhicule qui ne roule plus n'a pas à attendre : le certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Malakoff est à l'intérieur de l'A86, dans le périmètre ZFE du Grand Paris ; les sanctions Crit'Air 3 sont suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Un véhicule qui ne roule plus n'a pas à attendre : le certificat de destruction met fin à l'assurance et à la carte grise.",
       "On accède par la porte de Vanves, la porte Brancion, la porte de Châtillon ou l'avenue Pierre-Brossolette depuis Montrouge ; la ville est en zone 30. Les parkings de résidence ont une hauteur libre d'environ 1,90 m et souvent un badge. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Malakoff indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -937,7 +937,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Succession dans un pavillon', text: "Nous intervenons souvent pour la voiture d'un parent décédé restée au garage d'un pavillon : attestation des héritiers, pièce d'identité, et nous établissons la cession pour destruction ou proposons un rachat." },
     ],
     acces: [
-      "La Garenne-Colombes est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris. Sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation : un véhicule hors d'usage n'a pas à attendre, le certificat de destruction met fin à l'assurance et à la carte grise.",
+      "La Garenne-Colombes est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris. Sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur ; un véhicule hors d'usage n'a pas à attendre, le certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A86 (sorties Colombes ou Nanterre), l'avenue du Général-de-Gaulle (D992) depuis Courbevoie ou le boulevard de la République depuis Colombes. Les rues en sens unique imposent un plateau court ; les parkings de résidence ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -983,7 +983,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Succession et voiture de collection fatiguée', text: "Nous récupérons souvent la voiture d'un parent décédé, parfois un modèle ancien : nous disons honnêtement si un rachat est possible ou si l'enlèvement gratuit s'impose, et nous établissons la cession avec l'attestation des héritiers." },
     ],
     acces: [
-      "Saint-Cloud est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Saint-Cloud est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par le pont de Saint-Cloud, l'A13 (sortie Saint-Cloud), la D907 depuis Boulogne ou la D7 le long de la Seine. Les rues des coteaux imposent un plateau court et un repérage ; les parkings d'immeubles ont une hauteur libre d'environ 1,90 m et un gardien. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Saint-Cloud indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1029,7 +1029,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Deux-roues hors d\'usage dans une cour', text: "Scooters et motos abandonnés dans les cours de maisons mitoyennes sont fréquents. Dès lors qu'ils sont identifiables, l'enlèvement est gratuit et le certificat de destruction est remis comme pour une voiture." },
     ],
     acces: [
-      "Bois-Colombes est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Un véhicule hors d'usage n'a pas à attendre ce calendrier : le certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Bois-Colombes est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Un véhicule hors d'usage n'a pas à attendre ce calendrier : le certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par l'A86 (sorties Colombes ou Asnières), l'avenue d'Argenteuil (D909) ou la rue du Général-Leclerc depuis Asnières. Les rues pavillonnaires imposent un plateau court ; les parkings récents ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1076,7 +1076,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de retraité qui ne conduit plus', text: "Le Plessis compte beaucoup de retraités qui gardent une voiture inutilisée. Avec une procuration (ou l'attestation des héritiers), nous l'enlevons ou la rachetons sans que le titulaire ait à se déplacer." },
     ],
     acces: [
-      "Le Plessis-Robinson fait partie des communes situées à l'intérieur de l'A86, donc du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule hors d'usage, l'enlèvement gratuit avec certificat de destruction reste la sortie la plus simple.",
+      "Le Plessis-Robinson fait partie des communes situées à l'intérieur de l'A86, donc du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule hors d'usage, l'enlèvement gratuit avec certificat de destruction reste la sortie la plus simple.",
       "L'accès se fait par l'A86 (Croix-de-Berny ou Châtenay), l'avenue Charles-de-Gaulle depuis Clamart ou l'avenue Paul-Langevin depuis Châtenay-Malabry. Les rues des cités-jardins imposent un plateau court ; les parkings du centre ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1122,7 +1122,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de fonction près du périphérique', text: "Les immeubles de bureaux de Vanves ont des parkings à accès contrôlé où une voiture de fonction reste parfois après le départ d'un salarié. Sur mandat de la société (Kbis, pouvoir), nous l'enlevons gratuitement ou la rachetons." },
     ],
     acces: [
-      "Vanves est à l'intérieur de l'A86, dans le périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement met fin à l'assurance et à la carte grise.",
+      "Vanves est à l'intérieur de l'A86, dans le périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement met fin à l'assurance et à la carte grise.",
       "On accède par la porte de Vanves, la porte Brancion, la porte de la Plaine ou l'avenue Victor-Hugo depuis Issy ; la ville est en zone 30. Les parkings de résidence ont une hauteur libre d'environ 1,90 m et souvent un badge. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Vanves indique le lieu de garde et délivre l'autorisation de sortie ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1167,13 +1167,13 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de particulier qui ne passe plus le contrôle technique', text: "Beaucoup d'habitants gardent une voiture recalée au contrôle technique faute de pouvoir la réparer. Nous l'enlevons gratuitement avec certificat de destruction, ou la rachetons si elle a une valeur de pièces." },
     ],
     acces: [
-      "Villeneuve-la-Garenne se trouve en dehors du périmètre ZFE du Grand Paris, délimité par l'A86 : aucune restriction Crit'Air locale ne s'y applique. Reste la règle valable partout pour un véhicule hors d'usage — le confier à un centre VHU agréé, seul habilité à délivrer le certificat de destruction et à déclarer la cession.",
+      "Villeneuve-la-Garenne, traversée par l'A86, figure dans la liste officielle des communes de la zone à faibles émissions du Grand Paris comme commune « partiellement incluse ». En 2026, les sanctions pour les Crit'Air 3 sont suspendues ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Reste la règle valable partout pour un véhicule hors d'usage — le confier à un centre VHU agréé, seul habilité à délivrer le certificat de destruction et à déclarer la cession.",
       "L'accès se fait par l'A86 (sortie Villeneuve-la-Garenne), le pont de L'Île-Saint-Denis, le boulevard Gallieni depuis Gennevilliers ou le quai d'Asnières. Les parkings de bailleurs exigent un badge que nous demandons au gardien ; les sites d'entreprise un accueil. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Villeneuve-la-Garenne indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
       { question: "Le bailleur peut-il vous mandater pour plusieurs véhicules abandonnés sur les parkings de la Caravelle ?", answer: "Oui. Après identification des titulaires, mise en demeure et procédure d'abandon, nous enlevons les véhicules en une tournée, gratuitement, avec un certificat de destruction chacun." },
       { question: "Quel délai pour enlever une épave à Villeneuve-la-Garenne ?", answer: "Villeneuve est à 9 km du centre de Paris, avec une sortie directe de l'A86 : nous intervenons sous 2 h en journée, sur un créneau convenu." },
-      { question: "Villeneuve-la-Garenne est-elle dans la ZFE ?", answer: "Non, la commune est en dehors du périmètre délimité par l'A86. Cela ne change rien à l'obligation de confier un véhicule hors d'usage à un centre VHU agréé, ni à la gratuité de l'enlèvement." },
+      { question: "Villeneuve-la-Garenne est-elle dans la ZFE ?", answer: "En partie : la Métropole du Grand Paris la classe parmi les communes partiellement incluses, la limite étant l'A86 qui traverse la commune. Cela ne change rien à l'obligation de confier un véhicule hors d'usage à un centre VHU agréé, ni à la gratuité de l'enlèvement." },
       { question: "Où est ma voiture enlevée à Villeneuve ?", answer: "Le commissariat compétent ou la police municipale décident des mises en fourrière et délivrent l'autorisation de sortie ; le téléservice du ministère de l'Intérieur permet de localiser le véhicule. Si sa valeur ne justifie pas les frais, nous pouvons organiser sa destruction depuis la fourrière avec votre mandat." },
       { question: "Enlevez-vous les utilitaires d'une entreprise des zones d'activité ?", answer: "Oui, jusqu'à 3,5 tonnes, sur mandat de la société (Kbis, pouvoir), plusieurs véhicules en une tournée ; ceux qui ont encore de la valeur sont rachetés." },
       { question: "Quels documents préparer ?", answer: "Carte grise barrée « cédé pour destruction », pièce d'identité (ou Kbis et pouvoir pour une société), certificat de situation administrative de moins de 15 jours." },
@@ -1182,13 +1182,13 @@ export const cities: IdfCityContentMap = {
     rachatIntro: [
       "À Villeneuve-la-Garenne, nous rachetons surtout des véhicules familiaux des résidences des grands ensembles, des citadines de seconde main, des voitures recalées au contrôle technique et des utilitaires d'entreprises des zones d'activité renouvelés ou immobilisés après une panne.",
       "Photos et carte grise, offre ferme dans la journée, rendez-vous au pied de l'immeuble avec le gardien, sur le site de l'entreprise ou devant le pavillon : vérification, virement immédiat, chargement, même si la voiture ne démarre plus.",
-      "Villeneuve étant hors ZFE, les voitures Crit'Air 3 ou 4 y circulent encore et gardent une valeur d'usage local en plus de leur valeur à l'export ; nous en tenons compte dans l'offre.",
+      "Villeneuve étant partiellement dans la ZFE, une voiture Crit'Air 3 ou 4 y perd une partie de son usage quotidien (période pédagogique sans verbalisation jusqu'à fin 2026) ; elle garde sa valeur à l'export et pour la grande couronne, et nous en tenons compte dans l'offre.",
       "Pour une société, la facture est établie sur Kbis et pouvoir, au nom de l'entreprise, avec paiement par virement ; plusieurs véhicules peuvent être repris le même jour sur site.",
       "Une voiture très ancienne, incomplète ou corrodée n'a en général plus de valeur ; nous le disons dès l'estimation et proposons l'enlèvement gratuit avec certificat de destruction.",
     ],
     faqRachat: [
       { question: "Ma voiture a été recalée au contrôle technique, l'achetez-vous quand même ?", answer: "Oui, en l'état : le contrôle refusé pèse sur le prix mais n'empêche pas la vente à un professionnel. Envoyez le procès-verbal et des photos pour une offre ferme." },
-      { question: "Ma voiture Crit'Air 3 vaut-elle plus à Villeneuve qu'à Paris ?", answer: "Elle garde une valeur d'usage local puisque la commune est hors ZFE, en plus de sa valeur à l'export ; nous en tenons compte dans l'offre." },
+      { question: "Ma voiture Crit'Air 3 vaut-elle plus à Villeneuve qu'à Paris ?", answer: "Pas vraiment : Villeneuve est en partie dans le périmètre ZFE, comme Paris. Sa valeur tient surtout à l'export et aux acheteurs de grande couronne ; nous en tenons compte dans l'offre." },
       { question: "Rachetez-vous les utilitaires des entreprises des zones d'activité ?", answer: "Oui, jusqu'à 3,5 tonnes, sur Kbis et pouvoir ; facture au nom de la société, virement, plusieurs véhicules le même jour sur site." },
       { question: "Comment se passe un rachat dans un parking de bailleur ?", answer: "Nous convenons du créneau avec le gardien, le plateau vient au pied de l'immeuble et nous remontons la voiture par la rampe si nécessaire ; vérification, paiement, chargement en une trentaine de minutes." },
       { question: "Quand suis-je payé ?", answer: "Le jour de l'enlèvement, par virement immédiat après vérification des documents, avant le chargement." },
@@ -1212,7 +1212,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture laissée près de la gare RER', text: "Autour de la gare de Fontenay-aux-Roses, des voitures restent des semaines en stationnement. Si la vôtre a été mise en fourrière et que sa valeur ne justifie pas les frais, nous organisons sa destruction depuis la fourrière avec votre mandat." },
     ],
     acces: [
-      "Fontenay-aux-Roses est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule hors d'usage, l'enlèvement gratuit avec certificat de destruction reste la sortie la plus simple.",
+      "Fontenay-aux-Roses est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule hors d'usage, l'enlèvement gratuit avec certificat de destruction reste la sortie la plus simple.",
       "L'accès se fait par l'A86 (sortie Châtillon ou Croix-de-Berny), la D75 depuis Bagneux ou l'avenue Jean-Moulin depuis Le Plessis-Robinson. Les rues des coteaux imposent un plateau court ; les parkings de résidence ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1258,7 +1258,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Succession dans une villa de Sèvres', text: "Nous intervenons souvent pour la voiture d'un parent décédé restée au garage : attestation des héritiers, pièce d'identité, et nous établissons la cession pour destruction ou proposons un rachat si la voiture a de la valeur." },
     ],
     acces: [
-      "Sèvres est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Sèvres est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par le pont de Sèvres (N118, D910), la route des Gardes depuis Meudon ou la rue de Saint-Cloud. Les rues des coteaux et du centre ancien imposent un plateau court ; les parkings de résidence ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Sèvres indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1304,7 +1304,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de banlieusard qui prend le RER', text: "Beaucoup d'habitants vont à Paris en RER B et laissent une voiture qu'ils n'utilisent plus. Nous l'enlevons gratuitement ou la rachetons si elle a de la valeur, tôt le matin ou le week-end." },
     ],
     acces: [
-      "Bourg-la-Reine est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Un véhicule hors d'usage n'a pas à attendre : le certificat de destruction met fin à l'assurance et à la carte grise.",
+      "Bourg-la-Reine est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Un véhicule hors d'usage n'a pas à attendre : le certificat de destruction met fin à l'assurance et à la carte grise.",
       "L'accès se fait par la N20 depuis Montrouge ou Antony, la D920 ou l'A86 via la Croix-de-Berny. Les rues pavillonnaires imposent un plateau court ; les parkings de résidence ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1351,7 +1351,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Succession et voiture ancienne', text: "Nous récupérons souvent la voiture d'un parent décédé dans une villa de Sceaux, parfois un modèle ancien : nous disons honnêtement si un rachat est possible ou si l'enlèvement gratuit s'impose, et établissons la cession avec l'attestation des héritiers." },
     ],
     acces: [
-      "Sceaux est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
+      "Sceaux est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule qui ne roule plus, le certificat de destruction remis le jour de l'enlèvement règle la question.",
       "L'accès se fait par l'A86 (Croix-de-Berny), la N20 via Bourg-la-Reine ou la D67 depuis Fontenay-aux-Roses. Le centre est en partie piéton et les rues de villas imposent un plateau court ; les parkings de résidence ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Sceaux indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [
@@ -1398,7 +1398,7 @@ export const cities: IdfCityContentMap = {
       { title: 'Voiture de banlieusard qui prend le train', text: "Beaucoup de Chavillois vont à Paris en train depuis l'une des trois gares et laissent une voiture qu'ils n'utilisent plus. Nous l'enlevons gratuitement ou la rachetons si elle a de la valeur, tôt le matin ou le week-end." },
     ],
     acces: [
-      "Chaville est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026, suppression des ZFE votée en avril 2026 en attente de promulgation. Pour un véhicule hors d'usage, l'enlèvement gratuit avec certificat de destruction reste la sortie la plus simple.",
+      "Chaville est à l'intérieur de l'A86 et fait partie du périmètre ZFE du Grand Paris ; sanctions Crit'Air 3 suspendues pour 2026 ; la suppression des ZFE votée au printemps 2026 a été censurée par le Conseil constitutionnel le 21 mai 2026 : la zone reste en vigueur. Pour un véhicule hors d'usage, l'enlèvement gratuit avec certificat de destruction reste la sortie la plus simple.",
       "L'accès se fait par la D910 (avenue Roger-Salengro) depuis Sèvres ou Viroflay, ou par la N118 via Vélizy. Les rues vers les bois imposent un plateau court ; les parkings de résidence ont une hauteur libre d'environ 1,90 m. Pour un véhicule mis en fourrière, le commissariat compétent ou la police municipale de Chaville indique le lieu de garde ; le téléservice national du ministère de l'Intérieur permet de le localiser.",
     ],
     faqEpaviste: [

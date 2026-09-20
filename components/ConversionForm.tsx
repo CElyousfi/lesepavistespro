@@ -3,7 +3,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { Phone, CheckCircle, X, ArrowRight, ArrowLeft, Car, Motorcycle } from '@phosphor-icons/react';
-import { trackFormSubmit } from '@/lib/analytics';
+import { trackFormStart, trackFormSubmit } from '@/lib/analytics';
+import { getLeadAttribution, type LeadAttribution } from '@/lib/lead-attribution';
 import { getMarqueNames, getModelsForMarque } from '@/lib/vehicle-data';
 import SearchableSelect from '@/components/SearchableSelect';
 import PostalCodeSelect from '@/components/PostalCodeSelect';
@@ -31,6 +32,10 @@ interface FormData {
   pageType?: string;
   // Honeypot anti-bot
   website?: string;
+  // Page attribution (S2.4) — hidden, read from lib/lead-attribution at mount
+  pagePath?: string;
+  landingPath?: string;
+  intent?: string;
 }
 
 interface ConversionFormProps {
@@ -100,6 +105,15 @@ export default function ConversionFormNew({
     setFormData(prev => ({ ...prev, marque: '', modele: '' }));
   }, [formData.vehicleType]);
 
+  // Page attribution (S2.4): the page the form sits on, the first page of the
+  // session and the IDF situation slug, if any. Read once on the client after
+  // mount (window/sessionStorage are unavailable during SSR).
+  useEffect(() => {
+    const attribution: LeadAttribution = getLeadAttribution();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only value, see above
+    setFormData(prev => ({ ...prev, ...attribution }));
+  }, []);
+
   const totalSteps = 4;
 
   const updateField = (field: keyof FormData, value: string | boolean) => {
@@ -107,14 +121,14 @@ export default function ConversionFormNew({
 
     if (!hasStartedForm) {
       setHasStartedForm(true);
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'form_start', {
-          service: formData.service || defaultService,
-          page_type: formData.pageType,
-          department: formData.department,
-          city: formData.city,
-        });
-      }
+      trackFormStart({
+        // Overridden by the URL service on /epaviste|/rachat-voiture pages.
+        service: formData.service || defaultService,
+        form_service: formData.service || defaultService,
+        department: formData.department,
+        city: formData.city,
+        page_path: formData.pagePath,
+      });
     }
 
     if (errors[field]) {
@@ -190,6 +204,7 @@ export default function ConversionFormNew({
         ville: formData.ville,
         page_type: formData.pageType,
         department: formData.department,
+        intent: formData.intent,
       });
     }
     // ─────────────────────────────────────────────────────────────────────
@@ -351,6 +366,10 @@ export default function ConversionFormNew({
               onChange={(e) => updateField('website' as keyof FormData, e.target.value)}
             />
           </div>
+          {/* Page attribution (S2.4) — sent with the lead, never shown */}
+          <input type="hidden" name="pagePath" value={formData.pagePath || ''} readOnly />
+          <input type="hidden" name="landingPath" value={formData.landingPath || ''} readOnly />
+          <input type="hidden" name="intent" value={formData.intent || ''} readOnly />
           <div className="min-h-[260px] sm:min-h-[300px]">
             {/* Step 1: Service Selection */}
             {step === 1 && (
