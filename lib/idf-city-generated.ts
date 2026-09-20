@@ -55,6 +55,11 @@ function formatLine(l: IdfTransportLine): string {
   }
 }
 
+/** "de Enghien" → "d'Enghien", "de Évry" → "d'Évry" (elision before a vowel or mute h). */
+function deName(name: string): string {
+  return /^[aeiouyàâäéèêëïîôöùûüh]/i.test(name) ? `d'${name}` : `de ${name}`;
+}
+
 function joinFr(items: string[]): string {
   return items.join(', ').replace(/, ([^,]*)$/, ' et $1');
 }
@@ -66,9 +71,9 @@ export function rachatTransportSentence(city: IdfCityRef, transport: IdfTranspor
   const lineText = joinFr(lines.map(formatLine));
   const station = lines[0].station;
   const variants = [
-    `Avec ${lineText} à la gare de ${station}, beaucoup de ménages de ${city.name} n'ont plus qu'un usage occasionnel de leur voiture : c'est cette voiture-là, peu kilométrée mais vieillissante, que nous rachetons le plus souvent, avant qu'elle ne coûte un contrôle technique de plus.`,
-    `Le rendez-vous peut aussi se fixer sur le parking de la gare de ${station} (${lineText}) avant votre train : vérification, paiement et chargement prennent une trentaine de minutes.`,
-    `${city.name} est reliée à Paris par ${lineText} ; les voitures que nous y reprenons sont souvent des secondes voitures qui dorment près de la gare de ${station}, entretenues mais peu utilisées, et notre offre en tient compte.`,
+    `Avec ${lineText} à la gare ${deName(station)}, beaucoup de ménages ${deName(city.name)} n'ont plus qu'un usage occasionnel de leur voiture : c'est cette voiture-là, peu kilométrée mais vieillissante, que nous rachetons le plus souvent, avant qu'elle ne coûte un contrôle technique de plus.`,
+    `Le rendez-vous peut aussi se fixer sur le parking de la gare ${deName(station)} (${lineText}) avant votre train : vérification, paiement et chargement prennent une trentaine de minutes.`,
+    `${city.name} est reliée à Paris par ${lineText} ; les voitures que nous y reprenons sont souvent des secondes voitures qui dorment près de la gare ${deName(station)}, entretenues mais peu utilisées, et notre offre en tient compte.`,
   ];
   return pick(variants, seed, 16);
 }
@@ -79,7 +84,7 @@ export function transportSentence(city: IdfCityRef, transport: IdfTransportLine[
   if (!lines.length) return null;
   const lineText = joinFr(lines.map(formatLine));
   const stations = Array.from(new Set(lines.map(l => l.station))).slice(0, 3);
-  const stationText = stations.length === 1 ? `gare de ${stations[0]}` : `gares de ${joinFr(stations)}`;
+  const stationText = stations.length === 1 ? `gare ${deName(stations[0])}` : `gares ${deName(joinFr(stations))}`;
   const variants = [
     `${city.name} est desservie par ${lineText} (${stationText}) : beaucoup d'habitants n'utilisent plus leur voiture au quotidien, et c'est souvent une seconde voiture immobilisée depuis des mois que l'on nous demande d'enlever.`,
     `Côté transports, ${lineText} dessert la commune (${stationText}), ce qui explique le nombre de voitures qui restent des semaines au parking ou dans la rue sans bouger.`,
