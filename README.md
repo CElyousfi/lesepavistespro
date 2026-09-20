@@ -207,6 +207,12 @@ it is then listed in `sitemap-idf.xml`). Dates must be real.
   (titles, links, schema, leaked `TODO(owner)`); reports in `seo-audit/`.
 - `npx tsx scripts/lighthouse-run.ts <baseUrl> --label=<label>` — mobile Core Web Vitals.
 - `npx tsx scripts/validate-jsonld.ts <baseUrl> [/path …]` — structural JSON-LD validation (required properties, @id references, one FAQPage / business node per page).
+- `npm run verify-ga4 -- --base=<baseUrl>` — headless Chrome proves the GA4 conversion events
+  (`click_call`, `click_whatsapp`, `form_start`, `lead_form_submit`) fire with their geo/intent params.
+- `npm run seo-monitor -- <baseUrl>` — the weekly production check (crawl, JSON-LD, redirect hops,
+  robots/sitemap, Lighthouse budgets); run by `.github/workflows/seo-monitor.yml` every Monday
+  06:00 Paris, which opens a « SEO regression » issue on error-level findings.
+  `.github/workflows/pr-check.yml` runs tsc + seo-check + build on every PR to `main`.
 
 ## 🤝 Support
 
