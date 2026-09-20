@@ -12,6 +12,8 @@ import { checkCityResolution } from './check-city-resolution';
 import { checkHardcodedInternalLinks } from './check-internal-links';
 import { checkRedirectHops } from './check-redirect-hops';
 import { analyseIdfContent, TIER_MIN_WORDS, TIER_MAX_SIMILARITY } from './idf-content-similarity';
+import { idfIntents, intentWordCount } from '../data/idf-intents';
+import { getIdfCityRef } from '../lib/idf-cities';
 
 interface ValidationResult {
   passed: boolean;
@@ -670,6 +672,61 @@ function checkIdfLinkRules() {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CHECK: Île-de-France situation pages (S2.1)
+//   13 épaviste + 10 rachat intents, each 900–1 400 words, 6 FAQ, ≤ 60-char
+//   title, 120–155-char description, 3 Tier A towns that resolve, cited
+//   sources, unique slug per service; routes exist with dynamicParams=false
+//   (unknown slug → 404); listed in sitemap-idf and linked from the hubs.
+//   Rendered status/canonical is checked by seo-crawl (every sitemap URL
+//   must be 200 + self-canonical).
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkIdfIntents() {
+  log('\n🧭 Checking Île-de-France situation pages...', colors.blue);
+  const EXPECTED = {
+    epaviste: ['sans-carte-grise', 'parking-souterrain', 'voiture-brulee', 'vehicule-gage', 'succession-deces', 'voiture-abandonnee-voie-publique', 'fourriere', 'utilitaire-camionnette', 'moto-scooter', 'camping-car', 'vehicule-accidente', 'epave-entreprise-flotte', 'zfe-vieux-vehicule'],
+    'rachat-voiture': ['sans-controle-technique', 'voiture-accidentee', 'moteur-hs', 'boite-de-vitesses-hs', 'voiture-en-panne', 'fort-kilometrage', 'utilitaire', 'voiture-non-roulante', 'succession', 'vehicule-gage'],
+  } as const;
+  const failures: string[] = [];
+  for (const [service, slugs] of Object.entries(EXPECTED)) {
+    for (const slug of slugs) if (!idfIntents.some(i => i.service === service && i.slug === slug)) failures.push(`${service}/${slug} missing`);
+  }
+  const seen = new Set<string>();
+  for (const i of idfIntents) {
+    const key = `${i.service}/${i.slug}`;
+    if (seen.has(key)) failures.push(`${key} duplicated`); seen.add(key);
+    const words = intentWordCount(i);
+    if (words < 900 || words > 1400) failures.push(`${key}: ${words} words (900–1400)`);
+    if (i.faq.length !== 6) failures.push(`${key}: ${i.faq.length} FAQ (6)`);
+    if (i.metaTitle.length > 60) failures.push(`${key}: metaTitle ${i.metaTitle.length} chars`);
+    if (i.description.length < 120 || i.description.length > 155) failures.push(`${key}: description ${i.description.length} chars`);
+    if (i.towns.length !== 3) failures.push(`${key}: ${i.towns.length} towns (3)`);
+    for (const t of i.towns) { const r = getIdfCityRef(t.deptSlug, t.slug); if (!r) failures.push(`${key}: town ${t.deptSlug}/${t.slug} does not resolve`); else if (r.tier !== 'A') failures.push(`${key}: town ${t.slug} is tier ${r.tier}`); }
+    if (!i.sources.length) failures.push(`${key}: no source cited`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(i.updatedAt)) failures.push(`${key}: bad updatedAt`);
+  }
+  for (const route of ['app/epaviste/ile-de-france/[intent]/page.tsx', 'app/rachat-voiture/ile-de-france/[intent]/page.tsx']) {
+    const full = path.join(process.cwd(), route);
+    if (!fs.existsSync(full)) { failures.push(`${route} missing`); continue; }
+    const src = fs.readFileSync(full, 'utf-8');
+    if (!src.includes('export const dynamicParams = false')) failures.push(`${route}: dynamicParams must be false (unknown slug → 404)`);
+    if (!src.includes('generateStaticParams')) failures.push(`${route}: no generateStaticParams`);
+    if (!src.includes('getIdfIntentServiceData') || !src.includes('buildFaqPage') || !src.includes('getBreadcrumbData')) failures.push(`${route}: Service + FAQPage + BreadcrumbList schema required`);
+  }
+  const sitemap = fs.readFileSync(path.join(process.cwd(), 'app/sitemap-idf.xml/route.ts'), 'utf-8');
+  if (!sitemap.includes('idfIntents')) failures.push('sitemap-idf.xml does not list the situation pages');
+  const region = fs.readFileSync(path.join(process.cwd(), 'components/IdfRegionPage.tsx'), 'utf-8');
+  const dept = fs.readFileSync(path.join(process.cwd(), 'components/IdfDepartmentPage.tsx'), 'utf-8');
+  const footer = fs.readFileSync(path.join(process.cwd(), 'components/Footer.tsx'), 'utf-8');
+  if (!region.includes('IdfIntentLinks')) failures.push('IdfRegionPage does not link the situation pages');
+  if (!dept.includes('IdfIntentLinks')) failures.push('IdfDepartmentPage does not link the situation pages');
+  if (!footer.includes("getIdfIntents('epaviste')")) failures.push('Footer does not link the épaviste situation pages');
+  const footerCount = (footer.match(/'[a-z-]+': '[^']+',/g) || []).length;
+  if (footerCount > 6) failures.push(`Footer lists ${footerCount} situation pages (max 6)`);
+  if (failures.length) failures.slice(0, 10).forEach(f => addResult(false, `✗ IDF situation pages: ${f}`));
+  else addResult(true, `✓ ${idfIntents.length} IDF situation pages: 900–1 400 words, 6 FAQ, valid titles/descriptions, Tier A towns, sources, routes with dynamicParams=false, sitemap + hub/department/footer links`);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // CHECK 16: Sitemap pruning implemented
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function checkSitemapPruning() {
@@ -1270,6 +1327,7 @@ function runAllChecks() {
     checkBusinessClaimsGated();   // P4.3
     checkNoRenderedTodoOwner();   // guardrail #12
     checkIdfLinkRules();          // guardrail #10
+    checkIdfIntents();            // S2.1
     checkSitemapPruning();
     checkDomainRedirect();
     // ── Audit remediation guardrails (see SEO-REMEDIATION-REPORT.md) ──

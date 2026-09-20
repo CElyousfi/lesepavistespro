@@ -5,6 +5,7 @@ import { shouldIncludeInSitemap, shouldNoIndex } from '@/lib/geo-targeting';
 import { IDF_DEPT_SLUGS, IDF_REGION_SLUG } from '@/lib/idf';
 import { getIdfCityUpdatedAt } from '@/data/idf-cities';
 import { blogPosts } from '@/lib/blog-data';
+import { idfIntents } from '@/data/idf-intents';
 
 /**
  * Île-de-France sitemap — every IDF URL in one file, listed FIRST in the
@@ -51,6 +52,11 @@ export async function GET() {
         entries.push({ loc: `${base}/${service}/${dept.slug}/${city.slug}`, lastmod: updated });
       }
     }
+  }
+
+  // Île-de-France situation pages (S2.1), with their own content date
+  for (const intent of idfIntents) {
+    entries.push({ loc: `${base}/${intent.service}/ile-de-france/${intent.slug}`, lastmod: intent.updatedAt });
   }
 
   // IDF blog posts

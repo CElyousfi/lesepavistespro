@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import IdfIntentLinks from '@/components/IdfIntentLinks';
 import { MapPin, CaretRight, Truck, CurrencyEur } from '@phosphor-icons/react/dist/ssr';
 import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
@@ -170,6 +171,9 @@ export default function IdfRegionPage({ service, faqItems, guides }: IdfRegionPa
           </div>
         </div>
       </section>
+
+      {/* Situations particulières (S2.1) */}
+      <IdfIntentLinks service={service} />
 
       {/* Cross-links */}
       <section className="py-12 bg-brand-surface border-t border-neutral-200">

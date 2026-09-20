@@ -2,9 +2,19 @@ import { Phone, EnvelopeSimple, MapPin } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getIdfDepartments, getTopIdfCities } from '@/lib/idf-cities';
+import { getIdfIntents } from '@/data/idf-intents';
 
 /** Most-populated IDF communes linked from every page. */
 const FOOTER_IDF_CITIES = 20;
+/** Épaviste situation pages shown in the footer (S2.1) — 6 max. */
+const FOOTER_INTENTS: Record<string, string> = {
+  'sans-carte-grise': 'Épave sans carte grise',
+  'parking-souterrain': 'Épave en parking souterrain',
+  fourriere: 'Voiture en fourrière',
+  'voiture-brulee': 'Voiture brûlée',
+  'succession-deces': 'Voiture d’un parent décédé',
+  'vehicule-accidente': 'Véhicule accidenté',
+};
 
 /**
  * Site footer — server component so the Île-de-France links are derived
@@ -15,6 +25,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const departments = getIdfDepartments();
   const topCities = getTopIdfCities(FOOTER_IDF_CITIES);
+  const intents = getIdfIntents('epaviste').filter((i) => i.slug in FOOTER_INTENTS).slice(0, 6);
 
   return (
     <footer data-nosnippet className="bg-brand-navy pt-20 pb-28 lg:pb-12">
@@ -99,6 +110,15 @@ const Footer = () => {
                   <span className="text-neutral-600"> · </span>
                   <Link href={`/rachat-voiture/${d.slug}`} className="text-neutral-500 hover:text-white">
                     rachat
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 mb-4">
+              {intents.map((i) => (
+                <li key={i.slug}>
+                  <Link href={`/epaviste/ile-de-france/${i.slug}`} className="text-xs text-neutral-400 hover:text-neutral-200">
+                    {FOOTER_INTENTS[i.slug]}
                   </Link>
                 </li>
               ))}

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import IdfIntentLinks from '@/components/IdfIntentLinks';
 import { MapPin, CaretRight, Truck, CurrencyEur, CheckCircle, Clock, Shield } from '@phosphor-icons/react/dist/ssr';
 import Header from '@/components/Header';
 import LocationHero from '@/components/LocationHero';
@@ -238,6 +239,8 @@ export default function IdfDepartmentPage({ service, dept, hub, faqItems, guides
                 {isRachat ? <Truck size={18} weight="bold" /> : <CurrencyEur size={18} weight="bold" />}
                 {otherLabel} {dept.name} ({dept.code})
               </Link>
+              <h2 className="text-lg font-bold text-brand-navy mt-8 mb-3">Situations particulières</h2>
+              <IdfIntentLinks service={service} variant="chips" />
               <h2 className="text-lg font-bold text-brand-navy mt-8 mb-3">Guides utiles</h2>
               <ul className="space-y-2">
                 {guides.map((g) => (
