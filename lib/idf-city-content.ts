@@ -13,6 +13,7 @@ import { getIdfCityRef, getNearestIdfCities, distanceToParisKm, type IdfCityRef,
 import { getIdfCityContent } from '@/data/idf-cities';
 import type { IdfCitySituation, IdfFourriere } from '@/data/idf-cities/types';
 import { getIdfCommuneFacts, type IdfCommuneFacts } from '@/data/idf-facts.generated';
+import { idfTransport } from '@/data/idf-transport.generated';
 import { getIdfDeptHub, type IdfDeptHub } from '@/data/idf-extra-content';
 import { generateIdfCityContent } from './idf-city-generated';
 
@@ -79,6 +80,7 @@ export function resolveIdfCity(deptSlug: string, citySlug: string): ResolvedIdfC
     hub,
     nearest: nearest.map(n => ({ name: n.name, distanceKm: n.distanceKm, deptCode: n.deptCode })),
     distanceToParisKm: toParis,
+    transport: idfTransport[`${deptSlug}/${citySlug}`],
   });
   return {
     ref,
@@ -101,6 +103,7 @@ export function resolveIdfCity(deptSlug: string, citySlug: string): ResolvedIdfC
     sources: [
       'INSEE via geo.api.gouv.fr — population, surface, intercommunalité, centroïde',
       'Métropole du Grand Paris — périmètre de la ZFE',
+      ...(idfTransport[`${deptSlug}/${citySlug}`]?.length ? ['Île-de-France Mobilités (open data) — gares et lignes'] : []),
       ...(ref.deptCode === '75' ? ['paris.fr — fourrières et préfourrières'] : []),
     ],
   };

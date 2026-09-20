@@ -11,6 +11,7 @@
     "radar": "tsx scripts/search-demand-radar.ts",
     "generate-locations": "tsx scripts/generate-full-locations.ts && tsx scripts/fix-city-display-names.ts && tsx scripts/enrich-locations-geo.ts && tsx scripts/generate-prefectures.ts",
     "generate-prefectures": "tsx scripts/generate-prefectures.ts",
+    "generate-idf-transport": "tsx scripts/generate-idf-transport.ts",
     "enrich-geo": "tsx scripts/enrich-locations-geo.ts",
     "prebuild": "npm run seo-check",
     "seo-crawl": "tsx scripts/seo-crawl.ts",

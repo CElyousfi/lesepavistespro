@@ -16,6 +16,7 @@ import type { IdfCityRef } from './idf-cities';
 import type { IdfCommuneFacts } from '@/data/idf-facts.generated';
 import type { IdfDeptHub } from '@/data/idf-extra-content';
 import type { IdfCitySituation } from '@/data/idf-cities/types';
+import type { IdfTransportLine } from '@/data/idf-transport.generated';
 import { idfLocative, idfGenitive } from './idf';
 
 export interface GeneratedCityContent {
@@ -38,6 +39,53 @@ export interface GeneratorInput {
   hub: IdfDeptHub;
   nearest: Array<{ name: string; distanceKm: number; deptCode: string }>;
   distanceToParisKm: number | null;
+  /** Rail lines serving the commune (IDFM open data), empty when none. */
+  transport?: IdfTransportLine[];
+}
+
+/** "RER D" → "le RER D", "TRAIN J" → "la ligne J du Transilien", "METRO 13" → "la ligne 13 du métro", "TRAM 5" → "le tramway T5". */
+function formatLine(l: IdfTransportLine): string {
+  const [kind, id] = l.line.split(' ');
+  switch (kind) {
+    case 'RER': return `le RER ${id}`;
+    case 'TRAIN': return `la ligne ${id} du Transilien`;
+    case 'METRO': return `la ligne ${id} du métro`;
+    case 'TRAM': return `le tramway T${id}`;
+    default: return l.line;
+  }
+}
+
+function joinFr(items: string[]): string {
+  return items.join(', ').replace(/, ([^,]*)$/, ' et $1');
+}
+
+/** Rachat-side variant of the transport fact (different wording, same source). */
+export function rachatTransportSentence(city: IdfCityRef, transport: IdfTransportLine[] | undefined, seed: string): string | null {
+  const lines = (transport ?? []).filter(l => !l.line.startsWith('VAL')).slice(0, 4);
+  if (!lines.length) return null;
+  const lineText = joinFr(lines.map(formatLine));
+  const station = lines[0].station;
+  const variants = [
+    `Avec ${lineText} à la gare de ${station}, beaucoup de ménages de ${city.name} n'ont plus qu'un usage occasionnel de leur voiture : c'est cette voiture-là, peu kilométrée mais vieillissante, que nous rachetons le plus souvent, avant qu'elle ne coûte un contrôle technique de plus.`,
+    `Le rendez-vous peut aussi se fixer sur le parking de la gare de ${station} (${lineText}) avant votre train : vérification, paiement et chargement prennent une trentaine de minutes.`,
+    `${city.name} est reliée à Paris par ${lineText} ; les voitures que nous y reprenons sont souvent des secondes voitures qui dorment près de la gare de ${station}, entretenues mais peu utilisées, et notre offre en tient compte.`,
+  ];
+  return pick(variants, seed, 16);
+}
+
+/** One verifiable sentence about the commune's rail service, or null. */
+export function transportSentence(city: IdfCityRef, transport: IdfTransportLine[] | undefined, seed: string): string | null {
+  const lines = (transport ?? []).filter(l => !l.line.startsWith('VAL')).slice(0, 4);
+  if (!lines.length) return null;
+  const lineText = joinFr(lines.map(formatLine));
+  const stations = Array.from(new Set(lines.map(l => l.station))).slice(0, 3);
+  const stationText = stations.length === 1 ? `gare de ${stations[0]}` : `gares de ${joinFr(stations)}`;
+  const variants = [
+    `${city.name} est desservie par ${lineText} (${stationText}) : beaucoup d'habitants n'utilisent plus leur voiture au quotidien, et c'est souvent une seconde voiture immobilisée depuis des mois que l'on nous demande d'enlever.`,
+    `Côté transports, ${lineText} dessert la commune (${stationText}), ce qui explique le nombre de voitures qui restent des semaines au parking ou dans la rue sans bouger.`,
+    `La commune est reliée à Paris par ${lineText} (${stationText}) ; les abords de la gare concentrent les véhicules laissés trop longtemps en stationnement, et donc les mises en fourrière.`,
+  ];
+  return pick(variants, seed, 15);
 }
 
 /** Deterministic hash → index. */
@@ -210,7 +258,7 @@ const FAQ_R_POOL: Array<(c: IdfCityRef) => FaqItem> = [
   c => ({ question: `Combien de temps prend un rachat à ${c.name} ?`, answer: `L'estimation est faite dans la journée sur photos et carte grise ; l'enlèvement et le paiement suivent sur rendez-vous, souvent sous 24 à 48 h à ${c.name}. Sur place, comptez une trentaine de minutes.` }),
 ];
 
-export function generateIdfCityContent({ city, facts, nearest, distanceToParisKm }: GeneratorInput): GeneratedCityContent {
+export function generateIdfCityContent({ city, facts, nearest, distanceToParisKm, transport }: GeneratorInput): GeneratedCityContent {
   const seed = `${city.deptSlug}/${city.slug}`;
   const density = densityClass(city.population, facts?.surfaceKm2 ?? null);
   const nearestList = nearest
@@ -232,6 +280,11 @@ export function generateIdfCityContent({ city, facts, nearest, distanceToParisKm
     specific++;
   }
   intro.push(p1.join(' '));
+  const transportText = transportSentence(city, transport, seed);
+  if (transportText) {
+    intro.push(transportText);
+    specific++;
+  }
   intro.push(pick(DENSITY_HOUSING[density], seed, 4));
 
   const situations = pickMany(SITUATION_POOL, seed, 4, 5).map(f => f(city));
@@ -251,6 +304,8 @@ export function generateIdfCityContent({ city, facts, nearest, distanceToParisKm
     pick(RACHAT_INTRO, seed, 9)(city, distanceToParisKm),
     `${pick(RACHAT_SECOND, seed, 10)(city, facts)} ${pick(RACHAT_PICKUP[density], seed, 14)}`,
   ];
+  const rachatTransport = rachatTransportSentence(city, transport, seed);
+  if (rachatTransport) rachatIntro.push(rachatTransport);
   const faqRachat = pickMany(FAQ_R_POOL, seed, 5, 11).map(f => f(city));
 
   return { intro, situations, rachatSituations, acces, fourriere, faqEpaviste, rachatIntro, faqRachat, specificSentences: specific };
