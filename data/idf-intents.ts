@@ -122,7 +122,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Enlèvement d'épave sans carte grise en Île-de-France",
-    metaTitle: "Épave sans carte grise en Île-de-France : que faire",
+    metaTitle: 'Épave sans carte grise en IDF',
     description: "Carte grise perdue, volée ou au nom d'un tiers : comment faire enlever gratuitement une épave en Île-de-France, et quels documents la remplacent.",
     label: 'Sans carte grise',
     intro: [
@@ -187,7 +187,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Enlèvement d'épave en parking souterrain en Île-de-France",
-    metaTitle: "Épave en parking souterrain : enlèvement en Île-de-France",
+    metaTitle: 'Épave en parking souterrain en IDF',
     description: "Niveau -2, rampe étroite, hauteur limitée, badge, syndic : comment nous sortons une épave d'un parking souterrain en Île-de-France, gratuitement.",
     label: 'Parking souterrain',
     intro: [
@@ -256,7 +256,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Enlèvement d'une voiture brûlée en Île-de-France",
-    metaTitle: "Voiture brûlée : enlèvement en Île-de-France",
+    metaTitle: 'Voiture brûlée : enlèvement en IDF',
     description: "Voiture incendiée dans la rue, sur un parking ou en sous-sol en Île-de-France : assurance, identification, procédure et enlèvement par un centre VHU agréé.",
     label: 'Voiture brûlée',
     intro: [
@@ -325,7 +325,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Épave gagée ou sous opposition en Île-de-France : peut-on la faire enlever ?",
-    metaTitle: "Épave gagée ou sous opposition : que faire en IDF",
+    metaTitle: 'Épave gagée ou sous opposition en IDF',
     description: "Gage de crédit, opposition du Trésor public, saisie, opposition d'expert : ce qui bloque ou non la destruction d'une épave en Île-de-France.",
     label: 'Véhicule gagé',
     intro: [
@@ -394,7 +394,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Faire enlever la voiture d'un parent décédé en Île-de-France",
-    metaTitle: "Voiture d'un parent décédé : enlèvement en Île-de-France",
+    metaTitle: 'Voiture d’un parent décédé : que faire',
     description: "Succession : les documents pour céder à la destruction la voiture d'une personne décédée en Île-de-France, sans la mettre au nom d'un héritier.",
     label: 'Succession, décès',
     intro: [
@@ -464,7 +464,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Voiture abandonnée sur la voie publique en Île-de-France : procédure et enlèvement",
-    metaTitle: "Voiture abandonnée dans la rue : procédure en IDF",
+    metaTitle: 'Voiture abandonnée dans la rue en IDF',
     description: "Véhicule ventouse devant chez vous, épave sur un parking privé ou un chemin : qui peut agir en Île-de-France, la règle des 7 jours, la mise en demeure.",
     label: 'Voiture abandonnée',
     intro: [
@@ -532,7 +532,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Voiture en fourrière en Île-de-France : la récupérer ou la faire détruire",
-    metaTitle: "Voiture en fourrière en Île-de-France : que faire",
+    metaTitle: 'Voiture en fourrière en IDF : que faire',
     description: "Délais, frais et documents pour récupérer un véhicule en fourrière en Île-de-France, ou le céder à la destruction depuis la fourrière s'il ne vaut plus.",
     label: 'Fourrière',
     intro: [
@@ -601,7 +601,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Enlèvement d'utilitaire ou de camionnette hors d'usage en Île-de-France",
-    metaTitle: "Utilitaire hors d'usage : enlèvement en Île-de-France",
+    metaTitle: 'Utilitaire hors d’usage : enlèvement IDF',
     description: "Fourgon, camionnette ou fourgonnette d'artisan ou de flotte jusqu'à 3,5 t : enlèvement gratuit en Île-de-France, documents pour une société.",
     label: 'Utilitaire, camionnette',
     intro: [
@@ -669,7 +669,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Enlèvement de moto ou scooter hors d'usage en Île-de-France",
-    metaTitle: "Moto ou scooter hors d'usage : enlèvement en IDF",
+    metaTitle: 'Moto ou scooter hors d’usage en IDF',
     description: "Scooter abandonné dans un local à vélos, moto accidentée, deux-roues sans carte grise : l'enlèvement des deux-roues en Île-de-France, avec certificat.",
     label: 'Moto, scooter',
     intro: [
@@ -738,7 +738,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Enlèvement de camping-car ou de caravane hors d'usage en Île-de-France",
-    metaTitle: "Camping-car hors d'usage : enlèvement en Île-de-France",
+    metaTitle: 'Camping-car hors d’usage : enlèvement',
     description: "Camping-car qui ne roule plus, caravane au fond du jardin, fourgon aménagé : ce que nous enlevons en Île-de-France (jusqu'à 3,5 t) et avec quels documents.",
     label: 'Camping-car, caravane',
     intro: [
@@ -806,7 +806,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Enlèvement d'un véhicule accidenté en Île-de-France : VE, VEI et destruction",
-    metaTitle: "Véhicule accidenté : enlèvement et destruction en IDF",
+    metaTitle: 'Véhicule accidenté : enlèvement en IDF',
     description: "Après un accident en Île-de-France : expertise, procédure VE/VEI, offre de l'assureur, opposition sur la carte grise, enlèvement par un centre VHU.",
     label: 'Véhicule accidenté',
     intro: [
@@ -874,7 +874,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "Enlèvement d'épaves pour les entreprises, bailleurs et collectivités en Île-de-France",
-    metaTitle: "Épaves d'entreprise et de flotte : enlèvement en IDF",
+    metaTitle: 'Épaves d’entreprise et de flotte en IDF',
     description: "Flottes en fin de vie, véhicules abandonnés dans un parking de bailleur, campagnes communales : enlèvement en tournée en Île-de-France.",
     label: 'Entreprises, flottes',
     intro: [
@@ -941,7 +941,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'epaviste',
     updatedAt: '2026-09-20',
     title: "ZFE du Grand Paris : que faire d'un vieux véhicule Crit'Air 3, 4 ou 5 ?",
-    metaTitle: "ZFE Grand Paris : que faire d'un vieux véhicule",
+    metaTitle: 'ZFE Grand Paris et vieux véhicule',
     description: "77 communes, Crit'Air 3/4/5 restreints, pas de verbalisation jusqu'à fin 2026, suppression censurée : la ZFE en 2026 et vos options.",
     label: 'ZFE, vieux véhicule',
     intro: [
@@ -1009,7 +1009,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat de voiture sans contrôle technique en Île-de-France",
-    metaTitle: "Rachat voiture sans contrôle technique en Île-de-France",
+    metaTitle: 'Rachat voiture sans contrôle technique',
     description: "Contrôle périmé ou refusé ? La vente à un professionnel est dispensée de contrôle technique : effet sur l'offre, documents, enlèvement en IDF.",
     label: 'Sans contrôle technique',
     intro: [
@@ -1079,7 +1079,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat de voiture accidentée en Île-de-France",
-    metaTitle: "Rachat voiture accidentée en Île-de-France : VE, VEI",
+    metaTitle: 'Rachat voiture accidentée en IDF',
     description: "Vendre une voiture accidentée en Île-de-France : expertise, VEI, offre de l'assureur, opposition, cession en l'état à un professionnel.",
     label: 'Voiture accidentée',
     intro: [
@@ -1148,7 +1148,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat de voiture avec moteur HS en Île-de-France",
-    metaTitle: "Rachat voiture moteur HS en Île-de-France",
+    metaTitle: 'Rachat voiture moteur HS en IDF',
     description: "Moteur cassé, turbo, distribution, joint de culasse : ce que vaut encore une voiture à moteur HS en Île-de-France et à qui la vendre.",
     label: 'Moteur HS',
     intro: [
@@ -1216,7 +1216,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat de voiture avec boîte de vitesses HS en Île-de-France",
-    metaTitle: "Rachat voiture boîte de vitesses HS en Île-de-France",
+    metaTitle: 'Rachat voiture boîte de vitesses HS IDF',
     description: "Boîte automatique bloquée, boîte manuelle qui craque, embrayage mort : la voiture reste vendable à un professionnel en Île-de-France.",
     label: 'Boîte de vitesses HS',
     intro: [
@@ -1284,7 +1284,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat de voiture en panne en Île-de-France",
-    metaTitle: "Rachat voiture en panne en Île-de-France",
+    metaTitle: 'Rachat voiture en panne en Île-de-France',
     description: "Voiture en panne devant chez vous, au parking ou chez le garagiste : à qui la vendre en Île-de-France, ce qu'elle vaut, enlèvement compris.",
     label: 'Voiture en panne',
     intro: [
@@ -1352,7 +1352,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat de voiture à fort kilométrage en Île-de-France",
-    metaTitle: "Rachat voiture fort kilométrage en Île-de-France",
+    metaTitle: 'Rachat voiture fort kilométrage en IDF',
     description: "200 000, 300 000 km et plus : ce que vaut une voiture à fort kilométrage en Île-de-France, qui l'achète (export, pièces), offre sur photos.",
     label: 'Fort kilométrage',
     intro: [
@@ -1418,7 +1418,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat d'utilitaire en Île-de-France : fourgon, camionnette, pick-up",
-    metaTitle: "Rachat utilitaire en Île-de-France : fourgon, camionnette",
+    metaTitle: 'Rachat utilitaire en IDF : fourgon, van',
     description: "Fourgon d'artisan, camionnette, pick-up, flotte jusqu'à 3,5 t : estimation sur photos, facture au nom de la société, enlèvement sur site en IDF.",
     label: 'Utilitaire',
     intro: [
@@ -1485,7 +1485,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat de voiture non roulante en Île-de-France",
-    metaTitle: "Rachat voiture non roulante en Île-de-France",
+    metaTitle: 'Rachat voiture non roulante en IDF',
     description: "Une voiture qui ne roule plus ne peut être vendue qu'à un professionnel : la règle, ce qu'elle vaut encore, comment nous l'enlevons en IDF.",
     label: 'Voiture non roulante',
     intro: [
@@ -1553,7 +1553,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Rachat de la voiture d'un parent décédé en Île-de-France",
-    metaTitle: "Rachat voiture succession en Île-de-France",
+    metaTitle: 'Rachat voiture succession en IDF',
     description: "Vendre la voiture d'une personne décédée en Île-de-France : documents des héritiers, pas de carte grise intermédiaire, estimation sur photos.",
     label: 'Succession',
     intro: [
@@ -1622,7 +1622,7 @@ export const idfIntents: IdfIntent[] = [
     service: 'rachat-voiture',
     updatedAt: '2026-09-20',
     title: "Vendre une voiture gagée ou sous opposition en Île-de-France",
-    metaTitle: "Vendre une voiture gagée ou sous opposition en IDF",
+    metaTitle: 'Vendre une voiture gagée en IDF',
     description: "Gage de crédit, opposition du Trésor public, saisie, opposition d'expert : ce qui empêche ou non la vente d'une voiture en Île-de-France.",
     label: 'Véhicule gagé',
     intro: [

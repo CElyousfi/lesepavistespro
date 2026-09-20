@@ -708,7 +708,8 @@ function checkIdfIntents() {
     const words = intentWordCount(i);
     if (words < 900 || words > 1400) failures.push(`${key}: ${words} words (900–1400)`);
     if (i.faq.length !== 6) failures.push(`${key}: ${i.faq.length} FAQ (6)`);
-    if (i.metaTitle.length > 60) failures.push(`${key}: metaTitle ${i.metaTitle.length} chars`);
+    // The layout appends ' | Les Épavistes Pro' (20 chars): 40 keeps the rendered <title> ≤ 60.
+    if (i.metaTitle.length > 40) failures.push(`${key}: metaTitle ${i.metaTitle.length} chars (max 40 before the brand suffix)`);
     if (i.description.length < 120 || i.description.length > 155) failures.push(`${key}: description ${i.description.length} chars`);
     if (i.towns.length !== 3) failures.push(`${key}: ${i.towns.length} towns (3)`);
     for (const t of i.towns) { const r = getIdfCityRef(t.deptSlug, t.slug); if (!r) failures.push(`${key}: town ${t.deptSlug}/${t.slug} does not resolve`); else if (r.tier !== 'A') failures.push(`${key}: town ${t.slug} is tier ${r.tier}`); }
