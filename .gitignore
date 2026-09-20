@@ -51,7 +51,11 @@ scripts/radar-report.json
 !public/**/*.png
 !public/**/*.jpg
 !public/**/*.jpeg
-seo-audit/
+# Crawl dumps stay local / CI artifacts; only the weekly monitor summary JSON is versioned (S2.5).
+seo-audit/*
+!seo-audit/monitor/
+seo-audit/monitor/*
+!seo-audit/monitor/*.json
 
 # Unrelated client exports occasionally dropped in the repo root
 /Audit de cotisations sociales*.html

@@ -16,6 +16,7 @@
     "prebuild": "npm run seo-check",
     "seo-crawl": "tsx scripts/seo-crawl.ts",
     "verify-ga4": "tsx scripts/verify-ga4-events.ts",
+    "seo-monitor": "tsx scripts/seo-monitor.ts",
     "check-cities": "tsx scripts/check-city-resolution.ts",
     "fix-city-names": "tsx scripts/fix-city-display-names.ts",
     "optimize-images": "tsx scripts/optimize-images.ts",

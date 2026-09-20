@@ -1,0 +1,125 @@
+# Weekly SEO monitor (S2.5) — runs scripts/seo-monitor.ts against production.
+#
+# Schedule: every Monday 06:00 Europe/Paris. GitHub cron is UTC and has no
+# time-zone option, so both 04:00 and 05:00 UTC fire and the "Paris time"
+# step keeps only the one that is 06:00 local (CEST in summer, CET in winter).
+# The manual trigger always runs.
+#
+# On error-level findings the job fails and an issue "SEO regression <date>"
+# is opened (or the open one is updated). Only the weekly summary JSON is
+# committed to seo-audit/monitor/ — never the HTML crawl dumps.
+name: SEO monitor
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+    inputs:
+      skip_lighthouse:
+        description: 'Skip Lighthouse (faster run)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: seo-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SITE_URL: https://www.lesepavistespro.fr
+    steps:
+      - name: Paris time gate (06:00 only)
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          HOUR=$(TZ=Europe/Paris date +%H)
+          echo "Paris hour: $HOUR"
+          if [ "$HOUR" = "06" ]; then echo "run=true" >> "$GITHUB_OUTPUT"; else echo "run=false" >> "$GITHUB_OUTPUT"; fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        if: steps.gate.outputs.run == 'true'
+        run: npm ci
+
+      - name: Run SEO monitor
+        id: monitor
+        if: steps.gate.outputs.run == 'true'
+        continue-on-error: true
+        run: |
+          npx tsx scripts/seo-monitor.ts "$SITE_URL" ${{ inputs.skip_lighthouse && '--skip-lighthouse' || '' }}
+
+      - name: GA4 events on production (informational)
+        if: steps.gate.outputs.run == 'true'
+        continue-on-error: true
+        run: npx tsx scripts/verify-ga4-events.ts --base="$SITE_URL"
+
+      - name: Upload crawl report (artifact, not committed)
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-monitor-${{ github.run_id }}
+          path: |
+            seo-audit/crawl-monitor-*.json
+            seo-audit/monitor/issue.md
+          retention-days: 90
+          if-no-files-found: ignore
+
+      - name: Commit weekly summary JSON
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "seo-monitor[bot]"
+          git config user.email "seo-monitor@users.noreply.github.com"
+          git add seo-audit/monitor/*.json
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "chore(seo): weekly monitor summary $(date -u +%F)"
+          git push origin HEAD:main
+
+      - name: Open or update the regression issue
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const failed = '${{ steps.monitor.outcome }}' === 'failure';
+            const date = new Date().toISOString().slice(0, 10);
+            const body = fs.existsSync('seo-audit/monitor/issue.md')
+              ? fs.readFileSync('seo-audit/monitor/issue.md', 'utf8')
+              : 'Le script seo-monitor n’a pas produit de rapport (voir les logs du run).';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: 'seo-regression', per_page: 5 });
+            const existing = open.find(i => i.title.startsWith('SEO regression'));
+            if (failed) {
+              const title = `SEO regression ${date}`;
+              const full = `${body}\n\nRun : ${runUrl}`;
+              if (existing) {
+                await github.rest.issues.update({ ...context.repo, issue_number: existing.number, title, body: full });
+                await github.rest.issues.createComment({ ...context.repo, issue_number: existing.number, body: `Régression toujours présente le ${date} — ${runUrl}` });
+              } else {
+                await github.rest.issues.create({ ...context.repo, title, body: full, labels: ['seo-regression'] });
+              }
+              core.setFailed('SEO monitor reported error-level findings');
+            } else if (existing) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: existing.number, body: `✅ Run du ${date} sans erreur — ${runUrl}\n\n${body}` });
+              await github.rest.issues.update({ ...context.repo, issue_number: existing.number, state: 'closed' });
+            }
