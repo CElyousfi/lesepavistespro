@@ -272,3 +272,37 @@ export function exportLeadForCRM(lead: LeadData) {
  * 
  * Ready for future activation when needed
  */
+
+// ─── Page attribution (S2.4) ─────────────────────────────────────────────
+// The first path of the session is recorded by the GA init script in
+// app/layout.tsx (sessionStorage 'lead_landing_path'); the current path is
+// read at submit time. Both travel as hidden form fields to /api/contact so
+// the lead email says which page — and which Île-de-France page — produced
+// the lead. Never displayed to the visitor.
+
+export interface LeadAttribution {
+  /** Path of the page the form was submitted from. */
+  pagePath: string;
+  /** First path of the session (landing page), same as pagePath if unknown. */
+  landingPath: string;
+  /** Situation slug when the page is /{service}/ile-de-france/<intent>. */
+  intent?: string;
+}
+
+const INTENT_RE = /^\/(?:epaviste|rachat-voiture)\/ile-de-france\/([a-z0-9-]+)/;
+
+export function intentFromPath(pathname: string): string | undefined {
+  return INTENT_RE.exec(pathname)?.[1];
+}
+
+export function getLeadAttribution(): LeadAttribution {
+  if (typeof window === 'undefined') return { pagePath: '', landingPath: '' };
+  const pagePath = window.location.pathname + window.location.search;
+  let landingPath = pagePath;
+  try {
+    landingPath = sessionStorage.getItem('lead_landing_path') || pagePath;
+  } catch {
+    /* storage unavailable: fall back to the current path */
+  }
+  return { pagePath, landingPath, intent: intentFromPath(window.location.pathname) };
+}
