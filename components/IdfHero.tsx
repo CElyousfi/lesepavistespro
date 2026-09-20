@@ -68,6 +68,9 @@ export default function IdfHero({ departments }: IdfHeroProps) {
               </div>
             ))}
           </dl>
+          <p className="text-center text-sm text-neutral-500 mt-6">
+            <Link href="/avis" className="underline underline-offset-4 hover:text-brand-navy">Avis clients et déroulement du service</Link>
+          </p>
         </div>
       </section>
     </>

@@ -495,6 +495,17 @@ function checkNoFabricatedRatings() {
     addResult(false, '✗ Found hardcoded ratingValue or reviewCount — remove fabricated ratings');
   }
 
+  // /avis (S2.3): reviews only through getVerifiedTestimonials(), never a
+  // rating, and the GBP CTA gated behind lib/reviews.ts.
+  const avisFile = path.join(process.cwd(), 'app/avis/page.tsx');
+  if (fs.existsSync(avisFile)) {
+    const avis = fs.readFileSync(avisFile, 'utf-8');
+    const ok = avis.includes('getVerifiedTestimonials') && !/ratingValue|reviewCount|aggregateRating/.test(avis);
+    addResult(ok, ok ? '✓ /avis renders verified testimonials only, no rating markup' : '✗ /avis must use getVerifiedTestimonials() and carry no rating markup');
+    const reviews = fs.readFileSync(path.join(process.cwd(), 'lib/reviews.ts'), 'utf-8');
+    addResult(/verified === true/.test(reviews) && reviews.includes('TODO(owner)'), '✓ lib/reviews.ts filters on verified === true and gates the GBP link');
+  }
+
   const testimonialsFile = path.join(process.cwd(), 'data/idf-testimonials.ts');
   if (fs.existsSync(testimonialsFile)) {
     const content = fs.readFileSync(testimonialsFile, 'utf-8');

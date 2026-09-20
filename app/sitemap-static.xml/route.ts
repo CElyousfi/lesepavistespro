@@ -17,6 +17,7 @@ export async function GET() {
     '/zones',
     '/blog',
     '/contact',
+    '/avis',
     '/faq',
     '/conformite-vhu',
     '/documents',

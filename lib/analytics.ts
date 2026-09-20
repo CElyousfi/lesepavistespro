@@ -176,6 +176,16 @@ export const trackWhatsAppClick = (location?: string) => {
   recordConversion(eventName);
 };
 
+/** /avis → "Laisser un avis" (Google Business Profile). `src` = how the client got there (sms, whatsapp, site). */
+export const trackReviewCtaClick = (src: string) => {
+  event('review_cta_click', enrichEventParams({
+    event_category: 'engagement',
+    event_label: src || 'site',
+    review_src: src || 'site',
+    is_repeat_intent: false,
+  }));
+};
+
 /** Sticky mobile bar → "Devis" (scroll to the form). */
 export const trackStickyDevisClick = () => {
   event('click_devis_sticky', enrichEventParams({

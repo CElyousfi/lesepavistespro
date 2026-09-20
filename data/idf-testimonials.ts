@@ -15,6 +15,14 @@ export interface IdfTestimonial {
   text: string;
   service: 'epaviste' | 'rachat';
   date: string;
+  /**
+   * Set to true by the owner once the review is real (Google Business
+   * Profile, signed email…). Unverified entries are never rendered:
+   * /avis and the city pages read getVerifiedTestimonials() only.
+   */
+  verified?: boolean;
+  /** Where the review was collected (e.g. "Google"), shown next to it. */
+  source?: string;
 }
 
 // Empty until real verified testimonials are provided by the business owner
