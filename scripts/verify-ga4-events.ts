@@ -121,7 +121,7 @@ async function driveForm(tab: import('puppeteer-core').Page): Promise<boolean> {
   }, re);
   const pickOption = async (triggerRe: string) => {
     if (!(await clickText(triggerRe))) return false;
-    await wait(150);
+    await wait(400);
     return tab.evaluate(() => { const o = document.querySelector('form [data-option]') as HTMLElement | null; o?.click(); return Boolean(o); });
   };
   const typeInto = async (selector: string, text: string) => {
@@ -132,27 +132,28 @@ async function driveForm(tab: import('puppeteer-core').Page): Promise<boolean> {
     return true;
   };
   try {
-    // Step 2: vehicle
-    await wait(200);
+    // Step 2: vehicle (generous waits: production pages hydrate slower than a local build)
+    await wait(400);
     if (!(await pickOption('Rechercher une marque'))) return false;
-    await wait(150);
+    await wait(400);
     if (!(await pickOption('Rechercher un modèle'))) return false;
     if (!(await typeInto('form input[placeholder="AA-123-BB"]', 'AB-123-CD'))) return false;
     if (!(await pickOption('État du véhicule'))) return false;
     await clickText('^Continuer$');
     // Step 3: postal code
-    await wait(250);
+    await wait(500);
     if (!(await typeInto('form input[placeholder^="Tapez un code postal"]', '92000'))) return false;
-    await wait(300);
+    await wait(700);
     await tab.evaluate(() => (document.querySelector('form [data-option]') as HTMLElement | null)?.click());
+    await wait(300);
     await clickText('^Continuer$');
     // Step 4: contact
-    await wait(250);
+    await wait(500);
     await typeInto('form input[placeholder="Votre prénom"]', 'Test');
     await typeInto('form input[type="email"]', 'test@example.com');
     await typeInto('form input[type="tel"]', '0612345678');
     await clickText('^Valider ma demande$');
-    await wait(800);
+    await wait(2000);
     return true;
   } catch (e) {
     console.log('  driveForm:', (e as Error).message);
