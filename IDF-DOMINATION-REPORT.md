@@ -392,7 +392,7 @@ Le brief nomme `call_click` / `whatsapp_click` / `form_submit` ; les noms **déj
 | `form_start` | `form_start` | idem + `form_service`, `page_path` |
 | `form_submit` | `lead_form_submit` | idem |
 
-Vérification : 5 pages (2 situations, 1 commune IDF, 1 département IDF, 1 commune hors IDF) × 4 événements = 20/20 ✅, et les champs `pagePath` / `landingPath` / `intent` arrivent bien dans le POST `/api/contact` (5/5). La même vérification tourne chaque semaine contre la production dans le workflow (étape informative). Depuis ce poste, la production n'a pas pu être chargée dans Chrome headless (délais réseau > 90 s sur le HTML, cf. §8.4) ; le premier run GitHub Actions fera foi.
+Vérification : 5 pages (2 situations, 1 commune IDF, 1 département IDF, 1 commune hors IDF) × 4 événements = 20/20 ✅, et les champs `pagePath` / `landingPath` / `intent` arrivent bien dans le POST `/api/contact` (5/5) — d'abord sur le build de production local, puis **sur `https://www.lesepavistespro.fr` après la mise en production de la PR #3 (merge `81e5cd1`, 20 septembre 2026) : 20/20 + 5/5** ✅. La même vérification tourne chaque semaine contre la production dans le workflow (étape informative).
 
 ### 10.4 Flux d'avis — message prêt à envoyer (SMS / WhatsApp)
 
