@@ -93,7 +93,12 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
           {isRachat
             ? `Nous rachetons votre voiture à ${name}, roulante ou non, avec ou sans contrôle technique : estimation gratuite, offre ferme, enlèvement inclus et paiement le jour du départ du véhicule.`
             : `Épaviste agréé VHU à ${name} (${cp}) : enlèvement d'épave 100 % gratuit, intervention ${delay}, sous-sol et fourrière compris, certificat de destruction remis sur place.`}{' '}
-          ☎ 06 02 42 73 45.
+          {/* S3.3: every IDF commune links its department hub in the first paragraph */}
+          Nous couvrons tout le département&nbsp;:{' '}
+          <Link href={`/${service}/${ref.deptSlug}`} className={`font-semibold ${accent} hover:underline underline-offset-4`}>
+            {serviceLabel.toLowerCase()} {locative} ({ref.deptCode})
+          </Link>
+          . ☎ 06 02 42 73 45.
         </p>
 
         <QuickContact
