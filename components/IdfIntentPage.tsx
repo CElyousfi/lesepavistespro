@@ -132,7 +132,14 @@ export default function IdfIntentPage({ intent, siblings }: IdfIntentPageProps) 
                 <Phone size={16} weight="bold" /> 06 02 42 73 45 · {RESPONSE_TIME_COPY} · photos par WhatsApp
               </p>
             </div>
-            <ConversionForm trigger="inline" defaultService={isRachat ? 'rachat' : 'epaviste'} pageType="pillar" departmentName="Île-de-France" />
+            <ConversionForm
+              trigger="inline"
+              defaultService={isRachat ? 'rachat' : 'epaviste'}
+              pageType="pillar"
+              departmentName="Île-de-France"
+              marque={intent.kind === 'marque' ? intent.label : undefined}
+              vehicleType={intent.slug === 'moto-scooter' ? 'moto' : undefined}
+            />
           </div>
         </div>
       </section>

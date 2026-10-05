@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Phone, CheckCircle, X, ArrowRight, ArrowLeft, Car, Motorcycle } from '@phosphor-icons/react';
 import { trackFormStart, trackFormSubmit } from '@/lib/analytics';
@@ -9,6 +9,7 @@ import { getMarqueNames, getModelsForMarque } from '@/lib/vehicle-data';
 import SearchableSelect from '@/components/SearchableSelect';
 import PostalCodeSelect from '@/components/PostalCodeSelect';
 import { BUSINESS_CLAIMS } from '@/lib/business-claims';
+import { REVIEW_CTA_ENABLED } from '@/lib/reviews';
 
 interface FormData {
   service: 'epaviste' | 'rachat' | '';
@@ -46,6 +47,10 @@ interface ConversionFormProps {
   departmentName?: string;
   pageType?: 'home' | 'pillar' | 'department' | 'city';
   className?: string; // Add className prop
+  /** Pre-fill (S3.5): the page's postal code, brand or vehicle type. */
+  postalCode?: string;
+  marque?: string;
+  vehicleType?: 'auto' | 'moto';
 }
 
 export default function ConversionFormNew({
@@ -56,6 +61,9 @@ export default function ConversionFormNew({
   departmentName,
   pageType = 'home',
   className = '', // Default empty string
+  postalCode,
+  marque: defaultMarque,
+  vehicleType: defaultVehicleType,
 }: ConversionFormProps) {
   const [isOpen, setIsOpen] = useState(trigger === 'inline');
   const [step, setStep] = useState(defaultService ? 2 : 1);
@@ -66,12 +74,12 @@ export default function ConversionFormNew({
 
   const [formData, setFormData] = useState<FormData>({
     service: defaultService || '',
-    vehicleType: 'auto',
-    marque: '',
+    vehicleType: defaultVehicleType || 'auto',
+    marque: defaultMarque || '',
     modele: '',
     immatriculation: '',
     etat: '',
-    codePostal: '',
+    codePostal: postalCode && /^\d{5}$/.test(postalCode) ? postalCode : '',
     ville: cityName || '',
     sousSol: false,
     prenom: '',
@@ -82,6 +90,9 @@ export default function ConversionFormNew({
     city: cityName,
     pageType: pageType,
   });
+  // A pre-filled vehicle type must not trigger the « reset brand » effect below.
+  const prevVehicleType = useRef(formData.vehicleType);
+  const prefilling = useRef(false);
 
   // Memoized vehicle data
   const marqueNames = useMemo(() => getMarqueNames(formData.vehicleType), [formData.vehicleType]);
@@ -101,6 +112,12 @@ export default function ConversionFormNew({
 
   // Reset marque and model when vehicle type changes
   useEffect(() => {
+    if (prevVehicleType.current === formData.vehicleType) return;
+    prevVehicleType.current = formData.vehicleType;
+    if (prefilling.current) {
+      prefilling.current = false;
+      return;
+    }
     // eslint-disable-next-line react-hooks/set-state-in-effect -- dependent-field reset, see above
     setFormData(prev => ({ ...prev, marque: '', modele: '' }));
   }, [formData.vehicleType]);
@@ -110,9 +127,31 @@ export default function ConversionFormNew({
   // mount (window/sessionStorage are unavailable during SSR).
   useEffect(() => {
     const attribution: LeadAttribution = getLeadAttribution();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- client-only value, see above
-    setFormData(prev => ({ ...prev, ...attribution }));
-  }, []);
+    // Pre-fill from the URL (S3.5): links from GBP, SMS or partner pages can
+    // carry ?service=, ?cp=, ?ville=, ?marque=, ?vehicule=. Only empty fields
+    // are filled, and only with valid values.
+    const q = new URLSearchParams(window.location.search);
+    const fromUrl: Partial<FormData> = {};
+    const svc = q.get('service');
+    if (svc === 'epaviste' || svc === 'rachat') fromUrl.service = svc;
+    const cp = q.get('cp');
+    if (cp && /^\d{5}$/.test(cp)) fromUrl.codePostal = cp;
+    const ville = q.get('ville');
+    if (ville && ville.length <= 60) fromUrl.ville = ville;
+    const vehicule = q.get('vehicule');
+    if (vehicule === 'auto' || vehicule === 'moto') fromUrl.vehicleType = vehicule;
+    const m = q.get('marque');
+    if (m && getMarqueNames((fromUrl.vehicleType ?? 'auto') as 'auto' | 'moto').includes(m)) fromUrl.marque = m;
+    setFormData(prev => {
+      const next = { ...prev, ...attribution };
+      (Object.keys(fromUrl) as Array<keyof FormData>).forEach((k) => {
+        if (!prev[k] || k === 'vehicleType') (next as Record<string, unknown>)[k] = fromUrl[k];
+      });
+      if (next.vehicleType !== prev.vehicleType) prefilling.current = true;
+      return next;
+    });
+    if (fromUrl.service && !defaultService) setStep(2);
+  }, [defaultService]);
 
   const totalSteps = 4;
 
@@ -289,8 +328,18 @@ export default function ConversionFormNew({
               <CheckCircle size={40} weight="fill" className="text-white" />
             </div>
             <h3 className="text-2xl font-bold text-brand-navy mb-4">Demande Reçue !</h3>
-            <p className="text-neutral-600 mb-8">
-              Un conseiller va vous rappeler dans les <span className="font-bold text-brand-red">15 prochaines minutes</span> pour finaliser votre demande.
+            <p className="text-neutral-600 mb-6">
+              {/* Unverified delays are never shown (lib/business-claims.ts). */}
+              {BUSINESS_CLAIMS.responseTime.verified ? (
+                <>Un conseiller va vous rappeler dans les <span className="font-bold text-brand-red">15 prochaines minutes</span> pour finaliser votre demande.</>
+              ) : (
+                <>Un conseiller vous rappelle rapidement pour finaliser votre demande. Pour aller plus vite, appelez le <a href="tel:+33602427345" className="font-bold text-brand-red">06 02 42 73 45</a>.</>
+              )}
+            </p>
+            {/* Review ask (S3.5) — for after the service, never in exchange for anything. */}
+            <p className="text-sm text-neutral-500 mb-8">
+              Après notre passage, un avis {REVIEW_CTA_ENABLED ? 'Google' : ''} nous aide beaucoup :{' '}
+              <a href="/avis?src=form" className="font-semibold text-brand-navy underline underline-offset-4">laisser un avis</a>.
             </p>
             <button
               onClick={() => setShowSuccess(false)}

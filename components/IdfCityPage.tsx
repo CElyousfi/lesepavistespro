@@ -142,7 +142,7 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
                   Marque, modèle, année, état&nbsp;: l&apos;estimation est gratuite et sans engagement. {RESPONSE_TIME_COPY}.
                 </p>
               </div>
-              <ConversionForm trigger="inline" defaultService="rachat" pageType="city" cityName={name} departmentName={ref.deptName} />
+              <ConversionForm trigger="inline" defaultService="rachat" pageType="city" cityName={name} departmentName={ref.deptName} postalCode={cp} />
             </div>
           </div>
         </section>
@@ -438,7 +438,7 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-3 tracking-tight">Demander un enlèvement à {name}</h2>
                 <p className="text-neutral-600 flex items-center justify-center gap-2"><Phone size={16} weight="bold" /> 06 02 42 73 45 · {RESPONSE_TIME_COPY}</p>
               </div>
-              <ConversionForm trigger="inline" defaultService="epaviste" pageType="city" cityName={name} departmentName={ref.deptName} />
+              <ConversionForm trigger="inline" defaultService="epaviste" pageType="city" cityName={name} departmentName={ref.deptName} postalCode={cp} />
             </div>
           </div>
         </section>
