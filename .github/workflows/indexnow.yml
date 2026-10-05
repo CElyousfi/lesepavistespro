@@ -1,0 +1,34 @@
+# IndexNow after each production deployment (S3.5) — Vercel reports its
+# deployments to GitHub; on a successful Production deployment the URLs of
+# sitemap-idf.xml and sitemap-static.xml are submitted (Bing, Yandex, Seznam…).
+# Manual run: « Run workflow », optionally with --all.
+name: IndexNow
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: 'Extra flags (e.g. --all)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    if: github.event_name == 'workflow_dispatch' || (github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Submit to IndexNow
+        run: npx tsx scripts/indexnow-submit.ts ${{ inputs.scope }}

@@ -23,7 +23,8 @@
     "check-redirects": "tsx scripts/check-redirect-hops.ts",
     "gsc-import": "tsx scripts/gsc-import.ts",
     "striking-distance": "tsx scripts/striking-distance.ts",
-    "seo:loop": "tsx scripts/seo-loop.ts"
+    "seo:loop": "tsx scripts/seo-loop.ts",
+    "indexnow": "tsx scripts/indexnow-submit.ts"
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",
