@@ -20,7 +20,10 @@
     "check-cities": "tsx scripts/check-city-resolution.ts",
     "fix-city-names": "tsx scripts/fix-city-display-names.ts",
     "optimize-images": "tsx scripts/optimize-images.ts",
-    "check-redirects": "tsx scripts/check-redirect-hops.ts"
+    "check-redirects": "tsx scripts/check-redirect-hops.ts",
+    "gsc-import": "tsx scripts/gsc-import.ts",
+    "striking-distance": "tsx scripts/striking-distance.ts",
+    "seo:loop": "tsx scripts/seo-loop.ts"
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",
