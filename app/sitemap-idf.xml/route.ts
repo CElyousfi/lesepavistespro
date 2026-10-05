@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server';
-import { getSiteUrl, lastmod } from '@/lib/site';
+import { getSiteUrl } from '@/lib/site';
 import { allDepartments, getCityInDepartment, getRegionBySlug } from '@/lib/locations-complete';
 import { shouldIncludeInSitemap, shouldNoIndex } from '@/lib/geo-targeting';
 import { IDF_DEPT_SLUGS, IDF_REGION_SLUG } from '@/lib/idf';
-import { getIdfCityUpdatedAt } from '@/data/idf-cities';
+import { getPageUpdatedAt } from '@/lib/lastmod';
 import { blogPosts } from '@/lib/blog-data';
 import { idfIntents } from '@/data/idf-intents';
+import { FOURRIERES_CHECKED_AT } from '@/data/idf-fourrieres';
+import { ZFE_CHECKED_AT } from '@/data/zfe-grand-paris';
+import { CENTRE_VHU_DEPTS, CENTRE_VHU_UPDATED_AT } from '@/data/centre-vhu';
 
 /**
  * Île-de-France sitemap — every IDF URL in one file, listed FIRST in the
@@ -16,8 +19,9 @@ import { idfIntents } from '@/data/idf-intents';
  * several sitemaps). Each URL is validated with the exact functions the page
  * uses, so it is guaranteed 200, self-canonical and indexable.
  *
- * <lastmod> is a real date: the commune's own content date when it has
- * hand-written content, otherwise the content-family date from lib/site.ts.
+ * <lastmod> is a real date from lib/lastmod.ts: a Search Console action on the
+ * page (S3.1.c), the commune's hand-written content date, or the content-family
+ * date from lib/site.ts.
  */
 export async function GET() {
   const base = getSiteUrl();
@@ -28,7 +32,7 @@ export async function GET() {
   const region = getRegionBySlug(IDF_REGION_SLUG);
   if (region) {
     for (const service of services) {
-      entries.push({ loc: `${base}/${service}/${region.slug}`, lastmod: lastmod('regions') });
+      entries.push({ loc: `${base}/${service}/${region.slug}`, lastmod: getPageUpdatedAt(`/${service}/${region.slug}`) });
     }
   }
 
@@ -36,7 +40,7 @@ export async function GET() {
   const idfDepartments = allDepartments.filter(d => IDF_DEPT_SLUGS.includes(d.slug));
   for (const dept of idfDepartments) {
     for (const service of services) {
-      entries.push({ loc: `${base}/${service}/${dept.slug}`, lastmod: lastmod('departments') });
+      entries.push({ loc: `${base}/${service}/${dept.slug}`, lastmod: getPageUpdatedAt(`/${service}/${dept.slug}`) });
     }
   }
 
@@ -47,9 +51,9 @@ export async function GET() {
       if (shouldNoIndex(dept.slug, city.slug)) continue;
       const resolved = getCityInDepartment(dept.slug, city.slug);
       if (!resolved || resolved.department.slug !== dept.slug) continue;
-      const updated = getIdfCityUpdatedAt(dept.slug, city.slug) ?? lastmod('cities');
       for (const service of services) {
-        entries.push({ loc: `${base}/${service}/${dept.slug}/${city.slug}`, lastmod: updated });
+        const path = `/${service}/${dept.slug}/${city.slug}`;
+        entries.push({ loc: `${base}${path}`, lastmod: getPageUpdatedAt(path) });
       }
     }
   }
@@ -57,6 +61,15 @@ export async function GET() {
   // Île-de-France situation pages (S2.1), with their own content date
   for (const intent of idfIntents) {
     entries.push({ loc: `${base}/${intent.service}/ile-de-france/${intent.slug}`, lastmod: intent.updatedAt });
+  }
+
+  // Île-de-France data guides (S3.3)
+  entries.push({ loc: `${base}/guides/fourrieres-ile-de-france`, lastmod: FOURRIERES_CHECKED_AT });
+  entries.push({ loc: `${base}/guides/zfe-grand-paris`, lastmod: ZFE_CHECKED_AT });
+
+  // Centre VHU agréé pages (S3.4) — the 8 IDF departments
+  for (const d of CENTRE_VHU_DEPTS.filter((x) => x.idf)) {
+    entries.push({ loc: `${base}/centre-vhu-agree/${d.slug}`, lastmod: CENTRE_VHU_UPDATED_AT });
   }
 
   // IDF blog posts

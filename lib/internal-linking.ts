@@ -209,3 +209,19 @@ export function getIdfGuideLinks(service: 'epaviste' | 'rachat-voiture'): Intern
     .filter((p): p is (typeof blogPosts)[number] => Boolean(p))
     .map((p) => ({ text: p.title, href: `/blog/${p.slug}` }));
 }
+
+/**
+ * The one Île-de-France hub a blog post links in context (S3.3), chosen by
+ * its topic: selling → rachat hub, Paris → Paris hub, otherwise the épaviste
+ * region hub.
+ */
+export function blogHubLink(post: { slug: string; title: string; keywords?: string[] }): { lead: string; anchor: string; href: string; tail: string } {
+  const text = `${post.slug} ${post.title} ${(post.keywords ?? []).join(' ')}`.toLowerCase();
+  if (/rachat|vendre|vente|revendre|cash|controle-technique|sans-ct/.test(text)) {
+    return { lead: 'Vous êtes à Paris ou en Île-de-France ?', anchor: 'Rachat voiture en Île-de-France', href: '/rachat-voiture/ile-de-france', tail: ' : offre ferme, paiement le jour de l’enlèvement, dans les 8 départements.' };
+  }
+  if (/paris|fourriere|parking|zfe/.test(text)) {
+    return { lead: 'Votre véhicule est à Paris ?', anchor: 'Épaviste Paris', href: '/epaviste/paris-75', tail: ' : enlèvement gratuit dans les 20 arrondissements, sous-sol et fourrière compris.' };
+  }
+  return { lead: 'Vous êtes en Île-de-France ?', anchor: 'Épaviste en Île-de-France', href: '/epaviste/ile-de-france', tail: ' : enlèvement d’épave gratuit à Paris et dans les 8 départements, certificat de destruction remis.' };
+}

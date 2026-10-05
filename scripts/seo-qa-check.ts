@@ -14,6 +14,11 @@ import { checkRedirectHops } from './check-redirect-hops';
 import { analyseIdfContent, TIER_MIN_WORDS, TIER_MAX_SIMILARITY } from './idf-content-similarity';
 import { idfIntents, intentWordCount } from '../data/idf-intents';
 import { getIdfCityRef } from '../lib/idf-cities';
+import { runMetadataCheck } from './check-metadata';
+import { GSC_T1_ACTIONS } from '../data/gsc-actions';
+import { resolveIdfCity } from '../lib/idf-city-content';
+import { getGscCityAnswer, getGscHubAnswer } from '../lib/gsc-answer';
+import { getDepartmentBySlug, getRegionBySlug } from '../lib/locations-national';
 
 interface ValidationResult {
   passed: boolean;
@@ -50,7 +55,8 @@ function checkDepartmentCodes() {
   const content = fs.readFileSync(seoFile, 'utf-8');
   
   // Check if department code extraction logic exists
-  const hasDeptCodeLogic = content.includes('deptCode = deptSlug.match(/\\d+$/)?.[0]');
+  // S3.2: deptCodeFromSlug() also handles Corse (2A/2B).
+  const hasDeptCodeLogic = content.includes('export function deptCodeFromSlug(');
   
   if (hasDeptCodeLogic) {
     addResult(true, '✓ Department code logic present in seo.ts', 'warning');
@@ -59,7 +65,7 @@ function checkDepartmentCodes() {
   }
   
   // Check if codes are used in titles
-  const usesDeptCode = content.includes('deptCodeDisplay');
+  const usesDeptCode = content.includes('(${code}) – Gratuit, agréé VHU') && content.includes('Rachat voiture ${deptName} (${code}) – Cash');
   
   if (usesDeptCode) {
     addResult(true, '✓ Department codes used in title generation');
@@ -543,8 +549,10 @@ function checkHomepageIdfPriority() {
   const keepsNational = content.includes('<Coverage ') && content.includes('coverageRegions');
   addResult(keepsNational, keepsNational ? '✓ Homepage keeps the national coverage section' : '✗ Homepage must keep national coverage links (moved below IDF, not removed)');
 
-  const homeTitle = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8').match(/absolute: '(Épaviste Île-de-France(?:[^'\\]|\\.)*)'/)?.[1]?.replace(/\\'/g, "'") ?? '';
-  addResult(homeTitle.length > 0 && homeTitle.length <= 60, homeTitle ? `✓ Homepage title is IDF-first (${homeTitle.length} chars)` : '✗ Homepage title must start with "Épaviste Île-de-France"');
+  // S3.2: the homepage title starts with the brand, then the IDF keyword.
+  const homeTitle = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8').match(/absolute: '(Les Épavistes Pro – (?:[^'\\]|\\.)*)'/)?.[1]?.replace(/\\'/g, "'") ?? '';
+  const homeOk = homeTitle.length > 0 && homeTitle.length <= 60 && homeTitle.includes('Île-de-France');
+  addResult(homeOk, homeOk ? `✓ Homepage title is brand-first and IDF (${homeTitle.length} chars)` : '✗ Homepage title must start with "Les Épavistes Pro –" and name Île-de-France');
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -694,7 +702,7 @@ function checkIdfLinkRules() {
 function checkIdfIntents() {
   log('\n🧭 Checking Île-de-France situation pages...', colors.blue);
   const EXPECTED = {
-    epaviste: ['sans-carte-grise', 'parking-souterrain', 'voiture-brulee', 'vehicule-gage', 'succession-deces', 'voiture-abandonnee-voie-publique', 'fourriere', 'utilitaire-camionnette', 'moto-scooter', 'camping-car', 'vehicule-accidente', 'epave-entreprise-flotte', 'zfe-vieux-vehicule'],
+    epaviste: ['sans-carte-grise', 'parking-souterrain', 'voiture-brulee', 'vehicule-gage', 'succession-deces', 'voiture-abandonnee-voie-publique', 'fourriere', 'utilitaire-camionnette', 'moto-scooter', 'camping-car', 'caravane', 'vehicule-accidente', 'epave-entreprise-flotte', 'zfe-vieux-vehicule'],
     'rachat-voiture': ['sans-controle-technique', 'voiture-accidentee', 'moteur-hs', 'boite-de-vitesses-hs', 'voiture-en-panne', 'fort-kilometrage', 'utilitaire', 'voiture-non-roulante', 'succession', 'vehicule-gage'],
   } as const;
   const failures: string[] = [];
@@ -919,7 +927,9 @@ function checkSitemapIntegrity() {
   );
   if (fs.existsSync(idfRoute)) {
     const idfSrc = fs.readFileSync(idfRoute, 'utf-8');
-    const idfOk = ['getIdfCityUpdatedAt', 'shouldIncludeInSitemap', 'shouldNoIndex', 'getCityInDepartment', "region !== 'idf'"].every(t => idfSrc.includes(t));
+    // Per-page lastmod comes from lib/lastmod.ts (which reads getIdfCityUpdatedAt).
+    const lastmodSrc = fs.readFileSync(path.join(process.cwd(), 'lib', 'lastmod.ts'), 'utf-8');
+    const idfOk = lastmodSrc.includes('getIdfCityUpdatedAt') && ['getPageUpdatedAt', 'shouldIncludeInSitemap', 'shouldNoIndex', 'getCityInDepartment', "region !== 'idf'"].every(t => idfSrc.includes(t));
     addResult(idfOk, idfOk ? '✓ sitemap-idf.xml validates URLs and uses per-city lastmod' : '✗ sitemap-idf.xml must validate every URL and use per-city lastmod');
   }
 
@@ -1312,6 +1322,96 @@ function checkWhatsAppUrls() {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // RUN ALL CHECKS
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// S3.2: title / description system — every IDF page + the national dataset
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkMetadataSystem() {
+  log('\n🏷️  Checking the S3.2 title/description system...', colors.blue);
+  const { issues, total, idf, inTarget } = runMetadataCheck();
+  let failed = 0;
+  Object.entries(issues).forEach(([name, items]) => {
+    if (items.length) {
+      failed++;
+      addResult(false, `✗ Metadata: ${name} — ${items.length} (${items.slice(0, 3).join(' | ')})`);
+    }
+  });
+  if (!failed) {
+    addResult(true, `✓ Metadata: ${total} pages (${idf} IDF) — titles ≤ 60, descriptions 110–160 (${Math.round((inTarget / total) * 100)} % in 130–155), no duplicates, place name first`);
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// S3.2: brand SERP — exact name, homepage title, /avis, neutral disambiguation
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkBrandSerp() {
+  log('\n🏷️  Checking brand SERP signals...', colors.blue);
+  const read = (f: string) => fs.readFileSync(path.join(process.cwd(), f), 'utf-8');
+  const seo = read('lib/seo.ts');
+  const homeOk = /title:\s*\{\s*absolute:\s*'Les Épavistes Pro – /.test(seo);
+  addResult(homeOk, homeOk ? '✓ Homepage title starts with "Les Épavistes Pro –"' : '✗ Homepage title must start with "Les Épavistes Pro –"');
+  const brand = read('lib/brand.ts');
+  const altOk = brand.includes("['Les Epavistes Pro', 'Épavistes Pro']") && !read('lib/schema.ts').includes("alternateName: ['Épaviste France'");
+  addResult(altOk, altOk ? '✓ Organization/WebSite alternateName = brand spellings only' : '✗ Organization alternateName must be ["Les Epavistes Pro", "Épavistes Pro"]');
+  const avis = read('app/avis/page.tsx');
+  const avisOk = avis.includes("absolute: 'Avis Les Épavistes Pro – Témoignages clients'") && avis.includes('{BRAND_DISAMBIGUATION}');
+  const mlOk = read('app/mentions-legales/page.tsx').includes('{BRAND_DISAMBIGUATION}');
+  addResult(avisOk && mlOk, avisOk && mlOk ? '✓ /avis title + disambiguation on /avis and /mentions-legales' : '✗ /avis title or disambiguation paragraph missing');
+  // Neutral: never name or compare a competitor.
+  const neutral = !/l['’]?\s?[ée]paviste[- ]pro\b/i.test(brand.replace(/"l'épaviste\s+pro"/, ''));
+  addResult(neutral, neutral ? '✓ Disambiguation names no competitor' : '✗ Disambiguation must not name a competitor');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// S3.1.c: Search Console T1 actions — capped, linked, answered
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkGscActions() {
+  log('\n🎯 Checking Search Console T1 actions...', colors.blue);
+  const exists = (p: string) => {
+    const seg = p.split('/').filter(Boolean);
+    if (seg.length === 2) return Boolean(getDepartmentBySlug(seg[1]) || getRegionBySlug(seg[1]));
+    if (seg.length === 3) return Boolean(resolveIdfCity(seg[1], seg[2]));
+    return false;
+  };
+  const problems: string[] = [];
+  if (GSC_T1_ACTIONS.length > 40) problems.push(`${GSC_T1_ACTIONS.length} pages > cap 40`);
+  for (const a of GSC_T1_ACTIONS) {
+    if (!exists(a.path)) problems.push(`${a.path}: target does not resolve`);
+    if (a.linkFrom.length !== 3) problems.push(`${a.path}: ${a.linkFrom.length} linking pages (need 3)`);
+    a.linkFrom.filter((p) => !exists(p)).forEach((p) => problems.push(`${a.path}: linking page ${p} does not resolve`));
+    const seg = a.path.split('/').filter(Boolean);
+    const answer = seg.length === 3 ? getGscCityAnswer(seg[0] as 'epaviste' | 'rachat-voiture', resolveIdfCity(seg[1], seg[2])!) : getGscHubAnswer(a.path);
+    const words = answer ? answer.paragraphs.join(' ').split(/\s+/).filter(Boolean).length : 0;
+    if (words < 80 || words > 150) problems.push(`${a.path}: answer has ${words} words (80–150)`);
+    if (a.title) {
+      const len = typeof a.title === 'string' ? a.title.length + ' | Les Épavistes Pro'.length : a.title.absolute.length;
+      if (len > 60) problems.push(`${a.path}: title override renders at ${len} chars`);
+    }
+  }
+  addResult(problems.length === 0, problems.length ? `✗ GSC actions: ${problems.slice(0, 5).join(' · ')}` : `✓ GSC T1 actions: ${GSC_T1_ACTIONS.length} pages (cap 40), 3 linking pages each, answers 80–150 words`);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// S3.3: one NAP for /contact, the footer and the schema (GBP consistency)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkNapConsistency() {
+  log('\n📇 Checking NAP consistency...', colors.blue);
+  const read = (f: string) => fs.readFileSync(path.join(process.cwd(), f), 'utf-8');
+  const files = ['components/Footer.tsx', 'app/contact/page.tsx', 'lib/schema.ts'];
+  const missing = files.filter((f) => !/from '(@\/lib|\.)\/nap'/.test(read(f)));
+  const deadEmail = files.filter((f) => /(>|')contact@lesepavistes\.pro/.test(read(f)));
+  const ok = missing.length === 0 && deadEmail.length === 0;
+  addResult(ok, ok ? '✓ /contact, footer and schema read the NAP from lib/nap.ts' : `✗ NAP not from lib/nap.ts: ${[...missing, ...deadEmail].join(', ')}`);
+}
+
+// S3.5: analytics guard — no monitor / lab-tool visits in Vercel Analytics or GA4
+function checkAnalyticsGuard() {
+  log('\n🤖 Checking the analytics bot guard...', colors.blue);
+  const layout = fs.readFileSync(path.join(process.cwd(), 'app/layout.tsx'), 'utf-8');
+  const guard = fs.readFileSync(path.join(process.cwd(), 'components/AnalyticsGuarded.tsx'), 'utf-8');
+  const ok = layout.includes('<AnalyticsGuarded />') && !layout.includes('<Analytics />') && layout.includes("ga-disable-G-RKMW16M4C2") && layout.includes('page_tier') && guard.includes('beforeSend');
+  addResult(ok, ok ? '✓ Vercel Analytics beforeSend + GA4 disable for HeadlessChrome/Lighthouse/monitor/webdriver; GA4 page_tier' : '✗ Analytics guard or page_tier missing in app/layout.tsx');
+}
+
 function runAllChecks() {
   log('\n╔═══════════════════════════════════════════════════════════════╗', colors.blue);
   log('║          SEO QA CHECK - REGRESSION SAFETY NET                 ║', colors.blue);
@@ -1348,6 +1448,11 @@ function runAllChecks() {
     checkRobotsRules();           // P1.3
     checkSitemapIntegrity();      // P1.4
     checkTitleBudget();           // P2.1
+    checkMetadataSystem();        // S3.2
+    checkBrandSerp();             // S3.2
+    checkGscActions();            // S3.1.c
+    checkNapConsistency();        // S3.3
+    checkAnalyticsGuard();        // S3.5
     checkNoNofollow();            // P2.3
     checkStructuredDataEntities();// P2.4
     checkRootLayoutHead();        // P2.5

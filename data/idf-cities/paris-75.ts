@@ -1,4 +1,4 @@
-import type { IdfCityContentMap, IdfFourriere } from './types';
+import type { IdfCityContentMap } from './types';
 
 /**
  * Town-specific content — Paris (75), the 20 arrondissements.
@@ -13,50 +13,7 @@ import type { IdfCityContentMap, IdfFourriere } from './types';
  * geographically nearest one — the actual destination is confirmed by the
  * portal or the 3975.
  */
-const PARIS_TARIF = '179 € le premier jour, puis 29 € par jour de garde (voiture particulière, tarifs Ville de Paris)';
-const PARIS_NOTE =
-  "Renseignements au 3975 ou sur le portail « Où est mon véhicule ? » (oemv-fourrieres.paris.fr). Un véhicule reste 2 à 5 jours en préfourrière avant transfert vers les fourrières de Chevaleret (13e), Bonneuil-sur-Marne ou La Courneuve ; non réclamé, il peut être vendu ou détruit après 10 à 15 jours. Si vous ne souhaitez pas le récupérer, nous pouvons organiser sa destruction avec votre mandat.";
-
-const LOUVRE: IdfFourriere = {
-  name: 'Préfourrière Louvre-Samaritaine (Paris Centre)',
-  address: 'Place du Louvre, parking Louvre-Samaritaine niveau -4, 75001 Paris',
-  phone: '3975',
-  hours: 'Lundi–samedi 8h00–20h30, fermée le dimanche',
-  tarif: PARIS_TARIF,
-  note: PARIS_NOTE,
-};
-const CHARLETY: IdfFourriere = {
-  name: 'Préfourrière Charléty',
-  address: 'Parc Charléty-Thomire, rue Thomire, 75013 Paris',
-  phone: '3975',
-  hours: 'Tous les jours 6h30–22h30',
-  tarif: PARIS_TARIF,
-  note: PARIS_NOTE,
-};
-const FOCH: IdfFourriere = {
-  name: 'Préfourrière Foch',
-  address: 'Parc Étoile-Foch, 2e sous-sol, avenue Foch, 75016 Paris',
-  phone: '3975',
-  hours: 'Lundi–samedi 8h00–20h30, fermée le dimanche',
-  tarif: PARIS_TARIF,
-  note: PARIS_NOTE,
-};
-const PANTIN: IdfFourriere = {
-  name: 'Préfourrière Pantin',
-  address: '15 rue de la Marseillaise, 75019 Paris',
-  phone: '3975',
-  hours: 'Lundi–samedi 8h00–20h30, fermée le dimanche',
-  tarif: PARIS_TARIF,
-  note: PARIS_NOTE,
-};
-const POUCHET: IdfFourriere = {
-  name: 'Préfourrière Pouchet',
-  address: '3 boulevard du Général Leclerc, 92110 Clichy (porte Pouchet)',
-  phone: '3975',
-  hours: '24h/24',
-  tarif: PARIS_TARIF,
-  note: PARIS_NOTE,
-};
+import { LOUVRE, CHARLETY, FOCH, PANTIN, POUCHET } from '../idf-fourrieres';
 
 const PARIS_SOURCES = [
   'paris.fr — Fourrières et préfourrières (adresses, horaires, tarifs)',

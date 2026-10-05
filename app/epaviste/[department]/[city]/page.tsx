@@ -17,6 +17,8 @@ import Footer from '@/components/Footer';
 import IdfCityPage from '@/components/IdfCityPage';
 import { resolveIdfCity } from '@/lib/idf-city-content';
 import AlsoInIdf from '@/components/AlsoInIdf';
+import DomCityContent from '@/components/DomCityContent';
+import { getDomCityContent } from '@/data/dom-cities';
 
 // Allow on-demand rendering for cities not pre-built
 export const dynamicParams = true;
@@ -78,7 +80,8 @@ export async function generateMetadata({
     city.slug,
     city.postalCode,
     noIndex,
-    isHomonymCity(city.slug)
+    isHomonymCity(city.slug, city.name),
+    city.population
   );
 }
 
@@ -116,12 +119,15 @@ export default async function CityEpavistePage({
 
   // ONE FAQ list: rendered by the page AND turned into the page's single
   // FAQPage node. A FAQPage may only contain visible questions.
-  const faqItems: FaqItem[] = idfCity
+  // Overseas communes with hand-written content (S3.4) — its questions lead the FAQ.
+  const domContent = !isIdf ? getDomCityContent(department.slug, city.slug) : null;
+  const baseFaqItems: FaqItem[] = idfCity
     ? [...idfCity.faqEpaviste, ...idfEpavisteFaq]
     : [
     ...getCityFaqItems(city.name, localData),
     ...(isIdf ? idfEpavisteFaq : genericFaqItems),
   ];
+  const faqItems: FaqItem[] = domContent ? [...domContent.epaviste.faq, ...baseFaqItems] : baseFaqItems;
   const faqPage = buildFaqPage(faqItems);
 
   const structuredData = [
@@ -196,6 +202,7 @@ export default async function CityEpavistePage({
         guides={guides}
       />
       {/* Non-IDF pages link both IDF hubs once, contextually (P2.3). */}
+      {domContent && <DomCityContent content={domContent} service="epaviste" deptSlug={department.slug} citySlug={city.slug} cityName={city.name} />}
       {!isIdf && <AlsoInIdf context={`à ${city.name}`} />}
       <Footer />
     </>

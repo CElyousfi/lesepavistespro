@@ -213,6 +213,13 @@ it is then listed in `sitemap-idf.xml`). Dates must be real.
   robots/sitemap, Lighthouse budgets); run by `.github/workflows/seo-monitor.yml` every Monday
   06:00 Paris, which opens a « SEO regression » issue on error-level findings.
   `.github/workflows/pr-check.yml` runs tsc + seo-check + build on every PR to `main`.
+- `npm run seo:loop` — Search Console loop (Sprint 3): imports the latest `seo-audit/gsc/<date>/` CSV export
+  (or the API with `GSC_SERVICE_ACCOUNT_JSON` + `GSC_SITE_URL`), writes `seo-audit/striking-distance.md`
+  (T1/T2/T3, cannibalisation, decliners) and prints the top 20 actions; `npm run gsc-import` and
+  `npm run striking-distance` run the two halves
+- `npm run indexnow -- [--all|--urls=/a,/b|--dry-run]` — submits changed URLs to IndexNow (Bing…);
+  run by `.github/workflows/indexnow.yml` after each production deployment
+- `npx tsx scripts/check-metadata.ts [--print=N --grep=path]` — the title/description guardrail of `seo-check`
 
 ## 🤝 Support
 

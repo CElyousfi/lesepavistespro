@@ -14,6 +14,10 @@ import type { IdfDeptContent } from '@/data/idf-extra-content';
 import type { FaqItem } from '@/lib/faq';
 import { idfLocative } from '@/lib/idf';
 import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
+import { getGscCityAnswer } from '@/lib/gsc-answer';
+import GscAnswer from '@/components/GscAnswer';
+import GscBoostLinks from '@/components/GscBoostLinks';
+import { getPageUpdatedAt, formatFrenchDate } from '@/lib/lastmod';
 
 interface IdfCityPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -53,10 +57,15 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
   const delay = petiteCouronne ? 'sous 2 h' : 'sous 24 h, souvent le jour même';
   const townFaq = isRachat ? city.faqRachat : city.faqEpaviste;
   const locative = idfLocative(ref.deptCode, ref.deptName);
+  const path = `/${service}/${ref.deptSlug}/${ref.slug}`;
+  // Search Console loop (S3.1.c): the page's top query answered in an H2.
+  const gscAnswer = getGscCityAnswer(service, city);
 
   return (
     <>
       <Header />
+      {/* GA4 page_tier (S3.5) */}
+      <span hidden data-page-tier={`city-${city.tier}`} />
 
       <LocationHero accentColor={isRachat ? 'gold' : 'red'}>
         <div className="mb-6">
@@ -87,7 +96,12 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
           {isRachat
             ? `Nous rachetons votre voiture à ${name}, roulante ou non, avec ou sans contrôle technique : estimation gratuite, offre ferme, enlèvement inclus et paiement le jour du départ du véhicule.`
             : `Épaviste agréé VHU à ${name} (${cp}) : enlèvement d'épave 100 % gratuit, intervention ${delay}, sous-sol et fourrière compris, certificat de destruction remis sur place.`}{' '}
-          ☎ 06 02 42 73 45.
+          {/* S3.3: every IDF commune links its department hub in the first paragraph */}
+          Nous couvrons tout le département&nbsp;:{' '}
+          <Link href={`/${service}/${ref.deptSlug}`} className={`font-semibold ${accent} hover:underline underline-offset-4`}>
+            {serviceLabel.toLowerCase()} {locative} ({ref.deptCode})
+          </Link>
+          . ☎ 06 02 42 73 45.
         </p>
 
         <QuickContact
@@ -128,7 +142,7 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
                   Marque, modèle, année, état&nbsp;: l&apos;estimation est gratuite et sans engagement. {RESPONSE_TIME_COPY}.
                 </p>
               </div>
-              <ConversionForm trigger="inline" defaultService="rachat" pageType="city" cityName={name} departmentName={ref.deptName} />
+              <ConversionForm trigger="inline" defaultService="rachat" pageType="city" cityName={name} departmentName={ref.deptName} postalCode={cp} />
             </div>
           </div>
         </section>
@@ -138,6 +152,7 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
       <article className="py-16 sm:py-24 bg-white" data-idf-content="unique" data-idf-tier={city.tier} data-idf-source={city.source}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            {gscAnswer && <GscAnswer answer={gscAnswer} className="mb-14" />}
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
               {isRachat ? `Vendre sa voiture à ${name} (${cp})` : `Enlèvement d'épave à ${name} (${cp})`}
             </h2>
@@ -165,6 +180,17 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
                 </li>
               ))}
             </ul>
+
+            {/* S3.4: two-wheelers (310 impressions at position 19.6) — Paris and the Tier A of 92/93/94 */}
+            {(ref.deptCode === '75' || (city.tier === 'A' && ['92', '93', '94'].includes(ref.deptCode))) && (
+              <p className="mt-8 p-5 bg-brand-surface rounded-2xl border border-neutral-200 text-neutral-700">
+                <strong className="text-brand-navy">Scooter ou moto à enlever ?</strong> Deux-roues en panne dans une cour, scooter
+                volé retrouvé ou moto immobilisée en parking à {name}&nbsp;: nous les enlevons aussi, avec la même cession.{' '}
+                <Link href="/epaviste/ile-de-france/moto-scooter" className={`font-semibold ${accent} hover:underline underline-offset-4`}>
+                  Enlèvement de moto ou scooter en Île-de-France
+                </Link>
+              </p>
+            )}
 
             {/* Fourrière */}
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-navy mt-14 mb-6 tracking-tight">
@@ -211,7 +237,10 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
               ))}
             </div>
 
-            <p className="mt-8 text-xs text-neutral-400">Sources&nbsp;: {city.sources.join(' · ')}.</p>
+            <p className="mt-8 text-xs text-neutral-400">
+              Sources&nbsp;: {city.sources.join(' · ')}. Mis à jour le{' '}
+              <time dateTime={getPageUpdatedAt(path)}>{formatFrenchDate(getPageUpdatedAt(path))}</time>.
+            </p>
           </div>
         </div>
       </article>
@@ -366,6 +395,7 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
             </ul>
 
             <div className="grid md:grid-cols-3 gap-4">
+              <GscBoostLinks fromPath={path} title={`Recherché près de ${name}`} />
               <div className="p-5 bg-brand-surface rounded-2xl border border-neutral-200">
                 <h3 className="text-sm font-bold text-brand-navy mb-3">Autour de {name}</h3>
                 <ul className="space-y-2 text-sm">
@@ -408,7 +438,7 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-3 tracking-tight">Demander un enlèvement à {name}</h2>
                 <p className="text-neutral-600 flex items-center justify-center gap-2"><Phone size={16} weight="bold" /> 06 02 42 73 45 · {RESPONSE_TIME_COPY}</p>
               </div>
-              <ConversionForm trigger="inline" defaultService="epaviste" pageType="city" cityName={name} departmentName={ref.deptName} />
+              <ConversionForm trigger="inline" defaultService="epaviste" pageType="city" cityName={name} departmentName={ref.deptName} postalCode={cp} />
             </div>
           </div>
         </section>

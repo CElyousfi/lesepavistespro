@@ -17,6 +17,7 @@ import IdfDepartmentPage from '@/components/IdfDepartmentPage';
 import IdfRegionPage from '@/components/IdfRegionPage';
 import Footer from '@/components/Footer';
 import AlsoInIdf from '@/components/AlsoInIdf';
+import CentreVhuLink from '@/components/CentreVhuLink';
 import { idfEpavisteFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept, getAllIdfTestimonials } from '@/data/idf-testimonials';
 import DepartmentClientPage from './DepartmentClient';
@@ -40,13 +41,13 @@ export async function generateMetadata({ params }: { params: Promise<{ departmen
   // Check region first
   const region = getRegionBySlug(slug);
   if (region) {
-    return generateEpavisteRegionMeta(region.name, region.slug);
+    return generateEpavisteRegionMeta(region.name, region.slug, region.departments.length);
   }
 
   // Then department
   const dept = getDepartmentBySlug(slug);
   if (dept) {
-    return generateEpavisteDepartmentMeta(dept.name, dept.slug);
+    return generateEpavisteDepartmentMeta(dept.name, dept.slug, dept.cities.length);
   }
 
   return { title: 'Page non trouvée' };
@@ -219,6 +220,7 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
         // otherwise it is orphaned (reachable only from the sitemap).
         linkAllCities={isIndexedDepartment(dept.slug)}
       />
+      <CentreVhuLink deptSlug={dept.slug} variant="section" />
       <AlsoInIdf context={`dans le ${dept.name}`} />
       <Footer />
     </>

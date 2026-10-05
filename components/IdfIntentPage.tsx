@@ -132,7 +132,14 @@ export default function IdfIntentPage({ intent, siblings }: IdfIntentPageProps) 
                 <Phone size={16} weight="bold" /> 06 02 42 73 45 · {RESPONSE_TIME_COPY} · photos par WhatsApp
               </p>
             </div>
-            <ConversionForm trigger="inline" defaultService={isRachat ? 'rachat' : 'epaviste'} pageType="pillar" departmentName="Île-de-France" />
+            <ConversionForm
+              trigger="inline"
+              defaultService={isRachat ? 'rachat' : 'epaviste'}
+              pageType="pillar"
+              departmentName="Île-de-France"
+              marque={intent.kind === 'marque' ? intent.label : undefined}
+              vehicleType={intent.slug === 'moto-scooter' ? 'moto' : undefined}
+            />
           </div>
         </div>
       </section>
@@ -177,7 +184,9 @@ export default function IdfIntentPage({ intent, siblings }: IdfIntentPageProps) 
             </div>
 
             <div className="p-6 bg-brand-surface rounded-2xl border border-neutral-200">
-              <h2 className="text-lg font-bold text-brand-navy mb-4">Autres situations</h2>
+              <h2 className="text-lg font-bold text-brand-navy mb-4">
+                {intent.kind === 'marque' ? 'Autres marques' : intent.kind === 'pro' ? 'Autres professionnels' : 'Autres situations'}
+              </h2>
               <ul className="space-y-2 text-sm">
                 {siblings.map((s) => (
                   <li key={s.slug}>

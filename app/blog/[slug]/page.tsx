@@ -8,6 +8,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import { Clock, User, ArrowLeft, Phone } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import { blogPosts } from '@/lib/blog-data';
+import { blogHubLink } from '@/lib/internal-linking';
 import { getBlogArticleData, renderJSONLD, getBreadcrumbData } from '@/lib/structured-data';
 import { getSpeakableSchema } from '@/lib/schema';
 import VHUCertification from '@/components/VHUCertification';
@@ -189,6 +190,20 @@ export default async function BlogPost({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </div>
+
+            {/* S3.3: one Île-de-France hub, linked in context, chosen by topic */}
+            {(() => {
+              const hub = blogHubLink(post);
+              return (
+                <p className="mb-10 text-neutral-700 leading-relaxed border-l-2 border-brand-red pl-6">
+                  {hub.lead}{' '}
+                  <Link href={hub.href} className="font-semibold text-brand-red hover:underline underline-offset-4">
+                    {hub.anchor}
+                  </Link>
+                  {hub.tail}
+                </p>
+              );
+            })()}
 
             {/*
               Service links. Every article body already carries contextual links,

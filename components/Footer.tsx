@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getIdfDepartments, getTopIdfCities } from '@/lib/idf-cities';
 import { getIdfIntents } from '@/data/idf-intents';
+import { NAP } from '@/lib/nap';
 
 /** Most-populated IDF communes linked from every page. */
 const FOOTER_IDF_CITIES = 20;
@@ -82,17 +83,18 @@ const Footer = () => {
                 <li className="flex items-start gap-3">
                   <Phone size={16} className="text-brand-gold shrink-0 mt-0.5" />
                   <span className="text-sm text-neutral-300">
-                    <a href="tel:+33602427345" className="hover:text-white">06 02 42 73 45</a>
+                    <a href={`tel:${NAP.phoneE164}`} className="hover:text-white">{NAP.phone}</a>
                     <br /><span className="text-neutral-500">7j/7, 24h/24</span>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <EnvelopeSimple size={16} className="text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-sm text-neutral-300 break-all">contact@lesepavistes.pro</span>
+                  {/* lib/nap.ts — the former contact@lesepavistes.pro had no MX record */}
+                  <a href={`mailto:${NAP.email}`} className="text-sm text-neutral-300 hover:text-white break-all">{NAP.email}</a>
                 </li>
                 <li className="flex items-start gap-3">
                   <MapPin size={16} className="text-brand-gold shrink-0 mt-0.5" />
-                  <span className="text-sm text-neutral-300">Île-de-France (75, 77, 78, 91, 92, 93, 94, 95)</span>
+                  <span className="text-sm text-neutral-300">{NAP.streetAddress ? `${NAP.streetAddress}, ${NAP.postalCode} ${NAP.addressLocality}` : NAP.serviceArea}</span>
                 </li>
               </ul>
             </div>

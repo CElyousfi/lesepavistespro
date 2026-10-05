@@ -14,6 +14,9 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
+/** S3.5: marks our runs so lib/bot-guard.ts drops them from Vercel Analytics / GA4. */
+const MONITOR_LH_UA = 'Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36 Chrome-Lighthouse LesEpavistesPro-SEO-Monitor/1.0';
+
 const argv = process.argv.slice(2);
 const BASE = (argv.find((a) => !a.startsWith('--')) || 'http://localhost:3210').replace(/\/+$/, '');
 const LABEL = (argv.find((a) => a.startsWith('--label=')) || '--label=run').split('=')[1];
@@ -26,6 +29,9 @@ const PATHS = [
   '/epaviste/hauts-de-seine-92/nanterre',
   '/rachat-voiture/hauts-de-seine-92/nanterre',
   '/blog/certificat-destruction-vhu-obligatoire',
+  // S3.6: one centre VHU page and one data guide
+  '/centre-vhu-agree/val-de-marne-94',
+  '/guides/fourrieres-ile-de-france',
 ];
 
 interface Row {
@@ -52,6 +58,7 @@ function run(url: string): Row['performance'] extends never ? never : Row {
         '--output=json',
         `--output-path=${out}`,
         '--chrome-flags=--headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage',
+        `--emulatedUserAgent=${MONITOR_LH_UA}`,
       ],
       { stdio: ['ignore', 'ignore', 'pipe'], env: { ...process.env, CHROME_PATH: process.env.CHROME_PATH || '/usr/bin/chromium' } }
     );

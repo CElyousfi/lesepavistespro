@@ -1,0 +1,3389 @@
+{
+ "version": 1,
+ "source": "csv",
+ "date": "2026-01-02",
+ "period": "Les 3 derniers mois",
+ "filters": {
+  "Type de recherche": "Web",
+  "Date": "Les 3 derniers mois"
+ },
+ "totals": {
+  "chart": {
+   "clicks": 38,
+   "impressions": 3071
+  },
+  "pages": {
+   "clicks": 56,
+   "impressions": 3507
+  },
+  "queries": {
+   "clicks": 5,
+   "impressions": 2168
+  }
+ },
+ "warnings": [
+  "⚠️  ÉCHANTILLON : les pages exportées totalisent 56 clics contre 38 dans le graphique quotidien (écart 47 % > 20 %). Les valeurs absolues ne sont pas fiables, seules les tendances le sont. Refaire un export sans filtre (ou passer en mode API).",
+  "Mode CSV : l’export Search Console ne contient pas les couples page × requête. La page d’atterrissage de chaque requête est INFÉRÉE (page « naturelle » si elle a des impressions, sinon son parent le plus proche). Le mode API donne les couples exacts."
+ ],
+ "pages": [
+  {
+   "path": "/",
+   "clicks": 15,
+   "impressions": 613,
+   "ctr": 0.0245,
+   "position": 11.16,
+   "is_idf": true,
+   "page_type": "home"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77",
+   "clicks": 1,
+   "impressions": 424,
+   "ctr": 0.0024,
+   "position": 70.96,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/epaviste/val-de-marne-94",
+   "clicks": 4,
+   "impressions": 262,
+   "ctr": 0.015300000000000001,
+   "position": 50.04,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/creteil",
+   "clicks": 1,
+   "impressions": 218,
+   "ctr": 0.0046,
+   "position": 68.97,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93",
+   "clicks": 1,
+   "impressions": 210,
+   "ctr": 0.0048,
+   "position": 69.63,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/epaviste/essonne-91",
+   "clicks": 1,
+   "impressions": 151,
+   "ctr": 0.0066,
+   "position": 37.89,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95/sarcelles",
+   "clicks": 3,
+   "impressions": 138,
+   "ctr": 0.0217,
+   "position": 86.36,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture",
+   "clicks": 3,
+   "impressions": 126,
+   "ctr": 0.023799999999999998,
+   "position": 35.29,
+   "is_idf": false,
+   "page_type": "hub"
+  },
+  {
+   "path": "/epaviste/essonne-91/corbeil-essonnes",
+   "clicks": 1,
+   "impressions": 122,
+   "ctr": 0.008199999999999999,
+   "position": 71.09,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75",
+   "clicks": 1,
+   "impressions": 103,
+   "ctr": 0.0097,
+   "position": 45.88,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/epaviste",
+   "clicks": 1,
+   "impressions": 71,
+   "ctr": 0.0141,
+   "position": 53.2,
+   "is_idf": false,
+   "page_type": "hub"
+  },
+  {
+   "path": "/epaviste/yvelines-78/mantes-la-jolie",
+   "clicks": 0,
+   "impressions": 51,
+   "ctr": 0,
+   "position": 55.22,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/yvelines-78/les-mureaux",
+   "clicks": 0,
+   "impressions": 47,
+   "ctr": 0,
+   "position": 48.36,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/fontainebleau",
+   "clicks": 0,
+   "impressions": 45,
+   "ctr": 0,
+   "position": 38.22,
+   "is_idf": true,
+   "page_type": "city-B"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/melun",
+   "clicks": 1,
+   "impressions": 43,
+   "ctr": 0.0233,
+   "position": 67.79,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75",
+   "clicks": 0,
+   "impressions": 43,
+   "ctr": 0,
+   "position": 28.65,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95",
+   "clicks": 1,
+   "impressions": 42,
+   "ctr": 0.023799999999999998,
+   "position": 30.02,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/epaviste/yvelines-78/versailles",
+   "clicks": 0,
+   "impressions": 37,
+   "ctr": 0,
+   "position": 68.81,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/roissy-en-brie",
+   "clicks": 0,
+   "impressions": 35,
+   "ctr": 0,
+   "position": 16.11,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/vitry-sur-seine",
+   "clicks": 0,
+   "impressions": 31,
+   "ctr": 0,
+   "position": 25.87,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/nanterre",
+   "clicks": 0,
+   "impressions": 31,
+   "ctr": 0,
+   "position": 43.84,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/yvelines-78/elancourt",
+   "clicks": 0,
+   "impressions": 28,
+   "ctr": 0,
+   "position": 44.07,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-10e",
+   "clicks": 0,
+   "impressions": 28,
+   "ctr": 0,
+   "position": 77.71,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92",
+   "clicks": 1,
+   "impressions": 27,
+   "ctr": 0.037000000000000005,
+   "position": 33.89,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/colombes",
+   "clicks": 0,
+   "impressions": 27,
+   "ctr": 0,
+   "position": 26.11,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/saint-denis",
+   "clicks": 0,
+   "impressions": 24,
+   "ctr": 0,
+   "position": 32.33,
+   "is_idf": true,
+   "page_type": "city-C"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95",
+   "clicks": 0,
+   "impressions": 17,
+   "ctr": 0,
+   "position": 58.53,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-12e",
+   "clicks": 0,
+   "impressions": 16,
+   "ctr": 0,
+   "position": 20.25,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/zones",
+   "clicks": 0,
+   "impressions": 16,
+   "ctr": 0,
+   "position": 28.62,
+   "is_idf": false,
+   "page_type": "static"
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/champigny-sur-marne",
+   "clicks": 1,
+   "impressions": 15,
+   "ctr": 0.0667,
+   "position": 54.87,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/villeneuve-la-garenne",
+   "clicks": 1,
+   "impressions": 14,
+   "ctr": 0.07139999999999999,
+   "position": 9.86,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/yvelines-78/conflans-sainte-honorine",
+   "clicks": 0,
+   "impressions": 14,
+   "ctr": 0,
+   "position": 53.14,
+   "is_idf": true,
+   "page_type": "city-C"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/gonesse",
+   "clicks": 0,
+   "impressions": 13,
+   "ctr": 0,
+   "position": 7,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-4e",
+   "clicks": 0,
+   "impressions": 13,
+   "ctr": 0,
+   "position": 12.69,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95/sannois",
+   "clicks": 0,
+   "impressions": 13,
+   "ctr": 0,
+   "position": 64.31,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/yvelines-78/houilles",
+   "clicks": 0,
+   "impressions": 12,
+   "ctr": 0,
+   "position": 44.42,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95/goussainville",
+   "clicks": 0,
+   "impressions": 11,
+   "ctr": 0,
+   "position": 43.64,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/yvelines-78/le-chesnay-rocquencourt",
+   "clicks": 0,
+   "impressions": 11,
+   "ctr": 0,
+   "position": 48.82,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/bobigny",
+   "clicks": 1,
+   "impressions": 10,
+   "ctr": 0.1,
+   "position": 50.4,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95/garges-les-gonesse",
+   "clicks": 0,
+   "impressions": 9,
+   "ctr": 0,
+   "position": 62.89,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/yvelines-78/conflans-sainte-honorine",
+   "clicks": 0,
+   "impressions": 9,
+   "ctr": 0,
+   "position": 66.22,
+   "is_idf": true,
+   "page_type": "city-C"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/montereau-fault-yonne",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 28.88,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/chatenay-malabry",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 29.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/brie-comte-robert",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 64.38,
+   "is_idf": true,
+   "page_type": "city-B"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 9.71,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95/deuil-la-barre",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 42.14,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-14e",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 43.71,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/colombes",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 53.86,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/grigny",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 6.17,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/montereau-fault-yonne",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 8.67,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-3e",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 15.33,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/vigneux-sur-seine",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 19.83,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 28,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/evry-courcouronnes",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 41.17,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/yvelines-78/sartrouville",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 64.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-18e",
+   "clicks": 1,
+   "impressions": 5,
+   "ctr": 0.2,
+   "position": 14.8,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/blog/rachat-voiture-accidentee-meilleur-prix",
+   "clicks": 1,
+   "impressions": 5,
+   "ctr": 0.2,
+   "position": 42.6,
+   "is_idf": false,
+   "page_type": "blog"
+  },
+  {
+   "path": "/epaviste/essonne-91/brunoy",
+   "clicks": 1,
+   "impressions": 5,
+   "ctr": 0.2,
+   "position": 69.6,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/chelles",
+   "clicks": 1,
+   "impressions": 5,
+   "ctr": 0.2,
+   "position": 80,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95/herblay-sur-seine",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 25.4,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/essonne-91/massy",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 32.4,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/cachan",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 38,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/le-mee-sur-seine",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 42.4,
+   "is_idf": true,
+   "page_type": "city-B"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/brie-comte-robert",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 46,
+   "is_idf": true,
+   "page_type": "city-B"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/bagneux",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 60.2,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/gennevilliers",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 62.6,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/suresnes",
+   "clicks": 1,
+   "impressions": 4,
+   "ctr": 0.25,
+   "position": 46.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/torcy",
+   "clicks": 1,
+   "impressions": 4,
+   "ctr": 0.25,
+   "position": 59.75,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/issy-les-moulineaux",
+   "clicks": 1,
+   "impressions": 4,
+   "ctr": 0.25,
+   "position": 79.25,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/sevran",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 7.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/garges-les-gonesse",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 9,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/lagny-sur-marne",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 11,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/maisons-alfort",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 20.75,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/antony",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 21.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/clamart",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 43.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-8e",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 51.75,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/antony",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 78.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-de-marne-94/choisy-le-roi",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.3333,
+   "position": 14.67,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-de-marne-94/vincennes",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.3333,
+   "position": 27.67,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-10e",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.3333,
+   "position": 73.33,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/eaubonne",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.3333,
+   "position": 81.67,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/aubervilliers",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.3333,
+   "position": 82,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/villeneuve-la-garenne",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.3333,
+   "position": 84.33,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-4e",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 1,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/suresnes",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 7.33,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/massy",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 8.33,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-9e",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 9,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/fontainebleau",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 10.33,
+   "is_idf": true,
+   "page_type": "city-B"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/bobigny",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 11.67,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/la-courneuve",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 30,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/essonne-91/montgeron",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 38.67,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/levallois-perret",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 42.67,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/athis-mons",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 47.67,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-de-marne-94/saint-maur-des-fosses",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 52.33,
+   "is_idf": true,
+   "page_type": "city-C"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-16e",
+   "clicks": 1,
+   "impressions": 2,
+   "ctr": 0.5,
+   "position": 6.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/yvelines-78/mantes-la-jolie",
+   "clicks": 1,
+   "impressions": 2,
+   "ctr": 0.5,
+   "position": 45.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-5e",
+   "clicks": 1,
+   "impressions": 2,
+   "ctr": 0.5,
+   "position": 137,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/drancy",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 4,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/drancy",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/sevran",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-18e",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/yvelines-78/sartrouville",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/noisy-le-grand",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 6.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-de-marne-94/fontenay-sous-bois",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 6.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/gennevilliers",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 8,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-20e",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 14,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/rosny-sous-bois",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 16.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/asnieres-sur-seine",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 22,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-7e",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 23.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/yvelines-78/chatou",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 26,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/nanterre",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 28.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/dammarie-les-lys",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 30,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/essonne-91/ris-orangis",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 31.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/puteaux",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 32,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/les-ulis",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 43.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-15e",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 44.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/melun",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 47.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/gagny",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 48,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-3e",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 49,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-de-marne-94/champigny-sur-marne",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 49.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/essonne-91/etampes",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 52.5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/bondy",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 69,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/yvelines-78/trappes",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 69,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/sannois",
+   "clicks": 1,
+   "impressions": 1,
+   "ctr": 1,
+   "position": 187,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-2e",
+   "clicks": 1,
+   "impressions": 1,
+   "ctr": 1,
+   "position": 191,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-de-marne-94/le-kremlin-bicetre",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 1,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/hauts-de-seine-92/clamart",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 2,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-de-marne-94/cachan",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 2,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-de-marne-94/maisons-alfort",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 2,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-17e",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 4,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/herblay-sur-seine",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 4,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/stains",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 5,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/courbevoie",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 7,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/combs-la-ville",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 7,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95/saint-gratien",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 7,
+   "is_idf": true,
+   "page_type": "city-C"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/neuilly-sur-marne",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 7,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/paris-75/paris-17e",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 8,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/yerres",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 8,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/yvelines-78/guyancourt",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 8,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/villejuif",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 9,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/pantin",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 11,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/combs-la-ville",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 11,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/taverny",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 11,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93/montreuil",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 12,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/meaux",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 13,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/coulommiers",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 14,
+   "is_idf": true,
+   "page_type": "city-B"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-7e",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 24,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/yvelines-78/saint-germain-en-laye",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 27,
+   "is_idf": true,
+   "page_type": "city-C"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/saint-gratien",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 33,
+   "is_idf": true,
+   "page_type": "city-C"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/goussainville",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 37,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 48,
+   "is_idf": true,
+   "page_type": "dept"
+  },
+  {
+   "path": "/rachat-voiture/val-d-oise-95/ermont",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 49,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/epaviste/essonne-91/savigny-sur-orge",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 51,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/brunoy",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 66,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/ozoir-la-ferriere",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 69,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/yvelines-78/elancourt",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 81,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/essonne-91/etampes",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 89,
+   "is_idf": true,
+   "page_type": "city-A"
+  },
+  {
+   "path": "/rachat-voiture/paris-75/paris-6e",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 192,
+   "is_idf": true,
+   "page_type": "city-A"
+  }
+ ],
+ "queries": [
+  {
+   "query": "epaviste 94",
+   "clicks": 0,
+   "impressions": 214,
+   "ctr": 0,
+   "position": 65.34,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste 95",
+   "clicks": 0,
+   "impressions": 127,
+   "ctr": 0,
+   "position": 94.85,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste 91",
+   "clicks": 0,
+   "impressions": 115,
+   "ctr": 0,
+   "position": 52.56,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste 93",
+   "clicks": 0,
+   "impressions": 96,
+   "ctr": 0,
+   "position": 98.39,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste 77",
+   "clicks": 0,
+   "impressions": 88,
+   "ctr": 0,
+   "position": 86.99,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gratuit 77",
+   "clicks": 0,
+   "impressions": 87,
+   "ctr": 0,
+   "position": 89.45,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste pro",
+   "clicks": 2,
+   "impressions": 74,
+   "ctr": 0.027000000000000003,
+   "position": 9.54,
+   "cluster": "brand",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste moto paris",
+   "clicks": 0,
+   "impressions": 48,
+   "ctr": 0,
+   "position": 53.92,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gratuit 93",
+   "clicks": 0,
+   "impressions": 40,
+   "ctr": 0,
+   "position": 61.27,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste essonne",
+   "clicks": 1,
+   "impressions": 37,
+   "ctr": 0.027000000000000003,
+   "position": 40.62,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste roissy-en-brie",
+   "clicks": 0,
+   "impressions": 35,
+   "ctr": 0,
+   "position": 40.77,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste fontainebleau",
+   "clicks": 0,
+   "impressions": 34,
+   "ctr": 0,
+   "position": 43.94,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat voiture paris",
+   "clicks": 0,
+   "impressions": 33,
+   "ctr": 0,
+   "position": 28.36,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste rozay-en-brie",
+   "clicks": 0,
+   "impressions": 30,
+   "ctr": 0,
+   "position": 51,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit les mureaux",
+   "clicks": 0,
+   "impressions": 26,
+   "ctr": 0,
+   "position": 50.31,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste professionnel",
+   "clicks": 0,
+   "impressions": 25,
+   "ctr": 0,
+   "position": 21.2,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste paris",
+   "clicks": 0,
+   "impressions": 25,
+   "ctr": 0,
+   "position": 52.36,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave mantes-la-jolie",
+   "clicks": 0,
+   "impressions": 25,
+   "ctr": 0,
+   "position": 57.28,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit mantes-la-jolie",
+   "clicks": 0,
+   "impressions": 24,
+   "ctr": 0,
+   "position": 55.42,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste ile de france",
+   "clicks": 0,
+   "impressions": 23,
+   "ctr": 0,
+   "position": 36.57,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste gratuit 91",
+   "clicks": 0,
+   "impressions": 23,
+   "ctr": 0,
+   "position": 47.61,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "l epaviste pro",
+   "clicks": 0,
+   "impressions": 21,
+   "ctr": 0,
+   "position": 7,
+   "cluster": "brand",
+   "is_idf_intent": false
+  },
+  {
+   "query": "enlevement epave les mureaux",
+   "clicks": 0,
+   "impressions": 21,
+   "ctr": 0,
+   "position": 45.95,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave fontainebleau",
+   "clicks": 0,
+   "impressions": 21,
+   "ctr": 0,
+   "position": 57.14,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave conflans-sainte-honorine",
+   "clicks": 0,
+   "impressions": 21,
+   "ctr": 0,
+   "position": 59.29,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste saint-germain-en-laye",
+   "clicks": 0,
+   "impressions": 19,
+   "ctr": 0,
+   "position": 1.26,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave roissy-en-brie",
+   "clicks": 0,
+   "impressions": 19,
+   "ctr": 0,
+   "position": 57.16,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste creteil",
+   "clicks": 0,
+   "impressions": 17,
+   "ctr": 0,
+   "position": 25,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit fontainebleau",
+   "clicks": 0,
+   "impressions": 17,
+   "ctr": 0,
+   "position": 65.59,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste brie comte robert",
+   "clicks": 0,
+   "impressions": 16,
+   "ctr": 0,
+   "position": 45.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste élancourt",
+   "clicks": 0,
+   "impressions": 15,
+   "ctr": 0,
+   "position": 44.73,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste lizy-sur-ourcq",
+   "clicks": 0,
+   "impressions": 15,
+   "ctr": 0,
+   "position": 45.53,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlèvement épave scooter val de marne",
+   "clicks": 0,
+   "impressions": 15,
+   "ctr": 0,
+   "position": 49.87,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste scooter val-d’oise",
+   "clicks": 0,
+   "impressions": 14,
+   "ctr": 0,
+   "position": 48.71,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave rozay-en-brie",
+   "clicks": 0,
+   "impressions": 14,
+   "ctr": 0,
+   "position": 58.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste mantes la jolie",
+   "clicks": 0,
+   "impressions": 13,
+   "ctr": 0,
+   "position": 5.08,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "centre vhu agréé 94",
+   "clicks": 0,
+   "impressions": 13,
+   "ctr": 0,
+   "position": 77.62,
+   "cluster": "centre-vhu",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gratuit 94",
+   "clicks": 0,
+   "impressions": 13,
+   "ctr": 0,
+   "position": 91.38,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave ozoir la ferrière",
+   "clicks": 0,
+   "impressions": 13,
+   "ctr": 0,
+   "position": 95.62,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste la trinite",
+   "clicks": 0,
+   "impressions": 12,
+   "ctr": 0,
+   "position": 24.17,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "enlevement epave gratuit houilles",
+   "clicks": 0,
+   "impressions": 12,
+   "ctr": 0,
+   "position": 44.42,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit rozay-en-brie",
+   "clicks": 0,
+   "impressions": 12,
+   "ctr": 0,
+   "position": 44.75,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement voiture 91",
+   "clicks": 0,
+   "impressions": 11,
+   "ctr": 0,
+   "position": 16.45,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "reprise vehicule paris",
+   "clicks": 0,
+   "impressions": 11,
+   "ctr": 0,
+   "position": 30.73,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlèvement épave moto val de marne",
+   "clicks": 0,
+   "impressions": 11,
+   "ctr": 0,
+   "position": 54.18,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste melun",
+   "clicks": 0,
+   "impressions": 11,
+   "ctr": 0,
+   "position": 60.91,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "reprise voiture paris",
+   "clicks": 0,
+   "impressions": 10,
+   "ctr": 0,
+   "position": 29.5,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit roissy-en-brie",
+   "clicks": 0,
+   "impressions": 10,
+   "ctr": 0,
+   "position": 38.3,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat voiture oise",
+   "clicks": 0,
+   "impressions": 10,
+   "ctr": 0,
+   "position": 51.1,
+   "cluster": "rachat",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste thomery",
+   "clicks": 0,
+   "impressions": 10,
+   "ctr": 0,
+   "position": 53,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat vieille voiture cash",
+   "clicks": 0,
+   "impressions": 10,
+   "ctr": 0,
+   "position": 54.8,
+   "cluster": "rachat",
+   "is_idf_intent": false
+  },
+  {
+   "query": "enlevement epave lizy-sur-ourcq",
+   "clicks": 0,
+   "impressions": 10,
+   "ctr": 0,
+   "position": 71.3,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste noisy-le-roi",
+   "clicks": 0,
+   "impressions": 9,
+   "ctr": 0,
+   "position": 17.22,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat de véhicules tout état",
+   "clicks": 0,
+   "impressions": 9,
+   "ctr": 0,
+   "position": 83.78,
+   "cluster": "rachat",
+   "is_idf_intent": false
+  },
+  {
+   "query": "enlèvement épave moto seine saint denis",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 28.5,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave montereau fault yonne",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 28.88,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "fourrière nanterre",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 36.25,
+   "cluster": "situation",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit élancourt",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 42.88,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "fourrière de nanterre",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 46.25,
+   "cluster": "situation",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit lizy-sur-ourcq",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 47.38,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave brie comte robert",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 64.38,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste melun",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 69,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste gratuit 77",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 71.25,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste moto france",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 87.62,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": false
+  },
+  {
+   "query": "enlevement epave versailles",
+   "clicks": 0,
+   "impressions": 8,
+   "ctr": 0,
+   "position": 96.38,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste fourqueux",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 10,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste magny-les-hameaux",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 12.43,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste argenteuil",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 15.57,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste champagne-sur-seine",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 31,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat voiture hs paris",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 53,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlèvement épave moto val-d’oise",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 67.71,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste 77",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 73.29,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "centre vhu agréé 93",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 73.43,
+   "cluster": "centre-vhu",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit versailles",
+   "clicks": 0,
+   "impressions": 7,
+   "ctr": 0,
+   "position": 83.71,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "vendre sa voiture sans ct paris",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 5.33,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "vendre sa voiture sans ct en île-de-france",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 11,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste lagny sur marne",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 30.17,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste moto paris",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 30.33,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "fourriere melun",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 42,
+   "cluster": "situation",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste mantes-la-jolie",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 45.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gratuit 95",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 59.33,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste 75",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 60,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit ozoir la ferrière",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 68.33,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit rosny-sur-seine",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 71.83,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit bourron-marlotte",
+   "clicks": 0,
+   "impressions": 6,
+   "ctr": 0,
+   "position": 84.83,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste plaisir",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 14.6,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 19.6,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "rachat voiture cash paris",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 19.8,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste scooter paris",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 22.2,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gratuit 91",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 35.6,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit brie comte robert",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 46,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste 91",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 46.2,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave le chesnay",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 47.4,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste bobigny",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 53,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlèvement scooter paris",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 60.8,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave 75",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 75.2,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste moto essonne",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 92.2,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaves voitures a vendre",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 93.6,
+   "cluster": "rachat",
+   "is_idf_intent": false
+  },
+  {
+   "query": "enlevement epave 93",
+   "clicks": 1,
+   "impressions": 4,
+   "ctr": 0.25,
+   "position": 70.25,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste conflans-sainte-honorine",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 4.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "l'epaviste-pro",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 6.25,
+   "cluster": "brand",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste val d oise",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 16.75,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epavistes",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 19.25,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste neauphle-le-château",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 23.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste champs-sur-marne",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 26.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave élancourt",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 47.25,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "centre vhu agréé 91",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 66.75,
+   "cluster": "centre-vhu",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit sartrouville",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 67.75,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste 94",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 70.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste versailles",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 83.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste torcy",
+   "clicks": 0,
+   "impressions": 4,
+   "ctr": 0,
+   "position": 95.75,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste vhu paris",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.3333,
+   "position": 77,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste triel-sur-seine",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 4,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "l'epaviste pro",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 7,
+   "cluster": "brand",
+   "is_idf_intent": false
+  },
+  {
+   "query": "épaviste essonne",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 20.33,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste le chesnay",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 37.33,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste 78",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 51.33,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "reprise voiture fosses",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 52.33,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste mantes-la-ville",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 58.67,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit le chesnay",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 62.67,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste conflans",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 1.5,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epave essonne",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 15,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste saint-rémy-lès-chevreuse",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 16.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste trinite",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 19,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste gratuit essonne",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 21,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste val de marne",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 21.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "fourrière creteil",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 22,
+   "cluster": "situation",
+   "is_idf_intent": true
+  },
+  {
+   "query": "fourrière versailles",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 25,
+   "cluster": "situation",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste nanterre",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 26,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste rocquencourt",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 26,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste scooter paris",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 28.5,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste agréé paris",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 31,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste boissy-le-châtel",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 31,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste vernou-la-celle-sur-seine",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 31,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave rosny-sur-seine",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 45.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit conflans-sainte-honorine",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 47.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "fourrière vitry",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 47.5,
+   "cluster": "situation",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste saint-germain-lès-corbeil",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 57,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave chelles",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 57.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste sartrouville",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 58,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste antony",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 58.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave clamart",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 59,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement d epave gratuit 91",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 63,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave 91",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 82,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave mantes-la-ville",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 83,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat de véhicule accidenté",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 91,
+   "cluster": "rachat",
+   "is_idf_intent": false
+  },
+  {
+   "query": "enlevement epave melun",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 93.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gratuit 92",
+   "clicks": 0,
+   "impressions": 2,
+   "ctr": 0,
+   "position": 98.5,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "casse auto ouvert le dimanche 93",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 1,
+   "cluster": "casse",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste péronnas",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 1,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste rosny-sur-seine",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 2,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "salvage",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 4,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "vendre sa voiture sans ct en yvelines",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 5,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste autour de moi",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 6,
+   "cluster": "near-me",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste bonnières-sur-seine",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 8,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gargenville",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 8,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat de fourgon montreuil",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 12,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 12,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste autour de moi",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 13,
+   "cluster": "near-me",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste asnieres sur seine",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 19,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste noisy le grand",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 24,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste sarcelles",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 24,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat de fourgon rosny-sous-bois",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 25,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat epave 95",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 28,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave plaisir",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 31,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave ris-orangis",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 35,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste corbeil essonnes",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 38,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "estimation voiture paris",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 39,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave saint-germain-lès-corbeil",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 40,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit montgeron",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 41,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave brunoy",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 45,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave montgeron",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 48,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste cergy",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 48,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave massy",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 49,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "estimation gratuite trappes",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 50,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit 91",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 51,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit villeneuve la garenne",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 51,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave savigny-sur-orge",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 51,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gennevilliers",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 51,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste étampes",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 52,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave villeneuve la garenne",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 53,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave étampes",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 53,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave bagneux",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 55,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "controle technique a vendre ile de france",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 57,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit colombes",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 57,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave issy les moulineaux",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 59,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit suresnes",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 61,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste maisons-alfort",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 65,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat epave 77",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 67,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "destruction document aulnay-sous-bois",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 70,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlèvement épave 77",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 73,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "estimation voiture accidentée",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 74,
+   "cluster": "situation",
+   "is_idf_intent": false
+  },
+  {
+   "query": "centre vhu 94",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 75,
+   "cluster": "centre-vhu",
+   "is_idf_intent": true
+  },
+  {
+   "query": "épaviste les échelles",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 76,
+   "cluster": "other",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste palaiseau",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 78,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "centre vhu 91",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 81,
+   "cluster": "centre-vhu",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlèvement épave 93",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 82,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaves services 77",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 83,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit champcueil",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 84,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epave service 77",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 84,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste esbly",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 84,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste gratuit paris",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 85,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "rachat epave 94",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 86,
+   "cluster": "rachat",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlèvement épave moto gratuit",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 87,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": false
+  },
+  {
+   "query": "epaviste champcueil",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 89,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave scooter",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 91,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": false
+  },
+  {
+   "query": "centre vhu agréé 77",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 92,
+   "cluster": "centre-vhu",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlevement epave gratuit gretz-armainvilliers",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 92,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "enlèvement scooter gratuit",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 94,
+   "cluster": "moto-scooter-caravane",
+   "is_idf_intent": false
+  },
+  {
+   "query": "enlevement epave champcueil",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 96,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste montereau fault yonne",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 96,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste pontault-combault",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 97,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "epaviste seine et marne",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 98,
+   "cluster": "other",
+   "is_idf_intent": true
+  },
+  {
+   "query": "prix rachat voiture casse",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 99,
+   "cluster": "casse",
+   "is_idf_intent": false
+  },
+  {
+   "query": "spa centre vhu agree",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 100,
+   "cluster": "centre-vhu",
+   "is_idf_intent": false
+  }
+ ]
+}

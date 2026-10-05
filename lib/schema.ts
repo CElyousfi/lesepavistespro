@@ -1,4 +1,6 @@
 import { getSiteUrl } from './site';
+import { BRAND_NAME, BRAND_ALTERNATE_NAMES } from './brand';
+import { NAP, SAME_AS, GBP_PROFILE_URL } from './nap';
 
 /** Static region names for structured data (avoids importing 2.5MB locations-national into client bundle) */
 const REGION_NAMES = [
@@ -26,9 +28,12 @@ export function getOrganizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${baseUrl}/#organization`,
-    name: 'Les Épavistes Pro',
-    alternateName: ['Épaviste France', 'Les Epavistes Pro', 'Épavistes Pro'],
+    // Brand SERP / sitelinks (S3.2): the exact name and its spellings only —
+    // a generic alternateName ("Épaviste France") blurs the entity.
+    name: BRAND_NAME,
+    alternateName: BRAND_ALTERNATE_NAMES,
     url: baseUrl,
+    // Square, ≥ 112×112 (Google's minimum for the Organization logo).
     logo: {
       '@type': 'ImageObject',
       url: `${baseUrl}/logo_name.png`,
@@ -37,8 +42,8 @@ export function getOrganizationSchema() {
     },
     image: `${baseUrl}/icon.png`,
     description: 'Épaviste agréé VHU partout en France. Service d\'enlèvement d\'épave gratuit 24h/24, 7j/7 et rachat de véhicules accidentés. Partenaire avec centre VHU agréé N° PR9500003D.',
-    telephone: '+33602427345',
-    email: 'lesepavistespro@gmail.com',
+    telephone: NAP.phoneE164,
+    email: NAP.email,
     // TODO(owner): lib/seo-config.ts says 2020 and this says 2023. One of them
     // is wrong and both end up in structured data — confirm the real year.
     foundingDate: '2023',
@@ -94,10 +99,7 @@ export function getOrganizationSchema() {
         },
       ],
     },
-    sameAs: [
-      'https://web.facebook.com/profile.php?id=61552439650150',
-      'https://www.instagram.com/lesepavistespro',
-    ],
+    sameAs: SAME_AS,
     areaServed: {
       '@type': 'Country',
       name: 'France',
@@ -106,7 +108,7 @@ export function getOrganizationSchema() {
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        telephone: '+33602427345',
+        telephone: NAP.phoneE164,
         contactType: 'customer service',
         availableLanguage: 'French',
         areaServed: ['FR-IDF', 'FR'],
@@ -131,8 +133,8 @@ export function getWebSiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${baseUrl}/#website`,
-    name: 'Les Épavistes Pro',
-    alternateName: 'Épaviste France',
+    name: BRAND_NAME,
+    alternateName: BRAND_ALTERNATE_NAMES,
     url: baseUrl,
     potentialAction: {
       '@type': 'SearchAction',
@@ -169,17 +171,18 @@ export function getLocalBusinessSchema() {
     description:
       'Épaviste agréé VHU basé en Île-de-France : enlèvement d\'épave gratuit 24h/24, 7j/7 à Paris et dans les 8 départements franciliens, rachat de véhicules accidentés ou hors d\'usage. Intervention également possible partout en France.',
     url: baseUrl,
-    telephone: '+33602427345',
-    email: 'lesepavistespro@gmail.com',
+    telephone: NAP.phoneE164,
+    email: NAP.email,
     priceRange: 'Gratuit',
     image: `${baseUrl}/icon.png`,
     logo: `${baseUrl}/logo.png`,
     parentOrganization: { '@id': `${baseUrl}/#organization` },
     address: {
       '@type': 'PostalAddress',
-      // TODO(owner): provide the real registered address (streetAddress,
-      // postalCode, addressLocality). Until then only the country is asserted —
-      // inventing a street address would be fabricated local-business data.
+      // lib/nap.ts — TODO(owner): the address as on the Google Business
+      // Profile. Until then only the country is asserted — inventing a street
+      // address would be fabricated local-business data.
+      ...(NAP.streetAddress ? { streetAddress: NAP.streetAddress, postalCode: NAP.postalCode, addressLocality: NAP.addressLocality } : {}),
       addressCountry: 'FR',
     },
     // Primary service area first (Île-de-France and its 8 departments), then
@@ -195,7 +198,7 @@ export function getLocalBusinessSchema() {
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        telephone: '+33602427345',
+        telephone: NAP.phoneE164,
         contactType: 'customer service',
         availableLanguage: 'French',
         areaServed: ['FR-IDF', 'FR'],
@@ -223,10 +226,9 @@ export function getLocalBusinessSchema() {
         closes: '23:59',
       },
     ],
-    sameAs: [
-      'https://web.facebook.com/profile.php?id=61552439650150',
-      'https://www.instagram.com/lesepavistespro',
-    ],
+    sameAs: SAME_AS,
+    // The GBP map, once the owner provides its URL (S3.3/S3.4).
+    ...(GBP_PROFILE_URL.startsWith('https://') ? { hasMap: GBP_PROFILE_URL } : {}),
   };
 }
 

@@ -8,7 +8,7 @@ import { getBlogArticleData, renderJSONLD, getBreadcrumbData } from '@/lib/struc
 import VHUCertification from '@/components/VHUCertification';
 
 export const metadata: Metadata = {
-  title: "Rachat voiture sans contrôle technique",
+  title: "Guide : vendre sans contrôle technique",
   description: "Guide complet sur le rachat de voiture sans contrôle technique. Démarches légales, documents nécessaires, prix et conseils d'experts.",
   keywords: ['rachat sans CT', 'voiture sans contrôle technique', 'vente sans CT', 'France'],
   alternates: {

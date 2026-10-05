@@ -1,0 +1,2005 @@
+{
+ "generatedAt": "2026-10-05T02:10:23.019Z",
+ "source": "csv",
+ "date": "2026-10-05",
+ "period": "Les 3 derniers mois",
+ "previous": "2026-01-02",
+ "base": "https://www.lesepavistespro.fr",
+ "warnings": [
+  "⚠️  ÉCHANTILLON : les pages exportées totalisent 83 clics contre 2761 dans le graphique quotidien (écart 97 % > 20 %). Les valeurs absolues ne sont pas fiables, seules les tendances le sont. Refaire un export sans filtre (ou passer en mode API).",
+  "Mode CSV : l’export Search Console ne contient pas les couples page × requête. La page d’atterrissage de chaque requête est INFÉRÉE (page « naturelle » si elle a des impressions, sinon son parent le plus proche). Le mode API donne les couples exacts."
+ ],
+ "t1": [
+  {
+   "path": "/epaviste/seine-et-marne-77/annet-sur-marne",
+   "impressions": 93,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 4.08,
+   "expected_ctr": 0.0792,
+   "score": 25.07,
+   "page_type": "city-C",
+   "top_query": "épaviste annet-sur-marne",
+   "top_query_impressions": 152,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Annet-sur-Marne (77410) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/paris-75",
+   "impressions": 1651,
+   "clicks": 3,
+   "ctr": 0.0018,
+   "position": 15.82,
+   "expected_ctr": 0.01018,
+   "score": 18.79,
+   "page_type": "dept",
+   "top_query": "epaviste paris",
+   "top_query_impressions": 303,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Paris (75) – Gratuit 24h | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/quincy-voisins",
+   "impressions": 48,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 4.23,
+   "expected_ctr": 0.0777,
+   "score": 12,
+   "page_type": "city-B",
+   "top_query": "épaviste quincy-voisins",
+   "top_query_impressions": 48,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Quincy-Voisins – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/trilport",
+   "impressions": 69,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 5.42,
+   "expected_ctr": 0.05740000000000001,
+   "score": 9.19,
+   "page_type": "city-B",
+   "top_query": "épaviste trilport",
+   "top_query_impressions": 69,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Trilport – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/esbly",
+   "impressions": 44,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 4.61,
+   "expected_ctr": 0.07390000000000001,
+   "score": 8.83,
+   "page_type": "city-B",
+   "top_query": "épaviste esbly",
+   "top_query_impressions": 44,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Esbly (77450) – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/champagne-sur-seine",
+   "impressions": 40,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 4.85,
+   "expected_ctr": 0.07150000000000001,
+   "score": 6.78,
+   "page_type": "city-B",
+   "top_query": "épaviste champagne-sur-seine",
+   "top_query_impressions": 39,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Champagne-sur-Seine (77430) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/ile-de-france",
+   "impressions": 474,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 15.71,
+   "expected_ctr": 0.010289999999999999,
+   "score": 6.3,
+   "page_type": "hub",
+   "top_query": "epaviste idf",
+   "top_query_impressions": 306,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Île-de-France – Gratuit 24/7 | Les Épavistes Pro",
+   "in_title": false,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/brou-sur-chantereine",
+   "impressions": 126,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.03,
+   "expected_ctr": 0.028637500000000003,
+   "score": 5.03,
+   "page_type": "city-B",
+   "top_query": null,
+   "top_query_impressions": 0,
+   "top_query_mapping": null,
+   "title": "Rachat voiture Brou-sur-Chantereine | Les Épavistes Pro",
+   "in_title": null,
+   "in_h1": null,
+   "in_h2": null,
+   "in_first100": null
+  },
+  {
+   "path": "/rachat-voiture/seine-saint-denis-93",
+   "impressions": 43,
+   "clicks": 1,
+   "ctr": 0.0233,
+   "position": 6,
+   "expected_ctr": 0.04,
+   "score": 3.73,
+   "page_type": "dept",
+   "top_query": null,
+   "top_query_impressions": 0,
+   "top_query_mapping": null,
+   "title": "Rachat voiture Seine-Saint-Denis – Cash | Les Épavistes Pro",
+   "in_title": null,
+   "in_h1": null,
+   "in_h2": null,
+   "in_first100": null
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/mareuil-les-meaux",
+   "impressions": 53,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 8.13,
+   "expected_ctr": 0.0320125,
+   "score": 3.5,
+   "page_type": "city-C",
+   "top_query": "épaviste mareuil-lès-meaux",
+   "top_query_impressions": 53,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Mareuil-lès-Meaux (77100) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/rachat-voiture/yvelines-78/le-chesnay-rocquencourt",
+   "impressions": 97,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 11.09,
+   "expected_ctr": 0.01491,
+   "score": 3.12,
+   "page_type": "city-A",
+   "top_query": null,
+   "top_query_impressions": 0,
+   "top_query_mapping": null,
+   "title": "Rachat voiture Le Chesnay-Rocquencourt | Les Épavistes Pro",
+   "in_title": null,
+   "in_h1": null,
+   "in_h2": null,
+   "in_first100": null
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/bagnolet",
+   "impressions": 85,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 11.72,
+   "expected_ctr": 0.01428,
+   "score": 2.53,
+   "page_type": "city-A",
+   "top_query": "épaviste bagnolet",
+   "top_query_impressions": 85,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Bagnolet – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/serris",
+   "impressions": 58,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.09,
+   "expected_ctr": 0.0284125,
+   "score": 2.3,
+   "page_type": "city-B",
+   "top_query": "épaviste serris",
+   "top_query_impressions": 58,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Serris (77700) – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/isles-les-villenoy",
+   "impressions": 26,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 7.19,
+   "expected_ctr": 0.0355375,
+   "score": 2.03,
+   "page_type": "city-C",
+   "top_query": null,
+   "top_query_impressions": 0,
+   "top_query_mapping": null,
+   "title": "Épaviste Isles-lès-Villenoy (77450) | Les Épavistes Pro",
+   "in_title": null,
+   "in_h1": null,
+   "in_h2": null,
+   "in_first100": null
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/varennes-sur-seine",
+   "impressions": 53,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.89,
+   "expected_ctr": 0.025412499999999998,
+   "score": 1.94,
+   "page_type": "city-C",
+   "top_query": null,
+   "top_query_impressions": 0,
+   "top_query_mapping": null,
+   "title": "Rachat voiture Varennes-sur-Seine – Cash | Les Épavistes Pro",
+   "in_title": null,
+   "in_h1": null,
+   "in_h2": null,
+   "in_first100": null
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/la-courneuve",
+   "impressions": 57,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 10.74,
+   "expected_ctr": 0.017599999999999998,
+   "score": 1.91,
+   "page_type": "city-A",
+   "top_query": "épaviste la courneuve",
+   "top_query_impressions": 43,
+   "top_query_mapping": "natural",
+   "title": "Épaviste La Courneuve – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/l-hay-les-roses",
+   "impressions": 68,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 12.49,
+   "expected_ctr": 0.01351,
+   "score": 1.83,
+   "page_type": "city-A",
+   "top_query": "épaviste l'haÿ-les-roses",
+   "top_query_impressions": 121,
+   "top_query_mapping": "natural",
+   "title": "Épaviste L'Haÿ-les-Roses (94240) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/coulommiers",
+   "impressions": 70,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 13.04,
+   "expected_ctr": 0.012960000000000001,
+   "score": 1.72,
+   "page_type": "city-B",
+   "top_query": null,
+   "top_query_impressions": 0,
+   "top_query_mapping": null,
+   "title": "Rachat voiture Coulommiers – Cash | Les Épavistes Pro",
+   "in_title": null,
+   "in_h1": null,
+   "in_h2": null,
+   "in_first100": null
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/villemomble",
+   "impressions": 49,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 10.43,
+   "expected_ctr": 0.020700000000000003,
+   "score": 1.7,
+   "page_type": "city-A",
+   "top_query": "épaviste villemomble",
+   "top_query_impressions": 67,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Villemomble – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/souppes-sur-loing",
+   "impressions": 45,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.58,
+   "expected_ctr": 0.026575,
+   "score": 1.7,
+   "page_type": "city-C",
+   "top_query": "épaviste souppes-sur-loing",
+   "top_query_impressions": 68,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Souppes-sur-Loing (77460) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/le-chatelet-en-brie",
+   "impressions": 57,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 12.86,
+   "expected_ctr": 0.01314,
+   "score": 1.45,
+   "page_type": "city-C",
+   "top_query": null,
+   "top_query_impressions": 0,
+   "top_query_mapping": null,
+   "title": "Rachat voiture Le Châtelet-en-Brie | Les Épavistes Pro",
+   "in_title": null,
+   "in_h1": null,
+   "in_h2": null,
+   "in_first100": null
+  },
+  {
+   "path": "/epaviste/yvelines-78/sartrouville",
+   "impressions": 65,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 15.91,
+   "expected_ctr": 0.01009,
+   "score": 0.85,
+   "page_type": "city-A",
+   "top_query": "épaviste sartrouville",
+   "top_query_impressions": 77,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Sartrouville – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/nangis",
+   "impressions": 21,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 10.76,
+   "expected_ctr": 0.017400000000000002,
+   "score": 0.7,
+   "page_type": "city-B",
+   "top_query": "épaviste nangis",
+   "top_query_impressions": 21,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Nangis (77370) – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/alfortville",
+   "impressions": 40,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 15.47,
+   "expected_ctr": 0.010529999999999998,
+   "score": 0.54,
+   "page_type": "city-A",
+   "top_query": "épaviste alfortville",
+   "top_query_impressions": 40,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Alfortville – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/val-d-oise-95",
+   "impressions": 47,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 17.83,
+   "expected_ctr": 0.00817,
+   "score": 0.52,
+   "page_type": "dept",
+   "top_query": "épaviste bezons",
+   "top_query_impressions": 130,
+   "top_query_mapping": "fallback",
+   "title": "Épaviste Val-d'Oise (95) – Gratuit 24h | Les Épavistes Pro",
+   "in_title": false,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/lagny-sur-marne",
+   "impressions": 36,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 16.06,
+   "expected_ctr": 0.009940000000000001,
+   "score": 0.47,
+   "page_type": "city-A",
+   "top_query": "épaviste lagny-sur-marne",
+   "top_query_impressions": 36,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Lagny-sur-Marne (77400) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/valenton",
+   "impressions": 40,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 17.4,
+   "expected_ctr": 0.008600000000000002,
+   "score": 0.46,
+   "page_type": "city-B",
+   "top_query": "epaviste valenton",
+   "top_query_impressions": 41,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Valenton – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/yvelines-78/poissy",
+   "impressions": 45,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 19.18,
+   "expected_ctr": 0.00682,
+   "score": 0.44,
+   "page_type": "city-A",
+   "top_query": "épaviste poissy",
+   "top_query_impressions": 60,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Poissy (78300) – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/maisons-alfort",
+   "impressions": 30,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 14.47,
+   "expected_ctr": 0.011529999999999999,
+   "score": 0.44,
+   "page_type": "city-A",
+   "top_query": "épaviste maisons-alfort",
+   "top_query_impressions": 85,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Maisons-Alfort – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/livry-gargan",
+   "impressions": 34,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 16.29,
+   "expected_ctr": 0.00971,
+   "score": 0.43,
+   "page_type": "city-A",
+   "top_query": "épaviste livry-gargan",
+   "top_query_impressions": 34,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Livry-Gargan – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93/le-blanc-mesnil",
+   "impressions": 40,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 19.15,
+   "expected_ctr": 0.00685,
+   "score": 0.39,
+   "page_type": "city-A",
+   "top_query": "épaviste le blanc-mesnil",
+   "top_query_impressions": 40,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Le Blanc-Mesnil (93150) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/paris-75/paris-10e",
+   "impressions": 27,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 14.41,
+   "expected_ctr": 0.01159,
+   "score": 0.39,
+   "page_type": "city-A",
+   "top_query": null,
+   "top_query_impressions": 0,
+   "top_query_mapping": null,
+   "title": "Épaviste Paris 10e – Gratuit 24h/24 | Les Épavistes Pro",
+   "in_title": null,
+   "in_h1": null,
+   "in_h2": null,
+   "in_first100": null
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/champs-sur-marne",
+   "impressions": 21,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 14.33,
+   "expected_ctr": 0.01167,
+   "score": 0.31,
+   "page_type": "city-A",
+   "top_query": "épaviste champs-sur-marne",
+   "top_query_impressions": 48,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Champs-sur-Marne (77420) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  },
+  {
+   "path": "/epaviste/hauts-de-seine-92/chatenay-malabry",
+   "impressions": 21,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 18.67,
+   "expected_ctr": 0.007329999999999998,
+   "score": 0.22,
+   "page_type": "city-A",
+   "top_query": "épaviste châtenay-malabry",
+   "top_query_impressions": 26,
+   "top_query_mapping": "natural",
+   "title": "Épaviste Châtenay-Malabry (92290) | Les Épavistes Pro",
+   "in_title": true,
+   "in_h1": false,
+   "in_h2": false,
+   "in_first100": false
+  }
+ ],
+ "t2": [
+  {
+   "path": "/epaviste/doubs-25/pouilley-francais",
+   "impressions": 76,
+   "clicks": 1,
+   "ctr": 0.0132,
+   "position": 1.28,
+   "expected_ctr": 0.2436,
+   "is_idf": false,
+   "title": "Épaviste Pouilley-Français – Gratuit | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/annet-sur-marne",
+   "impressions": 93,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 4.08,
+   "expected_ctr": 0.0792,
+   "is_idf": true,
+   "title": "Épaviste Annet-sur-Marne (77410) | Les Épavistes Pro"
+  },
+  {
+   "path": "/rachat-voiture/rhone-69/quincieux",
+   "impressions": 204,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 7.58,
+   "expected_ctr": 0.034075,
+   "is_idf": false,
+   "title": "Rachat Quincieux (69650) – Cash | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/eure-et-loir-28/donnemain-st-mames",
+   "impressions": 94,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 5.53,
+   "expected_ctr": 0.054099999999999995,
+   "is_idf": false,
+   "title": "Épaviste Donnemain-Saint-Mamès – Gratuit | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/eure-et-loir-28/auneau-bleury-st-symphorien",
+   "impressions": 54,
+   "clicks": 1,
+   "ctr": 0.018500000000000003,
+   "position": 3.78,
+   "expected_ctr": 0.08660000000000001,
+   "is_idf": false,
+   "title": "Épaviste Auneau-Bleury-Saint-Symphorien | Les Épavistes Pro"
+  },
+  {
+   "path": "/rachat-voiture/bas-rhin-67/ostwald",
+   "impressions": 32,
+   "clicks": 2,
+   "ctr": 0.0625,
+   "position": 2.12,
+   "expected_ctr": 0.1452,
+   "is_idf": false,
+   "title": "Rachat Ostwald (67540) – Cash | Les Épavistes Pro"
+  },
+  {
+   "path": "/rachat-voiture/isere-38/st-egreve",
+   "impressions": 97,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 5.82,
+   "expected_ctr": 0.045399999999999996,
+   "is_idf": false,
+   "title": "Rachat Saint-Égrève (38120) – Cash | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/morbihan-56/la-trinite-surzur",
+   "impressions": 134,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 8.6,
+   "expected_ctr": 0.030250000000000003,
+   "is_idf": false,
+   "title": "Épaviste La Trinité-Surzur – Gratuit | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/trilport",
+   "impressions": 69,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 5.42,
+   "expected_ctr": 0.05740000000000001,
+   "is_idf": true,
+   "title": "Épaviste Trilport – Gratuit 24h/24 | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/quincy-voisins",
+   "impressions": 48,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 4.23,
+   "expected_ctr": 0.0777,
+   "is_idf": true,
+   "title": "Épaviste Quincy-Voisins – Gratuit 24h/24 | Les Épavistes Pro"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/brou-sur-chantereine",
+   "impressions": 126,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.03,
+   "expected_ctr": 0.028637500000000003,
+   "is_idf": true,
+   "title": "Rachat voiture Brou-sur-Chantereine | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/esbly",
+   "impressions": 44,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 4.61,
+   "expected_ctr": 0.07390000000000001,
+   "is_idf": true,
+   "title": "Épaviste Esbly (77450) – Gratuit 24h/24 | Les Épavistes Pro"
+  },
+  {
+   "path": "/rachat-voiture/gers-32/condom",
+   "impressions": 45,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 5.07,
+   "expected_ctr": 0.0679,
+   "is_idf": false,
+   "title": "Rachat Condom (32100) – Cash | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/champagne-sur-seine",
+   "impressions": 40,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 4.85,
+   "expected_ctr": 0.07150000000000001,
+   "is_idf": true,
+   "title": "Épaviste Champagne-sur-Seine (77430) | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/mareuil-les-meaux",
+   "impressions": 53,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 8.13,
+   "expected_ctr": 0.0320125,
+   "is_idf": true,
+   "title": "Épaviste Mareuil-lès-Meaux (77100) | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/serris",
+   "impressions": 58,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.09,
+   "expected_ctr": 0.0284125,
+   "is_idf": true,
+   "title": "Épaviste Serris (77700) – Gratuit 24h/24 | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/var-83/le-luc",
+   "impressions": 54,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.72,
+   "expected_ctr": 0.026049999999999997,
+   "is_idf": false,
+   "title": "Épaviste Le Luc (83340) – Gratuit | Les Épavistes Pro"
+  },
+  {
+   "path": "/rachat-voiture/seine-et-marne-77/varennes-sur-seine",
+   "impressions": 53,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.89,
+   "expected_ctr": 0.025412499999999998,
+   "is_idf": true,
+   "title": "Rachat voiture Varennes-sur-Seine – Cash | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/seine-et-marne-77/souppes-sur-loing",
+   "impressions": 45,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.58,
+   "expected_ctr": 0.026575,
+   "is_idf": true,
+   "title": "Épaviste Souppes-sur-Loing (77460) | Les Épavistes Pro"
+  },
+  {
+   "path": "/epaviste/indre-et-loire-37/avon-les-roches",
+   "impressions": 37,
+   "clicks": 0,
+   "ctr": 0,
+   "position": 9.86,
+   "expected_ctr": 0.025525000000000006,
+   "is_idf": false,
+   "title": "Épaviste Avon-les-Roches – Gratuit | Les Épavistes Pro"
+  }
+ ],
+ "t3": [
+  {
+   "query": "enlevement vhu contes",
+   "impressions": 147,
+   "position": 53.03,
+   "cluster": "other",
+   "landing": "/epaviste/provence-alpes-cote-d-azur",
+   "recommended": "/epaviste/alpes-maritimes-06/contes",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste saint-germain-en-laye",
+   "impressions": 135,
+   "position": 17.01,
+   "cluster": "other",
+   "landing": "/epaviste/yvelines-78",
+   "recommended": "/epaviste/yvelines-78/st-germain-en-laye",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste bezons",
+   "impressions": 130,
+   "position": 48.6,
+   "cluster": "other",
+   "landing": "/epaviste/val-d-oise-95",
+   "recommended": "/epaviste/val-d-oise-95/bezons",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste le chesnay-rocquencourt",
+   "impressions": 120,
+   "position": 17.19,
+   "cluster": "other",
+   "landing": "/epaviste/yvelines-78",
+   "recommended": "/epaviste/yvelines-78/le-chesnay-rocquencourt",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste brou-sur-chantereine",
+   "impressions": 119,
+   "position": 5.86,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/seine-et-marne-77/brou-sur-chantereine",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste vincennes",
+   "impressions": 117,
+   "position": 41.69,
+   "cluster": "other",
+   "landing": "/epaviste/val-de-marne-94",
+   "recommended": "/epaviste/val-de-marne-94/vincennes",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste avignon",
+   "impressions": 114,
+   "position": 50.68,
+   "cluster": "other",
+   "landing": "/epaviste/vaucluse-84",
+   "recommended": "/epaviste/vaucluse-84/avignon",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "destruction véhicules quincieux",
+   "impressions": 109,
+   "position": 7.23,
+   "cluster": "other",
+   "landing": "/epaviste/auvergne-rhone-alpes",
+   "recommended": "/epaviste/rhone-69/quincieux",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "voitures à la casse quincieux",
+   "impressions": 95,
+   "position": 7.98,
+   "cluster": "casse",
+   "landing": "/epaviste/auvergne-rhone-alpes",
+   "recommended": "/epaviste/rhone-69/quincieux",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste saint-mammès",
+   "impressions": 93,
+   "position": 5.32,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/seine-et-marne-77/st-mammes",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "vendre sa voiture courchevel",
+   "impressions": 92,
+   "position": 66.85,
+   "cluster": "rachat",
+   "landing": "/rachat-voiture/savoie-73",
+   "recommended": "/rachat-voiture/savoie-73/courchevel",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "centre vhu 972",
+   "impressions": 85,
+   "position": 29.42,
+   "cluster": "centre-vhu",
+   "landing": "/epaviste/martinique-972",
+   "recommended": "/centre-vhu-agree/martinique-972",
+   "reason": "aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "query": "épaviste avon",
+   "impressions": 82,
+   "position": 13.16,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/seine-et-marne-77/avon",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste ivry-sur-seine",
+   "impressions": 78,
+   "position": 42.95,
+   "cluster": "other",
+   "landing": "/epaviste/val-de-marne-94",
+   "recommended": "/epaviste/val-de-marne-94/ivry-sur-seine",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste cergy",
+   "impressions": 73,
+   "position": 50.7,
+   "cluster": "other",
+   "landing": "/epaviste/val-d-oise-95",
+   "recommended": "/epaviste/val-d-oise-95/cergy",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste coulommiers",
+   "impressions": 70,
+   "position": 13.04,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/seine-et-marne-77/coulommiers",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "epaviste haut rhin",
+   "impressions": 69,
+   "position": 12.26,
+   "cluster": "other",
+   "landing": "/epaviste/grand-est",
+   "recommended": "/epaviste/haut-rhin-68",
+   "reason": "page d’atterrissage différente de la page naturelle"
+  },
+  {
+   "query": "centre vhu 973",
+   "impressions": 66,
+   "position": 19.85,
+   "cluster": "centre-vhu",
+   "landing": "/epaviste/guyane-973",
+   "recommended": "/centre-vhu-agree/guyane-973",
+   "reason": "aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "query": "épaviste massy",
+   "impressions": 64,
+   "position": 32.33,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/essonne-91/massy",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "vendre sa voiture livron-sur-drôme",
+   "impressions": 63,
+   "position": 34.48,
+   "cluster": "rachat",
+   "landing": "/rachat-voiture/drome-26",
+   "recommended": "/rachat-voiture/drome-26/livron-sur-drome",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "rachat auto corenc",
+   "impressions": 59,
+   "position": 45.69,
+   "cluster": "rachat",
+   "landing": "/rachat-voiture/isere-38",
+   "recommended": "/rachat-voiture/isere-38/corenc",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "epaviste 92",
+   "impressions": 57,
+   "position": 50.63,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/hauts-de-seine-92",
+   "reason": "page d’atterrissage différente de la page naturelle"
+  },
+  {
+   "query": "épaviste le châtelet-en-brie",
+   "impressions": 56,
+   "position": 11.38,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/seine-et-marne-77/le-chatelet-en-brie",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste varennes-sur-seine",
+   "impressions": 53,
+   "position": 9.89,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/seine-et-marne-77/varennes-sur-seine",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "rachat auto saint ismier",
+   "impressions": 50,
+   "position": 56.9,
+   "cluster": "rachat",
+   "landing": "/rachat-voiture/isere-38",
+   "recommended": "/rachat-voiture/isere-38/st-ismier",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "epaviste châteauroux",
+   "impressions": 49,
+   "position": 12.76,
+   "cluster": "other",
+   "landing": "/epaviste/centre-val-de-loire",
+   "recommended": "/epaviste/indre-36/chateauroux",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "epaviste bagnols",
+   "impressions": 48,
+   "position": 10.73,
+   "cluster": "other",
+   "landing": "/epaviste/auvergne-rhone-alpes",
+   "recommended": "/epaviste/rhone-69/bagnols",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "epaviste senlis",
+   "impressions": 46,
+   "position": 13.83,
+   "cluster": "other",
+   "landing": "/epaviste/oise-60",
+   "recommended": "/epaviste/oise-60/senlis",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "centre vhu 09",
+   "impressions": 45,
+   "position": 23.24,
+   "cluster": "centre-vhu",
+   "landing": "/epaviste/occitanie",
+   "recommended": "/epaviste/ariege-09",
+   "reason": "page d’atterrissage différente de la page naturelle"
+  },
+  {
+   "query": "épaviste châtillon",
+   "impressions": 42,
+   "position": 29.76,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/hauts-de-seine-92/chatillon",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "centre vhu 94",
+   "impressions": 42,
+   "position": 33.05,
+   "cluster": "centre-vhu",
+   "landing": "/epaviste/val-de-marne-94",
+   "recommended": "/centre-vhu-agree/val-de-marne-94",
+   "reason": "aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "query": "epaviste besancon",
+   "impressions": 41,
+   "position": 1.2,
+   "cluster": "other",
+   "landing": "/epaviste/bourgogne-franche-comte",
+   "recommended": "/epaviste/doubs-25/besancon",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "rachat auto la tronche",
+   "impressions": 41,
+   "position": 56.88,
+   "cluster": "rachat",
+   "landing": "/rachat-voiture/isere-38",
+   "recommended": "/rachat-voiture/isere-38/la-tronche",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "centre vhu 75",
+   "impressions": 38,
+   "position": 16.68,
+   "cluster": "centre-vhu",
+   "landing": "/epaviste/paris-75",
+   "recommended": "/centre-vhu-agree/paris-75",
+   "reason": "aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "query": "épaviste choisy-le-roi",
+   "impressions": 38,
+   "position": 23.66,
+   "cluster": "other",
+   "landing": "/epaviste/val-de-marne-94",
+   "recommended": "/epaviste/val-de-marne-94/choisy-le-roi",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "centre vhu agréé 94",
+   "impressions": 38,
+   "position": 32.92,
+   "cluster": "centre-vhu",
+   "landing": "/epaviste/val-de-marne-94",
+   "recommended": "/centre-vhu-agree/val-de-marne-94",
+   "reason": "aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "query": "enlèvement épaves à virazeil",
+   "impressions": 38,
+   "position": 50.89,
+   "cluster": "other",
+   "landing": "/epaviste/nouvelle-aquitaine",
+   "recommended": "/epaviste/lot-et-garonne-47/virazeil",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste cachan",
+   "impressions": 32,
+   "position": 15.31,
+   "cluster": "other",
+   "landing": "/epaviste/val-de-marne-94",
+   "recommended": "/epaviste/val-de-marne-94/cachan",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "centre vhu 971",
+   "impressions": 32,
+   "position": 15.75,
+   "cluster": "centre-vhu",
+   "landing": "/epaviste/guadeloupe-971",
+   "recommended": "/centre-vhu-agree/guadeloupe-971",
+   "reason": "aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "query": "epaviste bethune",
+   "impressions": 30,
+   "position": 11.7,
+   "cluster": "other",
+   "landing": "/epaviste/hauts-de-france",
+   "recommended": "/epaviste/pas-de-calais-62/bethune",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "épaviste garges-lès-gonesse",
+   "impressions": 30,
+   "position": 40.8,
+   "cluster": "other",
+   "landing": "/epaviste/val-d-oise-95",
+   "recommended": "/epaviste/val-d-oise-95/garges-les-gonesse",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "tarifs dépannage pontchâteau",
+   "impressions": 30,
+   "position": 42.2,
+   "cluster": "other",
+   "landing": "/epaviste/pays-de-la-loire",
+   "recommended": "/epaviste/loire-atlantique-44/pontchateau",
+   "reason": "page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "query": "epaviste 77",
+   "impressions": 30,
+   "position": 45.8,
+   "cluster": "other",
+   "landing": "/epaviste/ile-de-france",
+   "recommended": "/epaviste/seine-et-marne-77",
+   "reason": "page d’atterrissage différente de la page naturelle"
+  }
+ ],
+ "cannibalisation": [
+  {
+   "query": "epaviste paris",
+   "impressions": 303,
+   "position": 18.24,
+   "urls": [
+    "/epaviste/paris-75",
+    "/epaviste/ile-de-france"
+   ],
+   "exact": false
+  },
+  {
+   "query": "epaviste 75",
+   "impressions": 236,
+   "position": 13.22,
+   "urls": [
+    "/epaviste/paris-75",
+    "/epaviste/ile-de-france"
+   ],
+   "exact": false
+  },
+  {
+   "query": "destruction voiture trinite",
+   "impressions": 88,
+   "position": 20.19,
+   "urls": [
+    "/epaviste/martinique-972",
+    "/rachat-voiture/martinique-972/la-trinite"
+   ],
+   "exact": false
+  },
+  {
+   "query": "destruction vehicule trinite",
+   "impressions": 86,
+   "position": 19,
+   "urls": [
+    "/epaviste/martinique-972",
+    "/rachat-voiture/martinique-972/la-trinite"
+   ],
+   "exact": false
+  },
+  {
+   "query": "enlevement vehicule trinite",
+   "impressions": 83,
+   "position": 19.23,
+   "urls": [
+    "/epaviste/martinique-972",
+    "/rachat-voiture/martinique-972/la-trinite"
+   ],
+   "exact": false
+  },
+  {
+   "query": "rachat épave 95",
+   "impressions": 81,
+   "position": 25.01,
+   "urls": [
+    "/rachat-voiture/val-d-oise-95",
+    "/rachat-voiture/ile-de-france"
+   ],
+   "exact": false
+  },
+  {
+   "query": "epaviste senlis",
+   "impressions": 46,
+   "position": 13.83,
+   "urls": [
+    "/epaviste/oise-60",
+    "/rachat-voiture/oise-60/senlis"
+   ],
+   "exact": false
+  },
+  {
+   "query": "achat d'épaves à perpignan",
+   "impressions": 21,
+   "position": 17,
+   "urls": [
+    "/rachat-voiture/pyrenees-orientales-66/perpignan",
+    "/rachat-voiture/pyrenees-orientales-66"
+   ],
+   "exact": false
+  }
+ ],
+ "decliners": [
+  {
+   "path": "/epaviste/val-de-marne-94",
+   "before": {
+    "impressions": 262,
+    "clicks": 4,
+    "position": 50.04
+   },
+   "after": {
+    "impressions": 921,
+    "clicks": 1,
+    "position": 28.83
+   },
+   "reason": "clics 4 → 1"
+  },
+  {
+   "path": "/epaviste/seine-saint-denis-93",
+   "before": {
+    "impressions": 210,
+    "clicks": 1,
+    "position": 69.63
+   },
+   "after": {
+    "impressions": 13,
+    "clicks": 0,
+    "position": 27.92
+   },
+   "reason": "impressions 210 → 13"
+  },
+  {
+   "path": "/epaviste/val-d-oise-95/sarcelles",
+   "before": {
+    "impressions": 138,
+    "clicks": 3,
+    "position": 86.36
+   },
+   "after": {
+    "impressions": 266,
+    "clicks": 0,
+    "position": 28.24
+   },
+   "reason": "clics 3 → 0"
+  },
+  {
+   "path": "/rachat-voiture",
+   "before": {
+    "impressions": 126,
+    "clicks": 3,
+    "position": 35.29
+   },
+   "after": {
+    "impressions": 297,
+    "clicks": 0,
+    "position": 43.28
+   },
+   "reason": "position 35.3 → 43.3"
+  },
+  {
+   "path": "/epaviste/essonne-91/corbeil-essonnes",
+   "before": {
+    "impressions": 122,
+    "clicks": 1,
+    "position": 71.09
+   },
+   "after": {
+    "impressions": 6,
+    "clicks": 0,
+    "position": 15.67
+   },
+   "reason": "impressions 122 → 6"
+  },
+  {
+   "path": "/epaviste/val-de-marne-94/vitry-sur-seine",
+   "before": {
+    "impressions": 31,
+    "clicks": 0,
+    "position": 25.87
+   },
+   "after": {
+    "impressions": 176,
+    "clicks": 0,
+    "position": 30.81
+   },
+   "reason": "position 25.9 → 30.8"
+  }
+ ],
+ "actions": [
+  {
+   "priority": 25.07,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/annet-sur-marne",
+   "action": "pos. 4,1, 93 impr. : « épaviste annet-sur-marne » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 18.79,
+   "kind": "T1",
+   "target": "/epaviste/paris-75",
+   "action": "pos. 15,8, 1651 impr. : « epaviste paris » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 17.5104,
+   "kind": "T2",
+   "target": "/epaviste/doubs-25/pouilley-francais",
+   "action": "CTR 1,3 % pour 24,4 % attendu à la pos. 1,3 → réécrire titre + description"
+  },
+  {
+   "priority": 12,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/quincy-voisins",
+   "action": "pos. 4,2, 48 impr. : « épaviste quincy-voisins » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 9.19,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/trilport",
+   "action": "pos. 5,4, 69 impr. : « épaviste trilport » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 8.83,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/esbly",
+   "action": "pos. 4,6, 44 impr. : « épaviste esbly » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 7.365600000000001,
+   "kind": "T2",
+   "target": "/epaviste/seine-et-marne-77/annet-sur-marne",
+   "action": "CTR 0,0 % pour 7,9 % attendu à la pos. 4,1 → réécrire titre + description"
+  },
+  {
+   "priority": 6.9513,
+   "kind": "T2",
+   "target": "/rachat-voiture/rhone-69/quincieux",
+   "action": "CTR 0,0 % pour 3,4 % attendu à la pos. 7,6 → réécrire titre + description"
+  },
+  {
+   "priority": 6.78,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/champagne-sur-seine",
+   "action": "pos. 4,8, 40 impr. : « épaviste champagne-sur-seine » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 6.3,
+   "kind": "T1",
+   "target": "/epaviste/ile-de-france",
+   "action": "pos. 15,7, 474 impr. : « epaviste idf » absente du titre + H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 5.0854,
+   "kind": "T2",
+   "target": "/epaviste/eure-et-loir-28/donnemain-st-mames",
+   "action": "CTR 0,0 % pour 5,4 % attendu à la pos. 5,5 → réécrire titre + description"
+  },
+  {
+   "priority": 5.03,
+   "kind": "T1",
+   "target": "/rachat-voiture/seine-et-marne-77/brou-sur-chantereine",
+   "action": "pos. 9,0, 126 impr. → renforcer le maillage interne"
+  },
+  {
+   "priority": 4.4037999999999995,
+   "kind": "T2",
+   "target": "/rachat-voiture/isere-38/st-egreve",
+   "action": "CTR 0,0 % pour 4,5 % attendu à la pos. 5,8 → réécrire titre + description"
+  },
+  {
+   "priority": 4.0535000000000005,
+   "kind": "T2",
+   "target": "/epaviste/morbihan-56/la-trinite-surzur",
+   "action": "CTR 0,0 % pour 3,0 % attendu à la pos. 8,6 → réécrire titre + description"
+  },
+  {
+   "priority": 3.9606000000000003,
+   "kind": "T2",
+   "target": "/epaviste/seine-et-marne-77/trilport",
+   "action": "CTR 0,0 % pour 5,7 % attendu à la pos. 5,4 → réécrire titre + description"
+  },
+  {
+   "priority": 3.73,
+   "kind": "T1",
+   "target": "/rachat-voiture/seine-saint-denis-93",
+   "action": "pos. 6,0, 43 impr. → renforcer le maillage interne"
+  },
+  {
+   "priority": 3.7296000000000005,
+   "kind": "T2",
+   "target": "/epaviste/seine-et-marne-77/quincy-voisins",
+   "action": "CTR 0,0 % pour 7,8 % attendu à la pos. 4,2 → réécrire titre + description"
+  },
+  {
+   "priority": 3.6774000000000004,
+   "kind": "T2",
+   "target": "/epaviste/eure-et-loir-28/auneau-bleury-st-symphorien",
+   "action": "CTR 1,9 % pour 8,7 % attendu à la pos. 3,8 → réécrire titre + description"
+  },
+  {
+   "priority": 3.6083250000000002,
+   "kind": "T2",
+   "target": "/rachat-voiture/seine-et-marne-77/brou-sur-chantereine",
+   "action": "CTR 0,0 % pour 2,9 % attendu à la pos. 9,0 → réécrire titre + description"
+  },
+  {
+   "priority": 3.5,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/mareuil-les-meaux",
+   "action": "pos. 8,1, 53 impr. : « épaviste mareuil-lès-meaux » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 3.2516000000000003,
+   "kind": "T2",
+   "target": "/epaviste/seine-et-marne-77/esbly",
+   "action": "CTR 0,0 % pour 7,4 % attendu à la pos. 4,6 → réécrire titre + description"
+  },
+  {
+   "priority": 3.12,
+   "kind": "T1",
+   "target": "/rachat-voiture/yvelines-78/le-chesnay-rocquencourt",
+   "action": "pos. 11,1, 97 impr. → renforcer le maillage interne"
+  },
+  {
+   "priority": 3.0555,
+   "kind": "T2",
+   "target": "/rachat-voiture/gers-32/condom",
+   "action": "CTR 0,0 % pour 6,8 % attendu à la pos. 5,1 → réécrire titre + description"
+  },
+  {
+   "priority": 2.94,
+   "kind": "T3",
+   "target": "/epaviste/alpes-maritimes-06/contes",
+   "action": "« enlevement vhu contes » (147 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 2.8600000000000003,
+   "kind": "T2",
+   "target": "/epaviste/seine-et-marne-77/champagne-sur-seine",
+   "action": "CTR 0,0 % pour 7,2 % attendu à la pos. 4,8 → réécrire titre + description"
+  },
+  {
+   "priority": 2.7,
+   "kind": "T3",
+   "target": "/epaviste/yvelines-78/st-germain-en-laye",
+   "action": "« épaviste saint-germain-en-laye » (135 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 2.6464,
+   "kind": "T2",
+   "target": "/rachat-voiture/bas-rhin-67/ostwald",
+   "action": "CTR 6,3 % pour 14,5 % attendu à la pos. 2,1 → réécrire titre + description"
+  },
+  {
+   "priority": 2.62,
+   "kind": "Baisse",
+   "target": "/epaviste/val-de-marne-94",
+   "action": "clics 4 → 1"
+  },
+  {
+   "priority": 2.6,
+   "kind": "T3",
+   "target": "/epaviste/val-d-oise-95/bezons",
+   "action": "« épaviste bezons » (130 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 2.53,
+   "kind": "T1",
+   "target": "/epaviste/seine-saint-denis-93/bagnolet",
+   "action": "pos. 11,7, 85 impr. : « épaviste bagnolet » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 2.4,
+   "kind": "T3",
+   "target": "/epaviste/yvelines-78/le-chesnay-rocquencourt",
+   "action": "« épaviste le chesnay-rocquencourt » (120 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 2.38,
+   "kind": "T3",
+   "target": "/epaviste/seine-et-marne-77/brou-sur-chantereine",
+   "action": "« épaviste brou-sur-chantereine » (119 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 2.34,
+   "kind": "T3",
+   "target": "/epaviste/val-de-marne-94/vincennes",
+   "action": "« épaviste vincennes » (117 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 2.3,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/serris",
+   "action": "pos. 9,1, 58 impr. : « épaviste serris » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 2.2800000000000002,
+   "kind": "T3",
+   "target": "/epaviste/vaucluse-84/avignon",
+   "action": "« épaviste avignon » (114 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 2.18,
+   "kind": "T3",
+   "target": "/epaviste/rhone-69/quincieux",
+   "action": "« destruction véhicules quincieux » (109 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 2.1,
+   "kind": "Baisse",
+   "target": "/epaviste/seine-saint-denis-93",
+   "action": "impressions 210 → 13"
+  },
+  {
+   "priority": 2.03,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/isles-les-villenoy",
+   "action": "pos. 7,2, 26 impr. → renforcer le maillage interne"
+  },
+  {
+   "priority": 1.94,
+   "kind": "T1",
+   "target": "/rachat-voiture/seine-et-marne-77/varennes-sur-seine",
+   "action": "pos. 9,9, 53 impr. → renforcer le maillage interne"
+  },
+  {
+   "priority": 1.91,
+   "kind": "T1",
+   "target": "/epaviste/seine-saint-denis-93/la-courneuve",
+   "action": "pos. 10,7, 57 impr. : « épaviste la courneuve » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 1.9000000000000001,
+   "kind": "T3",
+   "target": "/epaviste/rhone-69/quincieux",
+   "action": "« voitures à la casse quincieux » (95 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.86,
+   "kind": "T3",
+   "target": "/epaviste/seine-et-marne-77/st-mammes",
+   "action": "« épaviste saint-mammès » (93 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.84,
+   "kind": "T3",
+   "target": "/rachat-voiture/savoie-73/courchevel",
+   "action": "« vendre sa voiture courchevel » (92 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.83,
+   "kind": "T1",
+   "target": "/epaviste/val-de-marne-94/l-hay-les-roses",
+   "action": "pos. 12,5, 68 impr. : « épaviste l'haÿ-les-roses » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 1.72,
+   "kind": "T1",
+   "target": "/rachat-voiture/seine-et-marne-77/coulommiers",
+   "action": "pos. 13,0, 70 impr. → renforcer le maillage interne"
+  },
+  {
+   "priority": 1.7,
+   "kind": "T1",
+   "target": "/epaviste/seine-saint-denis-93/villemomble",
+   "action": "pos. 10,4, 49 impr. : « épaviste villemomble » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 1.7,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/souppes-sur-loing",
+   "action": "pos. 9,6, 45 impr. : « épaviste souppes-sur-loing » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 1.7,
+   "kind": "T3",
+   "target": "/centre-vhu-agree/martinique-972",
+   "action": "« centre vhu 972 » (85 impr.) : aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "priority": 1.6966625,
+   "kind": "T2",
+   "target": "/epaviste/seine-et-marne-77/mareuil-les-meaux",
+   "action": "CTR 0,0 % pour 3,2 % attendu à la pos. 8,1 → réécrire titre + description"
+  },
+  {
+   "priority": 1.647925,
+   "kind": "T2",
+   "target": "/epaviste/seine-et-marne-77/serris",
+   "action": "CTR 0,0 % pour 2,8 % attendu à la pos. 9,1 → réécrire titre + description"
+  },
+  {
+   "priority": 1.6400000000000001,
+   "kind": "T3",
+   "target": "/epaviste/seine-et-marne-77/avon",
+   "action": "« épaviste avon » (82 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.56,
+   "kind": "T3",
+   "target": "/epaviste/val-de-marne-94/ivry-sur-seine",
+   "action": "« épaviste ivry-sur-seine » (78 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.46,
+   "kind": "T3",
+   "target": "/epaviste/val-d-oise-95/cergy",
+   "action": "« épaviste cergy » (73 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.45,
+   "kind": "T1",
+   "target": "/rachat-voiture/seine-et-marne-77/le-chatelet-en-brie",
+   "action": "pos. 12,9, 57 impr. → renforcer le maillage interne"
+  },
+  {
+   "priority": 1.4066999999999998,
+   "kind": "T2",
+   "target": "/epaviste/var-83/le-luc",
+   "action": "CTR 0,0 % pour 2,6 % attendu à la pos. 9,7 → réécrire titre + description"
+  },
+  {
+   "priority": 1.4000000000000001,
+   "kind": "T3",
+   "target": "/epaviste/seine-et-marne-77/coulommiers",
+   "action": "« épaviste coulommiers » (70 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.3800000000000001,
+   "kind": "T3",
+   "target": "/epaviste/haut-rhin-68",
+   "action": "« epaviste haut rhin » (69 impr.) : page d’atterrissage différente de la page naturelle"
+  },
+  {
+   "priority": 1.3800000000000001,
+   "kind": "Baisse",
+   "target": "/epaviste/val-d-oise-95/sarcelles",
+   "action": "clics 3 → 0"
+  },
+  {
+   "priority": 1.3468624999999999,
+   "kind": "T2",
+   "target": "/rachat-voiture/seine-et-marne-77/varennes-sur-seine",
+   "action": "CTR 0,0 % pour 2,5 % attendu à la pos. 9,9 → réécrire titre + description"
+  },
+  {
+   "priority": 1.32,
+   "kind": "T3",
+   "target": "/centre-vhu-agree/guyane-973",
+   "action": "« centre vhu 973 » (66 impr.) : aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "priority": 1.28,
+   "kind": "T3",
+   "target": "/epaviste/essonne-91/massy",
+   "action": "« épaviste massy » (64 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.26,
+   "kind": "T3",
+   "target": "/rachat-voiture/drome-26/livron-sur-drome",
+   "action": "« vendre sa voiture livron-sur-drôme » (63 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.26,
+   "kind": "Baisse",
+   "target": "/rachat-voiture",
+   "action": "position 35.3 → 43.3"
+  },
+  {
+   "priority": 1.22,
+   "kind": "Baisse",
+   "target": "/epaviste/essonne-91/corbeil-essonnes",
+   "action": "impressions 122 → 6"
+  },
+  {
+   "priority": 1.195875,
+   "kind": "T2",
+   "target": "/epaviste/seine-et-marne-77/souppes-sur-loing",
+   "action": "CTR 0,0 % pour 2,7 % attendu à la pos. 9,6 → réécrire titre + description"
+  },
+  {
+   "priority": 1.18,
+   "kind": "T3",
+   "target": "/rachat-voiture/isere-38/corenc",
+   "action": "« rachat auto corenc » (59 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.1400000000000001,
+   "kind": "T3",
+   "target": "/epaviste/hauts-de-seine-92",
+   "action": "« epaviste 92 » (57 impr.) : page d’atterrissage différente de la page naturelle"
+  },
+  {
+   "priority": 1.12,
+   "kind": "T3",
+   "target": "/epaviste/seine-et-marne-77/le-chatelet-en-brie",
+   "action": "« épaviste le châtelet-en-brie » (56 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1.06,
+   "kind": "T3",
+   "target": "/epaviste/seine-et-marne-77/varennes-sur-seine",
+   "action": "« épaviste varennes-sur-seine » (53 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 1,
+   "kind": "T3",
+   "target": "/rachat-voiture/isere-38/st-ismier",
+   "action": "« rachat auto saint ismier » (50 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.98,
+   "kind": "T3",
+   "target": "/epaviste/indre-36/chateauroux",
+   "action": "« epaviste châteauroux » (49 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.96,
+   "kind": "T3",
+   "target": "/epaviste/rhone-69/bagnols",
+   "action": "« epaviste bagnols » (48 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.9444250000000002,
+   "kind": "T2",
+   "target": "/epaviste/indre-et-loire-37/avon-les-roches",
+   "action": "CTR 0,0 % pour 2,6 % attendu à la pos. 9,9 → réécrire titre + description"
+  },
+  {
+   "priority": 0.92,
+   "kind": "T3",
+   "target": "/epaviste/oise-60/senlis",
+   "action": "« epaviste senlis » (46 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.9,
+   "kind": "T3",
+   "target": "/epaviste/ariege-09",
+   "action": "« centre vhu 09 » (45 impr.) : page d’atterrissage différente de la page naturelle"
+  },
+  {
+   "priority": 0.85,
+   "kind": "T1",
+   "target": "/epaviste/yvelines-78/sartrouville",
+   "action": "pos. 15,9, 65 impr. : « épaviste sartrouville » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.84,
+   "kind": "T3",
+   "target": "/epaviste/hauts-de-seine-92/chatillon",
+   "action": "« épaviste châtillon » (42 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.84,
+   "kind": "T3",
+   "target": "/centre-vhu-agree/val-de-marne-94",
+   "action": "« centre vhu 94 » (42 impr.) : aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "priority": 0.8200000000000001,
+   "kind": "T3",
+   "target": "/epaviste/doubs-25/besancon",
+   "action": "« epaviste besancon » (41 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.8200000000000001,
+   "kind": "T3",
+   "target": "/rachat-voiture/isere-38/la-tronche",
+   "action": "« rachat auto la tronche » (41 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.76,
+   "kind": "T3",
+   "target": "/centre-vhu-agree/paris-75",
+   "action": "« centre vhu 75 » (38 impr.) : aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "priority": 0.76,
+   "kind": "T3",
+   "target": "/epaviste/val-de-marne-94/choisy-le-roi",
+   "action": "« épaviste choisy-le-roi » (38 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.76,
+   "kind": "T3",
+   "target": "/centre-vhu-agree/val-de-marne-94",
+   "action": "« centre vhu agréé 94 » (38 impr.) : aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "priority": 0.76,
+   "kind": "T3",
+   "target": "/epaviste/lot-et-garonne-47/virazeil",
+   "action": "« enlèvement épaves à virazeil » (38 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.7,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/nangis",
+   "action": "pos. 10,8, 21 impr. : « épaviste nangis » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.64,
+   "kind": "T3",
+   "target": "/epaviste/val-de-marne-94/cachan",
+   "action": "« épaviste cachan » (32 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.64,
+   "kind": "T3",
+   "target": "/centre-vhu-agree/guadeloupe-971",
+   "action": "« centre vhu 971 » (32 impr.) : aucune réponse dédiée « centre VHU » (page à créer, S3.4)"
+  },
+  {
+   "priority": 0.6,
+   "kind": "T3",
+   "target": "/epaviste/pas-de-calais-62/bethune",
+   "action": "« epaviste bethune » (30 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.6,
+   "kind": "T3",
+   "target": "/epaviste/val-d-oise-95/garges-les-gonesse",
+   "action": "« épaviste garges-lès-gonesse » (30 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.6,
+   "kind": "T3",
+   "target": "/epaviste/loire-atlantique-44/pontchateau",
+   "action": "« tarifs dépannage pontchâteau » (30 impr.) : page parente (département / région) qui répond à une requête ville"
+  },
+  {
+   "priority": 0.6,
+   "kind": "T3",
+   "target": "/epaviste/seine-et-marne-77",
+   "action": "« epaviste 77 » (30 impr.) : page d’atterrissage différente de la page naturelle"
+  },
+  {
+   "priority": 0.54,
+   "kind": "T1",
+   "target": "/epaviste/val-de-marne-94/alfortville",
+   "action": "pos. 15,5, 40 impr. : « épaviste alfortville » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.52,
+   "kind": "T1",
+   "target": "/epaviste/val-d-oise-95",
+   "action": "pos. 17,8, 47 impr. : « épaviste bezons » absente du titre + H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.47,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/lagny-sur-marne",
+   "action": "pos. 16,1, 36 impr. : « épaviste lagny-sur-marne » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.46,
+   "kind": "T1",
+   "target": "/epaviste/val-de-marne-94/valenton",
+   "action": "pos. 17,4, 40 impr. : « epaviste valenton » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.44,
+   "kind": "T1",
+   "target": "/epaviste/yvelines-78/poissy",
+   "action": "pos. 19,2, 45 impr. : « épaviste poissy » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.44,
+   "kind": "T1",
+   "target": "/epaviste/val-de-marne-94/maisons-alfort",
+   "action": "pos. 14,5, 30 impr. : « épaviste maisons-alfort » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.43,
+   "kind": "T1",
+   "target": "/epaviste/seine-saint-denis-93/livry-gargan",
+   "action": "pos. 16,3, 34 impr. : « épaviste livry-gargan » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.39,
+   "kind": "T1",
+   "target": "/epaviste/seine-saint-denis-93/le-blanc-mesnil",
+   "action": "pos. 19,1, 40 impr. : « épaviste le blanc-mesnil » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.39,
+   "kind": "T1",
+   "target": "/epaviste/paris-75/paris-10e",
+   "action": "pos. 14,4, 27 impr. → renforcer le maillage interne"
+  },
+  {
+   "priority": 0.31,
+   "kind": "T1",
+   "target": "/epaviste/seine-et-marne-77/champs-sur-marne",
+   "action": "pos. 14,3, 21 impr. : « épaviste champs-sur-marne » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  },
+  {
+   "priority": 0.31,
+   "kind": "Baisse",
+   "target": "/epaviste/val-de-marne-94/vitry-sur-seine",
+   "action": "position 25.9 → 30.8"
+  },
+  {
+   "priority": 0.22,
+   "kind": "T1",
+   "target": "/epaviste/hauts-de-seine-92/chatenay-malabry",
+   "action": "pos. 18,7, 21 impr. : « épaviste châtenay-malabry » absente du H2 → titre + H2 dédié + 3 liens internes avec l’ancre"
+  }
+ ]
+}

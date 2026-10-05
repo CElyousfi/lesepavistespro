@@ -80,6 +80,10 @@ const Header = () => {
                   </div>
                 </div>
               </div>
+              {/* S3.3: the Paris hub gets its own top-level entry on every page */}
+              <Link href="/epaviste/paris-75" title="Épaviste Paris" className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-navy rounded-full hover:bg-neutral-100 transition-all">
+                Paris
+              </Link>
               <Link href="/blog" className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-brand-navy rounded-full hover:bg-neutral-100 transition-all">
                 Conseils
               </Link>

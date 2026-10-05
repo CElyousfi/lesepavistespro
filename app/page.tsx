@@ -1,5 +1,6 @@
 import IdfHero from '@/components/IdfHero';
 import IdfCoverage from '@/components/IdfCoverage';
+import NearMe from '@/components/NearMe';
 import ServiceSelector from '@/components/ServiceSelector';
 import ProcessNew from '@/components/ProcessNew';
 import Coverage from '@/components/Coverage';
@@ -85,6 +86,9 @@ export default function Home() {
 
           {/* The 8 IDF departments + most-searched communes, above the fold */}
           <IdfCoverage departments={idfDepartments} topCities={topIdfCities} />
+
+          {/* « Autour de moi » searches (S3.4) */}
+          <NearMe service="epaviste" />
 
           {/* Services Section */}
           <section className="py-24 md:py-32 bg-white">

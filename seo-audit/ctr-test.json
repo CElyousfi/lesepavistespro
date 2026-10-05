@@ -1,0 +1,38 @@
+{
+  "id": "phone-emoji-2026-10",
+  "startedAt": "2026-10-05",
+  "readAfter": "2026-10-26",
+  "hypothesis": "Sur mobile, le pictogramme ☎ dans la meta description attire l’œil et augmente le CTR à position égale.",
+  "design": "Pages T2 du rapport striking-distance du 5 octobre 2026 (≥ 30 impr., position ≤ 10, CTR < 50 % de l’attendu), réparties en alternance par rang d’opportunité. Les deux cohortes reçoivent le même nouveau titre et la même description (S3.2) ; seule la fin de la description diffère.",
+  "variants": {
+    "with-emoji": "☎ 06 02 42 73 45",
+    "without-emoji": "Tél. 06 02 42 73 45"
+  },
+  "metric": "CTR Search Console de chaque cohorte sur les 3 semaines suivant le déploiement, comparé aux 3 semaines précédentes (même pages, filtre pays France). Lire avec npm run seo:loop (section « Test CTR » de l’issue SEO loop).",
+  "cohorts": {
+    "with-emoji": [
+      "/epaviste/doubs-25/pouilley-francais",
+      "/rachat-voiture/rhone-69/quincieux",
+      "/epaviste/eure-et-loir-28/auneau-bleury-st-symphorien",
+      "/rachat-voiture/isere-38/st-egreve",
+      "/epaviste/seine-et-marne-77/trilport",
+      "/rachat-voiture/seine-et-marne-77/brou-sur-chantereine",
+      "/rachat-voiture/gers-32/condom",
+      "/epaviste/seine-et-marne-77/mareuil-les-meaux",
+      "/epaviste/var-83/le-luc",
+      "/epaviste/seine-et-marne-77/souppes-sur-loing"
+    ],
+    "without-emoji": [
+      "/epaviste/seine-et-marne-77/annet-sur-marne",
+      "/epaviste/eure-et-loir-28/donnemain-st-mames",
+      "/rachat-voiture/bas-rhin-67/ostwald",
+      "/epaviste/morbihan-56/la-trinite-surzur",
+      "/epaviste/seine-et-marne-77/quincy-voisins",
+      "/epaviste/seine-et-marne-77/esbly",
+      "/epaviste/seine-et-marne-77/champagne-sur-seine",
+      "/epaviste/seine-et-marne-77/serris",
+      "/rachat-voiture/seine-et-marne-77/varennes-sur-seine",
+      "/epaviste/indre-et-loire-37/avon-les-roches"
+    ]
+  }
+}

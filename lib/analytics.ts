@@ -1,5 +1,6 @@
 import { IDF_DEPT_SLUGS, IDF_REGION_SLUG } from './idf';
 import { getTrafficSource, type TrafficSource } from './trafficSource';
+import { pageTierFromPath } from './bot-guard';
 
 declare global {
   interface Window {
@@ -121,6 +122,8 @@ function enrichEventParams(baseParams: Record<string, unknown> = {}): EnrichedEv
   return {
     ...baseParams,
     ...geo,
+    // S3.5: same tier as the page_view (layout script)
+    page_tier: pageTierFromPath(window.location.pathname, document.querySelector('[data-page-tier]')?.getAttribute('data-page-tier')),
     traffic_source: trafficSource,
     page_type: pageType,
     location_slug: locationSlug,

@@ -5,6 +5,7 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import VHUCertification from '@/components/VHUCertification';
 import Link from 'next/link';
 import { whatsappUrl } from '@/lib/whatsapp';
+import { BRAND_DISAMBIGUATION } from '@/lib/brand';
 
 export const metadata: Metadata = {
   title: 'Mentions Légales',
@@ -58,6 +59,7 @@ export default function MentionsLegalesPage() {
                     <li><strong>Téléphone :</strong> <a href="tel:+33602427345" className="text-brand-red hover:underline">06 02 42 73 45</a></li>
                     <li><strong>Email :</strong> <a href="mailto:lesepavistespro@gmail.com" className="text-brand-red hover:underline">lesepavistespro@gmail.com</a></li>
                   </ul>
+                  <p className="mt-4 text-neutral-500">{BRAND_DISAMBIGUATION}</p>
                 </div>
               </div>
 

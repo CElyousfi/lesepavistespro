@@ -107,6 +107,8 @@ interface CrawlReport {
   summary: Record<string, number>;
   /** Same metrics restricted to Île-de-France URLs (exhaustive with --idf-only). */
   idf: { pagesCrawled: number; summary: Record<string, number>; errors: IssueGroup[]; warnings: IssueGroup[]; notices: IssueGroup[] };
+  /** Pages linking to each IDF hub (S3.3). */
+  hubInbound: Record<string, number>;
   errors: IssueGroup[];
   warnings: IssueGroup[];
   notices: IssueGroup[];
@@ -145,8 +147,10 @@ function normalizeUrl(u: string): string {
 const IDF_PATH_RE =
   /^\/(epaviste|rachat-voiture)\/(ile-de-france|paris-75|seine-et-marne-77|yvelines-78|essonne-91|hauts-de-seine-92|seine-saint-denis-93|val-de-marne-94|val-d-oise-95)(\/|$)/;
 const IDF_BLOG_RE = /^\/blog\/[^/]*(ile-de-france|idf|paris|grand-paris)[^/]*$/;
+/** S3.3/S3.4: IDF data guides and the IDF centre-VHU pages. */
+const IDF_EXTRA_RE = /^\/(guides\/(fourrieres-ile-de-france|zfe-grand-paris)|centre-vhu-agree\/(paris-75|seine-et-marne-77|yvelines-78|essonne-91|hauts-de-seine-92|seine-saint-denis-93|val-de-marne-94|val-d-oise-95))$/;
 function isIdfPath(pathname: string): boolean {
-  return IDF_PATH_RE.test(pathname) || IDF_BLOG_RE.test(pathname);
+  return IDF_PATH_RE.test(pathname) || IDF_BLOG_RE.test(pathname) || IDF_EXTRA_RE.test(pathname);
 }
 
 function toBase(u: string): string {
@@ -162,7 +166,8 @@ async function fetchRaw(url: string, redirect: 'manual' | 'follow' = 'manual') {
   return fetch(url, {
     redirect,
     headers: {
-      'User-Agent': 'LesEpavistesProSeoCrawler/1.0 (+local audit)',
+      // S3.5: the monitor UA, filtered out of Vercel Analytics / GA4.
+      'User-Agent': 'LesEpavistesPro-SEO-Monitor/1.0 (+seo-crawl)',
       Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     },
   });
@@ -676,6 +681,13 @@ async function main() {
 
   const heaviest = [...okPages].sort((a, b) => b.htmlBytes - a.htmlBytes).slice(0, 5);
 
+  // S3.3: internal links received by the three IDF hubs (pages linking to them).
+  const HUB_TARGETS: Record<string, number> = { '/epaviste/paris-75': 2600, '/epaviste/ile-de-france': 2500, '/rachat-voiture/ile-de-france': 2500 };
+  const hubInbound: Record<string, number> = {};
+  Object.keys(HUB_TARGETS).forEach((hub) => {
+    hubInbound[hub] = okPages.filter((p) => p.path !== hub && p.internalLinks.some((l) => new URL(l).pathname === hub)).length;
+  });
+
   const report: CrawlReport = {
     baseUrl: BASE_URL,
     label: LABEL,
@@ -689,6 +701,7 @@ async function main() {
     pagesCrawled: pages.length,
     summary,
     idf: { pagesCrawled: idfPages.length, ...idfAnalysis },
+    hubInbound,
     errors,
     warnings,
     notices,
@@ -737,6 +750,10 @@ async function main() {
   line();
   line('── IDF key metrics ──');
   Object.entries(idfAnalysis.summary).forEach(([k, v]) => line(`   ${k.padEnd(32)} ${v}`));
+
+  line();
+  line('── Internal links received by the IDF hubs (target) ──');
+  Object.entries(hubInbound).forEach(([hub, n]) => line(`   ${hub.padEnd(32)} ${n} (≥ ${HUB_TARGETS[hub]} when the full IDF crawl runs) ${n >= HUB_TARGETS[hub] ? '✓' : '·'}`));
 
   line();
   line('── Heaviest pages ──');

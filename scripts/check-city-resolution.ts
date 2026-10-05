@@ -23,7 +23,7 @@ import {
   homonymCitySlugs,
 } from '../lib/locations-national';
 import { shouldIncludeInSitemap, shouldNoIndex } from '../lib/geo-targeting';
-import { generateEpavisteCityMeta, generateRachatCityMeta } from '../lib/seo';
+import { generateEpavisteCityMeta, generateRachatCityMeta, renderedTitle } from '../lib/seo';
 
 export interface CityResolutionResult {
   passed: boolean;
@@ -104,7 +104,7 @@ export function checkCityResolution(): CityResolutionResult {
         shouldNoIndex(dept.slug, city.slug),
         true
       );
-      const title = String(meta.title ?? '');
+      const title = renderedTitle(meta.title as string | { absolute: string });
       if (!titlesBySlug.has(city.slug)) titlesBySlug.set(city.slug, new Map());
       const bucket = titlesBySlug.get(city.slug)!;
       bucket.set(title, [...(bucket.get(title) || []), dept.slug]);
@@ -127,8 +127,8 @@ export function checkCityResolution(): CityResolutionResult {
     const titles = new Set(
       owners.map((d) => {
         const city = d.cities.find((c) => c.slug === slug)!;
-        return String(
-          generateRachatCityMeta(city.name, d.slug, slug, city.postalCode, false, true).title ?? ''
+        return renderedTitle(
+          generateRachatCityMeta(city.name, d.slug, slug, city.postalCode, false, true).title as string | { absolute: string }
         );
       })
     );

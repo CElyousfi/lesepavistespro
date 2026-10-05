@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getIdfIntent, getIdfIntents } from '@/data/idf-intents';
+import { getIdfIntent, getIdfIntents, intentKind } from '@/data/idf-intents';
 import { generateIdfIntentMeta } from '@/lib/seo';
 import { getBreadcrumbData, getIdfIntentServiceData, getWebPageData, renderJSONLD } from '@/lib/structured-data';
 import { buildFaqPage } from '@/lib/faq';
@@ -47,7 +47,7 @@ export default async function EpavisteIdfIntentRoute({ params }: { params: Promi
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={renderJSONLD(structuredData)} />
-      <IdfIntentPage intent={data} siblings={getIdfIntents(SERVICE).filter((i) => i.slug !== data.slug)} />
+      <IdfIntentPage intent={data} siblings={getIdfIntents(SERVICE).filter((i) => i.slug !== data.slug && intentKind(i) === intentKind(data))} />
       <Footer />
     </>
   );
