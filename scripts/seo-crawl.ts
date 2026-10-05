@@ -145,8 +145,10 @@ function normalizeUrl(u: string): string {
 const IDF_PATH_RE =
   /^\/(epaviste|rachat-voiture)\/(ile-de-france|paris-75|seine-et-marne-77|yvelines-78|essonne-91|hauts-de-seine-92|seine-saint-denis-93|val-de-marne-94|val-d-oise-95)(\/|$)/;
 const IDF_BLOG_RE = /^\/blog\/[^/]*(ile-de-france|idf|paris|grand-paris)[^/]*$/;
+/** S3.3/S3.4: IDF data guides and the IDF centre-VHU pages. */
+const IDF_EXTRA_RE = /^\/(guides\/(fourrieres-ile-de-france|zfe-grand-paris)|centre-vhu-agree\/(paris-75|seine-et-marne-77|yvelines-78|essonne-91|hauts-de-seine-92|seine-saint-denis-93|val-de-marne-94|val-d-oise-95))$/;
 function isIdfPath(pathname: string): boolean {
-  return IDF_PATH_RE.test(pathname) || IDF_BLOG_RE.test(pathname);
+  return IDF_PATH_RE.test(pathname) || IDF_BLOG_RE.test(pathname) || IDF_EXTRA_RE.test(pathname);
 }
 
 function toBase(u: string): string {

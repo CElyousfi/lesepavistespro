@@ -6,6 +6,8 @@ import { IDF_DEPT_SLUGS, IDF_REGION_SLUG } from '@/lib/idf';
 import { getPageUpdatedAt } from '@/lib/lastmod';
 import { blogPosts } from '@/lib/blog-data';
 import { idfIntents } from '@/data/idf-intents';
+import { FOURRIERES_CHECKED_AT } from '@/data/idf-fourrieres';
+import { ZFE_CHECKED_AT } from '@/data/zfe-grand-paris';
 
 /**
  * Île-de-France sitemap — every IDF URL in one file, listed FIRST in the
@@ -59,6 +61,10 @@ export async function GET() {
   for (const intent of idfIntents) {
     entries.push({ loc: `${base}/${intent.service}/ile-de-france/${intent.slug}`, lastmod: intent.updatedAt });
   }
+
+  // Île-de-France data guides (S3.3)
+  entries.push({ loc: `${base}/guides/fourrieres-ile-de-france`, lastmod: FOURRIERES_CHECKED_AT });
+  entries.push({ loc: `${base}/guides/zfe-grand-paris`, lastmod: ZFE_CHECKED_AT });
 
   // IDF blog posts
   for (const post of blogPosts) {
