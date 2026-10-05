@@ -9,7 +9,11 @@ import NearMeButton from '@/components/NearMeButton';
  * (crawlable, and the answer without permission); the opt-in button adds the
  * 5 nearest communes.
  */
-export default function NearMe({ service = 'epaviste' }: { service?: 'epaviste' | 'rachat-voiture' }) {
+/**
+ * `showDepartments={false}` on pages that already list the 8 departments right
+ * below (the IDF region hubs), to avoid duplicate links and page weight.
+ */
+export default function NearMe({ service = 'epaviste', showDepartments = true }: { service?: 'epaviste' | 'rachat-voiture'; showDepartments?: boolean }) {
   const label = service === 'rachat-voiture' ? 'Rachat voiture' : 'Épaviste';
   return (
     <section className="py-14 sm:py-16 bg-brand-surface border-t border-neutral-200" id="pres-de-chez-vous">
@@ -19,8 +23,11 @@ export default function NearMe({ service = 'epaviste' }: { service?: 'epaviste' 
             {label} près de chez vous
           </h2>
           <p className="text-neutral-600 text-center mb-8">
-            Choisissez votre département, ou laissez-nous trouver les communes les plus proches de vous.
+            {showDepartments
+              ? 'Choisissez votre département, ou laissez-nous trouver les communes les plus proches de vous.'
+              : 'Laissez-nous trouver les communes les plus proches de vous, ou choisissez votre département ci-dessous.'}
           </p>
+          {showDepartments && (
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {getIdfDepartments().map((d) => (
               <li key={d.slug}>
@@ -34,6 +41,7 @@ export default function NearMe({ service = 'epaviste' }: { service?: 'epaviste' 
               </li>
             ))}
           </ul>
+          )}
           <NearMeButton service={service} />
         </div>
       </div>

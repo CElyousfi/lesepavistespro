@@ -140,7 +140,7 @@ export default function IdfRegionPage({ service, faqItems, guides }: IdfRegionPa
       </section>
 
       {/* « Autour de moi » searches (S3.4) */}
-      <NearMe service={service} />
+      <NearMe service={service} showDepartments={false} />
 
       {/* Most-populated communes */}
       <section className="py-16 sm:py-20 bg-white border-t border-neutral-200">

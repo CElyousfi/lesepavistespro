@@ -89,9 +89,9 @@ export default function NearMeButton({ service }: { service: 'epaviste' | 'racha
       </button>
       <p className="mt-2 text-xs text-neutral-500">
         {state === 'denied'
-          ? 'Localisation refusée : choisissez votre département ci-dessus.'
+          ? 'Localisation refusée : choisissez votre département dans la liste.'
           : state === 'error'
-            ? 'Localisation indisponible : choisissez votre département ci-dessus.'
+            ? 'Localisation indisponible : choisissez votre département dans la liste.'
             : 'Votre position n’est ni enregistrée ni utilisée pour la publicité ou les statistiques.'}
       </p>
     </div>
