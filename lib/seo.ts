@@ -483,6 +483,23 @@ export function rachatRegionText(regionName: string, regionSlug: string): MetaTe
   };
 }
 
+/** Centre VHU agréé page (S3.4) — /centre-vhu-agree/<dept>. */
+export function centreVhuText(d: { slug: string; code: string; name: string; locative: string }): MetaText {
+  const tail = phoneTail(`/centre-vhu-agree/${d.slug}`);
+  return {
+    title: fitTitle([
+      `Centre VHU agréé ${d.name} – Destruction & certificat`,
+      `Centre VHU agréé ${d.name} – Destruction`,
+      `Centre VHU agréé ${d.name}`,
+    ]),
+    description: pickDescription([
+      `Centre VHU agréé ${d.locative} (${d.code}) : destruction gratuite d'un véhicule complet, certificat de destruction, enlèvement gratuit jusqu'au centre. ${tail}`,
+      `Centre VHU agréé ${d.locative} (${d.code}) : destruction gratuite, certificat de destruction, enlèvement gratuit jusqu'au centre. ${tail}`,
+      `Centre VHU agréé ${d.locative} (${d.code}) : destruction d'un véhicule complet gratuite et certificat de destruction. ${tail}`,
+    ]),
+  };
+}
+
 /**
  * Generate SEO metadata for homepage
  */

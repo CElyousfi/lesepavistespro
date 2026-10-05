@@ -17,6 +17,7 @@ import IdfDepartmentPage from '@/components/IdfDepartmentPage';
 import IdfRegionPage from '@/components/IdfRegionPage';
 import Footer from '@/components/Footer';
 import AlsoInIdf from '@/components/AlsoInIdf';
+import CentreVhuLink from '@/components/CentreVhuLink';
 import { idfEpavisteFaq } from '@/data/idf-faq';
 import { getIdfTestimonialsByDept, getAllIdfTestimonials } from '@/data/idf-testimonials';
 import DepartmentClientPage from './DepartmentClient';
@@ -219,6 +220,7 @@ export default async function DepartmentOrRegionEpavistePage({ params }: { param
         // otherwise it is orphaned (reachable only from the sitemap).
         linkAllCities={isIndexedDepartment(dept.slug)}
       />
+      <CentreVhuLink deptSlug={dept.slug} variant="section" />
       <AlsoInIdf context={`dans le ${dept.name}`} />
       <Footer />
     </>

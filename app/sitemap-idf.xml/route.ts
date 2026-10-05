@@ -8,6 +8,7 @@ import { blogPosts } from '@/lib/blog-data';
 import { idfIntents } from '@/data/idf-intents';
 import { FOURRIERES_CHECKED_AT } from '@/data/idf-fourrieres';
 import { ZFE_CHECKED_AT } from '@/data/zfe-grand-paris';
+import { CENTRE_VHU_DEPTS, CENTRE_VHU_UPDATED_AT } from '@/data/centre-vhu';
 
 /**
  * Île-de-France sitemap — every IDF URL in one file, listed FIRST in the
@@ -65,6 +66,11 @@ export async function GET() {
   // Île-de-France data guides (S3.3)
   entries.push({ loc: `${base}/guides/fourrieres-ile-de-france`, lastmod: FOURRIERES_CHECKED_AT });
   entries.push({ loc: `${base}/guides/zfe-grand-paris`, lastmod: ZFE_CHECKED_AT });
+
+  // Centre VHU agréé pages (S3.4) — the 8 IDF departments
+  for (const d of CENTRE_VHU_DEPTS.filter((x) => x.idf)) {
+    entries.push({ loc: `${base}/centre-vhu-agree/${d.slug}`, lastmod: CENTRE_VHU_UPDATED_AT });
+  }
 
   // IDF blog posts
   for (const post of blogPosts) {

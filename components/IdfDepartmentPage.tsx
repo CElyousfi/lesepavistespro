@@ -19,6 +19,7 @@ import { getGscHubAnswer } from '@/lib/gsc-answer';
 import GscAnswer from '@/components/GscAnswer';
 import GscBoostLinks from '@/components/GscBoostLinks';
 import ParisHubExtras from '@/components/ParisHubExtras';
+import CentreVhuLink from '@/components/CentreVhuLink';
 
 interface IdfDepartmentPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -253,6 +254,9 @@ export default function IdfDepartmentPage({ service, dept, hub, faqItems, guides
               <IdfIntentLinks service={service} variant="chips" />
               <div className="mt-8">
                 <GscBoostLinks fromPath={path} title="Recherches fréquentes" />
+              </div>
+              <div className="mt-6">
+                <CentreVhuLink deptSlug={dept.slug} />
               </div>
               <h2 className="text-lg font-bold text-brand-navy mt-8 mb-3">Guides utiles</h2>
               <ul className="space-y-2">

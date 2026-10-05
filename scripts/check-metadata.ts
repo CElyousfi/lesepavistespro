@@ -20,6 +20,7 @@ import {
   rachatDepartmentText,
   epavisteRegionText,
   rachatRegionText,
+  centreVhuText,
   renderedTitle,
   generateHomeMeta,
   generateEpavistePillarMeta,
@@ -29,6 +30,7 @@ import {
   type MetaText,
 } from '../lib/seo';
 import { getGscPageOverride } from '../data/gsc-actions';
+import { CENTRE_VHU_DEPTS } from '../data/centre-vhu';
 
 export const DESC_HARD_MIN = 110;
 export const DESC_HARD_MAX = 160;
@@ -58,6 +60,7 @@ export function collectMetadataRows(): Row[] {
   ([['/', generateHomeMeta()], ['/epaviste', generateEpavistePillarMeta()], ['/rachat-voiture', generateRachatPillarMeta()], ['/zones', generateZonesMeta()]] as const).forEach(([path, m]) => {
     rows.push({ path, place: '', title: renderedTitle(m.title as string | { absolute: string }), description: String(m.description ?? ''), indexable: true, idf: path === '/' });
   });
+  CENTRE_VHU_DEPTS.forEach((d) => push(`/centre-vhu-agree/${d.slug}`, d.name, centreVhuText(d), true, d.idf));
   regions.forEach((r) => {
     push(`/epaviste/${r.slug}`, r.name, epavisteRegionText(r.name, r.slug, r.departments.length), true, r.slug === 'ile-de-france');
     push(`/rachat-voiture/${r.slug}`, r.name, rachatRegionText(r.name, r.slug), true, r.slug === 'ile-de-france');
