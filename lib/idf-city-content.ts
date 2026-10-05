@@ -16,6 +16,8 @@ import { getIdfCommuneFacts, type IdfCommuneFacts } from '@/data/idf-facts.gener
 import { idfTransport } from '@/data/idf-transport.generated';
 import { getIdfDeptHub, type IdfDeptHub } from '@/data/idf-extra-content';
 import { generateIdfCityContent } from './idf-city-generated';
+import { PARIS_ARRONDISSEMENT_LINES } from '@/data/paris-arrondissements';
+import { PARIS_FOURRIERE_SITES } from '@/data/idf-fourrieres';
 
 export interface ResolvedIdfCity {
   ref: IdfCityRef;
@@ -63,7 +65,8 @@ export function resolveIdfCity(deptSlug: string, citySlug: string): ResolvedIdfC
       updatedAt: handwritten.updatedAt,
       intro: handwritten.intro,
       situations: handwritten.situations,
-      rachatSituations: handwritten.situations,
+      // Paris (S3.5): rachat-specific situations instead of the épaviste ones.
+      rachatSituations: ref.deptCode === '75' ? [...parisRachatSituations(ref, handwritten.fourriere ?? null), ...handwritten.situations.slice(0, 2)] : handwritten.situations,
       fourriere: handwritten.fourriere ?? null,
       fourriereText: handwritten.fourriere ? null : hub.fourriere,
       acces: handwritten.acces,
@@ -128,4 +131,27 @@ export function uniqueWordCount(resolved: ResolvedIdfCity, service: 'epaviste' |
           ...resolved.faqRachat.flatMap(f => [f.question, f.answer]),
         ];
   return parts.join(' ').split(/\s+/).filter(Boolean).length;
+}
+
+/**
+ * Rachat situations for a Paris arrondissement (S3.5) — built from the
+ * arrondissement's own facts: the préfourrière named on its page (Ville de
+ * Paris data) and its local line; the page adds two of its hand-written
+ * local situations. No price beyond the
+ * published fourrière tariff.
+ */
+function parisRachatSituations(ref: IdfCityRef, fourriere: IdfFourriere | null): IdfCitySituation[] {
+  const n = ref.name.replace(/^Paris /, '');
+  const site = fourriere ? PARIS_FOURRIERE_SITES.find((f) => f.name === fourriere.name) : undefined;
+  const local = PARIS_ARRONDISSEMENT_LINES[ref.slug] ?? '';
+  return [
+    {
+      title: `Voiture en préfourrière${site ? ` ${site.name.replace(/^Préfourrière /, '')}` : ''}`,
+      text: `Enlevée dans le ${n}, une voiture part le plus souvent à la ${site ? `${site.name.replace(/ \(.*\)$/, '').replace(/^P/, 'p')} (${site.where})` : 'préfourrière la plus proche'}. Si elle ne vaut plus les frais, cédez-la-nous en l'état avec votre mandat : les frais restent dus et l'offre en tient compte.`,
+    },
+    {
+      title: `Box ou parking à libérer dans le ${n}`,
+      text: `${local} Une voiture qui dort dans un box du ${n} ? Nous la rachetons sur place, même immobilisée, et l'emplacement est libre le jour même.`,
+    },
+  ];
 }

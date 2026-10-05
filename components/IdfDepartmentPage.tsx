@@ -20,6 +20,7 @@ import GscAnswer from '@/components/GscAnswer';
 import GscBoostLinks from '@/components/GscBoostLinks';
 import ParisHubExtras from '@/components/ParisHubExtras';
 import CentreVhuLink from '@/components/CentreVhuLink';
+import { getPageUpdatedAt, formatFrenchDate } from '@/lib/lastmod';
 
 interface IdfDepartmentPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -174,7 +175,8 @@ export default function IdfDepartmentPage({ service, dept, hub, faqItems, guides
             </div>
 
             <p className="mt-10 text-xs text-neutral-400">
-              Sources&nbsp;: {hub.sources.join(' · ')}.
+              Sources&nbsp;: {hub.sources.join(' · ')}. Mis à jour le{' '}
+              <time dateTime={getPageUpdatedAt(path)}>{formatFrenchDate(getPageUpdatedAt(path))}</time>.
             </p>
           </div>
         </div>

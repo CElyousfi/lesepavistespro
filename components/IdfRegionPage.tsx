@@ -20,6 +20,7 @@ import { getGscHubAnswer } from '@/lib/gsc-answer';
 import GscAnswer from '@/components/GscAnswer';
 import GscBoostLinks from '@/components/GscBoostLinks';
 import NearMe from '@/components/NearMe';
+import { getPageUpdatedAt, formatFrenchDate } from '@/lib/lastmod';
 
 interface IdfRegionPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -75,7 +76,10 @@ export default function IdfRegionPage({ service, faqItems, guides }: IdfRegionPa
           ☎ 06 02 42 73 45.
         </p>
 
-        <QuickContact service={isRachat ? 'rachat' : 'epaviste'} location="Île-de-France" className="justify-center mb-10" />
+        <QuickContact service={isRachat ? 'rachat' : 'epaviste'} location="Île-de-France" className="justify-center mb-4" />
+        <p className="text-xs text-neutral-500 mb-8">
+          Mis à jour le <time dateTime={getPageUpdatedAt(path)}>{formatFrenchDate(getPageUpdatedAt(path))}</time>
+        </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm border-t border-neutral-200 pt-8">
           {IDF_STATS.map((stat) => (

@@ -17,6 +17,7 @@ import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 import { getGscCityAnswer } from '@/lib/gsc-answer';
 import GscAnswer from '@/components/GscAnswer';
 import GscBoostLinks from '@/components/GscBoostLinks';
+import { getPageUpdatedAt, formatFrenchDate } from '@/lib/lastmod';
 
 interface IdfCityPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -236,7 +237,10 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
               ))}
             </div>
 
-            <p className="mt-8 text-xs text-neutral-400">Sources&nbsp;: {city.sources.join(' · ')}.</p>
+            <p className="mt-8 text-xs text-neutral-400">
+              Sources&nbsp;: {city.sources.join(' · ')}. Mis à jour le{' '}
+              <time dateTime={getPageUpdatedAt(path)}>{formatFrenchDate(getPageUpdatedAt(path))}</time>.
+            </p>
           </div>
         </div>
       </article>
