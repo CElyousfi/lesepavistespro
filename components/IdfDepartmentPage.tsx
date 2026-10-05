@@ -18,6 +18,7 @@ import { getIdfDepartments, getTopIdfCities } from '@/lib/idf-cities';
 import { getGscHubAnswer } from '@/lib/gsc-answer';
 import GscAnswer from '@/components/GscAnswer';
 import GscBoostLinks from '@/components/GscBoostLinks';
+import ParisHubExtras from '@/components/ParisHubExtras';
 
 interface IdfDepartmentPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -177,6 +178,9 @@ export default function IdfDepartmentPage({ service, dept, hub, faqItems, guides
           </div>
         </div>
       </section>
+
+      {/* Paris mega-hub (S3.3): arrondissements, fourrières, ZFE */}
+      {dept.code === '75' && <ParisHubExtras service={service} />}
 
       {/* Most-searched communes */}
       <section className="py-16 sm:py-24 bg-white border-t border-neutral-200">
