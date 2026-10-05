@@ -142,10 +142,15 @@ async function driveForm(tab: import('puppeteer-core').Page): Promise<boolean> {
     await clickText('^Continuer$');
     // Step 3: postal code
     await wait(500);
-    if (!(await typeInto('form input[placeholder^="Tapez un code postal"]', '92000'))) return false;
-    await wait(700);
-    await tab.evaluate(() => (document.querySelector('form [data-option]') as HTMLElement | null)?.click());
-    await wait(300);
+    // S3.5: IDF commune pages pre-fill the postal code (« 92000 — Nanterre »
+    // shown as selected) — only type it when the search input is displayed.
+    const prefilled = await tab.evaluate(() => !document.querySelector('form input[placeholder^="Tapez un code postal"]'));
+    if (!prefilled) {
+      if (!(await typeInto('form input[placeholder^="Tapez un code postal"]', '92000'))) return false;
+      await wait(700);
+      await tab.evaluate(() => (document.querySelector('form [data-option]') as HTMLElement | null)?.click());
+      await wait(300);
+    }
     await clickText('^Continuer$');
     // Step 4: contact
     await wait(500);
