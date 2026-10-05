@@ -1390,6 +1390,19 @@ function checkGscActions() {
   addResult(problems.length === 0, problems.length ? `✗ GSC actions: ${problems.slice(0, 5).join(' · ')}` : `✓ GSC T1 actions: ${GSC_T1_ACTIONS.length} pages (cap 40), 3 linking pages each, answers 80–150 words`);
 }
 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// S3.3: one NAP for /contact, the footer and the schema (GBP consistency)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkNapConsistency() {
+  log('\n📇 Checking NAP consistency...', colors.blue);
+  const read = (f: string) => fs.readFileSync(path.join(process.cwd(), f), 'utf-8');
+  const files = ['components/Footer.tsx', 'app/contact/page.tsx', 'lib/schema.ts'];
+  const missing = files.filter((f) => !/from '(@\/lib|\.)\/nap'/.test(read(f)));
+  const deadEmail = files.filter((f) => /(>|')contact@lesepavistes\.pro/.test(read(f)));
+  const ok = missing.length === 0 && deadEmail.length === 0;
+  addResult(ok, ok ? '✓ /contact, footer and schema read the NAP from lib/nap.ts' : `✗ NAP not from lib/nap.ts: ${[...missing, ...deadEmail].join(', ')}`);
+}
+
 function runAllChecks() {
   log('\n╔═══════════════════════════════════════════════════════════════╗', colors.blue);
   log('║          SEO QA CHECK - REGRESSION SAFETY NET                 ║', colors.blue);
@@ -1429,6 +1442,7 @@ function runAllChecks() {
     checkMetadataSystem();        // S3.2
     checkBrandSerp();             // S3.2
     checkGscActions();            // S3.1.c
+    checkNapConsistency();        // S3.3
     checkNoNofollow();            // P2.3
     checkStructuredDataEntities();// P2.4
     checkRootLayoutHead();        // P2.5

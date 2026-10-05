@@ -9,6 +9,7 @@ import { getBreadcrumbSchema } from '@/lib/schema';
 import { buildFaqPage, type FaqItem } from '@/lib/faq';
 import VHUCertification from '@/components/VHUCertification';
 import { whatsappUrl } from '@/lib/whatsapp';
+import { NAP } from '@/lib/nap';
 
 export const metadata: Metadata = {
     title: 'Contact – Épaviste & rachat voiture 7j/7',
@@ -117,8 +118,8 @@ export default function ContactPage() {
                                         <div>
                                             <h3 className="font-bold text-brand-navy mb-0.5">Téléphone</h3>
                                             <p className="text-neutral-500 text-xs mb-2">Réponse immédiate</p>
-                                            <a href="tel:+33602427345" className="text-xl font-bold text-brand-navy hover:text-brand-red transition-colors block">
-                                                06 02 42 73 45
+                                            <a href={`tel:${NAP.phoneE164}`} className="text-xl font-bold text-brand-navy hover:text-brand-red transition-colors block">
+                                                {NAP.phone}
                                             </a>
                                         </div>
                                     </div>
@@ -136,7 +137,7 @@ export default function ContactPage() {
                                                 rel="noopener noreferrer"
                                                 className="text-xl font-bold text-brand-navy hover:text-whatsapp transition-colors block"
                                             >
-                                                06 02 42 73 45
+                                                {NAP.phone}
                                             </a>
                                         </div>
                                     </div>
@@ -148,8 +149,8 @@ export default function ContactPage() {
                                         <div>
                                             <h3 className="font-bold text-brand-navy mb-0.5">Email</h3>
                                             <p className="text-neutral-500 text-xs mb-2">Pour les documents</p>
-                                            <a href="mailto:lesepavistespro@gmail.com" className="text-lg font-bold text-brand-navy hover:text-brand-red transition-colors block break-all">
-                                                lesepavistespro@gmail.com
+                                            <a href={`mailto:${NAP.email}`} className="text-lg font-bold text-brand-navy hover:text-brand-red transition-colors block break-all">
+                                                {NAP.email}
                                             </a>
                                         </div>
                                     </div>
@@ -169,8 +170,8 @@ export default function ContactPage() {
                                                     <span className="font-semibold text-brand-navy">24h/24</span>
                                                 </li>
                                                 <li className="flex justify-between w-full min-w-[200px] text-neutral-500 text-sm">
-                                                    <span>Zone principale</span>
-                                                    <span className="font-semibold text-brand-navy">Île-de-France</span>
+                                                    <span>{NAP.streetAddress ? 'Adresse' : 'Zone principale'}</span>
+                                                    <span className="font-semibold text-brand-navy">{NAP.streetAddress ? `${NAP.streetAddress}, ${NAP.postalCode} ${NAP.addressLocality}` : NAP.serviceArea}</span>
                                                 </li>
                                             </ul>
                                         </div>
