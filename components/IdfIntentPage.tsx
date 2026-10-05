@@ -177,7 +177,9 @@ export default function IdfIntentPage({ intent, siblings }: IdfIntentPageProps) 
             </div>
 
             <div className="p-6 bg-brand-surface rounded-2xl border border-neutral-200">
-              <h2 className="text-lg font-bold text-brand-navy mb-4">Autres situations</h2>
+              <h2 className="text-lg font-bold text-brand-navy mb-4">
+                {intent.kind === 'marque' ? 'Autres marques' : intent.kind === 'pro' ? 'Autres professionnels' : 'Autres situations'}
+              </h2>
               <ul className="space-y-2 text-sm">
                 {siblings.map((s) => (
                   <li key={s.slug}>

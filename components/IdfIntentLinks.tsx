@@ -1,19 +1,44 @@
 import Link from 'next/link';
 import { CaretRight } from '@phosphor-icons/react/dist/ssr';
-import { getIdfIntents } from '@/data/idf-intents';
+import { getIdfIntents, intentKind, type IdfIntent } from '@/data/idf-intents';
 
 interface IdfIntentLinksProps {
   service: 'epaviste' | 'rachat-voiture';
   /** Compact: inline chips (department pages); default: card list (hubs). */
   variant?: 'cards' | 'chips';
+  /** Which pages: situations (default), rachat × marque, or professionnels (S3.5). */
+  kind?: NonNullable<IdfIntent['kind']>;
 }
+
+const HEADINGS: Record<NonNullable<IdfIntent['kind']>, { eyebrow: string; title: [string, string]; text: [string, string] }> = {
+  situation: {
+    eyebrow: 'Situations particulières',
+    title: ['Vendre une voiture… quelle que soit sa situation', 'Une épave… dans chaque situation'],
+    text: [
+      'Sans contrôle technique, accidentée, en panne, gagée, en succession : la règle applicable et notre réponse, cas par cas.',
+      'Sans carte grise, en sous-sol, brûlée, gagée, en fourrière, en succession : la démarche exacte et ce que nous faisons, cas par cas.',
+    ],
+  },
+  marque: {
+    eyebrow: 'Rachat par marque',
+    title: ['Nous rachetons toutes les marques', 'Nous rachetons toutes les marques'],
+    text: ['Renault, Peugeot, Citroën, Volkswagen, Toyota… ce qui compte pour chaque marque, et comment se passe le rachat.', ''],
+  },
+  pro: {
+    eyebrow: 'Professionnels',
+    title: ['Pour les professionnels', 'Pour les professionnels'],
+    text: ['', 'Syndics, bailleurs, garages, concessions, notaires : le cadre légal et une organisation adaptée à votre activité.'],
+  },
+};
 
 /**
  * "Situations particulières" — links to the Île-de-France situation pages
  * of one service (S2.1). Server component; every link is in the HTML.
  */
-export default function IdfIntentLinks({ service, variant = 'cards' }: IdfIntentLinksProps) {
-  const intents = getIdfIntents(service);
+export default function IdfIntentLinks({ service, variant = 'cards', kind = 'situation' }: IdfIntentLinksProps) {
+  const intents = getIdfIntents(service).filter((i) => intentKind(i) === kind);
+  if (!intents.length) return null;
+  const h = HEADINGS[kind];
   const isRachat = service === 'rachat-voiture';
   const hover = isRachat ? 'hover:border-brand-gold/40 hover:text-brand-gold' : 'hover:border-brand-red/40 hover:text-brand-red';
 
@@ -32,19 +57,15 @@ export default function IdfIntentLinks({ service, variant = 'cards' }: IdfIntent
   }
 
   return (
-    <section className="py-16 sm:py-20 bg-white border-t border-neutral-200" aria-labelledby="situations-title">
+    <section className="py-16 sm:py-20 bg-white border-t border-neutral-200" aria-labelledby={`${kind}-title`}>
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <span className={`inline-block ${isRachat ? 'text-brand-gold' : 'text-brand-red'} text-sm font-semibold tracking-wider uppercase mb-4`}>Situations particulières</span>
-            <h2 id="situations-title" className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy tracking-tight">
-              {isRachat ? 'Vendre une voiture… quelle que soit sa situation' : 'Une épave… dans chaque situation'}
+            <span className={`inline-block ${isRachat ? 'text-brand-gold' : 'text-brand-red'} text-sm font-semibold tracking-wider uppercase mb-4`}>{h.eyebrow}</span>
+            <h2 id={`${kind}-title`} className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy tracking-tight">
+              {isRachat ? h.title[0] : h.title[1]}
             </h2>
-            <p className="text-neutral-600 mt-3">
-              {isRachat
-                ? 'Sans contrôle technique, accidentée, en panne, gagée, en succession : la règle applicable et notre réponse, cas par cas.'
-                : 'Sans carte grise, en sous-sol, brûlée, gagée, en fourrière, en succession : la démarche exacte et ce que nous faisons, cas par cas.'}
-            </p>
+            {(isRachat ? h.text[0] : h.text[1]) && <p className="text-neutral-600 mt-3">{isRachat ? h.text[0] : h.text[1]}</p>}
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {intents.map((i) => (

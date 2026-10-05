@@ -1,4 +1,5 @@
 import type { FaqItem } from '@/lib/faq';
+import { extraIdfIntents } from './idf-intents-extra';
 
 /**
  * Île-de-France "situation" pages (S2.1) — /epaviste/ile-de-france/<intent>
@@ -84,6 +85,10 @@ export const INTENT_SOURCES = {
   /** Suppression des ZFE censurée : décision n° 2026-903 DC du 21 mai 2026.
    *  https://www.conseil-constitutionnel.fr/decision/2026/2026903DC.htm */
   CC_2026_903: 'Conseil constitutionnel — décision n° 2026-903 DC du 21 mai 2026',
+  /** Objets confiés à un professionnel et non retirés : véhicules à moteur
+   *  après 3 mois, requête au juge, vente aux enchères publiques.
+   *  https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006071001 */
+  LOI_1903: 'Loi du 31 décembre 1903 relative à la vente de certains objets abandonnés',
 } as const;
 
 export type IntentSourceKey = keyof typeof INTENT_SOURCES;
@@ -98,6 +103,8 @@ export interface IdfIntentSection {
 export interface IdfIntent {
   slug: string;
   service: 'epaviste' | 'rachat-voiture';
+  /** situation (S2.1, default) · marque (rachat × marque, S3.5) · pro (B2B, S3.5). */
+  kind?: 'situation' | 'marque' | 'pro';
   /** ISO date of the last real content change (sitemap lastmod). */
   updatedAt: string;
   /** H1. */
@@ -116,7 +123,7 @@ export interface IdfIntent {
   sources: IntentSourceKey[];
 }
 
-export const idfIntents: IdfIntent[] = [
+const situationIntents: IdfIntent[] = [
   {
     slug: 'sans-carte-grise',
     service: 'epaviste',
@@ -1760,6 +1767,13 @@ export const idfIntents: IdfIntent[] = [
     sources: ['SP_CSA', 'SP_GAGE', 'SP_VE'],
   },
 ];
+
+/** Situations (S2.1) + rachat × marque and professionnels pages (S3.5). */
+export const idfIntents: IdfIntent[] = [...situationIntents, ...extraIdfIntents];
+
+export function intentKind(i: IdfIntent): NonNullable<IdfIntent['kind']> {
+  return i.kind ?? 'situation';
+}
 
 export function getIdfIntent(service: IdfIntent['service'], slug: string): IdfIntent | undefined {
   return idfIntents.find((i) => i.service === service && i.slug === slug);

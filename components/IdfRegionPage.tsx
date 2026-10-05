@@ -184,6 +184,8 @@ export default function IdfRegionPage({ service, faqItems, guides }: IdfRegionPa
 
       {/* Situations particulières (S2.1) */}
       <IdfIntentLinks service={service} />
+      {/* Rachat × marque / professionnels (S3.5) */}
+      <IdfIntentLinks service={service} kind={isRachat ? 'marque' : 'pro'} />
 
       {/* Cross-links */}
       <section className="py-12 bg-brand-surface border-t border-neutral-200">
