@@ -702,7 +702,7 @@ function checkIdfLinkRules() {
 function checkIdfIntents() {
   log('\n🧭 Checking Île-de-France situation pages...', colors.blue);
   const EXPECTED = {
-    epaviste: ['sans-carte-grise', 'parking-souterrain', 'voiture-brulee', 'vehicule-gage', 'succession-deces', 'voiture-abandonnee-voie-publique', 'fourriere', 'utilitaire-camionnette', 'moto-scooter', 'camping-car', 'vehicule-accidente', 'epave-entreprise-flotte', 'zfe-vieux-vehicule'],
+    epaviste: ['sans-carte-grise', 'parking-souterrain', 'voiture-brulee', 'vehicule-gage', 'succession-deces', 'voiture-abandonnee-voie-publique', 'fourriere', 'utilitaire-camionnette', 'moto-scooter', 'camping-car', 'caravane', 'vehicule-accidente', 'epave-entreprise-flotte', 'zfe-vieux-vehicule'],
     'rachat-voiture': ['sans-controle-technique', 'voiture-accidentee', 'moteur-hs', 'boite-de-vitesses-hs', 'voiture-en-panne', 'fort-kilometrage', 'utilitaire', 'voiture-non-roulante', 'succession', 'vehicule-gage'],
   } as const;
   const failures: string[] = [];

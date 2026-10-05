@@ -801,6 +801,80 @@ export const idfIntents: IdfIntent[] = [
     ],
     sources: ['SP_VHU', 'SP_CARAVANE', 'CR_R417_12', 'SP_CSA'],
   },
+  // S3.4 — « épaviste caravane gratuit », « récupération épave caravane »,
+  // « enlèvement caravane gratuit » (Search Console, 5 Oct 2026).
+  // TODO(owner): confirm the caravan policy (free when complete and
+  // accessible?). Until then the page promises no price: the cost is
+  // confirmed on photos, before any trip.
+  {
+    slug: 'caravane',
+    service: 'epaviste',
+    updatedAt: '2026-10-05',
+    title: "Enlèvement de caravane hors d'usage en Île-de-France",
+    metaTitle: 'Caravane hors d’usage : enlèvement',
+    description: "Caravane qui ne roule plus au fond du jardin ou sur un terrain : enlèvement en Île-de-France, documents (carte grise au-delà de 500 kg) et préparation.",
+    label: 'Caravane',
+    intro: [
+      "Une caravane qui ne part plus en vacances ne reste pas longtemps une caravane : en quelques hivers sous une bâche, les joints de la cellule cèdent, l'eau s'infiltre, le plancher gonfle, les pneus se fendillent et les roulements grippent. En grande couronne — Seine-et-Marne, Yvelines, Essonne, Val-d'Oise —, où les terrains sont grands, beaucoup finissent ainsi au fond d'un jardin, jusqu'à la vente de la maison, une succession ou une plainte de voisinage.",
+      "Nous enlevons les caravanes hors d'usage dans toute l'Île-de-France, qu'elles soient immatriculées ou non, roulantes ou non. Cette page explique ce qu'il faut savoir avant de nous appeler : la carte grise, l'accès au terrain, ce qu'il faut vider, et ce que vous recevez au moment de l'enlèvement. Le coût éventuel est annoncé sur photos, avant tout déplacement : rien n'est facturé sans votre accord.",
+    ],
+    sections: [
+      {
+        title: 'Caravane immatriculée ou non : la règle des 500 kg',
+        paragraphs: [
+          "Une caravane dont le poids total autorisé en charge dépasse 500 kg doit être immatriculée et possède sa propre carte grise, distincte de celle de la voiture qui la tracte. C'est le cas de la plupart des caravanes de séjour. Pour s'en séparer, la démarche ressemble à celle d'un véhicule : la carte grise est barrée et signée, une déclaration de cession (cerfa 15776) est remplie avec nous, et un certificat de situation administrative de moins de quinze jours prouve qu'aucune opposition ne bloque la cession. Vous conservez votre exemplaire : la caravane n'est plus à votre nom.",
+          "Une petite caravane de moins de 500 kg, ou une remorque aménagée, n'a pas de carte grise : il n'y a pas de cession à déclarer, et nous vous remettons une attestation de reprise qui prouve qu'elle a quitté votre terrain. Si la carte grise d'une caravane immatriculée est perdue, une déclaration de perte la remplace.",
+        ],
+      },
+      {
+        title: 'Sortir une caravane d’un jardin ou d’un terrain',
+        paragraphs: [
+          "Après des années sans bouger, une caravane ne se tracte plus : pneus à plat ou éclatés, roulements bloqués, frein à main grippé, roue jockey cassée. Nous ne la remorquons pas sur la route dans cet état : nous la chargeons sur un plateau, au treuil, en posant des plaques si le sol est meuble. Le point qui décide de la faisabilité est l'accès : largeur du portail, pente, hauteur des branches, distance entre la caravane et la rue.",
+          "Avant notre passage, envoyez quelques photos : la caravane sous plusieurs angles, le timon et les roues, le portail et le chemin jusqu'à la rue. Elles nous permettent d'apporter le bon matériel et de vous confirmer les conditions de l'enlèvement avant de nous déplacer.",
+        ],
+        list: [
+          'Photos de la caravane, du timon, des roues et de l’accès (portail, chemin).',
+          'Bouteilles de gaz retirées, réservoir de toilettes chimiques et réservoirs d’eau vidés.',
+          'Effets personnels, matelas et déchets sortis de la cellule.',
+          'Carte grise (si la caravane est immatriculée), certificat de situation administrative, pièce d’identité.',
+        ],
+      },
+      {
+        title: 'Caravane, camping-car, mobil-home : trois cas différents',
+        paragraphs: [
+          "Une caravane n'a pas de moteur : c'est une remorque. Un camping-car, lui, est un véhicule à moteur immatriculé, cédé pour destruction comme une voiture — nous avons une page dédiée à l'enlèvement des camping-cars et fourgons aménagés. Un mobil-home, enfin, n'est pas une caravane : il ne circule pas sur la route et son déplacement relève d'un transport spécial ; appelez-nous et nous vous orienterons.",
+          "Cette distinction compte pour les documents à fournir et pour le matériel : une caravane de 6 ou 7 mètres se charge sur un plateau standard, ce qui n'est pas le cas d'un mobil-home.",
+        ],
+      },
+      {
+        title: 'Caravane laissée sur la voie publique ou sur un terrain qui n’est pas le vôtre',
+        paragraphs: [
+          "Une caravane détachée et laissée plus de sept jours consécutifs au même endroit de la voie publique est en stationnement abusif, comme tout véhicule : elle peut être verbalisée puis mise en fourrière, et les frais restent dus par son propriétaire. Si elle ne repartira plus, la faire enlever avant l'intervention de la fourrière évite ces frais.",
+          "Si une caravane a été laissée sans droit sur votre terrain, le code de la route prévoit une procédure : le propriétaire du terrain met en demeure le propriétaire de la caravane, par lettre recommandée, de la retirer, puis peut demander sa mise en fourrière. Nous ne pouvons enlever qu'une caravane dont le propriétaire, ou un ayant droit, signe la cession ; pour une caravane abandonnée par un tiers, la procédure légale passe d'abord par la mairie ou la police.",
+        ],
+      },
+      {
+        title: 'Rachat ou enlèvement : ce qui change la valeur d’une caravane',
+        paragraphs: [
+          "Une caravane récente, saine et étanche garde une valeur, même si ses pneus sont à changer : dans ce cas, mieux vaut la vendre que la détruire. À l'inverse, une cellule infiltrée — plafond taché, angles mous, plancher qui s'enfonce — ne vaut plus que ses équipements. Nous vous le disons franchement sur photos, avant toute intervention, et vous proposons la solution adaptée.",
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Enlevez-vous les caravanes en Île-de-France ?', answer: "Oui, dans les huit départements, immatriculées ou non, roulantes ou non : nous les chargeons sur un plateau, au treuil si nécessaire." },
+      { question: 'Faut-il une carte grise pour se séparer d’une caravane ?', answer: "Si son poids total autorisé dépasse 500 kg, la caravane est immatriculée : la carte grise est barrée et une déclaration de cession est remplie. En dessous de 500 kg, il n'y a pas de carte grise et nous remettons une attestation de reprise." },
+      { question: 'L’enlèvement d’une caravane est-il gratuit ?', answer: "Il dépend de l'état de la caravane et de l'accès. Nous vous l'indiquons sur photos, avant tout déplacement : rien n'est facturé sans votre accord." },
+      { question: 'La caravane ne roule plus et le sol est meuble, est-ce possible ?', answer: "Oui : nous la treuillons sur des plaques jusqu'au plateau. Envoyez des photos du portail, du chemin et des roues pour que nous venions avec le bon matériel." },
+      { question: 'Que dois-je retirer avant l’enlèvement ?', answer: "Les bouteilles de gaz, le contenu des toilettes chimiques et des réservoirs d'eau, les effets personnels, matelas et déchets." },
+      { question: 'Une caravane a été abandonnée sur mon terrain, pouvez-vous l’enlever ?', answer: "Seul son propriétaire peut nous la céder. Sinon, mettez-le en demeure par lettre recommandée de la retirer, puis adressez-vous à la mairie ou à la police pour la procédure de mise en fourrière." },
+    ],
+    towns: [
+      { deptSlug: 'seine-et-marne-77', slug: 'pontault-combault' },
+      { deptSlug: 'yvelines-78', slug: 'plaisir' },
+      { deptSlug: 'essonne-91', slug: 'brunoy' },
+    ],
+    sources: ['SP_CARAVANE', 'CR_R417_12', 'CR_R325_47', 'SP_CSA'],
+  },
   {
     slug: 'vehicule-accidente',
     service: 'epaviste',

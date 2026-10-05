@@ -178,6 +178,17 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
               ))}
             </ul>
 
+            {/* S3.4: two-wheelers (310 impressions at position 19.6) — Paris and the Tier A of 92/93/94 */}
+            {(ref.deptCode === '75' || (city.tier === 'A' && ['92', '93', '94'].includes(ref.deptCode))) && (
+              <p className="mt-8 p-5 bg-brand-surface rounded-2xl border border-neutral-200 text-neutral-700">
+                <strong className="text-brand-navy">Scooter ou moto à enlever ?</strong> Deux-roues en panne dans une cour, scooter
+                volé retrouvé ou moto immobilisée en parking à {name}&nbsp;: nous les enlevons aussi, avec la même cession.{' '}
+                <Link href="/epaviste/ile-de-france/moto-scooter" className={`font-semibold ${accent} hover:underline underline-offset-4`}>
+                  Enlèvement de moto ou scooter en Île-de-France
+                </Link>
+              </p>
+            )}
+
             {/* Fourrière */}
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-navy mt-14 mb-6 tracking-tight">
               Fourrière à {name}&nbsp;: où est mon véhicule&nbsp;?
