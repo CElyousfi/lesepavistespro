@@ -25,6 +25,9 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { createHash } from 'node:crypto';
 
+/** S3.5: marks our runs so lib/bot-guard.ts drops them from Vercel Analytics / GA4. */
+const MONITOR_LH_UA = 'Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36 Chrome-Lighthouse LesEpavistesPro-SEO-Monitor/1.0';
+
 const argv = process.argv.slice(2);
 const BASE = (argv.find(a => a.startsWith('http')) || 'https://www.lesepavistespro.fr').replace(/\/+$/, '');
 const SKIP_LH = argv.includes('--skip-lighthouse');
@@ -199,7 +202,7 @@ function lighthouse(previous: MonitorSummary | null): LighthouseRow[] {
     const prev = previous?.lighthouse?.find(r => r.path === p);
     try {
       execFileSync('npx', ['lighthouse', `${BASE}${p}`, '--only-categories=performance', '--quiet', '--output=json', `--output-path=${out}`,
-        '--chrome-flags=--headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage'], { stdio: ['ignore', 'ignore', 'pipe'], timeout: 180_000 });
+        '--chrome-flags=--headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage', `--emulatedUserAgent=${MONITOR_LH_UA}`], { stdio: ['ignore', 'ignore', 'pipe'], timeout: 180_000 });
       const report = JSON.parse(fs.readFileSync(out, 'utf8'));
       const perf = Math.round((report.categories.performance.score ?? 0) * 100);
       const lcpMs = Math.round(report.audits['largest-contentful-paint'].numericValue ?? 0);

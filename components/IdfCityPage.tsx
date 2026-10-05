@@ -63,6 +63,8 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
   return (
     <>
       <Header />
+      {/* GA4 page_tier (S3.5) */}
+      <span hidden data-page-tier={`city-${city.tier}`} />
 
       <LocationHero accentColor={isRachat ? 'gold' : 'red'}>
         <div className="mb-6">

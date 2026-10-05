@@ -1403,6 +1403,15 @@ function checkNapConsistency() {
   addResult(ok, ok ? '✓ /contact, footer and schema read the NAP from lib/nap.ts' : `✗ NAP not from lib/nap.ts: ${[...missing, ...deadEmail].join(', ')}`);
 }
 
+// S3.5: analytics guard — no monitor / lab-tool visits in Vercel Analytics or GA4
+function checkAnalyticsGuard() {
+  log('\n🤖 Checking the analytics bot guard...', colors.blue);
+  const layout = fs.readFileSync(path.join(process.cwd(), 'app/layout.tsx'), 'utf-8');
+  const guard = fs.readFileSync(path.join(process.cwd(), 'components/AnalyticsGuarded.tsx'), 'utf-8');
+  const ok = layout.includes('<AnalyticsGuarded />') && !layout.includes('<Analytics />') && layout.includes("ga-disable-G-RKMW16M4C2") && layout.includes('page_tier') && guard.includes('beforeSend');
+  addResult(ok, ok ? '✓ Vercel Analytics beforeSend + GA4 disable for HeadlessChrome/Lighthouse/monitor/webdriver; GA4 page_tier' : '✗ Analytics guard or page_tier missing in app/layout.tsx');
+}
+
 function runAllChecks() {
   log('\n╔═══════════════════════════════════════════════════════════════╗', colors.blue);
   log('║          SEO QA CHECK - REGRESSION SAFETY NET                 ║', colors.blue);
@@ -1443,6 +1452,7 @@ function runAllChecks() {
     checkBrandSerp();             // S3.2
     checkGscActions();            // S3.1.c
     checkNapConsistency();        // S3.3
+    checkAnalyticsGuard();        // S3.5
     checkNoNofollow();            // P2.3
     checkStructuredDataEntities();// P2.4
     checkRootLayoutHead();        // P2.5

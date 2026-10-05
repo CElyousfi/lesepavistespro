@@ -4,7 +4,7 @@ import "./globals.css";
 import "../styles/icon-animations.css";
 import Script from "next/script";
 import { getLocalBusinessSchema, getOrganizationSchema, getWebSiteSchema } from "@/lib/schema";
-import { Analytics } from "@vercel/analytics/next";
+import AnalyticsGuarded from "@/components/AnalyticsGuarded";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -127,9 +127,17 @@ export default function RootLayout({
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              // S3.5: no hits from our monitor, lab tools or automated browsers
+              // (gtag stays defined, so scripts/verify-ga4-events.ts still works).
+              if (/HeadlessChrome|Lighthouse|LesEpavistesPro-SEO-Monitor|PageSpeed/i.test(navigator.userAgent) || navigator.webdriver === true) {
+                window['ga-disable-G-RKMW16M4C2'] = true;
+              }
+              var p = location.pathname, m = p.match(/^\/(epaviste|rachat-voiture)(?:\/([^/]+))?(?:\/([^/]+))?$/), el = document.querySelector('[data-page-tier]');
+              var tier = el ? el.getAttribute('data-page-tier') : p === '/' ? 'home' : /^\/blog(\/|$)/.test(p) ? 'blog' : /^\/guides\//.test(p) ? 'guide' : /^\/centre-vhu-agree\//.test(p) ? 'centre-vhu' : !m ? 'static' : !m[2] ? 'hub' : m[2] === 'ile-de-france' ? (m[3] ? 'intent' : 'hub') : !m[3] ? (/-(\d+|2[ab])$/.test(m[2]) ? 'dept' : 'hub') : 'city';
               gtag('js', new Date());
               gtag('config', 'G-RKMW16M4C2', {
                 page_path: window.location.pathname,
+                page_tier: tier,
                 send_page_view: true
               });
               try { if (!sessionStorage.getItem('lead_landing_path')) sessionStorage.setItem('lead_landing_path', location.pathname + location.search); } catch (e) {}
@@ -158,7 +166,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
         {children}
-        <Analytics />
+        <AnalyticsGuarded />
       </body>
     </html>
   );
