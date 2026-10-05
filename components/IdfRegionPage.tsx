@@ -19,6 +19,7 @@ import { getIdfDepartments, getTopIdfCities } from '@/lib/idf-cities';
 import { getGscHubAnswer } from '@/lib/gsc-answer';
 import GscAnswer from '@/components/GscAnswer';
 import GscBoostLinks from '@/components/GscBoostLinks';
+import NearMe from '@/components/NearMe';
 
 interface IdfRegionPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -133,6 +134,9 @@ export default function IdfRegionPage({ service, faqItems, guides }: IdfRegionPa
           </div>
         </div>
       </section>
+
+      {/* « Autour de moi » searches (S3.4) */}
+      <NearMe service={service} />
 
       {/* Most-populated communes */}
       <section className="py-16 sm:py-20 bg-white border-t border-neutral-200">
