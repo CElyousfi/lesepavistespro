@@ -14,6 +14,9 @@ import type { IdfDeptContent } from '@/data/idf-extra-content';
 import type { FaqItem } from '@/lib/faq';
 import { idfLocative } from '@/lib/idf';
 import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
+import { getGscCityAnswer } from '@/lib/gsc-answer';
+import GscAnswer from '@/components/GscAnswer';
+import GscBoostLinks from '@/components/GscBoostLinks';
 
 interface IdfCityPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -53,6 +56,9 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
   const delay = petiteCouronne ? 'sous 2 h' : 'sous 24 h, souvent le jour même';
   const townFaq = isRachat ? city.faqRachat : city.faqEpaviste;
   const locative = idfLocative(ref.deptCode, ref.deptName);
+  const path = `/${service}/${ref.deptSlug}/${ref.slug}`;
+  // Search Console loop (S3.1.c): the page's top query answered in an H2.
+  const gscAnswer = getGscCityAnswer(service, city);
 
   return (
     <>
@@ -138,6 +144,7 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
       <article className="py-16 sm:py-24 bg-white" data-idf-content="unique" data-idf-tier={city.tier} data-idf-source={city.source}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            {gscAnswer && <GscAnswer answer={gscAnswer} className="mb-14" />}
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
               {isRachat ? `Vendre sa voiture à ${name} (${cp})` : `Enlèvement d'épave à ${name} (${cp})`}
             </h2>
@@ -366,6 +373,7 @@ export default function IdfCityPage({ service, city, deptContent, regionFaq, gui
             </ul>
 
             <div className="grid md:grid-cols-3 gap-4">
+              <GscBoostLinks fromPath={path} title={`Recherché près de ${name}`} />
               <div className="p-5 bg-brand-surface rounded-2xl border border-neutral-200">
                 <h3 className="text-sm font-bold text-brand-navy mb-3">Autour de {name}</h3>
                 <ul className="space-y-2 text-sm">

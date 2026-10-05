@@ -16,6 +16,9 @@ import type { FaqItem } from '@/lib/faq';
 import { IDF_STATS, idfLocative } from '@/lib/idf';
 import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 import { getIdfDepartments, getTopIdfCities } from '@/lib/idf-cities';
+import { getGscHubAnswer } from '@/lib/gsc-answer';
+import GscAnswer from '@/components/GscAnswer';
+import GscBoostLinks from '@/components/GscBoostLinks';
 
 interface IdfRegionPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -39,6 +42,8 @@ export default function IdfRegionPage({ service, faqItems, guides }: IdfRegionPa
   const accent = isRachat ? 'text-brand-gold' : 'text-brand-red';
   const departments = getIdfDepartments();
   const topCities = getTopIdfCities(TOP_CITY_LINKS);
+  const path = `/${service}/ile-de-france`;
+  const gscAnswer = getGscHubAnswer(path);
 
   return (
     <>
@@ -84,6 +89,7 @@ export default function IdfRegionPage({ service, faqItems, guides }: IdfRegionPa
       {/* The 8 departments */}
       <section className="py-16 sm:py-24 bg-brand-surface" data-idf-content="hub">
         <div className="container mx-auto px-4">
+          {gscAnswer && <GscAnswer answer={gscAnswer} className="max-w-4xl mx-auto mb-16" />}
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10">
               <span className={`inline-block ${accent} text-sm font-semibold tracking-wider uppercase mb-4`}>8 départements</span>
@@ -191,6 +197,7 @@ export default function IdfRegionPage({ service, faqItems, guides }: IdfRegionPa
                 Toute la France
               </Link>
             </div>
+            <GscBoostLinks fromPath={path} title="Recherches fréquentes" />
             <ul className="flex flex-wrap gap-x-4 gap-y-1">
               {guides.map((g) => (
                 <li key={g.href}>

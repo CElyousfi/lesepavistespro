@@ -15,6 +15,10 @@ import { analyseIdfContent, TIER_MIN_WORDS, TIER_MAX_SIMILARITY } from './idf-co
 import { idfIntents, intentWordCount } from '../data/idf-intents';
 import { getIdfCityRef } from '../lib/idf-cities';
 import { runMetadataCheck } from './check-metadata';
+import { GSC_T1_ACTIONS } from '../data/gsc-actions';
+import { resolveIdfCity } from '../lib/idf-city-content';
+import { getGscCityAnswer, getGscHubAnswer } from '../lib/gsc-answer';
+import { getDepartmentBySlug, getRegionBySlug } from '../lib/locations-national';
 
 interface ValidationResult {
   passed: boolean;
@@ -923,7 +927,9 @@ function checkSitemapIntegrity() {
   );
   if (fs.existsSync(idfRoute)) {
     const idfSrc = fs.readFileSync(idfRoute, 'utf-8');
-    const idfOk = ['getIdfCityUpdatedAt', 'shouldIncludeInSitemap', 'shouldNoIndex', 'getCityInDepartment', "region !== 'idf'"].every(t => idfSrc.includes(t));
+    // Per-page lastmod comes from lib/lastmod.ts (which reads getIdfCityUpdatedAt).
+    const lastmodSrc = fs.readFileSync(path.join(process.cwd(), 'lib', 'lastmod.ts'), 'utf-8');
+    const idfOk = lastmodSrc.includes('getIdfCityUpdatedAt') && ['getPageUpdatedAt', 'shouldIncludeInSitemap', 'shouldNoIndex', 'getCityInDepartment', "region !== 'idf'"].every(t => idfSrc.includes(t));
     addResult(idfOk, idfOk ? '✓ sitemap-idf.xml validates URLs and uses per-city lastmod' : '✗ sitemap-idf.xml must validate every URL and use per-city lastmod');
   }
 
@@ -1355,6 +1361,35 @@ function checkBrandSerp() {
   addResult(neutral, neutral ? '✓ Disambiguation names no competitor' : '✗ Disambiguation must not name a competitor');
 }
 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// S3.1.c: Search Console T1 actions — capped, linked, answered
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkGscActions() {
+  log('\n🎯 Checking Search Console T1 actions...', colors.blue);
+  const exists = (p: string) => {
+    const seg = p.split('/').filter(Boolean);
+    if (seg.length === 2) return Boolean(getDepartmentBySlug(seg[1]) || getRegionBySlug(seg[1]));
+    if (seg.length === 3) return Boolean(resolveIdfCity(seg[1], seg[2]));
+    return false;
+  };
+  const problems: string[] = [];
+  if (GSC_T1_ACTIONS.length > 40) problems.push(`${GSC_T1_ACTIONS.length} pages > cap 40`);
+  for (const a of GSC_T1_ACTIONS) {
+    if (!exists(a.path)) problems.push(`${a.path}: target does not resolve`);
+    if (a.linkFrom.length !== 3) problems.push(`${a.path}: ${a.linkFrom.length} linking pages (need 3)`);
+    a.linkFrom.filter((p) => !exists(p)).forEach((p) => problems.push(`${a.path}: linking page ${p} does not resolve`));
+    const seg = a.path.split('/').filter(Boolean);
+    const answer = seg.length === 3 ? getGscCityAnswer(seg[0] as 'epaviste' | 'rachat-voiture', resolveIdfCity(seg[1], seg[2])!) : getGscHubAnswer(a.path);
+    const words = answer ? answer.paragraphs.join(' ').split(/\s+/).filter(Boolean).length : 0;
+    if (words < 80 || words > 150) problems.push(`${a.path}: answer has ${words} words (80–150)`);
+    if (a.title) {
+      const len = typeof a.title === 'string' ? a.title.length + ' | Les Épavistes Pro'.length : a.title.absolute.length;
+      if (len > 60) problems.push(`${a.path}: title override renders at ${len} chars`);
+    }
+  }
+  addResult(problems.length === 0, problems.length ? `✗ GSC actions: ${problems.slice(0, 5).join(' · ')}` : `✓ GSC T1 actions: ${GSC_T1_ACTIONS.length} pages (cap 40), 3 linking pages each, answers 80–150 words`);
+}
+
 function runAllChecks() {
   log('\n╔═══════════════════════════════════════════════════════════════╗', colors.blue);
   log('║          SEO QA CHECK - REGRESSION SAFETY NET                 ║', colors.blue);
@@ -1393,6 +1428,7 @@ function runAllChecks() {
     checkTitleBudget();           // P2.1
     checkMetadataSystem();        // S3.2
     checkBrandSerp();             // S3.2
+    checkGscActions();            // S3.1.c
     checkNoNofollow();            // P2.3
     checkStructuredDataEntities();// P2.4
     checkRootLayoutHead();        // P2.5

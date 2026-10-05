@@ -15,6 +15,9 @@ import type { FaqItem } from '@/lib/faq';
 import { IDF_DEPT_SLUGS, idfLocative, idfGenitive } from '@/lib/idf';
 import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
 import { getIdfDepartments, getTopIdfCities } from '@/lib/idf-cities';
+import { getGscHubAnswer } from '@/lib/gsc-answer';
+import GscAnswer from '@/components/GscAnswer';
+import GscBoostLinks from '@/components/GscBoostLinks';
 
 interface IdfDepartmentPageProps {
   service: 'epaviste' | 'rachat-voiture';
@@ -51,6 +54,8 @@ export default function IdfDepartmentPage({ service, dept, hub, faqItems, guides
     ?.cities.reduce((sum, c) => sum + (c.population ?? 0), 0);
   const topCities = getTopIdfCities(TOP_CITY_CARDS, dept.slug);
   const otherDepartments = getIdfDepartments().filter(d => d.slug !== dept.slug);
+  const path = `/${service}/${dept.slug}`;
+  const gscAnswer = getGscHubAnswer(path);
 
   return (
     <>
@@ -114,6 +119,7 @@ export default function IdfDepartmentPage({ service, dept, hub, faqItems, guides
       <section className="py-16 sm:py-24 bg-brand-surface" data-idf-content="hub">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            {gscAnswer && <GscAnswer answer={gscAnswer} className="mb-14" />}
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-6 leading-tight tracking-tight">
               {isRachat ? `Vendre sa voiture ${locative}` : `Faire enlever une épave ${locative}`}
             </h2>
@@ -241,6 +247,9 @@ export default function IdfDepartmentPage({ service, dept, hub, faqItems, guides
               </Link>
               <h2 className="text-lg font-bold text-brand-navy mt-8 mb-3">Situations particulières</h2>
               <IdfIntentLinks service={service} variant="chips" />
+              <div className="mt-8">
+                <GscBoostLinks fromPath={path} title="Recherches fréquentes" />
+              </div>
               <h2 className="text-lg font-bold text-brand-navy mt-8 mb-3">Guides utiles</h2>
               <ul className="space-y-2">
                 {guides.map((g) => (
