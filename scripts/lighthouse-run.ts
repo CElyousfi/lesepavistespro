@@ -29,6 +29,9 @@ const PATHS = [
   '/epaviste/hauts-de-seine-92/nanterre',
   '/rachat-voiture/hauts-de-seine-92/nanterre',
   '/blog/certificat-destruction-vhu-obligatoire',
+  // S3.6: one centre VHU page and one data guide
+  '/centre-vhu-agree/val-de-marne-94',
+  '/guides/fourrieres-ile-de-france',
 ];
 
 interface Row {

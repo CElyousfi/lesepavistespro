@@ -1,6 +1,8 @@
 # Île-de-France domination — rapport final
 
 **Branche** : `seo/idf-domination` (PR #1, fusionnée sur `main` le 20/09/2026 — 56 commits, un par tâche) · **Date** : 19 septembre 2026
+> **Sprint 3 (5 octobre 2026)** : boucle Search Console, système de titres/descriptions, autorité des hubs, centres VHU, guides, marques et pages pro — voir **§11** ; la liste des actions du propriétaire est en **§11.0**.
+
 **Objectif** : faire de l'Île-de-France la priorité éditoriale, technique et de maillage du site sans retirer la couverture nationale (aucune URL modifiée, aucune page désindexée hors décisions listées ci-dessous).
 
 ---
@@ -450,3 +452,267 @@ Répétition locale (build de production, sans CDN) : crawl 2 922 pages, 0 erreu
    https://www.lesepavistespro.fr/rachat-voiture/ile-de-france/vehicule-gage
    https://www.lesepavistespro.fr/avis
 ```
+
+
+---
+
+## 11. Sprint 3 — transformer les impressions Île-de-France en clics (5 octobre 2026, branche `seo/idf-sprint-3`)
+
+### 11.0 À faire par le propriétaire (en premier)
+
+| # | Action | Où | Effet |
+|---|---|---|---|
+| 1 | **URL publique de la fiche Google Business Profile** + **lien « Laisser un avis »** + **NAP exact de la fiche** (nom, adresse ou zone de service, téléphone) | `lib/nap.ts` → `GBP_PROFILE_URL`, `streetAddress`… ; `lib/reviews.ts` → `GBP_REVIEW_URL` | `sameAs` + `hasMap` dans le schéma, bouton d'avis sur `/avis`, NAP identique au caractère près sur `/contact`, le pied de page et le schéma |
+| 2 | Dans la fiche GBP, champ « Site web » : `https://www.lesepavistespro.fr/?utm_source=google&utm_medium=gbp` | Google Business Profile | Trafic GBP isolé dans GA4 |
+| 3 | **Ré-export Search Console propre** : Performances → Résultats de recherche, 3 mois, **aucun filtre** autre que Pays = France, puis « Exporter » ; déposer les 7 CSV dans `seo-audit/gsc/<date>/` et lancer `npm run seo:loop`. Mieux : créer le compte de service (§11.3) | Search Console | L'export du 5 octobre est un **échantillon** : 83 clics dans les pages contre 2 761 dans le graphique |
+| 4 | **Rattacher `lesepavistespro.com` (+ `www`) au projet Vercel** (toujours sur l'ancien hébergeur) | Vercel → Domains | Consolidation `.com → .fr` |
+| 5 | Soumettre les **25 annuaires** de `seo-audit/citations.csv` avec le NAP indiqué, puis les 10 prises de contact (modèles dans `seo-audit/outreach-templates.md`) | Annuaires | Autorité locale (citations + liens) |
+| 6 | Faits métier : numéro d'agrément et nom du **centre VHU partenaire** (les pages `/centre-vhu-agree/*` disent « centre VHU agréé partenaire » sans numéro), politique de prix des **caravanes**, adresse, SIRET, horaires réels, délai de rappel réel | `data/centre-vhu.ts`, `data/idf-intents.ts` (caravane), §5 | Remplacer les textes de repli honnêtes |
+| 7 | Demander l'indexation des URL listées en §11.9 | Search Console → Inspection d'URL | |
+| 8 | Lire le test CTR **à partir du 26 octobre 2026** (3 semaines après la mise en production ; repousser d'autant si le déploiement est plus tardif) | `npm run seo:loop` | Garder ou retirer le ☎ des descriptions |
+
+### 11.1 Ce que disent les données (import du 5 octobre 2026)
+
+- `npm run gsc-import` retrouve les chiffres du brief : Île-de-France (hors accueil) = **8 957 impressions (44 %) et 11 clics (13 %)** des pages exportées.
+- ⚠️ **Échantillon** : les pages exportées totalisent 83 clics pour 2 761 dans le graphique quotidien (écart 97 %). Le script l'affiche en rouge à chaque import ; les tendances sont exploitables, pas les valeurs absolues.
+- L'export de l'interface ne contient **pas** les couples page × requête : en mode CSV, la page d'atterrissage d'une requête est **inférée** (page « naturelle » si elle a des impressions, sinon son parent le plus proche). Le mode API (§11.3) donne les couples exacts. L'import du 2 janvier 2026 (même dossier de téléchargements) a été versé dans `seo-audit/gsc-history/` pour mesurer les baisses.
+- Clusters (requêtes) : « autour de moi » 45 requêtes, marque (« epaviste pro », « l'epaviste pro », « avis sur l'epaviste-pro »…), **centre VHU 921 impressions** (le brief annonçait 918), moto/scooter/caravane 294.
+
+### 11.2 Striking distance — avant (T1, 34 pages IDF, ≥ 20 impressions, position 4–20)
+
+Score = impressions × (CTR attendu à (position − 3) − CTR actuel). « Titre » / « H2 » : la requête apparaît-elle telle quelle (HTML de production du 5 octobre) ? Rapport complet : `seo-audit/striking-distance.md`.
+
+| # | Page | Impr. | Pos. | CTR | CTR attendu | Score | Requête principale | Titre | H2 |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | `/epaviste/seine-et-marne-77/annet-sur-marne` | 93 | 4,1 | 0,0 % | 7,9 % | 25.1 | épaviste annet-sur-marne | ✅ | — |
+| 2 | `/epaviste/paris-75` | 1651 | 15,8 | 0,2 % | 1,0 % | 18.8 | epaviste paris | ✅ | — |
+| 3 | `/epaviste/seine-et-marne-77/quincy-voisins` | 48 | 4,2 | 0,0 % | 7,8 % | 12.0 | épaviste quincy-voisins | ✅ | — |
+| 4 | `/epaviste/seine-et-marne-77/trilport` | 69 | 5,4 | 0,0 % | 5,7 % | 9.2 | épaviste trilport | ✅ | — |
+| 5 | `/epaviste/seine-et-marne-77/esbly` | 44 | 4,6 | 0,0 % | 7,4 % | 8.8 | épaviste esbly | ✅ | — |
+| 6 | `/epaviste/seine-et-marne-77/champagne-sur-seine` | 40 | 4,8 | 0,0 % | 7,2 % | 6.8 | épaviste champagne-sur-seine | ✅ | — |
+| 7 | `/epaviste/ile-de-france` | 474 | 15,7 | 0,0 % | 1,0 % | 6.3 | epaviste idf | — | — |
+| 8 | `/rachat-voiture/seine-et-marne-77/brou-sur-chantereine` | 126 | 9,0 | 0,0 % | 2,9 % | 5.0 | — | ? | ? |
+| 9 | `/rachat-voiture/seine-saint-denis-93` | 43 | 6,0 | 2,3 % | 4,0 % | 3.7 | — | ? | ? |
+| 10 | `/epaviste/seine-et-marne-77/mareuil-les-meaux` | 53 | 8,1 | 0,0 % | 3,2 % | 3.5 | épaviste mareuil-lès-meaux | ✅ | — |
+| 11 | `/rachat-voiture/yvelines-78/le-chesnay-rocquencourt` | 97 | 11,1 | 0,0 % | 1,5 % | 3.1 | — | ? | ? |
+| 12 | `/epaviste/seine-saint-denis-93/bagnolet` | 85 | 11,7 | 0,0 % | 1,4 % | 2.5 | épaviste bagnolet | ✅ | — |
+| 13 | `/epaviste/seine-et-marne-77/serris` | 58 | 9,1 | 0,0 % | 2,8 % | 2.3 | épaviste serris | ✅ | — |
+| 14 | `/epaviste/seine-et-marne-77/isles-les-villenoy` | 26 | 7,2 | 0,0 % | 3,6 % | 2.0 | — | ? | ? |
+| 15 | `/rachat-voiture/seine-et-marne-77/varennes-sur-seine` | 53 | 9,9 | 0,0 % | 2,5 % | 1.9 | — | ? | ? |
+| 16 | `/epaviste/seine-saint-denis-93/la-courneuve` | 57 | 10,7 | 0,0 % | 1,8 % | 1.9 | épaviste la courneuve | ✅ | — |
+| 17 | `/epaviste/val-de-marne-94/l-hay-les-roses` | 68 | 12,5 | 0,0 % | 1,4 % | 1.8 | épaviste l'haÿ-les-roses | ✅ | — |
+| 18 | `/rachat-voiture/seine-et-marne-77/coulommiers` | 70 | 13,0 | 0,0 % | 1,3 % | 1.7 | — | ? | ? |
+| 19 | `/epaviste/seine-saint-denis-93/villemomble` | 49 | 10,4 | 0,0 % | 2,1 % | 1.7 | épaviste villemomble | ✅ | — |
+| 20 | `/epaviste/seine-et-marne-77/souppes-sur-loing` | 45 | 9,6 | 0,0 % | 2,7 % | 1.7 | épaviste souppes-sur-loing | ✅ | — |
+| 21 | `/rachat-voiture/seine-et-marne-77/le-chatelet-en-brie` | 57 | 12,9 | 0,0 % | 1,3 % | 1.4 | — | ? | ? |
+| 22 | `/epaviste/yvelines-78/sartrouville` | 65 | 15,9 | 0,0 % | 1,0 % | 0.8 | épaviste sartrouville | ✅ | — |
+| 23 | `/epaviste/seine-et-marne-77/nangis` | 21 | 10,8 | 0,0 % | 1,7 % | 0.7 | épaviste nangis | ✅ | — |
+| 24 | `/epaviste/val-de-marne-94/alfortville` | 40 | 15,5 | 0,0 % | 1,1 % | 0.5 | épaviste alfortville | ✅ | — |
+| 25 | `/epaviste/val-d-oise-95` | 47 | 17,8 | 0,0 % | 0,8 % | 0.5 | épaviste bezons | — | — |
+| 26 | `/epaviste/seine-et-marne-77/lagny-sur-marne` | 36 | 16,1 | 0,0 % | 1,0 % | 0.5 | épaviste lagny-sur-marne | ✅ | — |
+| 27 | `/epaviste/val-de-marne-94/valenton` | 40 | 17,4 | 0,0 % | 0,9 % | 0.5 | epaviste valenton | ✅ | — |
+| 28 | `/epaviste/yvelines-78/poissy` | 45 | 19,2 | 0,0 % | 0,7 % | 0.4 | épaviste poissy | ✅ | — |
+| 29 | `/epaviste/val-de-marne-94/maisons-alfort` | 30 | 14,5 | 0,0 % | 1,2 % | 0.4 | épaviste maisons-alfort | ✅ | — |
+| 30 | `/epaviste/seine-saint-denis-93/livry-gargan` | 34 | 16,3 | 0,0 % | 1,0 % | 0.4 | épaviste livry-gargan | ✅ | — |
+| 31 | `/epaviste/seine-saint-denis-93/le-blanc-mesnil` | 40 | 19,1 | 0,0 % | 0,7 % | 0.4 | épaviste le blanc-mesnil | ✅ | — |
+| 32 | `/epaviste/paris-75/paris-10e` | 27 | 14,4 | 0,0 % | 1,2 % | 0.4 | — | ? | ? |
+| 33 | `/epaviste/seine-et-marne-77/champs-sur-marne` | 21 | 14,3 | 0,0 % | 1,2 % | 0.3 | épaviste champs-sur-marne | ✅ | — |
+| 34 | `/epaviste/hauts-de-seine-92/chatenay-malabry` | 21 | 18,7 | 0,0 % | 0,7 % | 0.2 | épaviste châtenay-malabry | ✅ | — |
+
+T2 (snippet à corriger) : 20 pages, dont 10 hors IDF — toutes reprises par le nouveau système de titres/descriptions (S3.2) et réparties dans le test CTR. T3 (requête sans la bonne page) : 43 requêtes, les 15 premières :
+
+| Requête | Impr. | Pos. | Page qui reçoit les impressions (inférée) | Page recommandée |
+|---|---|---|---|---|
+| enlevement vhu contes | 147 | 53,0 | `/epaviste/provence-alpes-cote-d-azur` | `/epaviste/alpes-maritimes-06/contes` |
+| épaviste saint-germain-en-laye | 135 | 17,0 | `/epaviste/yvelines-78` | `/epaviste/yvelines-78/st-germain-en-laye` |
+| épaviste bezons | 130 | 48,6 | `/epaviste/val-d-oise-95` | `/epaviste/val-d-oise-95/bezons` |
+| épaviste le chesnay-rocquencourt | 120 | 17,2 | `/epaviste/yvelines-78` | `/epaviste/yvelines-78/le-chesnay-rocquencourt` |
+| épaviste brou-sur-chantereine | 119 | 5,9 | `/epaviste/ile-de-france` | `/epaviste/seine-et-marne-77/brou-sur-chantereine` |
+| épaviste vincennes | 117 | 41,7 | `/epaviste/val-de-marne-94` | `/epaviste/val-de-marne-94/vincennes` |
+| épaviste avignon | 114 | 50,7 | `/epaviste/vaucluse-84` | `/epaviste/vaucluse-84/avignon` |
+| destruction véhicules quincieux | 109 | 7,2 | `/epaviste/auvergne-rhone-alpes` | `/epaviste/rhone-69/quincieux` |
+| voitures à la casse quincieux | 95 | 8,0 | `/epaviste/auvergne-rhone-alpes` | `/epaviste/rhone-69/quincieux` |
+| épaviste saint-mammès | 93 | 5,3 | `/epaviste/ile-de-france` | `/epaviste/seine-et-marne-77/st-mammes` |
+| vendre sa voiture courchevel | 92 | 66,8 | `/rachat-voiture/savoie-73` | `/rachat-voiture/savoie-73/courchevel` |
+| centre vhu 972 | 85 | 29,4 | `/epaviste/martinique-972` | `/centre-vhu-agree/martinique-972` |
+| épaviste avon | 82 | 13,2 | `/epaviste/ile-de-france` | `/epaviste/seine-et-marne-77/avon` |
+| épaviste ivry-sur-seine | 78 | 43,0 | `/epaviste/val-de-marne-94` | `/epaviste/val-de-marne-94/ivry-sur-seine` |
+| épaviste cergy | 73 | 50,7 | `/epaviste/val-d-oise-95` | `/epaviste/val-d-oise-95/cergy` |
+
+Les 5 requêtes « centre vhu {département} » de T3 ont désormais leur page (S3.4). Les autres T3 (communes dont la page n'a pas d'impressions : Bezons, Saint-Germain-en-Laye, Le Chesnay, Vincennes…) sont des pages existantes, désormais liées depuis la première phrase de chaque commune vers son département et réciproquement ; à relire au prochain import.
+
+### 11.3 La boucle Search Console (S3.1)
+
+- `npm run gsc-import` (CSV : en-têtes FR/EN, BOM, UTF-16 ; `Filtres.csv` gardé comme métadonnées ; fichiers GA4 ignorés) → `seo-audit/gsc-latest.json` (par page : clics, impressions, CTR, position, requêtes principales, `is_idf`, `service`, `page_type`, `tier` ; par requête : `is_idf_intent`, `cluster`, page naturelle, page d'atterrissage).
+- `npm run striking-distance` → `seo-audit/striking-distance.md` + `.json` (T1, T2, T3, cannibalisation, baisses vs l'import précédent).
+- `npm run seo:loop` = import → rapport → top 20 actions. Le workflow hebdomadaire `seo-monitor.yml` le lance en **mode API** dès que les secrets existent, commite `seo-audit/gsc-history/<date>.json` et ouvre/met à jour l'issue **« SEO loop <AAAA-MM> »** (label `seo-loop`), avec la lecture du test CTR.
+- **Mode API — 5 étapes** :
+  1. Google Cloud Console → créer un projet, activer l'API **Google Search Console API**.
+  2. IAM → Comptes de service → créer un compte, puis « Clés » → ajouter une clé **JSON** (téléchargée une seule fois).
+  3. Search Console → Paramètres → Utilisateurs et autorisations → ajouter l'e-mail du compte de service avec le droit **Restreint** (lecture).
+  4. GitHub → Settings → Secrets and variables → Actions : `GSC_SERVICE_ACCOUNT_JSON` = contenu du fichier JSON ; `GSC_SITE_URL` = `sc-domain:lesepavistespro.fr` (propriété domaine) ou `https://www.lesepavistespro.fr/`.
+  5. Actions → « SEO monitor » → *Run workflow* : l'issue « SEO loop » doit apparaître. En local : `GSC_SERVICE_ACCOUNT_JSON=./cle.json GSC_SITE_URL=… npm run seo:loop`.
+- Le dépôt étant **public**, les exports bruts et `gsc-latest.json` restent ignorés par git ; seuls l'historique compact, le rapport, le test CTR et le plan de citations sont versionnés.
+
+### 11.4 Titres et descriptions (S3.2, S3.1.c)
+
+Les générateurs de `lib/seo.ts` ont été reconstruits pour un mobile : la commune d'abord, le service, « gratuit » / « cash », la disponibilité, une preuve, le téléphone.
+- Titres ≤ 60 (marque seulement si elle tient, nom de commune jamais tronqué) : `Épaviste {Ville} – Enlèvement d'épave gratuit 24h/24` (repli sans « 24h/24 », puis plus court), `Rachat voiture {Ville} – Cash, sans CT, en 24h` (« en 24h » seulement en IDF, où le site annonce ce délai), `Épaviste {Département} ({code}) – Gratuit, agréé VHU`, `Épaviste Paris – Enlèvement d'épave gratuit 24h/24`, hubs IDF selon le brief ; accueil `Les Épavistes Pro – Épaviste gratuit en Île-de-France 24h/24`.
+- Descriptions 130–155 caractères (**37 199 / 37 200** pages générées ; la dernière à 129), commune en tête, preuve en rotation par département × tier, délai par département (2 h en petite couronne, 24 h ailleurs — la production promettait « sous 2h » à des villages de Seine-et-Marne dont la page disait 24 h).
+- Homonymes : le code département est ajouté quand le **nom affiché** est partagé (le slug `franconville-la-garenne` s'affiche « Franconville », comme Franconville 54) — 5 doublons de titres évités.
+- Marque : `alternateName` = « Les Epavistes Pro », « Épavistes Pro » (le générique « Épaviste France » retiré) ; `/avis` → « Avis Les Épavistes Pro – Témoignages clients » ; phrase neutre sur `/avis` et `/mentions-legales` : « Les Épavistes Pro (lesepavistespro.fr) est une société indépendante, à ne pas confondre avec d'autres enseignes au nom proche. »
+- Garde-fou `scripts/check-metadata.ts` (dans `seo-check`) : 37 200 pages — titre ≤ 60, description 110–160, aucun doublon, nom de lieu en tête, aucun ☎ dans un titre.
+- T1 (34 pages) : seule `/epaviste/ile-de-france` avait besoin d'un titre spécifique (« Épaviste IDF (Île-de-France) – Enlèvement gratuit 24h/24 ») ; chaque page reçoit un H2 qui répond à sa requête (104–138 mots, faits publics uniquement), 3 liens internes avec la requête en ancre depuis les 3 communes les plus proches (hubs : hubs voisins), et un `lastmod` au 5 octobre.
+
+**Journal des changements (T1 + T2, 44 pages ; « ancien » = production du 5 octobre, « nouveau » = build de la branche)** :
+
+| Page | Tâche | Cohorte CTR | Ancien titre | Nouveau titre | Ancienne description | Nouvelle description |
+|---|---|---|---|---|---|---|
+| `/epaviste/seine-et-marne-77/annet-sur-marne` | T1+T2 | Tél. | Épaviste Annet-sur-Marne (77410) \| Les Épavistes Pro | Épaviste Annet-sur-Marne – Enlèvement d'épave gratuit 24h/24 (60) | Épaviste agréé VHU à Annet-sur-Marne (77410). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Annet-sur-Marne (77410). Enlèvement d'épave gratuit, intervention sous 24 h, cession faite pour vous. Tél. 06 02 42 73 45 (142) |
+| `/epaviste/paris-75` | T1 | — | Épaviste Paris (75) – Gratuit 24h \| Les Épavistes Pro | Épaviste Paris – Enlèvement d'épave gratuit 24h/24 (50) | Épaviste agréé VHU Paris (75). Enlèvement d'épave GRATUIT 24h/24, intervention sous 2h. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Paris (75) : enlèvement d'épave gratuit, intervention sous 2 h, certificat de destruction remis. ☎ 06 02 42 73 45 (134) |
+| `/epaviste/seine-et-marne-77/quincy-voisins` | T1+T2 | Tél. | Épaviste Quincy-Voisins – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Quincy-Voisins – Enlèvement d'épave gratuit 24h/24 (59) | Épaviste agréé VHU à Quincy-Voisins (77860). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Quincy-Voisins (77860). Enlèvement d'épave gratuit, intervention sous 24 h, sous-sol et fourrière compris. Tél. 06 02 42 73 45 (147) |
+| `/epaviste/seine-et-marne-77/trilport` | T1+T2 | ☎ | Épaviste Trilport – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Trilport – Enlèvement d'épave gratuit 24h/24 (53) | Épaviste agréé VHU à Trilport (77470). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Trilport (77470). Enlèvement d'épave gratuit, intervention sous 24 h, sous-sol et fourrière compris. ☎ 06 02 42 73 45 (138) |
+| `/epaviste/seine-et-marne-77/esbly` | T1+T2 | Tél. | Épaviste Esbly (77450) – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Esbly – Enlèvement d'épave gratuit 24h/24 (50) | Épaviste agréé VHU à Esbly (77450). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Esbly (77450). Enlèvement d'épave gratuit, intervention sous 24 h, sous-sol et fourrière compris. Tél. 06 02 42 73 45 (138) |
+| `/epaviste/seine-et-marne-77/champagne-sur-seine` | T1+T2 | Tél. | Épaviste Champagne-sur-Seine (77430) \| Les Épavistes Pro | Épaviste Champagne-sur-Seine – Enlèvement d'épave gratuit (57) | Épaviste agréé VHU à Champagne-sur-Seine (77430). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Champagne-sur-Seine (77430). Enlèvement d'épave gratuit, intervention sous 24 h, sous-sol et fourrière compris. Tél. 06 02 42 73 45 (152) |
+| `/epaviste/ile-de-france` | T1 | — | Épaviste Île-de-France – Gratuit 24/7 \| Les Épavistes Pro | Épaviste IDF (Île-de-France) – Enlèvement gratuit 24h/24 (56) | Épaviste agréé VHU en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95). Enlèvement GRATUIT 24h/24, intervention sous 2h. ☎ 06 02 42 73 45 | Épaviste agréé VHU en Île-de-France (75, 77, 78, 91, 92, 93, 94, 95) : enlèvement d'épave gratuit 24h/24, sous 2 h en petite couronne. ☎ 06 02 42 73 45 (151) |
+| `/rachat-voiture/seine-et-marne-77/brou-sur-chantereine` | T1+T2 | ☎ | Rachat voiture Brou-sur-Chantereine \| Les Épavistes Pro | Rachat voiture Brou-sur-Chantereine – Cash, sans CT, en 24h (59) | Rachat voiture à Brou-sur-Chantereine (77177). Paiement cash le jour de l'enlèvement, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture à Brou-sur-Chantereine (77177) : paiement cash le jour de l'enlèvement, avec ou sans CT, offre ferme sur photos. ☎ 06 02 42 73 45 (144) |
+| `/rachat-voiture/seine-saint-denis-93` | T1 | — | Rachat voiture Seine-Saint-Denis – Cash \| Les Épavistes Pro | Rachat voiture Seine-Saint-Denis (93) – Cash (44) | Rachat voiture Seine-Saint-Denis (93). Cash immédiat, sans CT, tous véhicules acceptés. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture en Seine-Saint-Denis (93) : paiement cash le jour de l'enlèvement, avec ou sans CT, estimation gratuite. ☎ 06 02 42 73 45 (136) |
+| `/epaviste/seine-et-marne-77/mareuil-les-meaux` | T1+T2 | ☎ | Épaviste Mareuil-lès-Meaux (77100) \| Les Épavistes Pro | Épaviste Mareuil-lès-Meaux – Enlèvement d'épave gratuit (55) | Épaviste agréé VHU à Mareuil-lès-Meaux (77100). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Mareuil-lès-Meaux (77100). Enlèvement d'épave gratuit, intervention sous 24 h, cession faite pour vous. ☎ 06 02 42 73 45 (141) |
+| `/rachat-voiture/yvelines-78/le-chesnay-rocquencourt` | T1 | — | Rachat voiture Le Chesnay-Rocquencourt \| Les Épavistes Pro | Rachat voiture Le Chesnay-Rocquencourt – Cash, sans CT (54) | Rachat voiture à Le Chesnay-Rocquencourt (78150). Paiement cash le jour de l'enlèvement, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture au Chesnay-Rocquencourt (78150) : paiement cash le jour de l'enlèvement, avec ou sans CT, offre ferme sur photos. ☎ 06 02 42 73 45 (145) |
+| `/epaviste/seine-saint-denis-93/bagnolet` | T1 | — | Épaviste Bagnolet – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Bagnolet – Enlèvement d'épave gratuit 24h/24 (53) | Épaviste agréé VHU à Bagnolet (93170). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Bagnolet (93170). Enlèvement d'épave gratuit, intervention sous 2 h, déclaration de cession faite pour vous. ☎ 06 02 42 73 45 (146) |
+| `/epaviste/seine-et-marne-77/serris` | T1+T2 | Tél. | Épaviste Serris (77700) – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Serris – Enlèvement d'épave gratuit 24h/24 (51) | Épaviste agréé VHU à Serris (77700). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Serris (77700). Enlèvement d'épave gratuit, intervention sous 24 h, sous-sol et fourrière compris. Tél. 06 02 42 73 45 (139) |
+| `/epaviste/seine-et-marne-77/isles-les-villenoy` | T1 | — | Épaviste Isles-lès-Villenoy (77450) \| Les Épavistes Pro | Épaviste Isles-lès-Villenoy – Enlèvement d'épave gratuit (56) | Épaviste agréé VHU à Isles-lès-Villenoy (77450). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Isles-lès-Villenoy (77450). Enlèvement d'épave gratuit, intervention sous 24 h, cession faite pour vous. ☎ 06 02 42 73 45 (142) |
+| `/rachat-voiture/seine-et-marne-77/varennes-sur-seine` | T1+T2 | Tél. | Rachat voiture Varennes-sur-Seine – Cash \| Les Épavistes Pro | Rachat voiture Varennes-sur-Seine – Cash, sans CT, en 24h (57) | Rachat voiture à Varennes-sur-Seine (77130). Paiement cash le jour de l'enlèvement, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture à Varennes-sur-Seine (77130) : paiement cash le jour de l'enlèvement, avec ou sans CT, cession déclarée pour vous. Tél. 06 02 42 73 45 (149) |
+| `/epaviste/seine-saint-denis-93/la-courneuve` | T1 | — | Épaviste La Courneuve – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste La Courneuve – Enlèvement d'épave gratuit 24h/24 (57) | Épaviste agréé VHU à La Courneuve (93120). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à La Courneuve (93120). Enlèvement d'épave gratuit, intervention sous 2 h, déclaration de cession faite pour vous. ☎ 06 02 42 73 45 (150) |
+| `/epaviste/val-de-marne-94/l-hay-les-roses` | T1 | — | Épaviste L'Haÿ-les-Roses (94240) \| Les Épavistes Pro | Épaviste L'Haÿ-les-Roses – Enlèvement d'épave gratuit 24h/24 (60) | Épaviste agréé VHU à L'Haÿ-les-Roses (94240). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à L'Haÿ-les-Roses (94240). Enlèvement d'épave gratuit, intervention sous 2 h, véhicule roulant ou non. ☎ 06 02 42 73 45 (138) |
+| `/rachat-voiture/seine-et-marne-77/coulommiers` | T1 | — | Rachat voiture Coulommiers – Cash \| Les Épavistes Pro | Rachat voiture Coulommiers – Cash, sans CT, en 24h (50) | Rachat voiture à Coulommiers (77120). Paiement cash le jour de l'enlèvement, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture à Coulommiers (77120) : paiement cash le jour de l'enlèvement, avec ou sans CT, offre ferme sur photos. ☎ 06 02 42 73 45 (135) |
+| `/epaviste/seine-saint-denis-93/villemomble` | T1 | — | Épaviste Villemomble – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Villemomble – Enlèvement d'épave gratuit 24h/24 (56) | Épaviste agréé VHU à Villemomble (93250). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Villemomble (93250). Enlèvement d'épave gratuit, intervention sous 2 h, déclaration de cession faite pour vous. ☎ 06 02 42 73 45 (149) |
+| `/epaviste/seine-et-marne-77/souppes-sur-loing` | T1+T2 | ☎ | Épaviste Souppes-sur-Loing (77460) \| Les Épavistes Pro | Épaviste Souppes-sur-Loing – Enlèvement d'épave gratuit (55) | Épaviste agréé VHU à Souppes-sur-Loing (77460). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Souppes-sur-Loing (77460). Enlèvement d'épave gratuit, intervention sous 24 h, cession faite pour vous. ☎ 06 02 42 73 45 (141) |
+| `/rachat-voiture/seine-et-marne-77/le-chatelet-en-brie` | T1 | — | Rachat voiture Le Châtelet-en-Brie \| Les Épavistes Pro | Rachat voiture Le Châtelet-en-Brie – Cash, sans CT, en 24h (58) | Rachat voiture à Le Châtelet-en-Brie (77820). Paiement cash le jour de l'enlèvement, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture au Châtelet-en-Brie (77820) : paiement cash le jour de l'enlèvement, avec ou sans CT, cession déclarée pour vous. ☎ 06 02 42 73 45 (145) |
+| `/epaviste/yvelines-78/sartrouville` | T1 | — | Épaviste Sartrouville – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Sartrouville – Enlèvement d'épave gratuit 24h/24 (57) | Épaviste agréé VHU à Sartrouville (78500). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Sartrouville (78500). Enlèvement d'épave gratuit, intervention sous 24 h, sous-sol et fourrière compris. ☎ 06 02 42 73 45 (142) |
+| `/epaviste/seine-et-marne-77/nangis` | T1 | — | Épaviste Nangis (77370) – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Nangis – Enlèvement d'épave gratuit 24h/24 (51) | Épaviste agréé VHU à Nangis (77370). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Nangis (77370). Enlèvement d'épave gratuit, intervention sous 24 h, sous-sol et fourrière compris. ☎ 06 02 42 73 45 (136) |
+| `/epaviste/val-de-marne-94/alfortville` | T1 | — | Épaviste Alfortville – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Alfortville – Enlèvement d'épave gratuit 24h/24 (56) | Épaviste agréé VHU à Alfortville (94140). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Alfortville (94140). Enlèvement d'épave gratuit, intervention sous 2 h, véhicule roulant ou non. ☎ 06 02 42 73 45 (134) |
+| `/epaviste/val-d-oise-95` | T1 | — | Épaviste Val-d'Oise (95) – Gratuit 24h \| Les Épavistes Pro | Épaviste Val-d'Oise (95) – Gratuit, agréé VHU (45) | Épaviste agréé VHU Val-d'Oise (95). Enlèvement d'épave GRATUIT 24h/24, intervention sous 2h. ☎ 06 02 42 73 45 | Épaviste agréé VHU dans le Val-d'Oise (95) : enlèvement d'épave gratuit, intervention sous 24 h, déclaration de cession faite pour vous. ☎ 06 02 42 73 45 (153) |
+| `/epaviste/seine-et-marne-77/lagny-sur-marne` | T1 | — | Épaviste Lagny-sur-Marne (77400) \| Les Épavistes Pro | Épaviste Lagny-sur-Marne – Enlèvement d'épave gratuit 24h/24 (60) | Épaviste agréé VHU à Lagny-sur-Marne (77400). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Lagny-sur-Marne (77400). Enlèvement d'épave gratuit, intervention sous 24 h, certificat de destruction remis. ☎ 06 02 42 73 45 (147) |
+| `/epaviste/val-de-marne-94/valenton` | T1 | — | Épaviste Valenton – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Valenton – Enlèvement d'épave gratuit 24h/24 (53) | Épaviste agréé VHU à Valenton (94460). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Valenton (94460). Enlèvement d'épave gratuit, intervention sous 2 h, certificat de destruction remis. ☎ 06 02 42 73 45 (139) |
+| `/epaviste/yvelines-78/poissy` | T1 | — | Épaviste Poissy (78300) – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Poissy – Enlèvement d'épave gratuit 24h/24 (51) | Épaviste agréé VHU à Poissy (78300). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Poissy (78300). Enlèvement d'épave gratuit, intervention sous 24 h, sous-sol et fourrière compris. ☎ 06 02 42 73 45 (136) |
+| `/epaviste/val-de-marne-94/maisons-alfort` | T1 | — | Épaviste Maisons-Alfort – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Maisons-Alfort – Enlèvement d'épave gratuit 24h/24 (59) | Épaviste agréé VHU à Maisons-Alfort (94700). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Maisons-Alfort (94700). Enlèvement d'épave gratuit, intervention sous 2 h, véhicule roulant ou non. ☎ 06 02 42 73 45 (137) |
+| `/epaviste/seine-saint-denis-93/livry-gargan` | T1 | — | Épaviste Livry-Gargan – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Livry-Gargan – Enlèvement d'épave gratuit 24h/24 (57) | Épaviste agréé VHU à Livry-Gargan (93190). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Livry-Gargan (93190). Enlèvement d'épave gratuit, intervention sous 2 h, déclaration de cession faite pour vous. ☎ 06 02 42 73 45 (150) |
+| `/epaviste/seine-saint-denis-93/le-blanc-mesnil` | T1 | — | Épaviste Le Blanc-Mesnil (93150) \| Les Épavistes Pro | Épaviste Le Blanc-Mesnil – Enlèvement d'épave gratuit 24h/24 (60) | Épaviste agréé VHU à Le Blanc-Mesnil (93150). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU au Blanc-Mesnil (93150). Enlèvement d'épave gratuit, intervention sous 2 h, déclaration de cession faite pour vous. ☎ 06 02 42 73 45 (151) |
+| `/epaviste/paris-75/paris-10e` | T1 | — | Épaviste Paris 10e – Gratuit 24h/24 \| Les Épavistes Pro | Épaviste Paris 10e – Enlèvement d'épave gratuit 24h/24 (54) | Épaviste agréé VHU à Paris 10e (75010). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Paris 10e (75010). Enlèvement d'épave gratuit, intervention sous 2 h, déclaration de cession faite pour vous. ☎ 06 02 42 73 45 (147) |
+| `/epaviste/seine-et-marne-77/champs-sur-marne` | T1 | — | Épaviste Champs-sur-Marne (77420) \| Les Épavistes Pro | Épaviste Champs-sur-Marne – Enlèvement d'épave gratuit (54) | Épaviste agréé VHU à Champs-sur-Marne (77420). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Champs-sur-Marne (77420). Enlèvement d'épave gratuit, intervention sous 24 h, certificat de destruction remis. ☎ 06 02 42 73 45 (148) |
+| `/epaviste/hauts-de-seine-92/chatenay-malabry` | T1 | — | Épaviste Châtenay-Malabry (92290) \| Les Épavistes Pro | Épaviste Châtenay-Malabry – Enlèvement d'épave gratuit (54) | Épaviste agréé VHU à Châtenay-Malabry (92290). Enlèvement d'épave gratuit, intervention sous 2h, certificat de destruction. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Châtenay-Malabry (92290). Enlèvement d'épave gratuit, intervention sous 2 h, sous-sol et fourrière compris. ☎ 06 02 42 73 45 (145) |
+| `/epaviste/doubs-25/pouilley-francais` | T2 | ☎ | Épaviste Pouilley-Français – Gratuit \| Les Épavistes Pro | Épaviste Pouilley-Français – Enlèvement d'épave gratuit (55) | Épaviste agréé à Pouilley-Français (25410). Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Pouilley-Français (25410). Enlèvement d'épave gratuit 24h/24, sous-sol et fourrière compris. ☎ 06 02 42 73 45 (130) |
+| `/rachat-voiture/rhone-69/quincieux` | T2 | ☎ | Rachat Quincieux (69650) – Cash \| Les Épavistes Pro | Rachat voiture Quincieux – Cash, sans CT \| Les Épavistes Pro (60) | Rachat voiture à Quincieux (69650). Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture à Quincieux (69650) : paiement cash le jour de l'enlèvement, avec ou sans CT, offre ferme sur photos. ☎ 06 02 42 73 45 (133) |
+| `/epaviste/eure-et-loir-28/donnemain-st-mames` | T2 | Tél. | Épaviste Donnemain-Saint-Mamès – Gratuit \| Les Épavistes Pro | Épaviste Donnemain-Saint-Mamès – Enlèvement d'épave gratuit (59) | Épaviste agréé à Donnemain-Saint-Mamès (28200). Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Donnemain-Saint-Mamès (28200). Enlèvement d'épave gratuit 24h/24, certificat de destruction remis. Tél. 06 02 42 73 45 (139) |
+| `/epaviste/eure-et-loir-28/auneau-bleury-st-symphorien` | T2 | ☎ | Épaviste Auneau-Bleury-Saint-Symphorien \| Les Épavistes Pro | Épaviste Auneau-Bleury-Saint-Symphorien – Enlèvement gratuit (60) | Épaviste agréé à Auneau-Bleury-Saint-Symphorien (28700). Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Auneau-Bleury-Saint-Symphorien (28700). Enlèvement d'épave gratuit 24h/24, véhicule roulant ou non. ☎ 06 02 42 73 45 (137) |
+| `/rachat-voiture/bas-rhin-67/ostwald` | T2 | Tél. | Rachat Ostwald (67540) – Cash \| Les Épavistes Pro | Rachat voiture Ostwald – Cash, sans CT \| Les Épavistes Pro (58) | Rachat voiture à Ostwald (67540). Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture à Ostwald (67540) : paiement cash le jour de l'enlèvement, avec ou sans CT, cession déclarée pour vous. Tél. 06 02 42 73 45 (138) |
+| `/rachat-voiture/isere-38/st-egreve` | T2 | ☎ | Rachat Saint-Égrève (38120) – Cash \| Les Épavistes Pro | Rachat voiture Saint-Égrève – Cash, sans CT (43) | Rachat voiture à Saint-Égrève (38120). Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture à Saint-Égrève (38120) : paiement cash le jour de l'enlèvement, avec ou sans CT, cession déclarée pour vous. ☎ 06 02 42 73 45 (140) |
+| `/epaviste/morbihan-56/la-trinite-surzur` | T2 | Tél. | Épaviste La Trinité-Surzur – Gratuit \| Les Épavistes Pro | Épaviste La Trinité-Surzur – Enlèvement d'épave gratuit (55) | Épaviste agréé à La Trinité-Surzur (56190). Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45 | Épaviste agréé VHU à La Trinité-Surzur (56190). Enlèvement d'épave gratuit 24h/24, véhicule roulant ou non, certificat remis. Tél. 06 02 42 73 45 (145) |
+| `/rachat-voiture/gers-32/condom` | T2 | ☎ | Rachat Condom (32100) – Cash \| Les Épavistes Pro | Rachat voiture Condom – Cash, sans CT \| Les Épavistes Pro (57) | Rachat voiture à Condom (32100). Cash immédiat, sans CT, tous véhicules. Estimation gratuite. ☎ 06 02 42 73 45 | Rachat voiture à Condom (32100) : paiement cash le jour de l'enlèvement, avec ou sans CT, estimation gratuite, offre sur photos. ☎ 06 02 42 73 45 (145) |
+| `/epaviste/var-83/le-luc` | T2 | ☎ | Épaviste Le Luc (83340) – Gratuit \| Les Épavistes Pro | Épaviste Le Luc – Enlèvement d'épave gratuit 24h/24 (51) | Épaviste agréé à Le Luc (83340). Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45 | Épaviste agréé VHU au Luc (83340). Enlèvement d'épave gratuit 24h/24, certificat de destruction remis, sous-sol compris. ☎ 06 02 42 73 45 (137) |
+| `/epaviste/indre-et-loire-37/avon-les-roches` | T2 | Tél. | Épaviste Avon-les-Roches – Gratuit \| Les Épavistes Pro | Épaviste Avon-les-Roches – Enlèvement d'épave gratuit 24h/24 (60) | Épaviste agréé à Avon-les-Roches (37220). Enlèvement d'épave GRATUIT 24h/24, certificat fourni. ☎ 06 02 42 73 45 | Épaviste agréé VHU à Avon-les-Roches (37220). Enlèvement d'épave gratuit 24h/24, déclaration de cession faite pour vous. Tél. 06 02 42 73 45 (140) |
+
+### 11.5 Test CTR (☎ ou non)
+
+- Hypothèse : sur mobile, le pictogramme ☎ en fin de description attire l'œil et augmente le CTR à position égale.
+- Plan : les 20 pages T2, réparties en alternance par rang d'opportunité — 10 avec « ☎ 06 02 42 73 45 », 10 avec « Tél. 06 02 42 73 45 » ; titres et descriptions identiques par ailleurs. Source unique : `seo-audit/ctr-test.json` (lu par `lib/seo.ts` et par `npm run seo:loop`).
+- Lecture : CTR des deux cohortes sur les 3 semaines suivant la mise en production vs les 3 semaines précédentes, **à partir du 26 octobre 2026**. Les volumes étant faibles, ne conclure qu'avec un écart net et répété sur deux imports.
+
+### 11.6 Autorité des hubs (S3.3)
+
+| Hub | Pages qui le lient — avant (crawl du 20/09, 2 922 pages) | Après (crawl final, 2 948 pages) |
+|---|---|---|
+| `/epaviste/paris-75` | 2 921 | **2 947** (objectif ≥ 2 600 ✓) |
+| `/epaviste/ile-de-france` | 2 921 | **2 947** (≥ 2 500 ✓) |
+| `/rachat-voiture/ile-de-france` | 2 921 | **2 947** (≥ 2 500 ✓) |
+
+Le menu déroulant « Île-de-France » de l'en-tête liait déjà les trois hubs sur toutes les pages ; « Paris » devient en plus une entrée de premier niveau. Chaque commune IDF lie son département dans le premier paragraphe ; chaque article de blog lie un hub en contexte (rachat / Paris / épaviste IDF selon le sujet). Le crawler mesure désormais ces trois compteurs (`hubInbound`).
+
+Méga-hub Paris (`/epaviste/paris-75` et `/rachat-voiture/paris-75`) : 20 cartes d'arrondissements (code postal, population INSEE, une ligne locale), tableau des 8 fourrières/préfourrières de la Ville de Paris (adresses, 3975, horaires, tarifs — paris.fr, page du 31/08/2026), paragraphe « ZFE Grand Paris 2026 ».
+
+GBP ↔ site : un seul NAP (`lib/nap.ts`) pour `/contact`, le pied de page et le schéma ; l'e-mail du pied de page (`contact@lesepavistes.pro`) **n'avait ni enregistrement MX ni A** — corrigé en `lesepavistespro@gmail.com`.
+
+**Plan de citations** (`seo-audit/citations.csv`) : 25 annuaires/profils (priorité 1 : GBP, Bing Places, Apple Business Connect, PagesJaunes, 118712, Facebook, Instagram, Annuaire des Entreprises ; priorité 2–3 : Yelp, Hoodspot, Kompass, Cylex, Justacoté, Tiugo, StarOfService, Europages, Trustpilot, LinkedIn, Waze, Societe.com, Infogreffe, CMA Île-de-France, Mobilians, annuaires de mairies ; SYDEREP marqué « ne pas s'inscrire » — réservé aux centres VHU agréés), NAP à coller ; 10 cibles de prise de contact en IDF (ARC, CLCV IDF, FNAIM Grand Paris, UNIS, Paris Habitat, Seine-Saint-Denis Habitat, 40 millions d'automobilistes, Caradisiac, L'argus, garages partenaires à nommer) ; 3 modèles d'e-mails.
+
+### 11.7 Nouvelles pages
+
+| Page(s) | Nombre | Pourquoi |
+|---|---|---|
+| `/guides/fourrieres-ile-de-france` | 1 | Actif « données » : sites de Paris, tarifs 2026 (Paris + plafonds nationaux de l'arrêté du 13/09/2026), procédure et liste officielle par département (`Dataset` + `Article`) |
+| `/guides/zfe-grand-paris` | 1 | Règles, périmètre commune par commune (liens), Crit'Air, calendrier, que faire du véhicule (`Article`) |
+| `/centre-vhu-agree/{75,77,78,91,92,93,94,95,971,972,973,974}` | 12 | 921 impressions « centre vhu {département} » sans réponse. Nous ne nous présentons **jamais** comme centre VHU |
+| `/epaviste/ile-de-france/caravane` | 1 | « épaviste caravane gratuit », « enlèvement caravane gratuit » — aucun prix promis (TODO(owner)) |
+| `/rachat-voiture/ile-de-france/marque-{renault,peugeot,citroen,volkswagen,toyota,dacia,ford,opel,fiat,mercedes}` | 10 | Rachat × marque, sans prix |
+| `/epaviste/ile-de-france/pro-{syndic-copropriete,bailleur-social,garage-carrossier,concession-negociant,notaire-agence-immobiliere}` | 5 | Pages B2B (cadre légal : R325-47 s., loi du 31 décembre 1903, VEI, successions) |
+| `/api/nearest` | — | Bloc « Près de chez vous » (géolocalisation sur demande, rien n'est enregistré ni envoyé aux statistiques) |
+
+Pages enrichies : La Trinité (972) épaviste + rachat (contenu rédigé, faits INSEE ; aucune autre page DOM ≥ 50 impressions) ; rachat des 20 arrondissements (situations propres au rachat) ; lien « Scooter ou moto à enlever ? » sur les arrondissements et les Tier A 92/93/94 ; « Mis à jour le » visible sur les pages communes, départements et régions, lu dans la même source que le `lastmod` (`lib/lastmod.ts`).
+
+Le cahier des charges « v1 » des pages marque et pro n'étant pas dans le dépôt, elles réutilisent le système de pages « situation » (même gabarit, mêmes garde-fous) avec un champ `kind` ; à ajuster si la v1 prévoyait d'autres URL.
+
+### 11.8 Vérification
+
+| Contrôle | Résultat |
+|---|---|
+| `npx tsc --noEmit` | 0 erreur |
+| `npm run seo-check` | **105 / 105** (nouveaux : système de métadonnées, marque, actions GSC, NAP, garde analytics ; 39 pages intent) |
+| `npm run build` | OK, 2 911 pages statiques |
+| Crawl `--idf-only --limit=300` | **2 647 URL IDF (exhaustif) + 301 nationales, 0 erreur** ; 2 avertissements préexistants (hubs 77 > 300 Ko) ; 0 titre > 60, 0 doublon titre/description, 0 lien cassé, 0 `TODO(owner)` rendu |
+| JSON-LD (`validate-jsonld`, 14 pages dont chaque nouveau type) | 0 erreur |
+| GA4 (`verify-ga4`, build local) | tous les événements vérifiés (le pilote de test sait désormais que le code postal est pré-rempli sur les communes IDF) |
+
+Lighthouse mobile, build local (même machine, throttling simulé), `main` → branche :
+
+| Page | Perf | LCP | TBT | CLS |
+|---|---|---|---|---|
+| `/` | 91 → **95** | 3.3 s → 2.8 s | 160 ms → 120 ms | 0 |
+| `/epaviste` | 95 → **92** | 2.9 s → 3.3 s | 100 ms → 90 ms | 0 |
+| `/epaviste/ile-de-france` | 89 → **90** | 3.6 s → 3.6 s | 160 ms → 100 ms | 0 |
+| `/epaviste/paris-75` | 92 → **90** | 3.0 s → 3.6 s | 160 ms → 100 ms | 0 |
+| `/epaviste/hauts-de-seine-92/nanterre` | 89 → **90** | 3.6 s → 3.6 s | 160 ms → 100 ms | 0 |
+| `/rachat-voiture/hauts-de-seine-92/nanterre` | 90 → **91** | 3.4 s → 3.4 s | 150 ms → 120 ms | 0 |
+| `/blog/certificat-destruction-vhu-obligatoire` | 84 → **92** | 4.3 s → 3.3 s | 110 ms → 80 ms | 0 |
+| `/centre-vhu-agree/val-de-marne-94` | — → **93** | — → 3.1 s | — → 90 ms | 0 |
+| `/guides/fourrieres-ile-de-france` | — → **94** | — → 3.0 s | — → 90 ms | 0 |
+
+Budget « perf ≥ 90 » tenu partout ; `/epaviste/paris-75` (méga-hub : cartes, tableau, ZFE) et `/epaviste` perdent 2 à 3 points, à surveiller au premier run du monitor sur Vercel (une mesure locale varie de ± 2 points d'un run à l'autre). Le LCP local reste > 2,5 s sous throttling comme aux sprints précédents : la mesure de référence est celle du monitor sur Vercel. Analytics : les visites HeadlessChrome / Lighthouse / PageSpeed / `LesEpavistesPro-SEO-Monitor` / webdriver ne sont plus comptées (Vercel `beforeSend`, GA4 désactivé pour ces agents) ; `page_tier` ajouté aux pages vues et événements GA4. IndexNow : clé `2be00167ac82eb36a32045c27b0f0e4c`, soumission automatique après chaque déploiement Production (`.github/workflows/indexnow.yml`).
+
+### 11.9 URL à soumettre pour indexation (dans cet ordre)
+
+```
+https://www.lesepavistespro.fr/epaviste/paris-75
+https://www.lesepavistespro.fr/epaviste/ile-de-france
+https://www.lesepavistespro.fr/rachat-voiture/ile-de-france
+https://www.lesepavistespro.fr/rachat-voiture/paris-75
+https://www.lesepavistespro.fr/centre-vhu-agree/paris-75
+https://www.lesepavistespro.fr/centre-vhu-agree/seine-et-marne-77
+https://www.lesepavistespro.fr/centre-vhu-agree/yvelines-78
+https://www.lesepavistespro.fr/centre-vhu-agree/essonne-91
+https://www.lesepavistespro.fr/centre-vhu-agree/hauts-de-seine-92
+https://www.lesepavistespro.fr/centre-vhu-agree/seine-saint-denis-93
+https://www.lesepavistespro.fr/centre-vhu-agree/val-de-marne-94
+https://www.lesepavistespro.fr/centre-vhu-agree/val-d-oise-95
+https://www.lesepavistespro.fr/centre-vhu-agree/guadeloupe-971
+https://www.lesepavistespro.fr/centre-vhu-agree/martinique-972
+https://www.lesepavistespro.fr/centre-vhu-agree/guyane-973
+https://www.lesepavistespro.fr/centre-vhu-agree/la-reunion-974
+https://www.lesepavistespro.fr/guides/fourrieres-ile-de-france
+https://www.lesepavistespro.fr/guides/zfe-grand-paris
+https://www.lesepavistespro.fr/epaviste/martinique-972/la-trinite
+https://www.lesepavistespro.fr/rachat-voiture/martinique-972/la-trinite
+https://www.lesepavistespro.fr/epaviste/ile-de-france/caravane
+```
+
+### 11.10 Commits
+
+Un commit par tâche, sur `seo/idf-sprint-3` : S3.1.a `bedf25f` · S3.1.b `031cc8c` · S3.2 `302c71c` (+ `7350309`) · S3.1.c `06ad8c9` · S3.3.1 `de7fae0` · S3.3.2 `9330259` · S3.3.3 `354fcc5` · S3.3.4 `8042654` · S3.3.5 `4115242` · S3.4.1 `f7b6a22` · S3.4.2 `95851f1` · S3.4.3 `57074ec` · S3.4.4 `9dd5cf6` · S3.5.1 `814b5a2` · S3.5.2 `61a5cca` · S3.5.3 `7024a6e` · S3.5.4 `55b4ade` · S3.5.5 `9b89755` · S3.6 `7008473`, `14c3d95` et ce rapport.
+
+### 11.11 Points à valider
+
+| Point | Décision prise | À valider |
+|---|---|---|
+| Ordre S3.1.c / S3.2 | Le système de titres (S3.2) a été construit avant d'appliquer T1/T2, pour que le journal compare la production au résultat final | — |
+| Données GSC dans un dépôt public | Exports bruts ignorés ; historique compact, rapport et test versionnés | Rendre le dépôt privé ou retirer l'historique si ces chiffres ne doivent pas être publics |
+| Page camping-car (Sprint 2) | Elle affirme qu'une caravane immatriculée reçoit « son propre certificat de destruction » ; la nouvelle page caravane ne le promet pas (les caravanes ne relèvent pas de la section VHU des voitures) | Faire confirmer par le centre VHU partenaire, puis aligner l'une ou l'autre page |
+| Formulaire | Le message de succès promettait un rappel « dans les 15 prochaines minutes » (allégation non vérifiée, masquée partout ailleurs) : désormais soumis au même drapeau `BUSINESS_CLAIMS` | Activer quand le délai réel est confirmé |
