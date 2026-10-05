@@ -70,7 +70,8 @@ export async function generateMetadata({
     city.slug,
     city.postalCode,
     noIndex,
-    isHomonymCity(city.slug)
+    isHomonymCity(city.slug, city.name),
+    city.population
   );
 }
 

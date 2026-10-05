@@ -14,6 +14,7 @@ import { checkRedirectHops } from './check-redirect-hops';
 import { analyseIdfContent, TIER_MIN_WORDS, TIER_MAX_SIMILARITY } from './idf-content-similarity';
 import { idfIntents, intentWordCount } from '../data/idf-intents';
 import { getIdfCityRef } from '../lib/idf-cities';
+import { runMetadataCheck } from './check-metadata';
 
 interface ValidationResult {
   passed: boolean;
@@ -50,7 +51,8 @@ function checkDepartmentCodes() {
   const content = fs.readFileSync(seoFile, 'utf-8');
   
   // Check if department code extraction logic exists
-  const hasDeptCodeLogic = content.includes('deptCode = deptSlug.match(/\\d+$/)?.[0]');
+  // S3.2: deptCodeFromSlug() also handles Corse (2A/2B).
+  const hasDeptCodeLogic = content.includes('export function deptCodeFromSlug(');
   
   if (hasDeptCodeLogic) {
     addResult(true, '✓ Department code logic present in seo.ts', 'warning');
@@ -59,7 +61,7 @@ function checkDepartmentCodes() {
   }
   
   // Check if codes are used in titles
-  const usesDeptCode = content.includes('deptCodeDisplay');
+  const usesDeptCode = content.includes('(${code}) – Gratuit, agréé VHU') && content.includes('Rachat voiture ${deptName} (${code}) – Cash');
   
   if (usesDeptCode) {
     addResult(true, '✓ Department codes used in title generation');
@@ -543,8 +545,10 @@ function checkHomepageIdfPriority() {
   const keepsNational = content.includes('<Coverage ') && content.includes('coverageRegions');
   addResult(keepsNational, keepsNational ? '✓ Homepage keeps the national coverage section' : '✗ Homepage must keep national coverage links (moved below IDF, not removed)');
 
-  const homeTitle = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8').match(/absolute: '(Épaviste Île-de-France(?:[^'\\]|\\.)*)'/)?.[1]?.replace(/\\'/g, "'") ?? '';
-  addResult(homeTitle.length > 0 && homeTitle.length <= 60, homeTitle ? `✓ Homepage title is IDF-first (${homeTitle.length} chars)` : '✗ Homepage title must start with "Épaviste Île-de-France"');
+  // S3.2: the homepage title starts with the brand, then the IDF keyword.
+  const homeTitle = fs.readFileSync(path.join(process.cwd(), 'lib/seo.ts'), 'utf-8').match(/absolute: '(Les Épavistes Pro – (?:[^'\\]|\\.)*)'/)?.[1]?.replace(/\\'/g, "'") ?? '';
+  const homeOk = homeTitle.length > 0 && homeTitle.length <= 60 && homeTitle.includes('Île-de-France');
+  addResult(homeOk, homeOk ? `✓ Homepage title is brand-first and IDF (${homeTitle.length} chars)` : '✗ Homepage title must start with "Les Épavistes Pro –" and name Île-de-France');
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1312,6 +1316,45 @@ function checkWhatsAppUrls() {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // RUN ALL CHECKS
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// S3.2: title / description system — every IDF page + the national dataset
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkMetadataSystem() {
+  log('\n🏷️  Checking the S3.2 title/description system...', colors.blue);
+  const { issues, total, idf, inTarget } = runMetadataCheck();
+  let failed = 0;
+  Object.entries(issues).forEach(([name, items]) => {
+    if (items.length) {
+      failed++;
+      addResult(false, `✗ Metadata: ${name} — ${items.length} (${items.slice(0, 3).join(' | ')})`);
+    }
+  });
+  if (!failed) {
+    addResult(true, `✓ Metadata: ${total} pages (${idf} IDF) — titles ≤ 60, descriptions 110–160 (${Math.round((inTarget / total) * 100)} % in 130–155), no duplicates, place name first`);
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// S3.2: brand SERP — exact name, homepage title, /avis, neutral disambiguation
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function checkBrandSerp() {
+  log('\n🏷️  Checking brand SERP signals...', colors.blue);
+  const read = (f: string) => fs.readFileSync(path.join(process.cwd(), f), 'utf-8');
+  const seo = read('lib/seo.ts');
+  const homeOk = /title:\s*\{\s*absolute:\s*'Les Épavistes Pro – /.test(seo);
+  addResult(homeOk, homeOk ? '✓ Homepage title starts with "Les Épavistes Pro –"' : '✗ Homepage title must start with "Les Épavistes Pro –"');
+  const brand = read('lib/brand.ts');
+  const altOk = brand.includes("['Les Epavistes Pro', 'Épavistes Pro']") && !read('lib/schema.ts').includes("alternateName: ['Épaviste France'");
+  addResult(altOk, altOk ? '✓ Organization/WebSite alternateName = brand spellings only' : '✗ Organization alternateName must be ["Les Epavistes Pro", "Épavistes Pro"]');
+  const avis = read('app/avis/page.tsx');
+  const avisOk = avis.includes("absolute: 'Avis Les Épavistes Pro – Témoignages clients'") && avis.includes('{BRAND_DISAMBIGUATION}');
+  const mlOk = read('app/mentions-legales/page.tsx').includes('{BRAND_DISAMBIGUATION}');
+  addResult(avisOk && mlOk, avisOk && mlOk ? '✓ /avis title + disambiguation on /avis and /mentions-legales' : '✗ /avis title or disambiguation paragraph missing');
+  // Neutral: never name or compare a competitor.
+  const neutral = !/l['’]?\s?[ée]paviste[- ]pro\b/i.test(brand.replace(/"l'épaviste\s+pro"/, ''));
+  addResult(neutral, neutral ? '✓ Disambiguation names no competitor' : '✗ Disambiguation must not name a competitor');
+}
+
 function runAllChecks() {
   log('\n╔═══════════════════════════════════════════════════════════════╗', colors.blue);
   log('║          SEO QA CHECK - REGRESSION SAFETY NET                 ║', colors.blue);
@@ -1348,6 +1391,8 @@ function runAllChecks() {
     checkRobotsRules();           // P1.3
     checkSitemapIntegrity();      // P1.4
     checkTitleBudget();           // P2.1
+    checkMetadataSystem();        // S3.2
+    checkBrandSerp();             // S3.2
     checkNoNofollow();            // P2.3
     checkStructuredDataEntities();// P2.4
     checkRootLayoutHead();        // P2.5

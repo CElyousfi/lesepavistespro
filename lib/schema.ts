@@ -1,4 +1,5 @@
 import { getSiteUrl } from './site';
+import { BRAND_NAME, BRAND_ALTERNATE_NAMES } from './brand';
 
 /** Static region names for structured data (avoids importing 2.5MB locations-national into client bundle) */
 const REGION_NAMES = [
@@ -26,9 +27,12 @@ export function getOrganizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${baseUrl}/#organization`,
-    name: 'Les Épavistes Pro',
-    alternateName: ['Épaviste France', 'Les Epavistes Pro', 'Épavistes Pro'],
+    // Brand SERP / sitelinks (S3.2): the exact name and its spellings only —
+    // a generic alternateName ("Épaviste France") blurs the entity.
+    name: BRAND_NAME,
+    alternateName: BRAND_ALTERNATE_NAMES,
     url: baseUrl,
+    // Square, ≥ 112×112 (Google's minimum for the Organization logo).
     logo: {
       '@type': 'ImageObject',
       url: `${baseUrl}/logo_name.png`,
@@ -131,8 +135,8 @@ export function getWebSiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${baseUrl}/#website`,
-    name: 'Les Épavistes Pro',
-    alternateName: 'Épaviste France',
+    name: BRAND_NAME,
+    alternateName: BRAND_ALTERNATE_NAMES,
     url: baseUrl,
     potentialAction: {
       '@type': 'SearchAction',

@@ -8,13 +8,16 @@ import { generateMeta } from '@/lib/seo';
 import { getBreadcrumbData, getWebPageData, renderJSONLD } from '@/lib/structured-data';
 import { getVerifiedTestimonials } from '@/lib/reviews';
 import { RESPONSE_TIME_COPY } from '@/lib/business-claims';
+import { BRAND_DISAMBIGUATION } from '@/lib/brand';
 
 const URL = 'https://www.lesepavistespro.fr/avis';
 
+// Brand SERP (S3.2): people search "avis epaviste pro" — the title carries the
+// exact brand, so it is absolute (the layout template would repeat it).
 export const metadata: Metadata = generateMeta({
-  title: 'Avis clients – ce que vous pouvez attendre de nous',
+  title: { absolute: 'Avis Les Épavistes Pro – Témoignages clients' },
   description:
-    "Ce que vous pouvez attendre de nos interventions en Île-de-France, comment se déroule un enlèvement ou un rachat, et où laisser votre avis après notre passage.",
+    "Avis clients Les Épavistes Pro : comment se passe un enlèvement d'épave ou un rachat en Île-de-France, et où laisser votre avis Google après notre passage.",
   path: '/avis',
 });
 
@@ -35,7 +38,7 @@ const STEPS = [
 export default function AvisPage() {
   const testimonials = getVerifiedTestimonials();
   const structuredData = [
-    getWebPageData(URL, 'Avis clients – Les Épavistes Pro', metadata.description ?? undefined),
+    getWebPageData(URL, 'Avis Les Épavistes Pro – Témoignages clients', metadata.description ?? undefined),
     getBreadcrumbData([
       { name: 'Accueil', url: 'https://www.lesepavistespro.fr' },
       { name: 'Avis clients', url: URL },
@@ -58,6 +61,7 @@ export default function AvisPage() {
                 Nous ne publions que des avis réels, recueillis sur Google. Cette page explique comment se déroule une
                 intervention en Île-de-France, ce à quoi vous avez droit, et comment nous laisser votre avis après notre passage.
               </p>
+              <p className="mt-4 text-sm text-neutral-500">{BRAND_DISAMBIGUATION}</p>
             </div>
           </div>
         </section>

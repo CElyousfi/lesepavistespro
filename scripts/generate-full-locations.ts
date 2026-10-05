@@ -611,9 +611,28 @@ export const homonymCitySlugs: ReadonlySet<string> = (() => {
   return dupes;
 })();
 
-/** True when this city name/slug is shared with a city in another department. */
-export function isHomonymCity(citySlug: string): boolean {
-  return homonymCitySlugs.has(citySlug);
+/**
+ * Display names shared by communes of different departments — including
+ * different slugs (the display name of franconville-la-garenne (95) is
+ * "Franconville", like Franconville (54)).
+ */
+export const homonymCityNames: ReadonlySet<string> = (() => {
+  const seen = new Map<string, string>();
+  const dupes = new Set<string>();
+  for (const dept of allDepartments) {
+    for (const city of dept.cities) {
+      const key = city.name.toLowerCase();
+      const previous = seen.get(key);
+      if (previous !== undefined && previous !== dept.slug) dupes.add(key);
+      else if (previous === undefined) seen.set(key, dept.slug);
+    }
+  }
+  return dupes;
+})();
+
+/** True when this city slug — or its display name — is shared with a city in another department. */
+export function isHomonymCity(citySlug: string, cityName?: string): boolean {
+  return homonymCitySlugs.has(citySlug) || (cityName !== undefined && homonymCityNames.has(cityName.toLowerCase()));
 }
 
 /** Find the parent region for a department */

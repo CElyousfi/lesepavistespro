@@ -40,13 +40,13 @@ export async function generateMetadata({ params }: { params: Promise<{ departmen
   // Check region first
   const region = getRegionBySlug(slug);
   if (region) {
-    return generateEpavisteRegionMeta(region.name, region.slug);
+    return generateEpavisteRegionMeta(region.name, region.slug, region.departments.length);
   }
 
   // Then department
   const dept = getDepartmentBySlug(slug);
   if (dept) {
-    return generateEpavisteDepartmentMeta(dept.name, dept.slug);
+    return generateEpavisteDepartmentMeta(dept.name, dept.slug, dept.cities.length);
   }
 
   return { title: 'Page non trouvée' };
