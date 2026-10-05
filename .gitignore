@@ -56,6 +56,13 @@ seo-audit/*
 !seo-audit/monitor/
 seo-audit/monitor/*
 !seo-audit/monitor/*.json
+# Search Console loop (S3.1): raw exports and the full snapshot stay local;
+# the history (decliners), the opportunity report and the CTR test are kept.
+!seo-audit/gsc-history/
+!seo-audit/striking-distance.md
+!seo-audit/striking-distance.json
+!seo-audit/ctr-test.json
+!seo-audit/citations.csv
 
 # Unrelated client exports occasionally dropped in the repo root
 /Audit de cotisations sociales*.html
